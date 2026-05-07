@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
+        .school-header {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<table class="w-100">      
+    <tr>
+        <td>
+            <div style="display: flex; align-items: center;">
+                {% if institute.logo.file.url %}
+                    <img src="{{institute.logo.file.url}}" style="width: 150px; height: 120px; margin-left:20px;" />
+                {% endif %}
+                <div style="text-align: center; flex-grow: 1; margin-left: -95px;">
+                    <div style="font-size:13px">"Gain The Knowledge; Share The Knowledge"</div>
+                    <div style="font-size: 16px; font-weight: bold; line-height: 40px;">SRI GNANAJYOTHI SCHOOL</div>
+                    <div>[A Unit of Sri Gnanajyothi Education Society (R)]</div>
+                    <div style="line-height: 14px; font-size: 13px;">
+                        Gnanarathna Dr. D. A. Gowda Sir School Road,<br>
+                        Agrahara Layout, Yelahanka, Bengaluru - 560064
+                    </div>
+                    <br>
+                    <div class="address-heading t-center fs-bold">
+                        Attendance Report - {{ from_date|date:"d-m-Y" }} to {{ to_date|date:"d-m-Y" }}
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<p>
+    <strong>Standard:</strong> {{ standard_name }}<br/>
+    <span style="float:right"><strong>Section:</strong> {{ section_name }}</span>
+</p>
+<p><strong>Generated on:</strong> {{ today }}</p>
+
+{% for date, records in attendance_grouped.items %}
+    <h3>Date: {{ date }}</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Sl. No</th>
+                <th>Student Name</th>
+                <th>Session 1</th>
+                <th>Session 2</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ record.student_name }}</td>
+                <td>{{ record.sessions.Session1 }}</td>
+                <td>{{ record.sessions.Session2 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+</body>
+</html>

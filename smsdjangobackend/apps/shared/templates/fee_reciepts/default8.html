@@ -1,0 +1,169 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 5px 7px;
+            display: inline-block;
+            border-bottom: 0px !important;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .trust {
+            text-align: center;
+            margin-left: 11%;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 30px;
+        }
+        .dot-line {
+            border-bottom: 1px dotted;
+            flex-grow: 100;
+            text-align: center;
+        }
+        .display-flex {
+            display: flex;
+        }
+        .schoolname {
+            font-size: 50px;
+            text-align: center;
+        }
+        .address {
+            text-align: center;
+            font-size: 18px;
+        }
+        .font-family {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .footer {
+            line-height: 80px;
+            vertical-align: auto;
+            font-size: 18px;
+        }
+        .footer-box {
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            border: 1px solid black; 
+            border-top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="feereceipt-box">
+        <div class="display-flex">
+            <div>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 110px;height: 110px;"/>
+                {% endif %}
+            </div>
+
+            <div class="schoolname bold">
+                {{institute.name}}
+            </div> 
+        </div>
+
+        <div class="trust">
+            {{ institute.trust_name }}
+        </div>
+
+        <div class="address bold">
+            {{ institute.address_line_one }}{% if institute.address_line_two %}
+            {{ institute.address_line_two }}{% endif %}</br>
+        </div> <br> <br>
+
+        <div class="display-flex font-family">
+            <div>No. <span style="color: red;">
+                {% if fee_collection.payment_detail.0.receipt_num %} 
+                    {{fee_collection.payment_detail.0.receipt_num}} 
+                {% else %}
+                    {{fee_collection.receipt_num}} 
+                {% endif %}
+            </span></div>
+
+            <div style="margin-right: 70px; margin-left:auto;font-size: 18px;">
+                Std. <span class="dot-line">{{fee_collection.standard_name|title}}</span>
+            </div>
+        </div> <br>
+
+        <div>
+            Name : 
+            <span class="dot-line font-family" style="font-size: 18px;">
+                {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+            </span>
+        </div>
+    </div> 
+    
+   <table style="width: 100%;padding:5px;">
+    <tr style="padding:5px;">
+        <td style="text-align: center !important; padding:5px;" class="font-family"><b>PARTICULARS</b></td>
+        <td style="text-align: center !important; padding:5px;">Amount</td>
+    </tr>
+
+    <tr style="padding:5px;">
+        <td style="padding:5px;"> 
+            <br>
+            
+            {% for fee in fee_collection.payment_detail %}
+            {% if fee.fee_type_codename == 'monthly' %}
+                {% if fee.fee_payment_terms_alias %}
+                {{fee.fee_payment_terms_alias}}{%endif%}{%else%}
+                    {{fee.fee_type_name}}
+                    {%endif%}
+                </br>{% endfor %} <br> <br> 
+
+               <div style="margin-left: 90%;padding:5px;" class="bold font-family"> TOTAL</div>
+        </td>
+        <td style="padding:5px;">
+            {% for fee in fee_collection.payment_detail %}
+                {{fee.amount_paid|floatformat|intcomma }}</br>{% endfor %} <br> <br>
+
+                <div style="border-top: 1px solid black;padding:5px;">{{ fee_collection.total_amount | floatformat |intcomma}}</div>
+        </td>
+    </tr>
+   </table>
+   <div class="display-flex footer-box">
+        <div class="footer">
+            Date: <span class="dot-line"> {{fee_collection.transaction_date}}</span>
+        </div>
+
+        <div class="footer" style="margin-left: 50%;">
+            Signature
+        </div>
+   </div>
+</body>
+</html>

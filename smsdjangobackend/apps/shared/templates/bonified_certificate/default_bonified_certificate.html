@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bonafide Certificate</title>
+  <style>
+    body {
+      margin: -40px;
+      line-height: 1.6;
+    }
+
+    .certificate {
+      border: 2px solid black;
+      padding: 30px;
+    }
+
+    .header {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .ref-date {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 22px;
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 30px;
+    }
+
+    .content {
+      font-size: 18px;
+      text-align: justify;
+      line-height: 45px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .school-details {
+      font-size: 14px;
+      margin-top: 40px;
+      border-top: 1px solid black;
+      padding-top: 10px;
+      text-align: center;
+    }
+
+    .placeholder {
+      border-bottom: 1px dotted #000;
+      display: inline-block;
+      min-width: 120px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="certificate">
+
+    <!-- Logo -->
+    {% if institute.logo.file.url %}
+    <div class="logo">
+      <img src="{{institute.logo.file.url}}" style="width: 200px; height: 100px;" />
+    </div>
+    {% endif %}
+
+    <div class="header">Affiliated to CBSE (No:830804), New Delhi</div>
+    <br>
+    <hr>
+
+    <div class="ref-date">
+      <div>JIS/BON/2025/001</div>
+      <div>DATE: <span class="placeholder">{{ today_date }}</span></div>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class="title">BONAFIDE CERTIFICATE</div>
+    <br>
+
+    <div class="content">
+      This is to certify that
+      {% if student_he_she == "he" %}
+        Mast. <span class="placeholder">{{ student_full_name|title }}</span>, Son of Mr. <span class="placeholder">{{ father_name|title }}</span>
+      {% else %}
+        Kum. <span class="placeholder">{{ student_full_name|title }}</span>, Daughter of Mr. <span class="placeholder">{{ father_name|title }}</span>
+      {% endif %}
+      and Mrs. <span class="placeholder">{{ mother_name|title }}</span> is a bonafide student of Jaihind International School, Bangalore and 
+      {% if student_he_she == "he" %} he {% else %} she {% endif %}
+      studied Grade <span class="placeholder">{{ standard_name }}</span> in this school during the academic year <span class="placeholder">{{ academic_year }}</span>. 
+      {% if student_he_she == "he" %} His {% else %} Her {% endif %} Date of Birth as per school records (Admission Register No-<span class="placeholder">{{ admission_num }}</span>) is 
+      <span class="placeholder">{{ dob }}</span>.
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <div class="footer">SENIOR PRINCIPAL</div>
+
+    <div class="school-details">
+      School code: 45710 | Dise code: 29200903227<br>
+      No 91, MR Tower, Begur Main Road, Hongasandra, Bangalore-560068, Karnataka. 
+      <br>
+      Mob No: 9620896551
+    </div>
+    
+  </div>
+
+</body>
+</html>

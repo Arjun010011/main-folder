@@ -1,0 +1,69 @@
+@import "styles/helpers.scss";
+
+.deleteFee {
+    margin: 15px 0 10px -3px!important;
+    font-weight: bold!important;
+    border-radius: 0 15px 15px 0!important;
+    height: 57px!important;
+    padding: 5px 10px 5px 10px!important;
+    background: #5187ff!important;
+}
+
+
+.addmore {
+    height: 57px!important;
+    margin: 15px 0 10px -3px!important;
+    font-weight: bold!important;
+    border-radius: 0 15px 15px 0!important;
+    padding: 5px 14px!important;
+    background-color: $primary-text-color!important;
+}
+
+.close-icon-multiple-add-text-fields{
+    position: relative;
+    top: 9px;
+    right: -16px;
+}
+    
+.addmore:hover{
+    background-color: '#0043a3'!important;
+}
+
+.multiple-add-paper {
+    width: 100%;
+    padding: 30px;
+}
+
+.cross-button-position{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: wrap;
+    margin-top: 10px;
+}
+
+.multiple-add-button{
+    height: 57px!important;
+    width: 57px!important;
+    margin-top: 15px!important;
+    margin-bottom: 10px!important;
+    font-weight: bold!important;
+    border-radius: 0 15px 15px 0!important;
+    padding: 5px 14px!important;
+    margin-left: 15px!important;
+}
+
+.multiple-add-button-icon{
+    height: 50px!important;
+    width: 50px!important;
+    color: $primary-text-color!important;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 980px) {
+    .multiple-add-paper {
+        width: 100%;
+        padding: 12px;
+        padding-top: 0px!important;
+    }
+}

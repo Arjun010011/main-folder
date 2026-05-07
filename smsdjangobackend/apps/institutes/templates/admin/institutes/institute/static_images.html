@@ -1,0 +1,99 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  <p>
+    Institute: <strong>{{ original.name }}</strong>
+    (id: <code>{{ original.id }}</code>)
+    {% if original.code %} (code: <code>{{ original.code }}</code>){% endif %}
+  </p>
+
+  <p>
+    Upload destination prefix:
+    <code>{{ prefix }}</code>
+  </p>
+
+  <form method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <fieldset class="module aligned">
+      {{ form.as_p }}
+    </fieldset>
+    <div class="submit-row">
+      <input type="submit" value="Upload" class="default">
+      <a class="button cancel-link" href="../">{% trans "Back" %}</a>
+    </div>
+  </form>
+
+  <hr>
+
+  <h2>{% trans "Uploaded static images" %}</h2>
+  {% if upload_rows %}
+    <div class="results">
+      <table id="result_list">
+        <thead>
+          <tr>
+            <th>{% trans "File" %}</th>
+            <th>{% trans "Tracked" %}</th>
+            <th>{% trans "Uploaded at" %}</th>
+            <th>{% trans "Uploaded by" %}</th>
+            <th>{% trans "Content type" %}</th>
+            <th>{% trans "Size" %}</th>
+            <th>{% trans "S3 key" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in upload_rows %}
+            <tr>
+              <td>
+                <a href="{{ row.url }}" target="_blank" rel="noreferrer">{{ row.stored_name }}</a>
+                {% if row.original_name and row.original_name != row.stored_name %}
+                  <div class="help">{{ row.original_name }}</div>
+                {% endif %}
+              </td>
+              <td>Yes</td>
+              <td>{{ row.created_at }}</td>
+              <td>{{ row.uploaded_by }}</td>
+              <td>{{ row.content_type }}</td>
+              <td>{{ row.size }}</td>
+              <td><code>{{ row.s3_key }}</code></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>{% trans "No static images uploaded yet." %}</p>
+  {% endif %}
+
+  {% if s3_rows %}
+    <hr>
+    <h2>{% trans "Existing images in S3 (not tracked)" %}</h2>
+    <div class="results">
+      <table>
+        <thead>
+          <tr>
+            <th>{% trans "File" %}</th>
+            <th>{% trans "Tracked" %}</th>
+            <th>{% trans "Last modified" %}</th>
+            <th>{% trans "Size" %}</th>
+            <th>{% trans "S3 key" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in s3_rows %}
+            <tr>
+              <td><a href="{{ row.url }}" target="_blank" rel="noreferrer">{{ row.stored_name }}</a></td>
+              <td>No</td>
+              <td>{{ row.created_at }}</td>
+              <td>{{ row.size }}</td>
+              <td><code>{{ row.s3_key }}</code></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}
+

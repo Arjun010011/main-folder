@@ -1,0 +1,137 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Registration Form</title>
+    <style>
+        @page { size: A4;
+            margin: 20px;
+    }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 14px;
+            padding:5px;
+        }
+        .center {
+            text-align: center;
+            margin: 5px;
+        }
+        .info_table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        .info_table td:nth-child(1) {
+            width: 50%;
+        }
+        .info_table td:nth-child(2) {
+            width: 50%;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        td {
+            padding: 4px;
+        }
+        .noborder {
+            border: 0px solid;
+        }
+    </style>
+</head>
+
+<body style="font-family: 'Calibri';">
+    <table style="width:100%; table-layout: fixed;">
+        <tr style="text-align: center;">
+            <td style="width:30%">
+                {% if institute.logo %}
+                    <img src="{{ institute.logo.file.url }}" style="width: 300px; height: 100px;" />
+                {% endif %}
+            </td>
+        </tr>
+        <tr style="text-align: center;">
+            <td>
+                Affiliated to CBSE(No. 830804) No:91 MR Tower, Hongasandra, Begur, Bangalore-68
+            </td>
+        </tr>
+    </table>
+
+    <table class="info_table">
+        <tr style="height:50px;">
+            <td colspan="2" style="text-align: center;">REGISTRATION FORM FOR CBSE BOARD EXAM - X STD</td>
+        </tr>
+        <tr><td>CANDIDATE'S NAME</td><td>{{ student_full_name |upper }}</td></tr>
+        <tr><td>FATHER'S NAME</td><td>{{ father_name|upper }}</td></tr>
+        <tr><td>MOTHER'S NAME</td><td>{{ mother_name|upper }}</td></tr>
+        <tr><td>GENDER</td><td>{{ gender|upper }}</td></tr>
+        <tr><td>RELIGION</td><td>{{ religion|upper }}</td></tr>
+        <tr><td>CASTE</td><td>{{ caste|upper }}</td></tr>
+        <tr><td>CATEGORY</td><td>{{ category|upper }}</td></tr>
+    </table>
+    <div>SUBJECTS TAKEN</div>
+    <table style="width:100%;">
+        <tr><th>SI NO</th><th>Subject Name</th><th>Subject Code</th><th>Selected</th></tr>
+        <tr><td>1</td><td>English Core</td><td>301</td><td></td></tr>
+        <tr>
+            <td>2</td>
+            <td>Mathematics </td>
+            <td>041</td>
+            <td></td>
+        </tr>
+        <tr><td>3</td><td>Physics</td><td>042</td><td></td></tr>
+        <tr><td>4</td><td>Chemistry </td><td>043</td><td></td></tr>
+        <tr><td>5</td><td>Biology</td><td>044</td><td></td></tr>
+        <tr><td>6</td><td>Physical Education</td><td>048</td><td></td></tr>
+        <tr><td>7</td><td>Computer Science </td><td>083</td><td></td></tr>
+    </table>
+
+    <br>
+
+    <table style="width:100%;" class="info_table">
+        <tr><td>DATE OF BIRTH</td><td>{{ dob_str }}</td></tr>
+        <tr><td>ANNUAL INCOME</td><td>{{ annual_income}}</td></tr>
+        <tr><td>ONLY CHILD</td><td>{{ only_child}}</td></tr>
+        <tr><td>ADMISSION NO</td><td>{{ admission_num }}</td></tr>
+        <tr><td>AADHAR NO</td><td>{{ aadhar_num }}</td></tr>
+        <tr><td>ADDRESS</td><td>{{ address }}</td></tr>
+    </table>
+
+    <br>
+
+    <table style="width:100%; table-layout: fixed;">
+        <tr>
+            <td style="width:100%; line-height: 1.6;">
+                I hereby declare that the details furnished above are true and correct to the best of my 
+                knowledge and will not request any amendments in the future. If the CBSE requests further data, it will be
+                submitted immediately.
+            </td>
+        </tr>
+    </table>
+
+    <br><br>
+
+    <table style="width:100%; table-layout: fixed;">
+        <tr>
+            <td colspan="2" style="line-height: 1.6;">Full Name in Capital Letters</td>
+            <td style="text-align: center;">Signature</td>
+        </tr>
+        <tr>
+            <td>Student</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Father</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Mother</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+</body>
+</html>

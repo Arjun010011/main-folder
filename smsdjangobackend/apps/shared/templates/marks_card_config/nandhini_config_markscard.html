@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Marks Card</title>
+
+<style>
+@page {
+    size: A4;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.page-container {
+    position: relative;
+    width: 1086px;
+    height: 1536px;
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/NANDINI_CONSOLIDATED_REPORT_4.jpg");
+    background-size: cover;
+}
+
+.backpage-container {
+    position: relative;
+    width: 1086px;
+    height: 1536px;
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/NANDINI_CONSOLIDATED_REPORT_2.jpg");
+    background-size: cover;
+}
+
+.main-table,
+.coscholastic {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+    font-weight: bold;
+    /* overflow: hidden; */
+}
+.main-table {
+    /* table-layout: fixed;   REQUIRED */
+    width: 100%;
+}
+
+.main-table th,
+.main-table td,
+.coscholastic th,
+.coscholastic td {
+    border: 1px solid black;
+    padding: 9px;
+    text-align: center;
+}
+
+.section-table {
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.descriptive {
+    margin-top: 50px;
+    border: 1px solid black;
+    border-radius: 5px;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+}
+/* .vertical-header {
+    writing-mode: vertical-rl;   
+    transform: rotate(90deg);  
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    padding: 10px 5px;
+} */
+ .photo {
+            position: absolute;
+            top: 263px;
+            right: 29px;
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+
+.header-box {
+    border: 1px solid black;
+}
+</style>
+</head>
+
+<body>
+{% for student in data.student_list %}
+
+<!-- ================= FRONT PAGE ================= -->
+<div class="page page-container">
+
+    <!-- HEADER -->
+    <div style="display:flex;gap:20px;padding:30px;">
+        <table style="width:85%;margin-top:233px;border:1px solid black;border-radius:10px;
+                      background:white;font-weight:bold;font-size:16px;border-collapse:collapse;">
+            <tr style="height:50px;border-bottom:1px solid black;">
+                <td>Name of the Student :  {{ student.student_name }}</td>
+                <td>DOB : {{ student.dob|date:"d/m/Y" }}</td>
+                <td>Class/Sec : {{ data.standard_name|cut:"Standard" }} - {{ data.section_name }}</td>
+            </tr>
+            <tr style="height:50px;border-bottom:1px solid black;">
+                <td>Father's Name : {{ student.student_parent__parent__father_name }}</td>
+                <td>Mother's Name : {{ student.student_parent__parent__mother_name }}</td>
+                <td>Roll No : {{ student.student_admission_form.admission_num }}</td>
+            </tr>
+            <tr style="height:50px;"> 
+                <td > No. of workings days : {% for subject_data in student.subject_list_data %} {% if forloop.first %} {% for exam in subject_data.exam_details_list %} {% if forloop.last %} {% if exam.max_no_of_days_attendance %} {{ exam.max_no_of_days_attendance|floatformat:0 }} {% else %}0{% endif %} {% endif %} {% endfor %} {% endif %} {% endfor %} </td> 
+                <td > No. of days Present : {% for subject_data in student.subject_list_data %} {% if forloop.first %} {% for exam in subject_data.exam_details_list %} {% if forloop.last %} {% if exam.marked_attendance_days %} {{ exam.marked_attendance_days|floatformat:0 }} {% else %}0{% endif %} {% endif %} {% endfor %} {% endif %} {% endfor %} </td> 
+                <td > % of Attendance : {% for subject_data in student.subject_list_data %} {% if forloop.first %} {% for exam in subject_data.exam_details_list %} {% if forloop.last %} {% if exam.max_no_of_days_attendance and exam.marked_attendance_days %} {% widthratio exam.marked_attendance_days exam.max_no_of_days_attendance 100 %}% {% else %}0%{% endif %} {% endif %} {% endfor %} {% endif %} {% endfor %} </td> 
+            </tr>
+        </table>
+    </div>
+
+    {% if student.profile_pic_details %}
+    <img class="photo" src="{{ student.profile_pic_details.file }}">
+    {% endif %}
+
+    <!-- CONSOLIDATED MARKS -->
+    <div style="margin:40px 30px;">
+        <div style="border:1px solid black;border-radius:30px;overflow:hidden;">
+           <table class="main-table">
+            <tr style="background:#013fb4;color:white;">
+            <th colspan="8">CONSOLIDATED MARKS</th>
+            </tr>
+
+            <tr style="background:#CFE9FF;">
+                <th colspan="2" style="width:12%;">Subject</th> 
+
+                {% for subject_data in student.subject_list_data %}
+                    {% if forloop.first %}
+                        {% for exam in subject_data.exam_details_list %}
+                            <th style="width:18%;" >{{ exam.exam_name|title }}</th>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                <th style="width:18%;">Total<br><span>{{student.subject_list_data.0.total_max_marks|floatformat:0}}</span></th>
+                <th style="width:18%;">Year's Average</th>
+                <!-- <th>Class Average</th> -->
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: left;">SCHOLASTIC</th>
+                {% for subject_data in student.subject_list_data %}
+                    {% if forloop.first %}
+                        {% for exam in subject_data.exam_details_list %}
+                            <th>{{ exam.total_max_marks|floatformat:0 }}</th>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                <th>300</th>
+                <th>%</th>
+                <!-- <th></th> -->
+            </tr>
+
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'part1' %}
+            <tr>
+                {%if forloop.counter == 1 %}
+                <td rowspan='3' style="text-align: left;">English</td>
+                {%endif%}
+            {%if forloop.counter == 1 or forloop.counter == 2 or forloop.counter == 3 %}
+            <td  style="text-align:left;">{{ subject_data.subject__name|cut:"English"|title }}</td>
+            {%else%}
+            <td  colspan="2" style="text-align:left;">{{ subject_data.subject__name|cut:"English"|title }}</td>
+            {% endif %}
+             <!-- <td  colspan="2" style="text-align:left;">{{ subject_data.subject__name|title }}</td> -->
+            {% for exam in subject_data.exam_details_list %}
+            <td>
+            {% if exam.attendance_status == 'Absent' %}
+            AB
+            {% else %}
+            {{ exam.total_marks|floatformat:0 }}
+            {% endif %}
+            </td>
+            {% endfor %}
+            <td>{{ subject_data.marks|floatformat:0 }}</td>
+            <td> 
+                                {{ subject_data.percentage|floatformat:2 }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            </table> 
+        </div>
+        <div style=" font-weight:bold; font-size:18px;position: absolute;left: 27px;margin-top: 50px;">
+Results : </div>
+    </div>
+
+</div
+
+
+
+
+<div style="page-break-after:always;"></div>
+
+<!-- ================= BACK PAGE ================= -->
+<div class="backpage-container">
+
+    <!-- LEFT SIDE : CO-SCHOLASTIC -->
+    <div style="
+        position:absolute;
+        left:60px;
+        top:55px;
+        width:420px;
+    ">
+        <div class="section-table">
+            <table class="coscholastic">
+                <tr>
+                    <th colspan="1" style="background:#013fb4;color:white;font-size:19px;">
+                        Co-Scholastic
+                    </th>
+                    <th style="background:#013fb4;color:white;font-size:18px;">
+                        Grade
+                    </th>
+                </tr>
+
+                <!-- Part-A -->
+                {% for subject_data in student.subject_list_data %}
+                {% if subject_data.subject_part_type_code_name == 'parta' %}
+                <tr >
+                    {% if subject_data.sequence == 1 %}
+                    <td rowspan="{{ student.subject_names_part_wise.parta|length }}">Part-A</td>
+                    {% endif %}
+                    <td>{{ subject_data.subject__name }}</td>
+                    <td>{{ subject_data.grade }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Part-B -->
+                {% for subject_data in student.subject_list_data %}
+                {% if subject_data.subject_part_type_code_name == 'partb' %}
+                <tr >
+                    {% if subject_data.sequence == 1 %}
+                    <td rowspan="{{ student.subject_names_part_wise.partb|length }}">Part-B</td>
+                    {% endif %}
+                    <td>{{ subject_data.subject__name }}</td>
+                    <td>{{ subject_data.grade }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                <!-- Part-C -->
+                {% for subject_data in student.subject_list_data %}
+                {% if subject_data.subject_part_type_code_name == 'partc' %}
+                <tr >
+                    {% if subject_data.sequence == 1 %}
+                    <td rowspan="{{ student.subject_names_part_wise.partc|length }}">Part-C</td>
+                    {% endif %}
+                    <td>{{ subject_data.subject__name }}</td>
+                    <td>{{ subject_data.grade }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <!-- RIGHT TOP : DESCRIPTIVE INDICATORS -->
+    <div style="
+        position:absolute;
+        right:60px;
+        top:25px;
+        width:480px;
+    ">
+       <div class="descriptive">
+       <table style="width:100%;border-collapse:collapse;">
+            <tr style="background:#013fb4;color:white;font-size:19px;border-collapse:collapse;">
+                <th colspan="2">PERSONALITY AND CHARACTER</th>
+            </tr>
+            <tr style="background:#CFE9FF;">
+                <th>Element</th>
+                <th>Grade</th>
+            </tr>
+
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'char' %}
+            <tr>
+                <td>{{ subject_data.subject__name|title }}</td>
+                <td>{{ subject_data.grade }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+
+    <!-- RIGHT BOTTOM : PERSONALITY & CHARACTER -->
+    <div style="
+       position:absolute;
+        right:60px;
+        top:290px;
+        width:480px;
+    ">
+         <div class="descriptive">
+            <table style="width:100%;border-collapse:collapse;">
+                <tr style="background:#013fb4;color:white;font-size:19px;">
+                    <th colspan="3">DESCRIPTIVE INDICATORS</th>
+                </tr>
+                <tr>
+                    <th>Range in %</th>
+                    <th>Grade</th>
+                    <th style="text-align:left;">Interpretation</th>
+                </tr>
+                <tr><td>91-100</td><td>A+</td><td style="text-align:left;">Progress at Peak</td></tr>
+                <tr><td>81-90</td><td>A</td><td style="text-align:left;">Smashing Success</td></tr>
+                <tr><td>71-80</td><td>B+</td><td style="text-align:left;">Mindful Achiever</td></tr>
+                <tr><td>61-70</td><td>B</td><td style="text-align:left;">Merit Conscious</td></tr>
+                <tr><td>51-60</td><td>C+</td><td style="text-align:left;">Progressive Performance</td></tr>
+                <tr><td>41-50</td><td>C</td><td style="text-align:left;">Inadequate Performance</td></tr>
+                <tr><td>33-40</td><td>D</td><td style="text-align:left;">Under Achiever</td></tr>
+                <tr><td>32-below</td><td>E</td><td style="text-align:left;">At Risk</td></tr>
+            </table>
+        </div>
+    </div>
+      
+
+    <!-- GRAPHS (UNCHANGED) -->
+    <div style="position:absolute; left:80px; top:1100px;">
+        <img src="data:image/png;base64,{{ student.part2_graph|safe }}" width="400" height="400">
+    </div>
+
+    <div style="position:absolute; right:80px; top:1100px;">
+        <img src="data:image/png;base64,{{ student.part3_graph|safe }}" width="400" height="400">
+    </div>
+
+    <div style="position:absolute; left:85px; top:650px; width:900px;">
+        <img src="data:image/png;base64,{{ student.part1_graph|safe }}" width="900" height="480">
+    </div>
+
+</div>
+
+
+{% if not forloop.last %}
+<div style="page-break-after:always;"></div>
+{% endif %}
+{% endfor %}
+</body>
+</html>

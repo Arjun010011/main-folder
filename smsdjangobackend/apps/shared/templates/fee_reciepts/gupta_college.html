@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>School Fee Receipt</title>
+  <style>
+    @page { size: A4 }
+    * {
+      /* margin: 5px; */
+      padding: 0;
+      margin-top: none;
+
+      
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .receipt-container {
+      /* margin-bottom: 20px; */
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* gap: 20px; */
+      /* padding-top: 10px; */
+      flex-wrap: wrap;
+      text-align: center;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .logo {
+      width: 180px;
+      height: 140px;
+      object-fit: contain;
+      padding-left: 40px;
+    }
+
+    .institute-info {
+      flex-grow: 1;
+    }
+
+    h2, h3 {
+      margin: 0;
+    }
+
+    table {
+      width: calc(100% - 30px); 
+      margin: 0 15px; 
+      /* width: 100%; */
+      border-collapse: collapse;
+      font-size: 15px;
+      /* margin: 10px; */
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 2px;
+      text-align: center;
+    }
+
+    .footer {
+      margin-top: 20px;
+    }
+    .header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    /* padding-top: 10px; */
+    flex-wrap: wrap;
+    text-align: center;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .institute-info {
+    flex-grow: 1;
+    margin-left: -80px;
+  }
+
+  .institute-info h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+  }
+
+  .institute-info p {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+  }
+  </style>
+</head>
+<body style="border:1px solid balck">
+  {% for count in number_of_copies %}
+    {% if forloop.counter|divisibleby:"2" %}
+      <div style="margin-top: 25px"></div>
+    {% endif %}
+
+    <div class="receipt-container" style="border:1px solid black">
+      <div class="header" >
+        {% if institute.logo %}
+          <img src="{{ institute.logo.file.url }}" class="logo" />
+        {% endif %}
+        <div class="institute-info">
+          <div style="font-weight: bolder;font-size: 26px;">GUPTA PRE-UNIVERSITY COLLEGE</div>
+          <p style="font-size: 17px"> | Approved by Pre-University Board and Government of Karnataka |<br>
+            #808, 100ft Ring Road, BSK III Stage, Bengaluru - 560085<br>
+            Tel: 080-26420102
+          </p>
+        </div>
+        
+      </div>
+      <div style="text-align: center;font-weight: bolder;font-size: 22px;padding-left: 50px;"> FEE RECEIPT</div>
+      <table style="padding-bottom: none;margin-bottom: none;">
+        <tr>
+          <td style="text-align: left;">
+            <strong>Student Name:</strong>
+            {% if fee_collection.student_detail.first_name %}{{ fee_collection.student_detail.first_name }}{% endif %}
+            {% if fee_collection.student_detail.middle_name %} {{ fee_collection.student_detail.middle_name }}{% endif %}
+            {% if fee_collection.student_detail.last_name %} {{ fee_collection.student_detail.last_name }}{% endif %}
+            <br>
+            <strong>Class/Section:</strong> {{ fee_collection.standard_name }}
+          </td>
+          <td style="text-align: left;">
+            <strong>Date:</strong> {{ fee_collection.transaction_date }}<br>
+            <strong>Rec No:</strong> {{ fee_collection.receipt_num|title }}<br>
+            <strong>Student ID:</strong> {{ admission_num|title }}
+          </td>
+        </tr>
+      </table>
+
+      <table style="padding-top: none;margin-top: none;">
+        <thead>
+          <tr>
+            <th>Sl.No</th>
+            <th>Particulars</th>
+            <!-- <th>Total Fees</th> -->
+            <th>Amt Paid</th>
+            <th>Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fee_summary in student_fee_summary.plans %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ fee_summary.fee_type_name }}</td>
+              <!-- <td>{{ fee_summary.total_amount|floatformat }}</td> -->
+              <td>{{ fee_summary.currently_paid_amount|floatformat }}</td>
+              <td>{{ fee_summary.pending_amount|floatformat }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <div class="footer" style="line-height: 14px;padding-left: 15px;">
+        <p><strong>Total Paid:</strong> {{ fee_collection.total_paid_amount|floatformat }} ({{ student_fee_summary.total_paid_amount_in_words|title }} Rupees Only)</p>
+        <p><strong>Overall Balance:</strong> {{ student_fee_summary.total_pending_amount|floatformat }}</p>
+        <p><strong>Mode of Payment:</strong>
+          {% for mode_of_pay in fee_collection.mode_of_payment_list %}
+            {{ mode_of_pay.mode_of_payment }}: {{ mode_of_pay.amount|floatformat }}
+            {% if not forloop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+        <br><br>
+        <p style="text-align:right;"><strong>AUTHORISED SIGNATURE</strong></p>
+      </div>
+    </div>
+
+    {% if not forloop.last and forloop.counter|divisibleby:"2" %}
+      <div style="page-break-after: always;"></div>
+    {% endif %}
+  {% endfor %}
+</body>
+</html>

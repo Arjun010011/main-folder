@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fuel Token</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <table style="width:100%">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <img src={{ institute.logo.file.url }}
+                     style="width: 100px;height: -webkit-fill-available;"/>
+            </td>
+            <td style="text-align:center;padding: 8px;">
+                {% else %}
+            <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px;font-weight: bold;">
+                    {{ institute.name }} </br>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    Fuel Token
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>Date :</td>
+            <td>{{ for_date }}</td>
+        </tr>
+        <tr>
+            <td>Token Number :</td>
+            <td>{{ token_num }}</td>
+        </tr>
+        <tr>
+            <td>Liter(s) :</td>
+            <td>{{ liter }}</td>
+        </tr>
+        <tr>
+            <td>Staff Name :</td>
+            <td>{{ staff_first_name }}</td>
+        </tr>
+        <tr>
+            <td>Vehicle Number :</td>
+            <td>{{ other_details.vehicle_num }}</td>
+        </tr>
+        <tr>
+            <td>Vehicle Name :</td>
+            <td>{{ other_details.name }}</td>
+        </tr>
+        <tr>
+            <td>Comments :</td>
+            <td>{{ comment }}</td>
+        </tr>
+    </table>
+    </br>
+    <center>Note: This is a system generated token and does not require signature.</center>
+    <hr style="color:black">
+    <p align="left">Token Generated at : {{ today }}</p>
+    <p align="right">Powered By Edubricz</p>
+</div>
+</body>
+
+</html>

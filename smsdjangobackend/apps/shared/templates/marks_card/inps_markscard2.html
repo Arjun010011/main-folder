@@ -1,0 +1,215 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Marks Card</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-container {
+            position: relative;
+            width: 1086px;
+            height: 1536px;
+            background-image: url("https://production-edubricz.s3.amazonaws.com/18/NANDINI_CONSOLIDATED_REPORT.jpg");
+            background-size: cover;
+            overflow: hidden;
+        }
+
+        /* 🎓 Student Details Box (Reduced Font) */
+        .student-details {
+            position: absolute;
+            top: 300px;
+            left: 610px;
+           
+            width: 400px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 2px solid #6C3483;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 22px;
+            box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+            font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        .student-details div {
+            margin-top: 6px;
+            color: #1A237E;
+        }
+
+        .photo {
+            position: absolute;
+            top: 315px;
+            right: 65px;
+            width: 130px;
+            height: 130px;
+            border-radius: 8px;
+            border: 2px solid #6C3483;
+            object-fit: cover;
+        }
+
+        /* ---------- LEARNING LADDER TABLE ---------- */
+        .learning-table {
+            position: absolute;
+            top: 500px;
+            left: 40px;
+            width: 1000px;
+            border-collapse: collapse;
+            font-size: 13px;
+            background-color: #F8E8FF;
+            color: #2C2C54;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .learning-table th, .learning-table td {
+            border: 1px solid #6C3483;
+            padding: 4px 5px;
+            text-align: center;
+        }
+
+        .learning-table th {
+            background-color: #6C3483;
+            color: white;
+            font-size: 14px;
+            padding: 5px;
+        }
+
+        .learning-table .category {
+            background-color: #D2B4DE;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .learning-table .sub {
+            background-color: #F4ECF7;
+            text-align: left;
+        }
+
+        .footer-line {
+            position: absolute;
+            bottom: 70px;
+            left: 70px;
+            font-size: 13px;
+            font-weight: bold;
+            width: 90%;
+        }
+
+        .footer-line .sig {
+            margin-left: 60px;
+        }
+    </style>
+</head>
+<body>
+{% for student in data.student_list %}
+<div class="page-container">
+
+    <!-- 🎓 Student Info Panel -->
+    <div class="student-details">
+        <div style="color:indigo;">{{student.student_name}}</div>
+        <div>Class : {{data.standard_name}}</div>
+        <div>Section : {{data.section_name}}</div>
+        <div>Date of Birth : {{student.dob|date:"d/m/Y"}}</div>
+        <div>Admission No : {{student.student_admission_form.admission_num}}</div>
+    </div>
+
+    {% if student.profile_pic_file %}
+    <img class="photo" src="{{student.profile_pic_file}}" alt="photo">
+    {% endif %}
+
+    <!-- 📘 LEARNING LADDER TABLE -->
+  <table class="learning-table">
+    <tr>
+        <th colspan="5">SEMESTER I - LEARNING LADDER</th>
+    </tr>
+    <tr>
+        <th style="width: 35%;">Area</th>
+        <th>Always</th>
+        <th>Most of the times</th>
+        <th>Sometimes</th>
+        <th>Not yet</th>
+    </tr>
+
+   
+
+    {% for subject_data in student.subject_list_data %}
+        {% if subject_data.subject_part_type_code_name == 'part1' %}
+        <tr class="sub">
+            <td style="text-align:left;">{{ subject_data.subject_name|upper }}</td>
+
+            <!-- ✅ "Always" column -->
+          <td style="text-align:center; font-weight:bold;">
+                {% if subject_data.attendance_status == "Absent" %}
+                    <span style="color:red;">Ab</span>
+                {% elif subject_data.grade == "Always" %}
+                    ✔️
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </td>
+
+            <td style="text-align:center; font-weight:bold;">
+                {% if subject_data.attendance_status == "Absent" %}
+                    <span style="color:red;">Ab</span>
+                {% elif subject_data.grade == "Most of the Time" %}
+                    ✔️
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </td>
+
+            <td style="text-align:center; font-weight:bold;">
+                {% if subject_data.attendance_status == "Absent" %}
+                    <span style="color:red;">Ab</span>
+                {% elif subject_data.grade == "Sometimes" %}
+                    ✔️
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </td>
+
+            <td style="text-align:center; font-weight:bold;">
+                {% if subject_data.attendance_status == "Absent" %}
+                    <span style="color:red;">Ab</span>
+                {% elif subject_data.grade == "Not yet" %}
+                    ✔️
+                {% else %}
+                    &nbsp;
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endif %}
+    {% empty %}
+        <tr class="sub">
+            <td colspan="5" style="text-align:center;">No subject data available</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
+    <!-- 🖊️ Footer -->
+    <div class="footer-line">
+        SEMESTER I: _________
+        <span class="sig">Your child’s loving Teacher: ____________</span>
+        <span class="sig">Parent’s/Guardian’s signature: ____________</span>
+    </div>
+
+</div>
+ {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

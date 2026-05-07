@@ -1,0 +1,131 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+      }
+      .schoolname {
+        font-size: 30px;
+        text-align: center;
+        font-weight: bold;
+        text-decoration: underline;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .schooladd {
+        font-size: 15px;
+        text-align: center;
+        font-weight: bold;
+      }
+      .date {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        text-align: right;
+        font-size: 12px;
+      }
+      .content {
+        font-size: 12px;
+      }
+      .subject {
+        font-weight: bold;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      .border {
+        border: 1px solid black;
+      }
+      .danke {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 12px;
+        text-align: center;
+      }
+      .sign {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: right;
+      }
+      .dotted-line {
+        border-bottom: 1px dotted black; 
+        width: 30%;
+      }
+    </style>
+  </head>
+<body>
+    <div style="display: flex;">
+        <div class="logo">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo" style="width: 100px; height: 100px;">
+            {% endif %}
+        </div>
+        <div>
+            <div class="schoolname">
+                {{school_name}}
+            </div>
+            <div class="schooladd">
+                {{school_address}},  {{school_city}} - {{school_pincode}}
+            </div>
+        </div>
+    </div>
+
+    <div class="date">
+        DATE: {{today}}
+    </div> <br><br>
+
+    <div class="content">
+        <div>
+            <div>
+                <div style="font-weight: bold;">TO,</div>
+                <div>
+                    <div class="dotted-line"></div> <br>
+                    <div class="dotted-line"></div> <br>
+                    <div class="dotted-line"></div> <br>
+                </div> <br>
+
+                <div>
+                    Respected Sir/ Madam,
+                </div>
+    
+                <div class="subject">Subject: T.C REQUESTING LETTER</div> <br>
+    
+                <div>
+                    This is to inform you that <span style="text-decoration: underline; font-weight: bold;">Mr/Mrs.{{first_name}} {{middle_name}} {{last_name}}</span> 
+                    S/o, <span style="text-decoration: underline; font-weight: bold;">Mr {{father_name}}</span> is admitted in <br>
+                    our institution for {{to_standard_name}} for the academic year {{from_academic_year}}.
+                </div> <br>
+    
+                <div>
+                    Kindly issue the transfer certificate for our future admission procedures.
+                </div> <br>
+    
+                <div class="border">
+                   <div> Kindly furnish the following certificates of the above-mentioned student:</div> <br>
+                   <div style="margin-left: 5%;">
+                        <ul>
+                            <li>Transfer Certificate</li>
+                            <li>Progress report</li>
+                            <li>Student SATS Enrollment No.</li>
+                            <li>Student permanent Education Number (As in UDISEPLUS)</li>
+                        </ul>
+                   </div>
+                </div> <br> <br>
+    
+                <div class="danke">Thanking you</div> <br><br><br>
+    
+                <div class="sign">HEAD MISTRESS</div>
+            </div> 
+        </div>
+    </div>
+</body>
+</html>

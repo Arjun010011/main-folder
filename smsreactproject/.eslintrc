@@ -1,0 +1,18 @@
+{
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "parser": "babel-eslint",
+  "globals": {
+    "URLSearchParams": true,
+    "XMLHttpRequest": true,
+    "localStorage": true,
+    "FileReader": true,
+    "setTimeout": true,
+    "FormData": true,
+    "document": true,
+    "window": true,
+    "Blob": true,
+    "URL": true,
+    "Set": true
+  }
+}

@@ -1,0 +1,157 @@
+{% comment %} Header {% endcomment %}
+{% comment %}
+    Using a5 default setting
+{% endcomment %}
+<html>
+    <head>
+        <style>
+            .body{
+                width: 360px;
+                padding-left: 135px;
+                margin-top: -20px;
+                padding-top: 0px;
+                padding-bottom: 300px;
+                font-family:Verdana,sans-serif;
+            }
+            .school-name{
+                text-align: center;
+                font-weight: bold;
+                font-size: 12px;
+            }
+            .school-address{
+                text-align: center;
+                font-weight: bold;
+                font-size: 12px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th,
+            td {
+                padding: 10px 5px 10px 5px;
+                text-align: left;
+            }
+            .fee-receipt-table-heading1{
+                width: 50%;
+            }
+            ,fee-receipt-table-heading2{
+                width: 50%;
+            }
+            .mt-10{
+                margin-top:10px;
+            }
+            table{
+                width: 100%;
+                font-size: 10px;
+            }
+            .text-align-center{
+                text-align: center;
+            }
+            .break-before {
+                display: block;
+                position: relative;
+                page-break-before: always !important;   
+            }
+            .upper-case {
+                text-transform:uppercase;
+            }
+        </style>
+    </head>
+    <body>
+    {% for count in number_of_copies %}
+        {% for fee in fee_collection.invoice_list %}
+            <div class='break-before body' style='break-before: page'>
+                <div class="school-name upper-case">
+                    {{ fee_collection.institute_detail.name }}
+                </div>
+                <div class="school-address upper-case">
+                    {{ fee_collection.institute_address.map_address_data.address_one_map }}
+                    {{ fee_collection.institute_address.map_address_data.address_two_map }}
+                </div>
+                <div class="school-address upper-case">
+                    {{ fee_collection.institute_address.map_address_data.city_map }}
+                    {{ fee_collection.institute_address.map_address_data.pincode_map }}
+                </div>
+
+                <table class='fee-receipt-table mt-10'>
+                    <tr>
+                        <th class='fee-receipt-table-heading1'>
+                            Fee Receipt
+                        </th>
+                        <th class='fee-receipt-table-heading2 text-align-center'>
+                            Academic Year : {% if fee_collection.academic_year %}
+                            {{fee_collection.academic_year.start_date.year}} -
+                            {{fee_collection.academic_year.end_date.year}}
+                            {% endif %}
+                        </th>
+                    </tr>
+                </table>
+
+                <table class='mt-10'>
+                    <tr style='font-weight:bold'>
+                        <td style="width:25%">Date</td>
+                        <td style="width:25%">{% if fee_collection.transaction_date %}{{fee_collection.transaction_date}}{% endif %}</td>
+                        <td style="width:25%">Reciept No.</td>
+                        <td style="width:25%">{% if fee.receipt_num %}{{fee.receipt_num}}{% endif %}</td>
+                    <tr>
+                </table>
+                <table class='mt-10' style='font-weight:bold'>
+                    <tr>
+                        <td width='30%'>Name</td>
+                        <td>{% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                            {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                            {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Class</td>
+                        <td>{% if fee_collection.student_detail.standard %}
+                                {{fee_collection.standard_name}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Admission No.</td>
+                        <td>{{ admission_num }}</td>
+                    </tr>
+                </table>
+
+                <table class='mt-10'>
+                    <tr>
+                        <th width='12%'>Sl.</th>
+                        <th width='54%'>Particulars</th>
+                        <th width='17%' style="text-align:right;">Rate</th>
+                        <th width='17%' style="text-align:right;">Amount</th>
+                    </tr>
+                    <tr>
+                        <td width='12%'> 1 </td>
+                        <td width='54%'> {{ fee.fee_alias}} </td>
+                        <td width='17%' style="text-align:right;"> {{ fee.amount_rate | floatformat:2}} </td>
+                        <td width='17%' style="text-align:right;"> {{ fee.amount_paid | floatformat:2}} </td>
+                    </tr>
+                </table>
+
+                <table class='mt-10'>
+                    <tr>
+                        <td width='66%'>Amount Paid in Words </td>
+                        <td width='17%'>Total </td>
+                        <td style="text-align:right;width:20%">{{ fee.amount_paid  | floatformat:2}}</td>
+                    </tr>
+                    <tr>
+                        <td width='66%'>
+                            {{ fee.amount_in_words|title }} Only
+                            <div style="padding-top:5px">
+                                {{fee.bottom_text}}
+                            </div>
+                        </td>
+                        <td colspan=2></td>
+                    </tr>
+                </table>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    </body>
+</html>

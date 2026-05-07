@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Receipt</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        .school {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo img {
+            width: 90px;
+            height: 90px;
+            margin-right: 20px;
+        }
+
+        .schoolname {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .line {
+            border-top: 1px solid black;
+          
+        }
+
+        .dotline {
+            border-bottom: 1px dotted black;
+            margin-left: 5px;
+            white-space: nowrap;
+        }
+
+        .placename,
+        .parentname,
+        .std,
+        .academic {
+            border-bottom: 1px dotted black;
+            margin-left: 5px;
+            white-space: nowrap;
+        }
+
+        .content {
+            margin-bottom: 20px;
+            line-height: 20px;
+            display: flex;
+        }
+
+        .certificate {
+            margin-left: 5%;
+        }
+
+        .dotted-line {
+          border-bottom: 1px dotted black; 
+          width: 30%;
+        }
+        .today {
+          margin-left: auto;
+          border-bottom: 1px dotted black;
+        }
+        @page {
+            size: A4;
+            margin: 0;
+          }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="school">
+            <div class="logo">
+                {% if logo %}
+                    <img src="{{ logo }}" alt="School Logo">
+                {% endif %}
+            </div>
+            <div style="text-align: center">
+                <div class="schoolname">{{ school_name }}</div>
+                <div style="line-height: 15px">{{ school_address }} {{ school_pincode }}<br>{{ school_tel_num }} {{ school_email }}</div>
+            </div>
+        </div>
+        <div class="line"></div> <br><br>
+        
+        <div class="content">
+            <div style="font-weight: normal;">The Head of the Institution</div>
+            <div style="margin-left:auto;">
+                <span>Date : </span>
+                <span class="today">&nbsp;{{issue_date}}</span>
+            </div>
+        </div>
+
+        <div class="dotted-line"></div> <br>
+        <div class="dotted-line"></div> <br>
+        <div class="dotted-line"></div> <br>
+        <div class="dotted-line"></div> <br>
+
+        <div >
+            <div>Dear Sir/Madam,</div> <br>
+            <div>Sub: Consent letter for New admission and request for Transfer Certificate</div>
+            <div style="line-height: 30px;margin-top: 20px">
+                This is to bring to your kind notice that Mr. & Mrs. <span class="dotline">{{father_name}}</span> 
+                parent of <span class="parentname">{{ student_full_name }}</span>, &nbsp; a  &nbsp;<span class="std">{{ from_standard_name }}</span>  &nbsp; &nbsp;  class student of 
+                your school, is seeking admission for <span class="std">{{ to_standard_name }}</span> &nbsp; &nbsp; during the academic year <div class="academic">{{ from_academic_year }}</div>
+            <div style="margin-top:10px">in our institution.</div> <br>
+            <div>Our school DISE Code is: 29280203421</p>
+        </div> <br>
+
+        <div>
+            <div>Kindly furnish the following certificates of the above-mentioned student:</div>
+            <div class="certificate">
+              <ol>
+                <li>Transfer Certificate</li>
+                <li>Progress Report</li>
+                <li>School DISE Code</li>
+                <li>Student's SATS ENROLLMENT NO</li>
+                <li>Student Permanent Education Number (AS IN UDISEPLUS)</li>
+            </ol>
+            </div>
+            
+        </div> <br>
+
+        
+        <div>Thanking You,</div> <br>
+        <div>With regards,</div>
+        
+    </div>
+</body>
+</html>

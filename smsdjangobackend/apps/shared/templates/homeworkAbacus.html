@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PDF</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+  <style>
+    /* Setting A4 landscape dimensions */
+    @page {
+      size: 315mm 210mm; /* A4 dimensions in landscape */
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .certificate-container {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .student-description {
+      font-family: 'Zilla Slab', serif;
+      font-size: 24px;
+      margin-top: 10px;
+      color: #090c0f;
+    }
+
+    /* Table Styling */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 18px;
+      page-break-inside: auto;
+    }
+
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .th-subject-view {
+      background-color: rgb(66, 66, 66);
+      color: white;
+    }
+
+    .note {
+      background-color: #ff6600;
+      color: white;
+      font-weight: bold;
+      padding: 10px;
+      text-align: left;
+      page-break-inside: avoid;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate-container">
+    <table style="background-color:#002D62 ;color: white;">
+        <tr>
+            <th>
+                INDIAN ABACUS DAILY REPORT 2015
+            </th>
+        </tr>
+    </table>
+
+    <!-- Table Section -->
+    <table>
+      <thead>
+        <tr>
+          <th class="th-subject-view">SL NO</th>
+          <th class="th-subject-view">DATE</th>
+          <th class="th-subject-view">BATCH</th>
+          <th class="th-subject-view">CENTER</th>
+          <th class="th-subject-view">STUDENT NAME</th>
+          <th class="th-subject-view">LEVEL</th>
+          <th class="th-subject-view">CLASSROOM ACTIVITIES</th>
+          <th class="th-subject-view">HOME WORK</th>
+          <th class="th-subject-view">REMARK</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in student_list %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{student.diary__due_date}}</td>
+          <td>{{student.branch}}</td>
+          <td>{{student.standard_name}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.section_name}}</td>
+          <td>
+            {% for subject in student.subjects %}
+              {{subject}} <br/>
+            {% endfor %}
+          </td>
+          <td>
+            {% for title in student.titles %}
+              {{title}} <br/>
+            {% endfor %}
+          </td>
+          <td>
+            {% for remark in student.remarks %}
+              {{remark}} <br/>
+            {% endfor %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+<!-- Notes Section -->
+    <div class="note">
+        NOTE : <br>
+      * FOCUS ON FINGERING WHILE USING ABACUS. <br>
+      * EVERY DAY 10 MINUTES OF PRACTICE USING ABACUS IS MANDATORY. <br>
+      * KINDLY SUBMIT HOMEWORK ON TIME.
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,2676 @@
+[
+  {
+    "bdu": {
+      "id": 1,
+      "name": "Student Application Forms",
+      "description": "Upload the Student application forms",
+      "primary_table": "forms.applicationstudent",
+      "upload_type": "insert",
+      "process_hook": "application_student",
+      "process_function": "add_bulk_application_student",
+      "is_active": true,
+      "read_only": false,
+      "transaction_id": "0",
+      "bulk_upload_supported": false
+    },
+    "columns": [
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "id",
+        "required": false,
+        "alias": "application student_id",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "profile_pic",
+        "required": false,
+        "alias": "Profile Picture",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "1",
+            "bdu_column": 3,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "first_name",
+        "required": true,
+        "alias": "First name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "middle_name",
+        "required": false,
+        "alias": "Middle name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "last_name",
+        "required": true,
+        "alias": "Last name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (DD-MM-YYYY)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 6,
+            "bdu_validation_class": 2
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "application_date",
+        "required": false,
+        "alias": "Application Date (DD-MM-YYYY)",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "custom Regex",
+            "error_message": null,
+            "validation_value": "^appln\\d{1,3}$",
+            "bdu_column": 7,
+            "bdu_validation_class": 10
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "application_num",
+        "required": false,
+        "alias": "Application Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (DD-MM-YYYY)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 8,
+            "bdu_validation_class": 2
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "dob",
+        "required": true,
+        "alias": "Date of Birth(DD-MM-YYYY)",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "gender",
+        "required": true,
+        "alias": "Gender",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "student_type",
+        "required": false,
+        "alias": "Student type",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "email",
+        "required": false,
+        "alias": "Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 12,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "mobile_num",
+        "required": false,
+        "alias": "Mobile Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "current_standard",
+        "required": true,
+        "alias": "Standard",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "enquiry",
+        "required": false,
+        "alias": "Enquiry",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "entry_academic_year",
+        "required": true,
+        "alias": "Entry Academic Year",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "is_active",
+        "required": false,
+        "alias": "is active",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Max length",
+            "error_message": null,
+            "validation_value": "3",
+            "bdu_column": 17,
+            "bdu_validation_class": 8
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "blood_group",
+        "required": false,
+        "alias": "Blood Group",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "aadhar_num",
+        "required": false,
+        "alias": "Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "mother_tongue",
+        "required": false,
+        "alias": "Mother Tongue",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "eid_num",
+        "required": false,
+        "alias": "Eid Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "place_of_birth",
+        "required": false,
+        "alias": "Place of Birth",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "physically_handicaped",
+        "required": false,
+        "alias": "Physically Handicapped",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "handicap_reason",
+        "required": false,
+        "alias": "Handicap Reason",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "medical_details",
+        "required": false,
+        "alias": "Medical Details",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "previous_school_details",
+        "required": false,
+        "alias": "Previous School Details",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "is_bpl",
+        "required": false,
+        "alias": "Is BPL Holder",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "bpl_num",
+        "required": false,
+        "alias": "BPL Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "bpl_issue_authority",
+        "required": false,
+        "alias": "BPL Issued Authority",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 29,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "bpl_issue_date",
+        "required": false,
+        "alias": "BPL issued Date",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "nationality",
+        "required": false,
+        "alias": "Nationality",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "religion",
+        "required": false,
+        "alias": "Religion",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "category",
+        "required": false,
+        "alias": "Category",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "caste",
+        "required": false,
+        "alias": "Caste",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "type",
+        "required": false,
+        "alias": "Address Type",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "5",
+            "bdu_column": 35,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "address",
+        "required": true,
+        "alias": "Address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "country",
+        "required": false,
+        "alias": "Country",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "state",
+        "required": false,
+        "alias": "State",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "district",
+        "required": false,
+        "alias": "District",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "city",
+        "required": false,
+        "alias": "City",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "pincode",
+        "required": false,
+        "alias": "Pincode",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "3",
+            "bdu_column": 41,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "father_name",
+        "required": false,
+        "alias": "Father name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 42,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "f_dob",
+        "required": false,
+        "alias": "Father DOB",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_aadhar",
+        "required": false,
+        "alias": "Father Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 44,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "f_mobile_num",
+        "required": false,
+        "alias": "Father Mobile No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_occupation",
+        "required": false,
+        "alias": "Father Occupation",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_office_address",
+        "required": false,
+        "alias": "Father Office address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_education",
+        "required": false,
+        "alias": "Father Qualification",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_pan",
+        "required": false,
+        "alias": "Father PAN",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_tax_payee",
+        "required": false,
+        "alias": "Father tax payee",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_email",
+        "required": false,
+        "alias": "Father Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "3",
+            "bdu_column": 51,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "mother_name",
+        "required": false,
+        "alias": "Mother name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 42,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "m_dob",
+        "required": false,
+        "alias": "Mother DOB",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_aadhar",
+        "required": false,
+        "alias": "Mother Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 119,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "m_mobile_num",
+        "required": false,
+        "alias": "Mother Mobile No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_occupation",
+        "required": false,
+        "alias": "Mother Occupation",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_office_address",
+        "required": false,
+        "alias": "Mother Office address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_education",
+        "required": false,
+        "alias": "Mother Qualification",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_pan",
+        "required": false,
+        "alias": "Mother PAN",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_tax_payee",
+        "required": false,
+        "alias": "Mother Tax payee",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_email",
+        "required": false,
+        "alias": "Mother Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_annual_income",
+        "required": false,
+        "alias": "Father Annual Income",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "dependents",
+        "required": false,
+        "alias": "Dependents",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "guardian_name",
+        "required": false,
+        "alias": "Guardian name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 42,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "g_dob",
+        "required": false,
+        "alias": "Guardian DOB",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_aadhar",
+        "required": false,
+        "alias": "Guardian Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 119,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "g_mobile_num",
+        "required": false,
+        "alias": "Guardian Mobile No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_occupation",
+        "required": false,
+        "alias": "Guardian Occupation",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_office_address",
+        "required": false,
+        "alias": "Guardian Office Address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_education",
+        "required": false,
+        "alias": "Guardian Qualification",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_pan",
+        "required": false,
+        "alias": "Guardian PAN",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_tax_payee",
+        "required": false,
+        "alias": "Guardian Tax Payee",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_email",
+        "required": false,
+        "alias": "Guardian Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_annual_income",
+        "required": false,
+        "alias": "Guardian Annual Income",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 1
+      }
+    ]
+  },
+  {
+    "bdu": {
+      "id": 2,
+      "name": "Student Admission Forms",
+      "description": "Upload the Student admission forms",
+      "primary_table": "students.student",
+      "upload_type": "insert",
+      "process_hook": "student",
+      "process_function": "add_bulk_student",
+      "is_active": true,
+      "read_only": false,
+      "transaction_id": "1",
+      "bulk_upload_supported": false
+    },
+    "columns": [
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "id",
+        "required": false,
+        "alias": "student_id",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "profile_pic",
+        "required": false,
+        "alias": "Profile Picture",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "1",
+            "bdu_column": 76,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "first_name",
+        "required": true,
+        "alias": "First name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "middle_name",
+        "required": false,
+        "alias": "Middle name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "last_name",
+        "required": false,
+        "alias": "Last name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 79,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "dob",
+        "required": true,
+        "alias": "Date of Birth",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "gender",
+        "required": false,
+        "alias": "Gender",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "email",
+        "required": false,
+        "alias": "Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "3",
+            "bdu_column": 82,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "username",
+        "required": true,
+        "alias": "username",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "8",
+            "bdu_column": 83,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "password",
+        "required": true,
+        "alias": "password",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "student_type",
+        "required": false,
+        "alias": "student type",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "current_reg_num",
+        "required": false,
+        "alias": "Roll No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "sts",
+        "required": false,
+        "alias": "STS No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 87,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "mobile_num",
+        "required": false,
+        "alias": "Mobile Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "current_standard",
+        "required": false,
+        "alias": "Standard",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "application",
+        "required": false,
+        "alias": "Application Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "entry_academic_year",
+        "required": true,
+        "alias": "Entry Academic Year",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "is_active",
+        "required": false,
+        "alias": "is active",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "section_id",
+        "required": false,
+        "alias": "Section Id",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "blood_group",
+        "required": false,
+        "alias": "Blood Group",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "aadhar_num",
+        "required": false,
+        "alias": "Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "mother_tongue",
+        "required": false,
+        "alias": "Mother Tongue",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "eid_num",
+        "required": false,
+        "alias": "Eid Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "place_of_birth",
+        "required": false,
+        "alias": "Place of Birth",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "physically_handicaped",
+        "required": false,
+        "alias": "Physically Handicapped",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "handicap_reason",
+        "required": false,
+        "alias": "Handicap Reason",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "medical_details",
+        "required": false,
+        "alias": "Medical Details",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "previous_school_details",
+        "required": false,
+        "alias": "Previous School Details",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "is_bpl",
+        "required": false,
+        "alias": "Is BPL Holder",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "bpl_num",
+        "required": false,
+        "alias": "BPL Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "bpl_issue_authority",
+        "required": false,
+        "alias": "BPL Issued Authority",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 104,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "bpl_issue_date",
+        "required": false,
+        "alias": "BPL issued Date",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "nationality",
+        "required": false,
+        "alias": "Nationality",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "religion",
+        "required": false,
+        "alias": "Religion",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "category",
+        "required": false,
+        "alias": "Category",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "caste",
+        "required": false,
+        "alias": "Caste",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "type",
+        "required": false,
+        "alias": "Address Type",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "5",
+            "bdu_column": 110,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "address",
+        "required": true,
+        "alias": "Address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "country",
+        "required": false,
+        "alias": "Country",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "state",
+        "required": false,
+        "alias": "State",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "district",
+        "required": false,
+        "alias": "District",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "city",
+        "required": false,
+        "alias": "City",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "pincode",
+        "required": false,
+        "alias": "Pincode",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "3",
+            "bdu_column": 116,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "father_name",
+        "required": true,
+        "alias": "Father name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 117,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "f_dob",
+        "required": false,
+        "alias": "Father DOB",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_aadhar",
+        "required": false,
+        "alias": "Father Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 119,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "f_mobile_num",
+        "required": false,
+        "alias": "Father Mobile No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_occupation",
+        "required": false,
+        "alias": "Father Occupation",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_office_address",
+        "required": false,
+        "alias": "Father Office address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_education",
+        "required": false,
+        "alias": "Father Qualification",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_pan",
+        "required": false,
+        "alias": "Father PAN",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_tax_payee",
+        "required": false,
+        "alias": "Father tax payee",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_email",
+        "required": false,
+        "alias": "Father Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Min length",
+            "error_message": null,
+            "validation_value": "3",
+            "bdu_column": 126,
+            "bdu_validation_class": 7
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "mother_name",
+        "required": false,
+        "alias": "Mother name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 42,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "m_dob",
+        "required": false,
+        "alias": "Mother DOB",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_aadhar",
+        "required": false,
+        "alias": "Mother Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 119,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "m_mobile_num",
+        "required": false,
+        "alias": "Mother Mobile No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_occupation",
+        "required": false,
+        "alias": "Mother Occupation",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_office_address",
+        "required": false,
+        "alias": "Mother Office address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_education",
+        "required": false,
+        "alias": "Mother Qualification",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_pan",
+        "required": false,
+        "alias": "Mother PAN",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_tax_payee",
+        "required": false,
+        "alias": "Mother Tax payee",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_email",
+        "required": false,
+        "alias": "Mother Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "f_annual_income",
+        "required": false,
+        "alias": "Father Annual Income",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "dependents",
+        "required": false,
+        "alias": "Dependents",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "guardian_name",
+        "required": false,
+        "alias": "Guardian name",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Date (YYYY-MM-DD)",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 42,
+            "bdu_validation_class": 4
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "g_dob",
+        "required": false,
+        "alias": "Guardian DOB",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_aadhar",
+        "required": false,
+        "alias": "Guardian Aadhar Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is mobile",
+            "error_message": null,
+            "validation_value": null,
+            "bdu_column": 119,
+            "bdu_validation_class": 3
+          }
+        ],
+        "schema_table": null,
+        "schema_column": "g_mobile_num",
+        "required": false,
+        "alias": "Guardian Mobile No.",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_occupation",
+        "required": false,
+        "alias": "Guardian Occupation",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_office_address",
+        "required": false,
+        "alias": "Guardian Office Address",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_education",
+        "required": false,
+        "alias": "Guardian Qualification",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_pan",
+        "required": false,
+        "alias": "Guardian PAN",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_tax_payee",
+        "required": false,
+        "alias": "Guardian Tax Payee",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": true,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_email",
+        "required": false,
+        "alias": "Guardian Email",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "g_annual_income",
+        "required": false,
+        "alias": "Guardian Annual Income",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "m_annual_income",
+        "required": false,
+        "alias": "Mother Annual Income",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "admission_num",
+        "required": false,
+        "alias": "Admission Number",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "admission_date",
+        "required": false,
+        "alias": "Admission Date",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "student_medium",
+        "required": false,
+        "alias": "Student Medium",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 2
+      }
+    ]
+  },
+  {
+    "bdu": {
+      "name": "Library Create Or Update",
+      "description": "Creates and Updates Book, Book Copy, Author, Publisher",
+      "primary_table": "library.book",
+      "upload_type": "both",
+      "process_hook": "library",
+      "process_function": "add_library_book",
+      "is_active": true,
+      "read_only": false,
+      "transaction_id": "3",
+      "bulk_upload_supported": false
+    },
+    "columns": [
+      {
+        "schema_column": "books_id",
+        "type": "IntegerField",
+        "alias": "books_id",
+        "max_length": null,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "title",
+        "type": "CharField",
+        "alias": "title",
+        "max_length": 255,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "sub_title",
+        "type": "CharField",
+        "alias": "sub title",
+        "max_length": 255,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "price",
+        "type": "FloatField",
+        "alias": "price",
+        "max_length": null,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "category",
+        "type": "ForeignKey",
+        "alias": "category",
+        "max_length": null,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "sub_category",
+        "type": "ForeignKey",
+        "alias": "sub category",
+        "max_length": null,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "publisher_name",
+        "type": "ForeignKey",
+        "alias": "Publisher Name",
+        "max_length": null,
+        "required": false,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "book_number",
+        "alias": "Book Number",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "bar_code",
+        "alias": "Bar Code",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "rack",
+        "alias": "rack_id",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "author1",
+        "alias": "Author 1",
+        "ignored": true,
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is numeric",
+            "error_message": null,
+            "bdu_transaction_id": "3",
+            "validation_value": null,
+            "bdu_validation_class": 6
+          }
+        ]
+      },
+      {
+        "schema_column": "author2",
+        "alias": "Author 2",
+        "ignored": true,
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is numeric",
+            "error_message": null,
+            "bdu_transaction_id": "3",
+            "validation_value": null,
+            "bdu_validation_class": 6
+          }
+        ]
+      },
+      {
+        "schema_column": "author3",
+        "alias": "Author 3",
+        "ignored": true,
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is numeric",
+            "error_message": null,
+            "bdu_transaction_id": "3",
+            "validation_value": null,
+            "bdu_validation_class": 6
+          }
+        ]
+      },
+      {
+        "schema_column": "author4",
+        "alias": "Author 4",
+        "ignored": true,
+        "bdu_validation_column": [
+          {
+            "validation_type": "Is numeric",
+            "error_message": null,
+            "bdu_transaction_id": "3",
+            "validation_value": null,
+            "bdu_validation_class": 6
+          }
+        ]
+      },
+      {
+        "schema_column": "author1_name",
+        "alias": "Author 1 Name",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "author2_name",
+        "alias": "Author 2 Name",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "author3_name",
+        "alias": "Author 3 Name",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "author4_name",
+        "alias": "Author 4 Name",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "edition",
+        "alias": "Edition",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "year_of_publication",
+        "alias": "Year Of Publication",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "number_of_pages",
+        "alias": "Number Of Pages",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "place_of_publication",
+        "alias": "Place Of Publication",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "vendor_name",
+        "alias": "Vendor Name",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "vendor",
+        "alias": "Vendor",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "bill_num",
+        "alias": "Bill Number",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "bill_date",
+        "alias": "Bill Date",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "vendor_price",
+        "alias": "Vendor Price",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "isbn",
+        "alias": "ISBN",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "stock_date",
+        "alias": "Stock Date",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "phone_num",
+        "alias": "Phone Number",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "remark",
+        "alias": "Remark",
+        "bdu_validation_column": []
+      },
+      {
+        "schema_column": "title_number",
+        "alias": "Title Number",
+        "bdu_validation_column": []
+      }
+    ],
+    "deletable_ids": []
+  },
+  {
+    "bdu": {
+      "id": null,
+      "name": "Add Area In Bulk And Area price",
+      "description": "Create Price Plan before create area wise pricing",
+      "primary_table": "transport.routearea",
+      "upload_type": "both",
+      "process_hook": "transport_route_area_price",
+      "process_function": "add_bulk_application_student",
+      "is_active": true,
+      "read_only": false,
+      "transaction_id": "2",
+      "bulk_upload_supported": false
+    },
+    "columns": [
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "name",
+        "required": true,
+        "alias": "Name",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "landmark",
+        "required": false,
+        "alias": "landmark",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "address_one",
+        "required": true,
+        "alias": "address one",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "address_two",
+        "required": false,
+        "alias": "address two",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "city",
+        "required": false,
+        "alias": "city Name",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "district",
+        "required": false,
+        "alias": "district name",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "state",
+        "required": false,
+        "alias": "state name",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "country",
+        "required": false,
+        "alias": "country",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "pincode",
+        "required": false,
+        "alias": "pincode",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "latitude",
+        "required": false,
+        "alias": "latitude",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "longitude",
+        "required": false,
+        "alias": "longitude",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "km",
+        "required": true,
+        "alias": "km",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "is_aproved",
+        "required": false,
+        "alias": "is aproved",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "institute_address",
+        "required": true,
+        "alias": "institute address id",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "price_plan_id",
+        "required": true,
+        "alias": "Price Plan Id",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "rate",
+        "required": false,
+        "alias": "Price",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      },
+      {
+        "id": null,
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "is_update",
+        "required": false,
+        "alias": "Is Update",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false,
+        "bdu": 4
+      }
+    ],
+    "deletable_ids": []
+  },
+  {
+    "bdu": {
+      "name": "Fee collection transactions upload",
+      "description": null,
+      "primary_table": "finance.feecollection",
+      "upload_type": "insert",
+      "process_hook": "finance",
+      "process_function": "add_fee_transactions",
+      "is_active": true,
+      "read_only": false,
+      "transaction_id": "5",
+      "bulk_upload_supported": true
+    },
+    "columns": [
+    {
+      "bdu_validation_column": [],
+      "schema_table": null,
+      "schema_column": "student_name",
+      "required": true,
+      "alias": "Student Name",
+      "update_allowed": true,
+      "exclude_from_view": false,
+      "ignored": false
+    },
+    {
+      "bdu_validation_column": [],
+      "schema_table": null,
+      "schema_column": "academic_year",
+      "required": true,
+      "alias": "Academic Year",
+      "update_allowed": true,
+      "exclude_from_view": false,
+      "ignored": false
+    },
+    {
+      "bdu_validation_column": [],
+      "schema_table": null,
+      "schema_column": "standard_id",
+      "required": true,
+      "alias": "Standard Id",
+      "update_allowed": true,
+      "exclude_from_view": false,
+      "ignored": false
+    },
+    {
+      "bdu_validation_column": [],
+      "schema_table": null,
+      "schema_column": "fee_type_name",
+      "required": false,
+      "alias": "Fee Type Name",
+      "update_allowed": true,
+      "exclude_from_view": false,
+      "ignored": false
+    },
+    {
+      "bdu_validation_column": [],
+      "schema_table": null,
+      "schema_column": "paid_amount",
+      "required": true,
+      "alias": "Paid Amount",
+      "update_allowed": true,
+      "exclude_from_view": false,
+      "ignored": false
+    },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "receipt_num",
+        "required": false,
+        "alias": "Receipt Num",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "receipt_date",
+        "required": false,
+        "alias": "Receipt Date",
+        "update_allowed": true,
+        "exclude_from_view": false,
+        "ignored": false
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "mode_of_payment",
+        "required": false,
+        "alias": "mode of payment",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "payment_ref_num",
+        "required": false,
+        "alias": "payment ref num",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false
+      },
+      {
+        "bdu_validation_column": [],
+        "schema_table": null,
+        "schema_column": "payment_note",
+        "required": false,
+        "alias": "payment note",
+        "update_allowed": false,
+        "exclude_from_view": false,
+        "ignored": false
+      }
+    ],
+    "deletable_ids": []
+  },
+  {
+      "bdu": {
+          "name": "Student Rfid Update Based on the Student Full Name",
+          "description": "Built for New Baldwin. Adding Rfid number for each year. stores in student table",
+          "primary_table": "students.student",
+          "upload_type": "insert",
+          "process_hook": "student_rfid",
+          "process_function": "add_student_rfid_bdu",
+          "is_active": true,
+          "read_only": false,
+          "transaction_id": "6",
+          "bulk_upload_supported": false
+      },
+      "columns": [
+          {
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "rfid",
+              "required": true,
+              "alias": "rfid",
+              "update_allowed": false,
+              "exclude_from_view": false,
+              "ignored": false
+          },
+          {
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "full_name",
+              "required": true,
+              "alias": "Student Full Name",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false
+          },
+          {
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "standard",
+              "required": true,
+              "alias": "Standard",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false
+          },
+          {
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "academic_year",
+              "required": true,
+              "alias": "Academic Year",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false
+          }
+      ]
+  },
+  {
+      "bdu": {
+          "id": null,
+          "name": "Student RegisterNumber Update",
+          "description": "Updating student register numbers",
+          "primary_table": "students.student",
+          "upload_type": "both",
+          "process_hook": "student",
+          "process_function": "add_student_reg_num",
+          "is_active": true,
+          "read_only": false,
+          "transaction_id": "7",
+          "bulk_upload_supported": false
+      },
+      "columns": [
+          {
+              "id": null,
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "student_name",
+              "required": true,
+              "alias": "Full Name",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false,
+              "bdu": null
+          },
+          {
+              "id": null,
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "current_reg_num",
+              "required": true,
+              "alias": "Register Number",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false,
+              "bdu": null
+          },
+          {
+              "id": null,
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "academic_year_id",
+              "required": true,
+              "alias": "Academic Year Id",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false,
+              "bdu": null
+          },
+          {
+              "id": null,
+              "bdu_validation_column": [],
+              "schema_table": null,
+              "schema_column": "standard_id",
+              "required": true,
+              "alias": "Standard Id",
+              "update_allowed": true,
+              "exclude_from_view": false,
+              "ignored": false,
+              "bdu": null
+          }
+      ],
+      "deletable_ids": []
+  }
+]

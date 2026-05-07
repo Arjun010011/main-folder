@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>RKM Convent School Receipt (A5)</title>
+    <style>
+        @page {
+            size: A4;
+        }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+
+        .header-content {
+            margin-top: -110px;
+            text-align: center;
+            padding-left: 15%;
+
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-left: 38px;
+
+        }
+
+        table {
+            width: calc(100% - 30px);
+            border-collapse: collapse;
+            font-size: 9px;
+            margin: 0;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 2px;
+            vertical-align: top;
+        }
+    </style>
+</head>
+
+<body>
+
+    {% for count in number_of_copies %}
+    {% if forloop.counter|divisibleby:"2" %}
+    <div style="margin-top:25px"></div>
+    <div style="text-align:right;margin-right:10px;font-weight:bold;font-size:14px;color:#333;padding:5px 0;">STUDENT COPY</div>
+    {% else %}
+    <div style="text-align:right;margin-right:10px">Office Copy</div>
+    {% endif %}
+
+    <div class="receipt-container">
+        <div class="receipt-wrapper" style="border:1px solid black;margin-top:10px;padding-top:10px;">
+
+            {% if institute.logo %}
+                <img src={{institute.logo.file.url}}
+                style="width: 100px;height: 100px;padding-left: 10px;"/>
+            {% endif %}
+
+            <div class="header">
+
+                
+                <div class="header-content" style="margin-left:-80px;">
+                      
+                    <span style='font-size: 13px'>SRI SHANTIKETHANA GRAMINABHIVRUDDI SAMSTH(R)</span>
+                    <div style="font-weight:bolder;font-size:26px; text-transform: uppercase;">OXFORD SCHOOL</div>
+                    <p style="font-size:17px; margin:0;">
+                        Vidhyalakshmi Campus, Bidar-Mangalore Main Road Yalladakare-577598 <br>
+                        Hiriyur (taluk), Chitradurga(Dist), Karanataka<br>
+                        Mob:8050908860,9845770656,8123413315
+                    </p>
+                </div>
+            </div>
+
+            <div style="text-align:center;font-weight:bolder;font-size:22px;padding-left:50px;">
+                FEE RECEIPT - {{ fee_collection.academic_year.start_date|date:"Y" }} - {{ fee_collection.academic_year.end_date|date:"y" }}
+               
+            </div>
+
+            <div style="margin: 5px 4px; width: 96%;">
+                <table style="width: 100%; border-collapse: collapse; border: none; font-size: 10px;">
+                    <tr>
+                        <td style="border: none; padding: 3px 5px; width: 8%; vertical-align: top;">
+                            <b>No :</b>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 52%; vertical-align: top;">
+                            <span style="color:red;">{{ fee_collection.receipt_num|cut:"receipt" }}</span>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 15%; text-align: left; vertical-align: top;">
+                            <b>Date :</b>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 25%; text-align: left; vertical-align: top;">
+                            {{ fee_collection.transaction_date }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border: none; padding: 3px 5px; width: 8%; vertical-align: top;">
+                            <b>Mr/Mrs :</b>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 35%; vertical-align: top;">
+                            {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                            {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                            {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 15%; text-align: left; vertical-align: top;">
+                            <b>Father Name :</b>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 35%; text-align: left; vertical-align: top;">
+                            {{ fee_collection.student_detail.student_parent.parent.father_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="border: none; padding: 3px 5px; width: 8%; vertical-align: top;">
+                            <b>Place :</b>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 35%; vertical-align: top;">
+                            {% if fee_collection.student_address and fee_collection.student_address.0 %}
+                                {% if fee_collection.student_address.0.address %}
+                                    {{ fee_collection.student_address.0.address }}{% if fee_collection.student_address.0.city__name %}, {{ fee_collection.student_address.0.city__name }}{% endif %}
+                                {% elif fee_collection.institute_address.map_address_data.address_one_map %}
+                                    {{ fee_collection.institute_address.map_address_data.address_one_map }}{% if fee_collection.institute_address.map_address_data.city_map %}, {{ fee_collection.institute_address.map_address_data.city_map }}{% endif %}
+                                {% endif %}
+                            {% else %}
+                                {% if fee_collection.institute_address.map_address_data.address_one_map %}{{ fee_collection.institute_address.map_address_data.address_one_map }}{% endif %}{% if fee_collection.institute_address.map_address_data.city_map %}, {{ fee_collection.institute_address.map_address_data.city_map }}{% endif %}
+                            {% endif %}
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 15%; text-align: left; vertical-align: top;">
+                            <b>Class/Section :</b>
+                        </td>
+                        <td style="border: none; padding: 3px 5px; width: 35%; text-align: left; vertical-align: top;">
+                            {{ fee_collection.enrollment_data.standard_name }}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <table style="width:100%; border-collapse:collapse; font-size:9px; margin-top:5px;">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Fee Particulars</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+{% comment %} Prepare total variable {% endcomment %}
+{% with 0 as total_paid %}
+{% for fee in fee_collection.payment_detail %}
+{% with total_paid|add:fee.amount_paid as total_paid %}
+
+<tr>
+    <td style="text-align:center; padding-top:10px;">{{ forloop.counter }}</td>
+    <td>
+        <b>{{ fee.fee_type_name }}</b><br>
+
+        <b>Mode of Payment:</b>
+        {% for mode in fee_collection.mode_of_payment_list %}
+        {{ mode.mode_of_payment }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}<br>
+
+        {% if fee_collection.payment_ref_num %}
+        <b>Ref No:</b> {{ fee_collection.payment_ref_num }}<br>
+        {% endif %}
+
+        {% if fee_collection.payment_detail|length == 1 %}
+        <span style="float:right;font-weight:bold;">TOTAL</span>
+        {% endif %}
+    </td>
+
+    <td style="padding:0;">
+        <table style="width:100%; border-collapse:collapse;">
+            <tr>
+                <td style="border:none; border-bottom:1px solid #000; font-weight:bold; padding-top:10px; text-align:center;">
+                    {{ fee.amount_paid|floatformat }}
+                </td>
+            </tr>
+            <tr>
+                <td style="border:none; font-weight:bold; padding-top:8px; text-align:center;">
+                    {{ fee.amount_paid|floatformat }}
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+{% endwith %}
+{% endfor %}
+{% endwith %}
+
+
+<tr>
+    <td colspan="2" style="text-align:right;font-weight:bold;">Balance</td>
+    <td style="font-weight:bold;text-align:center;">
+        {{ student_fee_summary.total_pending_amount|floatformat }}
+    </td>
+</tr>
+
+
+<tr>
+    <td colspan="3">
+        <b>Rs. in words:</b> {{amount_in_words|title}} Only
+    </td>
+</tr>
+
+
+
+<tr>
+    <td colspan="3" style="font-weight:bold;">
+        <b>NOTE:</b><br>
+        1. First installment between <b>April to July</b>.<br>
+        2. Second installment in <b>October and November</b>.<br>
+        3. If parents fail to pay, <b>fine Rs.5/day</b> will be added.<br>
+        <b>4. Amount once paid will not be refunded.</b>
+
+        <p style="padding-left:84%; font-weight:bold; margin-top:5px;">ACCOUNTANT <span style="margin-left:10px;"></span> SIGNATURE</p>
+    </td>
+</tr>
+
+</tbody>
+
+            </table>
+
+        </div>
+
+        <div style="display:flex; justify-content:space-between; font-size:9px; margin-top:3px;">
+            <span>Receipt Generated : {{today}}</span>
+            <span>Powered By Edubricz</span>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 100px;"></div>
+
+
+
+    {% if not forloop.last and forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>

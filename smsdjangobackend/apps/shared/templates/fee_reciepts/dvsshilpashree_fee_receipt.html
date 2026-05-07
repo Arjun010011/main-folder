@@ -1,0 +1,146 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 30px 10px 0px 10px;
+        }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+        <div class='page'>
+            {%  if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top: 25px"></div>
+        <div style="text-align:right;margin-right:10px">Student Copy</div>
+    {% else %}
+<div style="text-align:right;margin-right:10px">Office Copy</div>
+    {% endif %}
+            <table style="width:100%">
+                <tr>
+                    <td colspan="2" style="padding: 8px;">
+                        <div style='display:flex;justify-content:center;padding-right:30px'>
+                            <div style='text-align:right;margin-right:30px;'>
+                                {% if institute.logo.file.url %}
+                                    <img src={{ institute.logo.file.url }}
+                                    style="width: 100px;height: 100px;padding-right:"/>
+                                {% endif %}
+                            </div>
+                            <div style='text-align:center'>
+                                <div style="font-size: 22px;font-weight: bold;">
+                                    {{ institute.name }} </br>
+                                </div>
+                                {% if institute.trust_name %}
+                                    <span style='font-size: 13px'>{{ institute.trust_name }}</span>
+                                {% endif %}
+                                <div style="line-height: 25px;font-size:14px">
+                                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                                    {% if institute.tel_num %}Ph: {{ institute.tel_num }}
+                                    {% if institute.tel_num_2 %}
+                                    , {{ institute.tel_num_2 }} {% endif %}<br/>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <tr>
+                    <td class='noborder bold line-height' style='width:60%;vertical-align:top'> Student Name : 
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        <br/>
+                        Class / Section :
+                        {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}
+                    </td>
+                    <td class='bold line-height'>
+                        Date:  {{fee_collection.transaction_date}} <br/>
+                        Rec No: {{fee_collection.payment_detail.0.receipt_num|title}} <br/>
+                        Admission Number : {{admission_num|title}}
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Particulars</th>
+                    <th>Yearly</th>
+                    <th>Paid Amt</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for fee in fee_collection.payment_detail %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{fee.fee_type_name}}</td>
+                        <td>{{fee.amount_payable|floatformat|intcomma}}</td>
+                        <td>{{fee.amount_paid|floatformat|intcomma}}</td>
+                        <td>{{fee.pending_amount_till_date|floatformat|intcomma}}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan='5' style='font-weight:bold;line-height:1.5'>
+                        TOTAL PAID AMOUNT : {{ fee_collection.total_amount | floatformat |intcomma}}/-  ( {{amount_in_words|title}} ) <br/>
+                        Mode Of Payment : {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %} <br/>
+                        Remarks:{{fee_collection.payment_note}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding-top:50px;vertical-align:bottom;border-right:0px' colspan='4'>
+                    </td>
+                    <td style='vertical-align:bottom;border-left:0px' colspan='3'>
+                         SIGNATURE
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="display:flex">
+                <div align="left">Receipt Generated at : {{ today }}</div>
+                <div style='margin-left:auto'>Powered By Edubricz</div>
+            </div>
+            {% if not forloop.last and forloop.counter|divisibleby:"2"%}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</body>

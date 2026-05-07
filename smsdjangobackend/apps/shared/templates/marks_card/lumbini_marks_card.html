@@ -1,0 +1,239 @@
+<html>
+    <head>
+        <style>
+            @page{
+                size:A5;
+            }
+            .text-align-center{
+                text-align: center
+            }
+            table{
+                border-radius: 10px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 15px;
+            }
+            th {
+                text-align: center;
+            }
+            td{
+                padding:5px;
+                text-align: left;
+            }
+            .td-font-size>td{
+                font-size: 13px;
+            }
+            .font-weight-bold{
+                font-weight: bold;
+            }
+            .subject-list>tbody>tr>td{
+                text-align: center
+            }
+            .noborder > table tr td{
+                border: 0px solid black;
+                font-size: large;
+                padding:6px;
+            }
+            .box {
+                width: 100px;
+                height: 100px;
+                border: 1.5px solid black;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        {% for student in data.student_list %}
+        <div>
+            <div class="noborder">
+            <table width="100%" style="border:0px solid black;padding:0px;margin-top:-15px;">
+                <tr>
+                    <td width="15%" style="text-align: right; vertical-align: top;">
+                        {% if institute_data.document_details.file %}
+                            <img src="{{ institute_data.document_details.file }}" style="width: 80px; height: 80px;" />
+                        {% endif %}
+                    </td>
+                
+                    <td style="text-align: center; vertical-align: top; width: 70%;">
+                        <div style="font-weight: bold;">
+                            <div style="font-size:15px;text-align: center;">{% if institute_data.trust_name %}
+                                <span>{{ institute_data.trust_name }}</span>
+                                {% endif %}</div>
+                            <div style="font-size:25px;font-weight: bold;text-align:left;padding-left: 10px;">{{institute_data.name|upper}}</div>
+                            <div style="font-size:15px;text-align: center;">Affiliated to CBSE, Affiliation No:831557</div>
+                            <div style="font-size:14px;text-align: center;">#52/1 & 7,Anjaneya Temple Road,Kattigenahalli, Yelahanka, Bengaluru - 560064</div>
+                        </div>
+                    </td>
+                
+                    <td width="20%" style="text-align: right; vertical-align: top; position: relative;">
+                        {% if student.profile_pic_file %}
+                            <img src="{{ student.profile_pic_file }}" style="width: 98px; height: 98px; border-radius: 8px;" />
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+                </div>
+                <div class="noborder">
+                <table width="100%" style="margin-top:-10px;border:0px solid black;font-weight: bold;">
+                    <tr>
+                        <td width="60%" >
+                            STUDENT NAME : {{student.student_name|upper}}
+                        </td>
+                        <td>
+                            CLASS & SEC : {{data.standard_name}} - {{data.section_name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            FATHER NAME : {{student.father_name}}
+                        </td>
+                        <td>
+                            {%if student.marked_attendance_days %} ATTENDANCE : {{student.marked_attendance_days|floatformat:0}} / 
+                            {%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %} {%endif%}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            <div class='text-align-center font-weight-bold' style="font-size:21px;margin-top: 8px;">
+                {{data.exam_details|upper}}-({{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"Y"}})<br/>
+            </div>
+                <table class='subject-list' style='width: 100%;border-radius: 10px;margin-top: 8px;'>
+                    <tr style='font-weight: bold;' class='td-font-size'>
+                        <th width=30% style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;text-align: left;padding-left:20px;">
+                            SUBJECTS
+                        </th>
+                        {%for cumulative_type in student.cumulative_id_type_mapping%}
+                            <td width=20% style="padding-top:10px;padding-bottom:0px;">{{cumulative_type.col_name|upper}}</td>
+                            {%if forloop.last %}
+                            <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                                WRITTEN
+                            </th>
+                            {%endif%}
+                        {%endfor%}
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                            TOTAL
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;"> 
+                            GRADE
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;">
+                            PERCENTAGE
+                        </th>
+                    </tr>
+                    <tr style='font-weight: bold' class='td-font-size'>
+                        <td style="border:0px solid black;padding:0px;">
+                        </td>
+                        {%for cumulative_type in student.subject_list_data.0.cumulative_mark_data_for_marks_card%}
+                        <td style='text-align:center;padding:2px;'>{{cumulative_type.max_mark|floatformat:0}}</td>
+                        {%if forloop.last %}
+                        <td style="border-top:0px solid black;padding:2px;">
+                            {% for subject_data in student.subject_list_data %}
+                            {%if forloop.counter == 1 %}
+                            {{subject_data.max_marks|floatformat:0}}
+                            {%endif%}
+                            {%endfor%}
+                        </td>
+                        {%endif%}
+                        {%endfor%}
+                        <td style="border-top:0px solid black;padding:2px;">
+                            {% for subject_data in student.subject_list_data %}
+                            {%if forloop.counter == 1 %}
+                            {{subject_data.total_max_marks|floatformat:0}}
+                            {%endif%}
+                            {%endfor%}
+                        </td>
+                        <td style="border-top:0px solid black;padding:0px;">
+                        </td>
+                        <td style="border-top:0px solid black;padding:0px;"></td>
+                    </tr>
+                    {% for subject_data in student.subject_list_data %}
+                        {%if subject_data.subject_part_type_code_name ==  'part1'%}
+                            <tr class='td-font-size'>
+                                <td style="text-align: left;padding-left: 12px;">{{subject_data.subject_name|upper}}</td>
+                                {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                                    <td style='text-align:center'>{{cumulative_type.mark|floatformat:0}}</td>
+                                    {%if forloop.last %}
+                                    <td> {%if subject_data.attendance_status == 'Absent' %}
+                                        AB
+                                    {% else %}
+                                        {{subject_data.marks|floatformat:0}}
+                                    {%endif%}
+                                    </td>
+                                    {%endif%}
+                                {%endfor%}
+                                <td style="font-weight: bold;">{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                                <td style="font-weight: bold;">{{subject_data.grade}}</td>
+                                <td>{{subject_data.percentage|floatformat:0}} <b>%</b></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    {% for subject_data in student.subject_list_data %}
+                    {%if subject_data.subject_part_type_code_name ==  'part2'%}
+                        <tr class='td-font-size'>
+                            <td style="text-align: left;padding-left: 12px;">{{subject_data.subject_name|upper}}</td>
+                            {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                                <td style='text-align:center'></td>
+                                {%if forloop.last %}
+                                <td></td>
+                                {%endif%}
+                            {%endfor%}
+                            <td> 
+                            </td>
+                            <td style="font-weight: bold;">{%if subject_data.grade %}{{subject_data.grade}}{%endif%}</td>
+                            <td></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                        <tr style='font-weight: bold' class='td-font-size'>
+                            <td style='font-size: 13px'>GRAND TOTAL</td>
+                            {%for cumulative_id_type_mapping_total in student.cumulative_id_type_mapping_total%}
+                                    <td style='text-align:center'> 
+                                        {{cumulative_id_type_mapping_total.total_obtained_mark|floatformat:0}}
+                                    </td>
+                                {%if forloop.last %}
+                                <td>{{student.part_type_data_code_wise.part1.total_written_obtained_marks|floatformat:0}}</td>
+                                {%endif%}
+                            {%endfor%}
+                            <td>{{student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0}}</td>
+                            <td>{{student.part_type_data_code_wise.part1.grade}}</td>
+                            <td>{{student.part_type_data_code_wise.part1.percentage|floatformat:0}} <b>%</b></td>
+                        </tr>
+                </table>
+                <table style='width:100%;margin-top:10px;border:0px'>
+                    <tr>
+                        <td style='border: 0px solid black;font-weight: bold'>
+                            {%if student.remark_name %} REMARKS :  {{student.remark_name}} {%endif%}
+                        </td>
+                    </tr>
+                </table>
+                <div class="noborder" style="margin-top:40px;">
+                    <table width=100% style="border:0px solid black">
+                        <tr>
+                            <td>
+                                Signature of the <br> class Teacher
+                            </td>
+                            <td style="text-align: center;position:relative">
+                                <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/lumbini/lumbini_sign_principal.jpeg" 
+                                style="width:150px;height: 50px;position:absolute;top:-50px;left:70px"/>
+                                Signature of the <br> Principal
+                            </td>
+                            <td style="text-align: right;">
+                                Signature of the <br> Parent/Guadian
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+    {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {%else%}
+    <div style="margin-bottom:60px;"></div>
+    {% endif %}
+    {%endfor%}
+    </body>
+
+</html>

@@ -1,0 +1,145 @@
+<html>
+{% load humanize %}
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 12mm;
+        }
+
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 9pt;
+            margin: 0;
+            padding: 0;
+        }
+
+        .school-header {
+            text-align: center;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #1F4E79;
+            padding-bottom: 8px;
+        }
+
+        .school-name {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1F4E79;
+            margin: 0;
+        }
+
+        .trust-name {
+            font-size: 10pt;
+            font-style: italic;
+            color: #555;
+            margin: 2px 0;
+        }
+
+        h2 {
+            color: #1F4E79;
+            font-size: 13pt;
+            text-align: center;
+            margin: 8px 0 4px 0;
+        }
+
+        h4 {
+            color: #4472C4;
+            font-size: 9pt;
+            text-align: center;
+            margin: 0 0 10px 0;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+
+        th {
+            background: #1F4E79;
+            color: white;
+            padding: 5px 6px;
+            text-align: left;
+            font-size: 8pt;
+        }
+
+        th.amount {
+            text-align: right;
+        }
+
+        td {
+            padding: 3px 6px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 8pt;
+        }
+
+        td.amount {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .total-row td {
+            border-top: 2px solid #1F4E79;
+            font-weight: bold;
+            font-size: 9pt;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="school-header">
+        <p class="school-name">{{ institute.name }}</p>
+        {% if institute.trust_name %}<p class="trust-name">{{ institute.trust_name }}</p>{% endif %}
+    </div>
+
+    <h2>Fixed Asset Register</h2>
+    {% if financial_year_name %}<h4>Financial Year: {{ financial_year_name }}</h4>{% endif %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>Code</th>
+                <th>Asset Name</th>
+                <th>Group</th>
+                <th>Purchase Date</th>
+                <th class="amount">Original Cost (₹)</th>
+                <th class="amount">Opening Value (₹)</th>
+                <th class="amount">Additions (₹)</th>
+                <th class="amount">Depreciation (₹)</th>
+                <th class="amount">Closing Value (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in register %}
+            <tr>
+                <td>{{ item.asset_code }}</td>
+                <td>{{ item.asset_name }}</td>
+                <td>{{ item.asset_group_name }}</td>
+                <td>{{ item.purchase_date }}</td>
+                <td class="amount">{{ item.original_cost|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ item.opening_value|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ item.additions|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ item.depreciation|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ item.closing_value|floatformat:2|intcomma }}</td>
+            </tr>
+            {% endfor %}
+            {% if totals %}
+            <tr class="total-row">
+                <td colspan="4">GRAND TOTAL</td>
+                <td class="amount">{{ totals.original_cost|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.opening_value|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.additions|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.depreciation|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.closing_value|floatformat:2|intcomma }}</td>
+                <td></td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+
+</html>

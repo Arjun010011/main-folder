@@ -1,0 +1,167 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Certificate</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    @page {
+      size: A4;
+      margin: 22px;
+      border: 2px solid black;
+    }
+
+    body {
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 140px;
+      height: 170px;
+      /* object-fit: cover; */
+      left:0px;
+      margin-left: 10px;
+    }
+
+    .schoolname {
+      font-size: 21px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .schooladd {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .org-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+
+    .photo-box {
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 10px auto 30px auto;
+    }
+
+    .content {
+      text-align: justify;
+      line-height: 70px;
+      font-size: 21px;
+      padding: 0 50px;
+    }
+
+    .placeholder {
+      border-bottom: 1px dotted #000;
+      display: inline-block;
+      min-width: 150px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .signature {
+      margin-top: 60px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .principal {
+      text-align: right;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="padding-top: 20px;">
+    <div class="logo">
+      {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" alt="School Logo">
+      {% endif %}
+    </div>
+
+    <div style="line-height: 25px;padding-left: -50px;margin-left: -50px;">
+      <div class="org-name">Smt Gowramma Educational Trust(R)</div>
+      <div class="schoolname">ಶ್ರೀ ಶಾರದ ವಿದ್ಯಾನಿಕೇತನ ಆಂಗ್ಲ ಪ್ರೌಢಶಾಲೆ</div>
+      <div class="schoolname" style="margin-left: 20px;padding-left: 20px;">SRI SHARADA VIDYANIKETANA ENGLISH HIGH SCHOOL</div>
+      <div class="schooladd">
+        (Recognised by Govt. Of Karnataka)<br/>
+        Nagawara - Thanisandra, Bangalore – 560 077<br/>
+        Phone No : 2544 6756 / 2543 2911 <br/>
+      </div>
+    </div>
+
+    <div style="width: 20px; height: 120px;"></div> 
+  </div>
+
+  <div class="title">STUDY CERTIFICATE</div>
+  <br>
+  <br>
+  <div class="content">
+    This is to certify that
+    {% if student_he_she == "he" %}
+      Mast. <span class="placeholder">{{ student_full_name|title }}</span>, Son of Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% else %}
+      Miss. <span class="placeholder">{{ student_full_name|title }}</span>, Daughter of Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% endif %}
+     studied from <span class="placeholder">{{ from_standard_name }}</span> to  <span class="placeholder">{{ to_standard_name }}</span> in our  Institution from Academic Year
+    <span class="placeholder">{{ from_academic_year }}</span> to <span class="placeholder">{{ to_academic_year }}</span>
+
+    {% if student_he_she == "he" %}
+      His mother tongue is <span class="placeholder">{{ mother_tongue }}</span> as per school records.
+    {% else %}
+      Her mother tongue is <span class="placeholder">{{ mother_tongue }}</span> as per school records.
+    {% endif %}
+
+  {% if student_he_she == "he" %}
+  His character and conduct were satisfactory during his stay in the college. 
+{% else %}
+  Her character and conduct were satisfactory during her stay in the college. 
+{% endif %}
+
+
+
+  </div>
+
+  <br><br><br>
+  <br><br>
+  <div style="padding-left: 40px; font-size: 21px; ">Place: <span class="placeholder"> {{place}} </span></div>
+  <div style="padding-left: 40px; font-size: 21px; ">Date: <span class="placeholder">{{ today_date }}</span></div>
+
+  <div style="display: flex; justify-content: space-between; font-size: 21px; padding: 0 50px;padding-top: -50px;margin-top: -50px;">
+    <!-- <div style="color:white">Date: <span>{{ today_date }}</span></div> -->
+
+<div>&nbsp;</div>
+    <div style="text-align: right;">Seal & Signature of the Head Master/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       Head Mistress</div>
+  </div>
+
+</body>
+</html>

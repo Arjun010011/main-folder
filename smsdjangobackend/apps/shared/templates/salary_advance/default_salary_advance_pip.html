@@ -1,0 +1,136 @@
+<html>
+{% load humanize %}
+
+<head>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 10pt;
+            margin: 0;
+            padding: 0;
+        }
+
+        .school-header {
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1F4E79;
+            padding-bottom: 10px;
+        }
+
+        .school-name {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1F4E79;
+            margin: 0;
+        }
+
+        .trust-name {
+            font-size: 10pt;
+            font-style: italic;
+            color: #555;
+            margin: 2px 0;
+        }
+
+        h2 {
+            color: #1F4E79;
+            font-size: 14pt;
+            text-align: center;
+            margin: 10px 0 5px 0;
+        }
+
+        h4 {
+            color: #4472C4;
+            font-size: 10pt;
+            text-align: center;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+
+        th {
+            background: #1F4E79;
+            color: white;
+            padding: 6px 8px;
+            text-align: left;
+            font-size: 10pt;
+        }
+
+        th.amount {
+            text-align: right;
+        }
+
+        td {
+            padding: 4px 8px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 9pt;
+        }
+
+        td.amount {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .total-row td {
+            border-top: 2px solid #1F4E79;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="school-header">
+        <p class="school-name">{{ institute.name }}</p>
+        {% if institute.trust_name %}<p class="trust-name">{{ institute.trust_name }}</p>{% endif %}
+    </div>
+
+    <h2>Principal / Interest / Penalty Report</h2>
+    <h4>Period: {{ from_date }} to {{ to_date }}</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Staff Name</th>
+                <th>Advance Name</th>
+                <th class="amount">Principal Recovered (₹)</th>
+                <th class="amount">Interest Charged (₹)</th>
+                <th class="amount">Penalty Charged (₹)</th>
+                <th class="amount">Adjustments (₹)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.staff_name }}</td>
+                <td>{{ row.name }}</td>
+                <td class="amount">{{ row.principal_recovered|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ row.interest_charged|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ row.penalty_charged|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ row.adjustments|floatformat:2|intcomma }}</td>
+            </tr>
+            {% endfor %}
+            {% if totals %}
+            <tr class="total-row">
+                <td colspan="2">TOTAL</td>
+                <td class="amount">{{ totals.principal_recovered|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.interest_charged|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.penalty_charged|floatformat:2|intcomma }}</td>
+                <td class="amount">{{ totals.adjustments|floatformat:2|intcomma }}</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+
+</html>

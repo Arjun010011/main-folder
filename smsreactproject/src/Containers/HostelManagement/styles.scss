@@ -1,0 +1,400 @@
+.create-hostel-building-address-label {
+    font-size: 16px;
+    line-height: 24px;
+    color: #757575;
+    width: 125px;
+}
+
+.width-90-per-mt-1 {
+    width: 320px !important;
+    margin-top: 1rem !important;
+}
+
+.hostel-floor-padding {
+    padding: 12px !important;
+}
+
+.hostel-add-building-add-button {
+    align-self: center;
+    text-align-last: center;
+    margin-top: 15px !important;
+}
+
+.hostel-add-building-add-button-icon {
+    height: 35px !important;
+    width: 35px !important;
+    color: blue;
+    cursor: pointer;
+}
+
+.hostel-building-image-preview-outer-box {
+    position: relative;
+    margin: 15px 0px;
+    cursor: pointer;
+}
+
+.hostel-building-image-preview-outer-box:hover {
+    .hostel-building-delete-image-input {
+        display: flex;
+    }
+}
+
+.hostel-building-delete-image-input {
+    // display: none;
+    color: red;
+    font-size: 20px;
+    position: absolute;
+    cursor: pointer;
+    top: -3px;
+    right: -18px;
+}
+
+.room-strength-asset-label {
+    align-self: center;
+    font-size: 20px;
+    padding-left: 25px !important;
+    color: blue;
+    padding-top: 20px !important;
+}
+
+.room-preview-outer-box {
+    position: relative;
+    margin: 22px 24px;
+    display: flex;
+    align-items: center;
+}
+
+.room-view-uploaded-image {
+    width: 40px;
+    height: 40px;
+    border: 1px solid black;
+    margin-left: 18px;
+}
+
+.room-preview-outer-box:hover {
+    .room-view-image-preview-icon {
+        display: flex;
+    }
+}
+
+.room-view-image-preview-icon {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 26px;
+    right: 0;
+    bottom: 0;
+    width: 63%;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-tap-highlight-color: transparent;
+    color: white;
+    cursor: pointer;
+}
+
+
+.student-staff-toggle-outer-div {
+    border: 1px solid #4B74FF;
+    box-sizing: border-box;
+    border-radius: 50px !important;
+    width: 371px;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.asset-name-width {
+    width: 100% !important;
+}
+
+.room-strength-asset {
+    border: 1px solid #c3c3c3;
+    padding: 0px 5px;
+    background-color: white;
+
+    .dropdown-container {
+        height: 40px;
+        background-color: transparent;
+    }
+
+    .dropdown-container {
+        .dropdown-heading {
+            height: -webkit-fill-available;
+        }
+
+        .dropdown-heading {
+            .dropdown-heading-value {
+                font-size: 15px;
+            }
+        }
+
+        .dropdown-content {
+            z-index: 2000 !important;
+            background-color: white;
+            font-size: 16px;
+        }
+
+        input {
+            padding: 10px;
+            height: 40px;
+            font-size: 15px;
+        }
+
+        .select-item {
+            padding: 3px 10px !important;
+            background: #e2e6ea;
+        }
+    }
+}
+
+.room-strength-add-asset {
+    border: 1px solid #c3c3c3;
+    padding: 0px 5px;
+
+    .dropdown-container {
+        height: 58px;
+        background-color: transparent;
+    }
+
+    .dropdown-container {
+        .dropdown-heading {
+            height: -webkit-fill-available;
+        }
+
+        .dropdown-heading {
+            .dropdown-heading-value {
+                font-size: 18px;
+            }
+        }
+
+        .dropdown-content {
+            z-index: 2000 !important;
+            background-color: white;
+            font-size: 16px;
+            padding: 5px;
+        }
+    }
+}
+
+.sub-head-padding-20 {
+    font-size: 21px !important;
+    font-weight: 500 !important;
+}
+
+.head-decoration {
+    text-decoration: underline !important;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+}
+
+.check-in-out-text-area-auto-size-reason {
+    min-height: 100px !important;
+    width: 100% !important;
+}
+
+.create-expenses-comment {
+    font-size: 16px;
+    line-height: 24px;
+    color: #757575;
+    width: 100px;
+}
+
+.create-expenses-comment-auto-size {
+    min-height: 100px !important;
+    width: 99% !important;
+}
+
+.create-expenses-right-part-paper {
+    height: 97%;
+    max-height: 490px;
+}
+
+.create-expenses-upload-receipts-button {
+    text-transform: capitalize !important;
+    border: 1px solid !important;
+    padding: 4px 20px !important;
+    margin-left: 0px !important;
+    margin-top: 50px !important;
+}
+
+.create-expenses-image-list-box {
+    height: 100px;
+    overflow: auto;
+}
+
+.create-expenses-label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    width: 45%;
+    padding-left: 15px;
+}
+
+.create-expenses-value {
+    font-size: 16px;
+    line-height: 20px;
+    margin-right: 6px;
+    word-break: break-word;
+    padding-left: 15px;
+    width: 55%;
+}
+
+.create-expenses-total-label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 20px;
+    width: 45%;
+    padding-left: 15px;
+    color: #000000;
+}
+
+.create-expenses-total-value {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 14px;
+    width: 55%;
+    padding-left: 10px;
+    color: #000000;
+}
+
+.create-expenses-outer-box-label-value {
+    display: flex;
+    padding: 10px;
+    margin: 10px 0px;
+}
+
+.create-expenses-info-outer-box {
+    margin-top: 30px;
+}
+
+.create-expenses-image-view {
+    color: #4d4df7;
+}
+
+.create-expenses-image-view:hover {
+    cursor: pointer;
+}
+
+.create-expenses-image-delete {
+    color: #fb4f4f;
+}
+
+.create-expenses-image-delete:hover {
+    cursor: pointer;
+}
+
+.view-expenses-image-view {
+    color: #4d4df7;
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+.view-expenses-image-view:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.view-expenses-data-value {
+    margin-top: 5px;
+    font-size: 18px;
+    line-height: 23px;
+    display: flex;
+    align-items: flex-end;
+    color: #000000;
+    mix-blend-mode: normal;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.expense-individual-view-edit {
+    position: absolute;
+    top: 5px;
+    right: 10px
+}
+
+.expense-individual-paper-background {
+    position: relative;
+    padding: 15px;
+}
+
+.expense-individual-edit-icon {
+    font-size: 30px;
+    color: rgb(80, 135, 255);
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.table-select-hostel-thead {
+    position: sticky;
+    top: -10px;
+    margin: 0 0 0 0;
+}
+
+.hostel-student-paper {
+    height: 57vh;
+    overflow: auto;
+}
+
+.hostel-student-paper::-webkit-scrollbar {
+    width: 1px;
+}
+
+.hostel-student-paper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+}
+
+.hostel-student-paper::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid rgb(126, 87, 235);
+}
+
+.hostel-summary-label {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    width: 55%;
+    padding-left: 15px;
+}
+
+.hostel-summary-value {
+    font-size: 16px;
+    line-height: 20px;
+    margin-right: 6px;
+    word-break: break-word;
+    padding-left: 15px;
+    width: 45%;
+}
+
+.Current-hostel-students {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: green;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.Checkedout-hostel-students {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.Upcoming-hostel-students {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: yellow;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}

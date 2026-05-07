@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 18px;
+            margin-top:5px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px;position:relative;">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="text-align: center;">
+                        {% if institute.logo.file.url %}
+                        <img src={{institute.logo.file.url}}
+                        style="width: 200px;height:75px;" />{%endif%}
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold">
+                    {{ examDetail.exam_type.name | upper }},&nbsp;&nbsp;{{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                </div>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+                    <tr>
+                        <td style="width:17%">Name </td>
+                        <td style="width:35%">:&nbsp;&nbsp; {{student.student_data.full_name | title }}</td>
+                        <td style="width:17%">Class </td>
+                        <td style="width:42%">:&nbsp;&nbsp;{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>Register no</td><td>:&nbsp;&nbsp; {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}</td>
+                        <td>Timings</td><td>:&nbsp;&nbsp; {{start_time|time:'H:i A'}} - {{end_time|time:'H:i A'}}</td>
+                    </tr>
+        </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px">
+            <tr>
+                <th class="th-subject-view">DATE</th>
+                <th class="th-subject-view">DAY</th>
+                <th class="th-subject-view">SUBJECT</th>
+                <th class="th-subject-view">ROOM SUPERVISOR</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view">{{subject.fordate|date:'l'}}</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.subject_name | title}}</div></td>
+                    <td class="td-subject-view">
+   
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table style="position:absolute;bottom:10px;right:10px;">
+            <th style="text-align: right;">
+                <img src='https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/brilliant-gottigere/signature.jpeg' style="width: 190px;height: 60px;"/>
+            </th>
+        </table>
+        <table class="w-100" style="position:absolute;bottom:5px;right:10px;">
+            <tr>
+                <th style="text-align: right;">
+                    Principal Signature
+                </th>
+            </tr>
+        </table>
+    </div>
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

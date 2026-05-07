@@ -1,0 +1,125 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+      }
+      .schoolname {
+        font-size: 28px;
+        text-align: center;
+        font-weight: bold;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .schooladd {
+        font-size: 12px;
+        text-align: center;
+        font-weight: bold;
+      }
+      .date {
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        text-align: right;
+        font-size: 17px;
+      }
+      .content {
+        font-size: 17px;
+      }
+      .subject {
+        font-weight: bold;
+        font-size: 17px;
+        text-align: left;
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .border {
+        border: 1px solid black;
+      }
+      .danke {
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bold;
+        font-size: 17px;
+        text-align: left;
+      }
+      .sign {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 17px;
+        font-weight: bold;
+        text-align: left;
+      }
+      .dotted-line {
+        border-bottom: 1px dotted black; 
+        width: 30%;
+      }
+      .container {
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 17px;
+        line-height: 1.8;
+        text-align:justify;
+      }
+      .json-dotted {
+        border-bottom: 1px dotted black; flex-grow: 1; text-align: center;
+      }
+    </style>
+  </head>
+<body>
+    <div style="display: flex;">
+        <div class="logo">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo" style="width: 100px; height: 100px;">
+            {% endif %}
+        </div>
+        <div>
+            <div class="schoolname">
+                {{school_name}}
+            </div>
+            <div class="schooladd">
+                {{institute.address}}
+            </div>
+        </div>
+    </div>
+
+    <div class="date">
+        DATE: {{today}}
+    </div> <br><br>
+
+    <div class="content">
+        <div>
+            <div>
+                <div style="font-weight: bold;">TO,</div>
+                <div style="font-weight: bold;">The Head Master/Head Mistress,</div>
+                <div>
+                    <div style="width:40%;">{{address}}</div> <br>
+                    {% comment %} <div class="dotted-line"></div> <br>
+                    <div class="dotted-line"></div> <br> {% endcomment %}
+                </div> <br>
+
+                <div style="font-size:16px;">
+                    Respected Sir/ Madam,
+                </div>
+    
+                <div class="subject">Subject: Request for issue of School Transfer Certificate.</div> <br>
+    
+                <div class="container">
+                    With reference to the above subject, We request you to issue the school transfer certificate for this student.
+                    Mast/Kum. <span class="json-dotted">{{student_full_name}}</span> S/O / D/O, <span class="json-dotted">{{father_name}}</span>, who was studying in 
+                    <span class="json-dotted">{{standard_name}}</span> Std during the year <span class="json-dotted">{{to_academic_year}}</span>. Kindly issue the TC at the earliest for the further admission process that has to be completed.
+                </div> <br>
+    
+                <div class="danke">Thanking you,</div> <br><br><br>
+    
+                <div class="sign">Yours faithfully</div>
+            </div> 
+        </div>
+    </div>
+</body>
+</html>

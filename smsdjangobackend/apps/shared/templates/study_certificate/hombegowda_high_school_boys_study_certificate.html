@@ -1,0 +1,184 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Certificate</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    @page {
+      size: A4;
+      margin: 22px;
+      border: 2px solid black;
+    }
+
+    body {
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      left:70px;
+      margin-left: 50px;
+    }
+
+    .schoolname {
+      font-size: 23px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .schooladd {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .org-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+
+    .photo-box {
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 10px auto 30px auto;
+    }
+
+    .content {
+      text-align: justify;
+      line-height: 60px;
+      font-size: 21px;
+      padding: 0 50px;
+    }
+
+    .placeholder {
+      border-bottom: 1px ;
+      display: inline-block;
+      min-width: 150px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .signature {
+      margin-top: 60px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .principal {
+      text-align: right;
+      margin-top: 20px;
+    }
+    .photo-box {
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 10px 0 30px 50px; 
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="header" style="padding-top: 20px;">
+    <div class="logo">
+        <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/hombegouda/hombegoudakannadalogo.jpeg" alt="School Logo">
+    </div>
+
+    <div style="line-height: 25px;padding-left: -50px;margin-left: -50px;">
+      <div class="schoolname">HOMBEGOWDA BOYS HIGH SCHOOL</div>
+      <div class="schooladd">
+        (Recognised by Govt. Of Karnataka, Estd. 1993)<br/>
+        10th Cross, Hombegowda Nagar, Bangalore – 560 027<br/>
+        Phone No: 2222 0620<br/>
+        UDISE CODE; 29200906747
+      </div>
+    </div>
+
+    <div style="width: 20px; height: 120px;"></div> 
+  </div>
+
+  <div class="title">STUDY/CHARACTER CERTIFICATE</div>
+
+
+
+  <div class="content">
+    This is to certify that
+    {% if student_he_she == "he" %}
+      Chi. <span class="placeholder">{{ student_full_name|title }}</span>, S/O Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% else %}
+      Kum. <span class="placeholder">{{ student_full_name|title }}</span>, Daughter of Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% endif %}
+    was / is a student of our school vide Student(SATS) Id no : <span class='placeholder'>{% if stats %}{{ stats }}{% endif %}</span> studied / studying in 8th ,9th & 10th Standard during the year From
+    <span class="placeholder">{{ from_academic_year }}</span> To <span class="placeholder">{{ to_academic_year }}</span>.
+
+    {% if student_he_she == "he" %}
+      His Admission No. <span class="placeholder">{{ admission_num }}</span> & Date of Birth <span class="placeholder">{{ dob }}</span> and he belongs to 
+    {% else %}
+      Her Admission No. <span class="placeholder">{{ admission_num }}</span> & Date of Birth <span class="placeholder">{{ dob }}</span> and she belongs to
+    {% endif %}
+
+    {% if student_he_she == "he" %}
+        <span class="placeholder">{{ caste }}</span>.
+    {% else %}
+        <span class="placeholder">{{ caste }}</span>.
+    {% endif %}
+
+    {% if student_he_she == "he" %}
+      His character and conduct were/are satisfactory during his stay in the School. 
+    {% else %}
+      Her character and conduct were/are satisfactory during her stay in the School. 
+    {% endif %}
+  </div>
+
+  <br><br><br>
+  
+  <div style="display: flex; justify-content: space-between; padding: 0 50px; margin-top: 40px;">
+
+  <!-- Left: Photo -->
+  {% if profile_pic_details %}
+    <div class="photo-box">
+      <img src="{{ profile_pic_details }}" alt="Student Photo" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+  {% else %}
+    <div class="photo-box" style="display: flex; align-items: center; justify-content: center; font-size: 12px;">
+    </div>
+  {% endif %}
+
+  <!-- Right: Head Master -->
+  <div style="font-size: 21px; font-weight: bold; align-self: flex-end; text-align: right;">
+    HEAD MASTER
+  </div>
+
+</div>
+
+
+</body>
+</html>

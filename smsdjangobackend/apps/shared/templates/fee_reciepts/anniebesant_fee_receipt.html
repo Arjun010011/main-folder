@@ -1,0 +1,107 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+<body style="margin-right:15px;margin-left:15px;">
+    {% for count in number_of_copies %}
+    <table style="width:100%;color:#000080">
+        <tr>
+            <td colspan="2" style="padding: 5px;">
+                <div style='display:flex;justify-content:center;padding-right:30px;text-align:center'>
+                    <div style="font-size: 28px;font-weight: bold;">
+                        {{ institute.name }} </br>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style='display:flex;justify-content:center;padding-right:30px;text-align:center'>
+                    {% if institute.trust_name %}
+                    <span style='font-size: 17px'>{{ institute.trust_name }}</span>
+                    {% endif %}
+                    <div style="line-height: 25px;font-size:17px">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+                    {% if institute.tel_num %} 
+                    {% if institute.tel_num_2 %}
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;font-size: 18px;">
+        <thead>
+        <tr>
+            <th>Receipt ID</th>
+            <th>Date</th>
+            <th>Student Details</th>
+            <th>Fee Details</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{fee_collection.receipt_num|title}}</td>
+            <td>{{fee_collection.transaction_date}}</td>
+            <td> {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}</br>
+                {{admission_num|title}}</br>
+                {{fee_collection.standard_name}}-{{fee_collection.enrollment_data.section_name}}</br></br>
+                Mob - {% if fee_collection.parent_details.mobile_num %}{{fee_collection.parent_details.mobile_num}}
+                {% elif  fee_collection.student_detail.mobile_num %}{{fee_collection.student_detail.mobile_num}}{% endif %}</td>
+            <td>{% for fee in fee_collection.payment_detail %}
+                {{fee.fee_type_name}}-{{fee.amount_paid|floatformat|intcomma }}<br/>
+                {% endfor %}
+            </td>
+            <td>{{ fee_collection.total_amount | floatformat |intcomma}}</td>
+        </tr>
+        </tbody>
+    </table>
+</br>
+    {% if not forloop.last %}
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

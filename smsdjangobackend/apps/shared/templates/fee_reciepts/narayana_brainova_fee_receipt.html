@@ -1,0 +1,138 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+<body style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
+    {% for count in number_of_copies %}
+        <div style='display:flex;justify-content:center;padding-right:30px;width:100%;font-weight:bold;margin-top: 20px;'>
+            <div style='text-align:right;padding: 10px;'>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 150px;height: 150px;"/>
+                {% endif %}
+            </div>
+            <div>
+            <div style="text-align: right;padding:3px;font-size: 15px;">EXCELLENCE IS OUR ATTITUDE</div>
+                <div style="font-size: 26px;font-weight: bold;text-align:center">
+                    {{ institute.name|upper }} </br>
+                </div>
+                <div style="text-align: right;font-size: 15px;">UNDER THE MANAGEMENT OF THE BRAINOVA GROUP</div>
+                <div style="line-height: 25px;font-size:15px;text-align: center;">
+                    {{ institute.address|upper }}{% if institute.city %}, {{ institute.city|upper }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode|upper }}{% endif %} </br>
+                    <div style="font-size: 13px;">
+                    {% if institute.tel_num %}Ph: {{ institute.tel_num|upper }},
+                    {% if institute.tel_num_2 %}
+                    , {{ institute.tel_num_2|upper }},{% endif %}E-Mail:brainovagroup@gmail.com<br/>{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    <table class='noborder' style="width:100%;font-weight: bold;font-size: 23px;">
+        <tr>
+            <td class= 'noborder' style="text-align: right;">Fee Receipt</td>
+            <td class= 'noborder' style="text-align: right;">{% if fee_collection.academic_year %}
+            {{fee_collection.academic_year.start_date.year}} -
+            {{fee_collection.academic_year.end_date.year}}
+            {% endif %}</td>
+            </tr>
+    </table>
+    <table style="width: 100%;margin-top: 4px;font-size: 17px;">
+        <tr>
+            <td class='noborder bold line-height' style='width:25%;vertical-align:top'> 
+                Invoice No<br/>
+                Father's Name<br/>
+                Name<br/>
+                Class
+            <td class='noborder bold line-height' style='vertical-align:top'> 
+                    : {{fee_collection.receipt_num|title}} <br/>
+                    : {{student_fee_summary.student.student_parent.parent.father_name|upper}} <br/>
+                    : 
+                    {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name|upper}}{% endif %}
+                    {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name|upper}}{% endif %}
+                    {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name|upper }}{% endif %}<br/>
+                    : {{fee_collection.standard_name|upper}}
+                <td class='noborder bold' style='text-align:right;vertical-align: top;'>
+                Date  :&nbsp;&nbsp;{{fee_collection.transaction_date}} <br/>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;min-height:210px;margin-top: 4px;font-weight: bold;font-size: 17px;">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='60%' style="text-align:center">Particulars</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td>{% for fee in fee_collection.payment_detail %}
+                {{forloop.counter}}</br>{% endfor %}
+            </td>
+            <td>{% for fee in fee_collection.payment_detail %}{{fee.fee_type_name}}</br>{% endfor %}</td>
+            <td style='text-align:right'>{% for fee in fee_collection.payment_detail %}
+                {{fee.amount_paid|floatformat|intcomma }}</br>{% endfor %}</td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="2" style='text-align:right'>TOTAL </td>
+             <td style='text-align:right'> ₹ {{ fee_collection.total_amount | floatformat |intcomma}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width:100%;margin-top:4px;" colspan="3">
+    <tr>
+        <td>
+        <b>Inwords : </b>&nbsp;&nbsp;{{amount_in_words_rupees_first|title}} Only.<br/>
+    </td>
+    <tr>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+    <td class="noborder"></td>
+    <td style="text-align:right;font-size:20px;" class="noborder"><b>Cashier Signature</b></td>
+    </table>
+    {% if not forloop.last %}
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

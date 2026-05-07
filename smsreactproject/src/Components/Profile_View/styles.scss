@@ -1,0 +1,285 @@
+
+
+
+.CardPaper {
+    background-color: #FFFFFF!important;
+    border-radius: 4px!important;
+    position: relative!important;
+    display: flex!important;
+}
+
+.profileBackground {
+    width: 100%!important;
+    height: 200px!important;
+}
+
+.profilePic {
+    position: absolute!important;
+    padding-top: 28%!important;
+    width: 32%!important;
+    left: 34%!important;
+}
+
+.profileName {
+    font-family: Heebo!important;
+    font-weight: bold!important;
+    font-size: 26px!important;
+    line-height: 26px!important;
+    text-align: center!important;
+    letter-spacing: -0.2px!important;
+    color: #1C1C1C!important;
+    margin-top: 30px!important;
+    padding: 0px 10px!important;
+    text-transform: capitalize;
+}
+
+.standard {
+    font-family: Heebo!important;
+    font-size: 18px!important;
+    line-height: 18px!important;
+    text-align: center!important;
+    letter-spacing: -0.1px!important;
+    color: #969696!important;
+    margin-top: 6px!important;
+}
+
+.selectedLabel {
+    font-weight: bold!important;
+    font-size: 17px!important;
+    text-align: center!important;
+    color: #FFFFFF!important;
+    display: flex!important;
+    justify-content: flex-start!important;
+
+}
+
+.Label {
+    font-weight: bold!important;
+    font-size: 17px!important;
+    text-align: center!important;
+    color: #8BC7E0!important;
+    display: flex!important;
+    justify-content: flex-start!important;
+
+}
+
+.selectedValue {
+    font-size: 14px!important;
+    text-align: center!important;
+    color: #FFFFFF!important;
+    margin-left: 17px!important;
+    display: flex!important;
+    justify-content: flex-start!important;
+    text-transform: capitalize!important;
+    padding-top: 4px!important;
+}
+
+.Value {
+    font-size: 14px!important;
+    text-align: center!important;
+    color: #000000!important;
+    margin-left: 10px!important;
+    display: flex!important;
+    justify-content: flex-start!important;
+    opacity: 0.5!important;
+    text-transform: capitalize!important;
+    padding-top: 4px!important;
+}
+
+.actions {
+    cursor: pointer!important;
+}
+
+.actions :hover {
+    background: #FFFFFF!important;
+    box-shadow: 30px!important;
+}
+
+.selectedheading {
+    cursor: pointer!important;
+    background: linear-gradient(268.64deg, #1888D6 #{-3.23%}, #1782D3 101.43%)!important;
+    box-shadow: 4px 8px 8px rgba(26, 26, 26, 0.3)!important;
+    border-radius: 10px!important;
+    background-color: #1888D6!important;
+    margin-bottom: 10px!important;
+    padding-top: 10px!important;
+    color: white!important;
+    margin-right: 40px!important;
+    margin-left: 40px!important;
+    padding-top: 12px!important;
+    padding-bottom: 12px!important;
+    padding-left: 30px!important;
+    
+}
+
+.profile-heading {
+    cursor: pointer!important;
+    border-radius: 30px!important;
+    margin-bottom: 10px!important;
+    padding-top: 10px!important;
+    margin-right: 10px!important;
+    margin-left: 60px!important;
+}
+
+.editDetails {
+    font-weight: 500!important;
+    font-size: 10px!important;
+    height: 27px!important;
+    line-height: 14px!important;
+    color: #FFFFFF!important;
+    text-transform: none!important;
+    border-radius: 20px!important;
+    background-color: #1782D3!important;
+    margin-left: auto!important;
+    padding-left: 6px!important;
+    padding-right: 8px!important;
+    margin-right: 10px!important;
+}
+
+.editDetails:hover{
+    background-color: #0043a3!important;
+}
+
+.edit {
+    width: 100%!important;
+    padding-right: 8px!important;
+    padding-top: 15px!important;
+}
+
+.message {
+    font-size: 30px!important;
+}
+
+.download {
+    font-size: 28px!important;
+}
+
+.messageCircle {
+    border-radius: 50%!important;
+    background-color: rgb(255, 255, 255)!important;
+    margin-top: 36%!important;
+    margin-left: 8%!important;
+    width: 50px!important;
+    padding-left: 10px!important;
+    padding-top: 10px!important;
+}
+
+.downloadCircle {
+    width: 48px!important;
+    margin-top: 36%!important;
+    margin-left: 76%!important;
+    padding-top: 11px!important;
+    padding-left: 10px!important;
+    border-radius: 50%!important;
+    background-color: #1888D6!important;
+    color: white!important;
+}
+
+.studentcard {
+    width: 325px!important;
+    padding-bottom: 15px!important;
+}
+
+
+.listContent {
+    text-align: left;
+    color: #646c9a;
+}
+
+.listName {
+    font-weight: bold;
+    padding-bottom: 20px;
+    padding-left: 40px;
+    padding-top: 20px;
+    background: linear-gradient(266.53deg, #4680FF -3.23%, #1782D3 101.43%);
+    box-shadow: 4px 8px 8px rgba(26, 26, 26, 0.3);
+    border-radius: 6px 6px 0px 0px;
+    font-size: 20px;
+    line-height: 23px;
+    color: #FFFFFF;
+}
+
+.labelName {
+    display: flex;
+    padding-top: 10px;
+}
+
+.schoolLabel {
+    font-size: 18px;
+    line-height: 15px;
+    display: flex;
+    align-items: flex-end;
+    color: #444444;
+    opacity: 0.6;
+}
+
+.profile-sub-headings {
+    font-size: 16px;
+    line-height: 23px;
+    letter-spacing: -0.19px;
+    display: flex;
+    align-items: flex-end;
+    color: #FFFFFF;
+    background: linear-gradient(269.17deg, #4680FF -3.23%, #1782D3 101.43%);
+    box-shadow:4px 8px 8px rgba(26, 26, 26, 0.3);
+    border-radius: 0px 0px 10px 10px;
+    width: fit-content;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    margin-right: 5%;
+}
+
+.dataLabel {
+    font-size: 18px;
+    line-height: 25px;
+    display: flex;
+    align-items: flex-end;
+    color: #444444;
+    opacity: 0.9;
+    padding-bottom: 5px;
+    margin-top: 12px;
+}
+
+.dataValue {
+    font-size: 18px;
+    line-height: 18px;
+    display: flex;
+    align-items: flex-end;
+    color: #000000;
+    mix-blend-mode: normal; 
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.profileDetail {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.DataLabel {
+    padding:15px;
+}
+
+.profile-dataPaper {
+    background: #FFFFFF;
+    border: 1.5px solid #E4E8EA;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-top: 40px;
+    margin-bottom:70px;
+}
+
+.profile-card-sticky{
+    position: sticky; 
+     top: 70px;
+}
+
+@media only screen and (max-width: 980px) {
+    .profile-card-position{
+        text-align:-webkit-center;
+    }
+}

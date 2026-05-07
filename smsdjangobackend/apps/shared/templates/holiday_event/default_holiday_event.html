@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday/Event Details</title>
+</head>
+<body>
+    <table style="width:100%;" >
+        <tr>
+            <td>
+                <div style='display:flex;place-content:center;justify-content: center;'>
+                    {% if institute.logo %}
+                            <img src={{ institute.logo.file.url }}
+                            style="width: 100px;height: 100px;text-align: left;"/>
+                    {% endif %}
+                    <div style='text-align:center;padding-top:10px;margin-left: 20px;margin-right: 20px'>
+                        {% if institute.trust_name %}
+                        <span>{{ institute.trust_name }}</span>
+                        {% endif %}
+                        <div style="font-size: 25px;font-weight: bold;">
+                            {{ institute.name|upper }} </br>
+                        </div>
+                        <div style="line-height: 20px;">
+                            {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                            {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                            {% if institute.tel_num %}Phone no: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                            {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                            {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <h3 style="text-align:center">
+        Holiday/Event Information
+        <div>
+            {{academic_year_start_date}} - {{academic_year_end_date}}
+        </div>
+
+    </h3>
+    <table border="1" cellpadding="10" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>From Date</th>
+                <th>To Date</th>
+                <th>Reason</th>
+                <th>Calendar Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data_list %}
+                <tr>
+                    <td>{{ item.from_date }}</td>
+                    <td>{{ item.to_date }}</td>
+                    <td>{{ item.reason }}</td>
+                    <td>
+                        {% if item.calender_type == 'holiday' %}
+                            Holiday
+                        {% elif item.calender_type == 'event' %}
+                            Event
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chordial School</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla Slab">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anek Bangla:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=inter tight:900">
+</head>
+<style>
+  @page {
+    size: 85mm 54mm;
+    margin:0px;
+    width: 100%;
+    height:100%;
+    border:none;
+  }
+  body{
+    margin:0px;
+    color:#0A0A0A
+  }
+  .box {
+    width: 78px;
+    height: 45px;
+    border: 1px solid black;
+    border-radius:13px;
+    padding-top: 50px;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");  
+  }
+  .box1 {
+    width: 70px;
+    height: 35px;
+    border: 1.3px solid black;
+    padding-top: 50px;
+  }
+  hr{
+    width:120px;
+    color: black;
+  }
+  .user-name {
+    /* Set a default font size */
+            font-size: 17px;
+            margin-bottom: 0px;
+            font-family: Alegreya; 
+            color:#580303;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing:0.6px;
+            margin-top:7.5px;
+}
+.user-name-small {
+            font-size: 12px; /* Smaller font size for long names */
+            margin-bottom: 0px;
+            font-family: Alegreya; 
+            color:#580303;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing:0.6px;
+            margin-top:7.5px;
+            padding-left: 10px;
+        }
+</style>
+{%for staff in data %}
+<body>
+    <div style="display:flex;width:100%;margin:0px;background-color: #fff805;">
+        <div style="width:45px;background-color: #813de4;clip-path: polygon(0 0%, 70% 0,100% 100%,0 100%);">
+        <div>
+        {% if institute.logo.file.url %}
+                        <img src={{ institute.logo.file.url }} style="height: 45px; width: 45px;">
+                    {% endif %}
+        <div style="color:white;font-size: 5px;text-align: center;font-weight: bold;">Estd : 1980</div>
+        </div>
+        </div>
+        <div style="text-align: center;line-height:1;margin-top:5px;">
+            <div style="font-size: 18px;font-family:'umberland slab';color:#580303;padding-left:5px;letter-spacing: 0.7px;font-weight: 200;">GURUKULA INTERNATIONAL SCHOOL<span style="font-size:12px;vertical-align:top">Ⓡ</span></div>
+            <div style="font-size: 9.5px;font-family:Raleway;letter-spacing:0.1px;">NURSERY, PRIMARY & HIGH SCHOOL</div>
+            <div style="font-size: 9.1px;font-family:Raleway;font-weight: bold;margin-top:3px;letter-spacing:-0.01px">Recognised By Govt. Of Karnataka</div>
+            <div style="font-size: 8.5px;font-family:Aleo;margin-top: 3px;font-weight: 500;letter-spacing:-0.1px">52/4, 9th Cross, Magadi Road, Bengaluru - 560 023.</div>
+            <div style="font-size: 8.5px;font-family:Aleo;margin-top: 3.5px;margin-bottom:3px;letter-spacing:-0.03px">Ph : 7899041787</div>
+        </div>
+    </div>
+        <div style="display:flex; page-break-inside: avoid;">
+            <div>
+                <div>
+                    {% if staff.name|length > 15%}
+                        <div class="user-name user-name-small">
+                            {{ staff.name|upper }}
+                        </div>
+                    {% else %}
+                        <div class="user-name">
+                            {{ staff.name|upper }}
+                        </div>
+                    {% endif %}
+                </div>
+            <table style="font-size: 11px;margin-left:27px;margin-top:1.3px;font-weight: bold;line-height: 1.0;">
+               
+                <tr>
+                    <td style="font-family: Raleway;">
+                        Class
+                    </td>
+                    <td>:</td>
+                    <td style="font-weight: bold">
+                        <span style="color: #002c65;font-family: Alegreya;font-size:12px;">{{staff.standard_name_roman}}</span> &nbsp;&nbsp;
+                        <span style="color: #002c65;font-family: Alegreya;font-size:12px;">Sec</span> <span style="color: #002c65;font-family: Alegreya;font-size:12px;">: {{staff.section_name}}</span>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td style="font-family:Raleway;">
+                        D.O.B
+                    </td>
+                    <td>:</td>
+                    <td colspan="3" style="font-family:Anek Bangla;font-size: 12px;letter-spacing: 0.25px;">
+                        {{staff.dob_changed}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family: Raleway;">
+                        Mobile
+                    </td>
+                    <td>:</td>
+                    <td colspan="3" style="font-family:Anek Bangla;font-size: 12px;letter-spacing: 0.2px;">
+                        {{staff.mobile_num|cut:"+91"}}
+                    </td>
+                </tr>
+            </table>
+            <img src='https://staging-s3-23.s3.amazonaws.com/18/WhatsApp_Image_2024-06-14_at_11.15.57_AM.jpeg' style="width: 60px;height: 20px;font-size: 8px;margin-left:26px;margin-top: 5px;"/>
+            <!-- <img src='https://edubricz-production.s3.amazonaws.com/18/WhatsApp_Image_2024-06-05_at_6.29.01_PM.jpeg' style="width: 60px;height: 20px;margin-left:26px;margin-bottom: 0.0px;"/> -->
+            <div style="text-align: left;font-size: 9px;margin-left:26px;font-family: inter tight;font-weight: 600;margin-top: -4px;">Head Mistress</div>
+            </div>
+            <div class="box" style="margin-top: 5px;margin-left: 15px;position:relative">
+                <div>
+                <img src={{staff.profile_pic_details.file}} style="height: 94px; width: 77px;position:absolute;top:0.5px;left:0.5px;right:3px;border-radius:13px;">
+                </div>
+            </div>
+    </div>
+    <div style="page-break-after: always;"></div>
+    <table style="font-size: 12px;margin:0px 0px 4px 27px;font-family: anek malyalam;font-weight: 600;letter-spacing: 0.1px;">
+        <tr>
+            <td style="width:70px;">
+                Father Name
+            </td>
+            <td>
+               : {%if student.student_parent.parent.father_name %}{{student.student_parent.parent.father_name}}{%endif%}
+            </td>
+            </tr><tr>
+            <td>
+                Mother Name
+            </td>
+            <td>
+               : {%if student.student_parent.parent.mother_name %}{{student.student_parent.parent.mother_name}}{%endif%}
+            </td>
+        </tr>
+    </table>
+    <table style="font-size: 10px;margin:4px 0px 4px 23px;font-family: anek malyalam;font-weight: 600;letter-spacing: 0px;">
+        <tr>
+            <td style="vertical-align: top;">
+                Address :
+            </td>
+            <td>
+                 <!-- {% for address in student.student_address %}
+                {% if address.address %}{{address.address}} {% endif %}{% endfor %}  -->
+               
+            {{student.custom_address_line_one}} {{student.custom_address_line_two}} {{student.custom_city}} {{student.custom_pincode}}
+            </td>
+        </tr>
+    </table>
+</body>
+{%endfor%}
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+            font-size: 12px;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        .th-subject-view{
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin:0px;
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 13px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        .rectangle {
+        height: 20px;
+        width:70px;
+        border-bottom:1px solid black;
+        display:inline-block;
+        }
+
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                        {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 60px;height:60px;position:absolute;top:1.5%;left:20px;" /> {% endif %}
+                    </div>
+                    <div class="heading text-center ">
+                        {{ institute.name }} </br>
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold">
+                    {{ examDetail.exam_type.name | upper }}, {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <div class="address-heading t-center fs-20 fs-bold">ADMISSION TICKET </div>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;font-size: 14px;margin-left: -5px;">
+                    <tr style="font-weight: bold;">
+                        <td style="width:70px">Name </td><td style="width:2%;">:</td>
+                        <td style="width:460px;">{{student.student_data.full_name | title }}</td>
+                        <td style="text-align:left;width:70px;">Class </td><td style="width:2%;">:</td>
+                        <td style="width:500px;">{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>Reg No </td><td>:</td><td class="rectangle"></td>
+                        <td style="text-align:left">Room No</td><td>:</td><td class="rectangle"></td>
+                    </tr>
+        </table>
+        <p style="margin:-5px;">
+            <b>Note:-</b>
+            <ol style="margin:-5px;padding-bottom:0px;">
+            <li>The student will not be permitted to attend the Examination without Admission Ticket.</li>
+            <li>The student should not bring any Books,Paper, Manuscript of any description into the Examination Hall.</li>
+            {%if student.student_data.standard_section__standard__name == 'LKG' or student.student_data.standard_section__standard__name == 'UKG' or student.student_data.standard_section__standard__name == 'Pre-KG' %}
+            <li>Classes will be from 9:00 am to 12:00 pm on oral exams.</li>
+            {%else%}
+            <li>Classes will be from 9:00 am to 3:15 pm on oral exams.</li>
+            {%endif%}
+            </ol>
+        </p>
+        <div style="margin-top:-10px;text-align: center;">
+            {% if examDetail.exam_type.name == 'Preparatory Exams' %}
+                <b>Morning session</b>
+            {% else %}
+                <b>Timings:&nbsp;&nbsp;{{ start_time|time:'h:i A' }} - {{ end_time|time:'h:i A' }}</b>
+            {% endif %}
+        </div>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Teachers Sign</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-M-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view">{{subject.fordate|date:'l'}}</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.subject_name | title}}{%if subject.subject_part_code == 'part1' %}{%if 'Oral' not in subject.subject_name %} Writing{%endif%}{%endif%}</div></td>
+                    <td class="td-subject-view">
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="w-100" style="margin-top:30px;">
+            <tr>
+                <th style="text-align: left;">
+                    Sign of Class Teacher
+                </th>
+                <th style="text-align: right;position: relative;">
+                    <img src="https://production-edubricz.s3.amazonaws.com/89/WhatsApp_Image_2024-07-30_at_10.32.24_AM-removebg-preview.png" 
+                                style="width:200px;height: 80px;position:absolute;left:200px;top:-50px;"/>
+                    Sign of Principal
+                </th>
+            </tr>
+        </table>
+    </div>
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

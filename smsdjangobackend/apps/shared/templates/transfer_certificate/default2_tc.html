@@ -1,0 +1,273 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        @page {
+            size: A4;
+        }
+        .header {
+            display: flex;
+        }
+        .schoolname {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .school {
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+        }
+        .title {
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin-left: 25%;
+            width: 45%;
+        }
+        .no {
+            width: 20%;
+            margin-right: 1%;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        .dotline {
+            border-bottom: 1px dotted black;
+            width: 70%;
+            margin-left: 70%;
+        }
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+            border-left: none;
+            border-right: none;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        .rightborder {
+            border-right: 1px solid black;
+        }
+        .nameofschl {
+            font-size: 10px;
+            text-align: center;
+        }
+        .standwidth {
+            min-width: 50%;
+        }
+        .line {
+            border-bottom: 1px solid black;
+            width: 102%;
+            position: relative;
+            margin-right: 8%;
+        }
+        .sign {
+            text-align: right;
+            font-weight: bold;
+            font-size: 11px;
+        }
+        .bottomline {
+            border-bottom: 1px solid black;
+            width: 100%;
+        }
+        .footer {
+            font-size: 11px;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="header">
+            <div class="logo">
+                {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo" style="width: 100px; height: 100px;">
+                {% endif %}
+            </div>
+
+            <div class="school">
+                <div>{% if institute.trust_name %}{{institute.trust_name}}{%endif%}</div>
+                <div class="schoolname">
+                    {{school_name}}
+                </div>
+                <div>(Recognised by Govt. of Karnataka, No. 210/91-92)</div>
+                <div>{{school_address}},  {{school_city}} - {{school_pincode}}</div>
+                <div style="display: flex;">
+                    <div class="title">TRANSFER CERTIFICATE</div>
+                    <div class="no">T.C. No : {{tc_num}}</div>
+                </div> 
+                <div>(FOR PRIMARY / HIGHER / SECONDARY / MULTI PURPOSE SCHOOLS)</div>
+            </div>
+        </div> <br>
+        
+
+        <table style="width: 100%;">
+            <tr>
+                <td class="standwidth rightborder">1. Name of the School</td>
+                <td><div class="nameofschl">
+                    {{school_name}} <br>
+                    <span style="font-weight: normal;">{{school_address}},  {{school_city}} - {{school_pincode}}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">2. School Dise No. {{school_dise}}</td>
+                <td>3. Enrollment No. (STS): {%if sts %}{{sts}}{%endif%}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">4. Admission No.</td>
+                <td >{{admission_num}}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">5. Name of the pupil in full</td>
+                <td>{{student_full_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">
+                    <div style="line-height: 50px; margin-top: -5%;">
+                        6. Sex: {{gender}} &nbsp; &nbsp; &nbsp; 7. Nationality: {{nationality}}
+                    </div>
+                </td>
+                <td style="vertical-align: sub;">8. Religion /  Caste : {{religion}} / <span style="margin-left: 5%;">{{caste}}</span></td> 
+            </tr>
+
+            <tr>
+                <td class="rightborder">9. Name of the Father</td>
+                <td>{{father_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">10. Name of the Mother</td>
+                <td>{{mother_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">11. Whether the candidate belongs to Schedule <br> <span style="margin-left: 8%;">Caste or Schedule Tribe</span> : {{is_sc_st}} </td>
+                <td>12. Whether qualified for promotion to a higher <br> <span style="margin-left: 8%;">standard : {{is_qualified}}</span></td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">
+                    <div>
+                        13. Date of Birth (in figure and words)  :<br><span style="margin-left: 27px;">{{dob|date:"d-m-Y"}} {{dob_in_words|title}}</span>
+                    </div>
+                </td>
+                <td style="vertical-align: sub;">14. Place of Birth : {{place_of_birth}}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">15. Standard in which the pupil was studing at <br> <span style="margin-left: 8%;">the time of leaving the school (In words)</span></td>
+                <td>{{to_standard_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">
+                    <div>
+                        <div>16. In the case of pupil of Higher Standards</div> <br>
+
+                        <div>a) Languages Studied <br> <span style="margin-left: 5%;">Kannada/English/Hindi</span>{{languages_studied}}</div> <br> <br>
+
+                        <div>b) Elective Subjects Studied <br> <span style="margin-left: 5%;">Mathematics/General Science/ Social Studies</span>{{electives_studied}}</div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div style="margin-bottom: 25%; position: absolute; margin-top: 1%;">22. Whether medically examined or not <br><span style="font-size: 13px; font-weight: bold; margin-left: 90%;">{{is_medicaly_examined}}</span></div>
+                    
+                    <div class="line"></div>
+
+                    <div style="margin-top: -45px;">21. Scholarship if any (nature and period to be <br> <span style="margin-left: 8%;">specified</span> ): {{is_scholarship}}</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rightborder" style="line-height: 30px;">17. Medium of Instruction:{{medium_of_instruction}}</td>
+                <td>
+                    <div style="margin-top: -5%;">
+                        23. Date of pupil's last attendance at the school  <span style="margin-left: 8%;"> : {{last_date_attendance}}</span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">
+                    <div style="margin-bottom: 5%;">
+                        18. Date of admission or promotion to the  <span style="margin-left: 8%;">class or standard : {{date_of_admission_or_promotion}}</span>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-bottom: 5%;">
+                        24. Date on which the application for the Transfer  <span style="margin-left: 8%;">Certificate was received : {{appln_date}}</span> 
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">
+                    <div style="margin-bottom: 5%;">
+                        19. Whether the pupil had paid all the fees due <br> <span style="margin-left: 8%;">to the school</span>  : <b>{{is_full_payment}}</b>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-bottom: 5%;">
+                        25. Date of issue of the Transfer Certificate : <span style="margin-left: 8%;">{{issue_date}}</span>
+                    </div>
+
+                    <div class="line" style="margin-bottom: 5%;"></div>
+
+                    <div style="margin-bottom: 5%;">
+                        26. Number of school working days upto the date <span style="margin-left: 8%;">of leaving : </span>
+                        <span style="margin-left: 5%;"><b>{{no_of_school_days}}</b></span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="rightborder">
+                    <div style="margin-bottom: 5%;">
+                        20. Fees concessions, if any (nature and period <br> <span style="margin-left: 8%;">to be specified) :</span>
+                        <span style="margin-left: 5%;"><b>{{no_of_days_attended}}</b></span>
+                    </div>
+                </td>
+                <td>
+                    <div style="margin-bottom: 5%;">
+                        27. Number of school working days the pupil <span style="margin-left: 8%;">attended</span>
+                        <span style="margin-left: 5%;"><b>{{no_of_days_attended}}</b></span>
+                    </div>
+
+                    <div class="line" style="margin-bottom: 5%;"></div>
+
+                    <div style="margin-bottom: 5%;">
+                        28. Character and conduct : <span style="margin-left: 5%;"><b>{{stud_char}}</b></span>
+                    </div>
+                </td> 
+            </tr>
+        </table> <br><br>
+
+        <div class="sign">Signature of the Head of the institution</div>
+
+        <div class="bottomline"></div>
+
+        <div class="footer">
+            Note: This Transfer Certificate will be issued on requistion from parent or guardian.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,975 @@
+@import './../../styles/helpers.scss';
+
+
+
+@media only screen and (max-width: 1920px) {
+    .video-screen{
+        height: 750px!important;
+    }
+
+    .video-list-box {
+        width: 400px!important;
+        height: 148px!important;
+        margin: 20px 20px 10px 10px!important;
+    }
+    .video-list-name-details{
+        height: 150px!important;
+    }
+    
+
+    .custom-menu-height{
+        height: 70vh!important;
+    }
+
+    .video-play-icon{
+        color: red;
+        width: 110px!important;
+        height: 110px!important;
+    }
+}
+
+.custom-menu-height::-webkit-scrollbar {
+    width: 5px;
+  }
+   
+  .custom-menu-height::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+  }
+   
+  .custom-menu-height::-webkit-scrollbar-thumb {
+    background-color: #84aaff;
+    outline: 0px solid #7e57eb;
+  }
+
+@media only screen and (max-width: 1366px) {
+    .video-screen{
+        height: 410px!important;
+    }
+
+    .video-list-box {
+        width: 300px!important;
+        height: 96px!important;
+        margin: 10px!important;
+    }
+    .video-list-name-details{
+        height: 96px!important;
+    }
+    .custom-menu-height{
+        height: 70vh!important;
+    }
+
+    .video-list-name-outer-box-handle-overflow{
+        max-height: 90px!important;
+    }
+    .video-information-outer-box{
+        font-size: 20px!important; 
+    }
+    .video-list-player-box{
+        margin-right: 166px!important;
+    }
+
+    .video-list-name-outer-box{
+        max-height: 90px!important;
+        font-size: 14px;
+    }
+}
+
+
+.upload-video-new-folder{
+    text-transform: capitalize!important;
+    width: 130px;
+    @include flex-prop(space-evenly, center, flex, initial);
+}  
+
+.folder-box{
+    display: flex;
+    border: 1px solid #d5d5d5;
+    width: 250px;
+    margin: 20px 50px;
+}
+
+.folder{
+    text-transform: capitalize !important;
+    width: -webkit-fill-available!important;
+    justify-content: flex-start!important;
+    height: 55px;
+    color: #524c4c!important;
+    padding-left: 20px!important;
+} 
+
+.folder:active{
+   background-color: red($color: #000000);
+   color: white;
+}
+
+.upload-video-background{
+    width: 100%;
+    padding: 10px 30px;
+    max-height: 90vh;
+    overflow: hidden;
+    // position: absolute;
+}
+
+.custom-menu-height{
+    width: 100%;
+    height: 70vh!important;
+    overflow: auto;
+}
+
+.breadcrumb{
+    text-transform: capitalize!important;
+    font-size: 18px!important;
+    padding: 6px 0px!important;
+}
+
+.breadcrumb-margin{
+    .MuiBreadcrumbs-separator{
+        margin-left: 3px!important;
+        margin-right: 3px!important;
+    }
+    margin-top:10px!important;
+}
+
+.context-menu{
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+}
+
+.folders-list-box{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.handle-folder-name-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 150px;
+    margin-left: 10px;
+}
+   
+.handle-width-availability{
+    width: -webkit-fill-available!important;
+}
+
+.selectedFolder{
+    color: #ffffff!important;
+    background-color: #4680FF !important;
+    border-radius: 0px!important; 
+}
+
+.selected-menu-list-alignment{
+    right: 30px;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    box-shadow: 0px 5px 5px -3px rgba(0,0,0,0.2), 0px 8px 10px 1px rgba(0,0,0,0.14), 0px 3px 14px 2px rgba(0,0,0,0.12);
+    padding: 5px 20px;
+    background-color: #FFFFFF;
+}
+
+.menu-item-box{
+    padding: 5px;
+    cursor: pointer;
+    display: flex;
+}
+
+.menu-item-box:hover{
+    background-color:  rgba(0, 0, 0, 0.04);
+}
+
+.custom-menu-label{ 
+    margin-left: 10px;
+    font-size: 15px;
+    margin-top: 3px;
+}
+
+.selected-menu-options{
+    padding: 0px 15px;
+    cursor: pointer;
+} 
+
+.selected-menu-options:hover{
+    background-color:  rgba(0, 0, 0, 0.04);
+} 
+
+.move-folder-paper-background{ 
+    height: 283px;
+    width: 350px;
+    margin-top: 23px;
+    box-shadow: 6px 5px 7px -4px rgba(0, 0, 0, 0.3), 0px 8px 30px 0px rgba(0, 0, 0, 0.14), 0px 2px 21px 2px rgba(0, 0, 0, 0.1) !important;
+}
+
+.move-folder-home-box{
+    font-size: 18px;
+    background-color: #f1f1f1;
+    display: flex;
+    color:#777;
+    font-weight: 500;
+    height: 54px;
+    padding: 10px;
+    align-items: center;
+    box-shadow: 0px -1px 0px 1px rgba(0, 0, 0, 0.1) !important;
+}
+
+.move-folder-close-button{
+    width: 100%;
+    justify-content: flex-end;
+    display: flex;
+}
+
+.move-folder-close-icon{
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.move-folder-close-icon:hover{
+    background-color:  rgba(0, 0, 0, 0.04);
+}
+
+.move-folder-Popper-align-left{
+    left: 50px!important;
+}
+
+.move-folder-list-box{
+    display: flex;
+    padding: 5px 10px;
+    align-items: center;
+    color: #524c4c !important;
+    cursor: pointer;
+}
+
+.move-folder-list-box:hover{
+    background-color:  rgba(0, 0, 0, 0.04);
+    .move-folder-next-icon{
+        opacity: 1;
+        cursor: pointer;
+    }
+}
+
+.parent-folder-name{
+    width: -webkit-fill-available;
+    margin-left: 10px;
+}
+
+.move-folder-name{
+    display: flex;
+}
+
+.move-folder-next-icon-box{
+    display: flex;
+    justify-content: flex-end;
+    width: -webkit-fill-available;
+}
+
+.move-folder-next-icon{
+    width: fit-content;
+    opacity: 0;
+}
+
+.move-selectedFolder-name{
+    color: #ffffff!important;
+    background-color: #4680FF !important;
+} 
+
+.move-folder-buttons-position{
+    width: -webkit-fill-available;
+    position: absolute;
+    bottom: 0;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    align-items: center;
+}
+
+.move-folder-list-height{
+    height: 200px;
+    overflow: auto;
+}
+
+.move-folder-button{
+    background-color: #4680FF!important;
+    color: #ffffff!important;
+}
+
+.move-folder-disable{ 
+    opacity: 0.4; 
+    cursor: no-drop;
+}
+
+.move-button-disable{ 
+    background-color: #4680FF!important;
+    cursor: no-drop!important;
+}
+
+.move-file-pdf-icon{
+    font-size: 20px;
+    color: red;
+    margin-left: 5px;
+}
+
+.move-file-txt-icon{
+    font-size: 20px;
+    color: #0050ff;
+    margin-left: 5px;
+}
+
+.move-file-docx-icon{
+    font-size: 20px;
+    color: blue;
+    margin-left: 5px;
+}
+
+.move-file-ppt-icon{
+    font-size: 20px;
+    color: orangered;
+    margin-left: 5px;
+}
+
+.move-file-excel-icon{
+    font-size: 20px;
+    color: green;
+    margin-left: 5px;
+}
+
+
+.new-file-attache-text{
+    padding: 20px 0px;
+    font-size: 17px;
+    text-align: -webkit-center;
+    color: #4680FF; 
+}
+
+.new-file-error-text{
+    padding: 20px 0px;
+    font-size: 17px;
+    text-align: -webkit-center;
+    color: red; 
+}
+
+.file-outer-box{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.file-inner-box{
+    height: 170px;
+    width: 180px;
+    margin: 10px;
+    text-align: center;
+    border: 1px solid #dadce0;
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    position: relative;
+}
+
+.file-pdf-icon{
+    font-size: 70px;
+    color: red;
+}
+
+.file-txt-icon{
+    font-size: 70px;
+    color:#0050ff;
+}
+
+.file-docx-icon{
+    font-size: 70px;
+    color:#4545ea;
+}
+
+.file-ppt-icon{
+    font-size: 70px;
+    color:orangered;
+}
+
+.file-excel-icon{
+    font-size: 70px;
+    color:green;
+}
+
+
+.file-mp4-icon{
+    font-size: 70px !important;
+    color: red;
+    margin-top: 25px!important;
+}
+ 
+.selectedFile{
+    background-color: #e0e6ff;
+}
+
+.file-name{
+    cursor: pointer;
+    padding: 10px;
+    font-size: 15px;
+    text-transform: capitalize;
+}
+
+.handle-file-name-overflow{
+    overflow: hidden;
+    cursor: pointer;
+    max-height: 50px;
+    padding-right: 5px;
+    word-break: break-word;
+    padding: 8px;
+    text-transform: capitalize;
+    font-size: 15px;
+}
+
+.handle-file-name-overflow::before{
+    content: '...';
+    position: absolute;
+    right: 0px;
+    bottom: 4px;
+}
+
+.action-video-tutorial-details-width{
+    .MuiDialog-container{
+        .MuiDialog-paper{
+            width:400px!important;
+            height: 600px!important;
+        }
+    }
+}
+
+.view-details-folder{
+    font-size: 30px!important;
+}
+
+.view-details-folder-large{
+    color: #524c4c !important;
+    font-size: 140px!important;
+}
+
+.view-details-name{
+    font-size: 20px !important;
+    margin-left: 20px !important;
+    font-weight: 500;
+    width: -webkit-fill-available;
+    text-transform: capitalize;
+}
+
+.view-details-title{
+    color: #524c4c !important;
+    display: flex;
+    align-content: center;
+}
+
+.view-details-close-icon-box{ 
+    align-self: center;
+    width: -webkit-fill-available;
+    text-align: end;
+}
+
+.view-details-close-icon{   
+    cursor: pointer;
+    font-size: 30px!important;
+}
+
+.view-details-file-pdf-icon{
+    font-size: 23px;
+    color: red;
+}
+
+.view-details-file-pdf-large-icon{
+    font-size: 100px;
+    color: red;
+    text-align: center;
+}
+
+.view-details-file-txt-icon{
+    font-size: 23px;
+   color:#0050ff;
+}
+
+.view-details-file-txt-large-icon{
+    font-size: 100px;
+   color:#0050ff;
+    text-align: center;
+}
+
+.view-details-file-docx-icon{
+    font-size: 23px; 
+   color:#4545ea;
+}
+
+.view-details-file-docx-large-icon{
+    font-size: 100px;
+   color:#4545ea;
+    text-align: center;
+}
+
+.view-details-file-pptx-icon{
+    font-size: 23px;
+   color:orangered;
+}
+
+.view-details-file-pptx-large-icon{
+    font-size: 100px;
+   color:orangered;
+    text-align: center;
+}
+
+.view-details-file-xlsx-icon{
+    font-size: 23px;
+   color:green;
+}
+
+.view-details-file-xlsx-large-icon{
+    font-size: 100px;
+   color:green;
+    text-align: center;
+}
+
+.view-details-file-mp4-icon{
+    font-size: 30px!important;
+    color:red;
+}
+
+.view-details-file-mp4-large-icon{
+    font-size: 120px!important;
+   color:red;
+    text-align: center;
+}
+
+.view-details-file-mp4-large-box{
+    text-align: center;
+    padding: 25px;
+}
+
+.view-details-label-name-value{
+    font-size: 15px;
+    text-transform: capitalize;
+    margin: 12px 0px;
+    display: flex;
+} 
+
+.view-details-label{
+    min-width: 100px;
+}
+
+.view-details-value{
+    font-weight: bolder;
+    margin-left: 20px;
+    width: 200px;
+    word-break: break-word;
+}
+
+.view-details-add-description{
+    margin-left: 20px;
+    width: 200px;
+    word-break: break-word;
+    font-style: italic;
+}
+
+.view-details-description-text-area{
+    min-height: 100px !important;
+    max-height: 100px !important;
+    min-width: 200px !important;
+    max-width: 200px !important;
+    margin-left: 20px!important; 
+}
+
+.view-details-preview-background{
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    z-index: 1300;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.view-details-preview-close-icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    background-color: dimgrey;
+}
+
+.tutorial-view-videos-doc-folder-position{
+    display: flex;
+}
+
+.tutorial-view-video-folder{
+    font-size: 70px!important;
+    color: #524c4c !important;
+}
+
+.tutorials-view-folder-box{
+    text-align: center;
+    margin: 20px 50px;
+    cursor: pointer;
+}
+
+.video-list-close-icon-box{
+    text-align: end;
+}
+
+.paper-video-list-background{
+    padding: 20px;
+    min-height: 100vh;
+}
+
+.video-screen{
+    height: 400px;
+}
+
+.video-list-box{
+    width: 200px;
+    height: 100px;
+    margin: 10px;
+}
+
+.video-list-name-details:hover{
+    background-color: #f3f3f3; 
+}
+
+.video-list-name-details{
+    display: flex;
+    height: 55px;
+    cursor: pointer;
+}
+
+.video-list-name-outer-box{
+    text-transform: capitalize;
+    padding: 10px;
+    text-align: start;
+    font-size: 15px;
+    word-break: break-word;
+    position: relative;
+}
+
+.video-list-name-outer-box-handle-overflow{
+    overflow: hidden;
+    cursor: pointer;
+    max-width: 126px;
+    max-height: 130px;
+    position: relative;
+    word-break: break-word;
+    text-transform: capitalize;
+    padding: 10px;
+}
+
+.video-list-name-outer-box-handle-overflow::before{
+    content: '...';
+    position: absolute;
+    right: -2px;
+    bottom: 0px;
+    font-weight: bold;
+}
+
+
+.video-list-watch-now{
+    background-color: orange!important;
+    color: white!important;
+    padding: 2px 10px!important;
+    margin: 0px!important;
+}
+
+.watch-video-box{
+    text-align: end;
+}
+
+.video-information-time-duration{
+    position: absolute;
+    bottom: 0;
+    left: -63px;
+    color: white;
+}
+
+ .upload-new-button{
+     font-weight: 500 !important;
+     font-size: 16px !important;
+     color: #FFFFFF !important; 
+     background-color: #1665D8 !important;
+     text-transform: none !important;
+     margin-left: auto !important; 
+     margin-right: 30px !important;
+     margin-top: 8px !important;
+     padding: 5px 35px!important;
+    }
+
+    .upload-document-logo{
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .upload-document-logo-button{
+        text-transform: capitalize!important;
+        border: 1px solid!important;
+        padding: 4px 20px!important;
+    }
+
+.video-name-table{
+    text-transform: capitalize;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.video-name-table:hover{
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.uploading-loading-icon-box{
+    margin-left: 10px;
+}
+
+.uploadingLoadingIcon{
+    color: white!important;
+    width: 20px!important;
+    height: 20px!important;
+}
+
+.close-icon-uploading{
+    color: white;
+    font-size: 28px!important;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.close-icon-top-end{
+    text-align: end;
+    cursor: pointer;
+    color: red!important;
+    padding: 5px;
+}
+
+.video-list-grid{
+    max-height: 90vh;
+    overflow: auto;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+.uploading-outer-box{
+    display: flex;
+    align-items: center;
+}
+
+.align-alert-message{
+    .MuiAlert-message{
+        padding: 0px;
+        align-self: center;
+    }
+}
+
+.file-view-outer-box{
+    height: 100%;
+    // width: fit-content;
+    width: 90%;
+    overflow: auto;
+}
+
+.close-icon--new-file-uploading{
+    color: black;
+    font-size: 28px !important;
+    margin-left: 10px; 
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+.react-player-box{
+    width: 100%;
+    height: 100%;
+}
+
+.video-question-outer-box{
+    padding :20px;
+}
+
+.video-question-label{
+    color: blueviolet;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.video-question-value{
+    font-size: 30px;
+    padding: 10px;
+}
+
+.video-options-value-box{
+    padding: 5px;
+}
+
+.video-options-value{
+    font-size: 15px;
+}
+
+.video-question-list-outer-box{
+    height: 700px;
+    display: grid;
+    justify-items: center;
+    border-left: inset;
+    margin-left: 70%;
+    align-content: space-between;
+    margin-top: 25px;
+}
+
+.selected-question-list-time{
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.disabled-video{
+    pointer-events: none;
+    opacity:0.7
+}
+
+.video-list-submit-label{
+    margin: 10px 0px;
+}
+
+.video-information-outer-box{
+    font-size: 30px;
+    text-transform: capitalize;
+    margin: 20px 0px;
+    word-break: break-word;
+}
+
+.video-list-player-box{
+    position: relative;
+    margin-right: 266px;
+    height: 100%;
+}
+
+.video-info-outer-box{
+    position: relative;
+    display: flex;
+}
+
+.videoLoading{
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 35vh;
+}
+
+.file-list-image-box{
+    height: 100px;
+}
+
+.file-list-image-height{
+    height: -webkit-fill-available;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12);
+    width: 101%;
+}
+
+.file-list-upper-box1{
+    position: relative;
+}
+
+.file-list-upper-box2{
+    background-color: #f5f5f5;
+}
+
+.file-list-upper-box3{
+    box-sizing: border-box;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.file-list-upper-box4{
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.file-list-upper-box5{
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.12);
+    margin: -3% 7% 0% 10%;
+    width: 80%;
+    background-color: white;
+}
+
+.file-display-block{
+    display:block;
+}
+
+@media only screen and (max-width: 920px) {
+    .upload-video-background{
+        padding: 0px!important;
+    }
+
+    .selected-menu-list-alignment{
+        right: 30px;
+        position: fixed;
+        bottom: 20px;
+        display: block;
+        box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
+        padding: 0px;
+        background: white;
+    }
+    .selected-menu-options {
+        padding: 5px 12px;
+        cursor: pointer;
+    }
+
+    .custom-menu-height {
+        height: 70vh!important;
+    }
+
+    .move-folder-Popper-align-left{
+        left: 0px !important;
+        bottom: 0px!important;
+        top: unset!important;
+    }
+    
+    .upload-handle-reverse{
+        flex-direction: column-reverse;
+    }
+
+    // .view-details-description-text-area{
+    //     min-width: 150px!important;
+    // }
+
+    .video-screen{
+        height: auto!important;
+    }
+
+    .react-player-box{
+        height: 200px!important;
+    }
+
+    .paper-video-list-background{
+        padding: 0px!important;
+    }
+
+    .video-information-outer-box{
+        margin: 20px 10px!important;
+    }
+
+    .video-list-box{
+        margin: 10px!important;
+        width: auto!important;
+    }
+
+    .video-list-name-outer-box-handle-overflow{
+        max-width: 170px!important;
+    }
+
+    .file-inner-box{
+        height: 156px;
+        width: 150px;
+    }
+
+    .handle-file-name-overflow{
+        max-height: 30px;
+    }
+}

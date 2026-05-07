@@ -1,0 +1,46 @@
+.brilliant-assistant-message {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.brilliant-assistant-message__text {
+  font-size: 14px;
+  line-height: 1.55;
+  word-break: break-word;
+  color: #0f172a;
+}
+
+.brilliant-assistant-message__text strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.brilliant-assistant-message__exam-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.brilliant-assistant-message__exam-chip {
+  cursor: pointer;
+  border: 1px solid rgba(37, 99, 235, 0.35);
+  background: linear-gradient(180deg, #f8fafc 0%, #eff6ff 100%);
+  color: #1e3a8a;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 999px;
+  text-align: left;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.brilliant-assistant-message__exam-chip:hover:not(:disabled) {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+
+.brilliant-assistant-message__exam-chip:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}

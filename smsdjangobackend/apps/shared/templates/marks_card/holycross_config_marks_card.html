@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <style>
+            @page{
+                size:A5;
+            }
+            .text-align-center{
+                text-align: center
+            }
+            table{
+                border-radius: 10px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 15px;
+            }
+            th {
+                text-align: center;
+            }
+            td{
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                text-align: left;
+            }
+            .td-font-size>td{
+                font-size: 13px;
+            }
+            .font-weight-bold{
+                font-weight: bold;
+            }
+            .subject-list>tbody>tr>td{
+                text-align: center
+            }
+            .noborder > table tr td{
+                border: 0px solid black;
+                font-size: large;
+                padding:6px;
+            }
+            .box {
+            width: 100px;
+            height: 100px;
+            border: 1.5px solid black;
+            border-radius: 8px;
+        }
+        </style>
+    </head>
+    <body>
+        {% for student in data.student_list %}
+        <div style="border:1px solid black;border-radius:10px; padding:20px;height: 630px;">
+            <div class="noborder">
+                <div style="text-align: center;">
+                {% if institute_data.document_details.file %}
+                        <img src={{institute_data.document_details.file}}
+                        style="width: 80px;height: 80px;padding-bottom:5px;margin-top:-10px;"/>
+                    {% endif %}
+                </div>
+            <table width="100%" style="border:0px solid black;padding:0px;margin-top:-15px;">
+                <tr>
+                <td width="20%" class='font-weight-bold text-align-right;' style="text-align: right;vertical-align: top;">
+                </td>
+                <td class='text-align-center' style="vertical-align: top;">
+                    <b>
+                        <div style="font-size:17px;text-align: center;">{% if institute_data.trust_name %}
+                            <span>{{ institute_data.trust_name }}</span>
+                            {% endif %}</div>
+                        <div style="font-size:35px;font-weight: bold;text-align:left;padding-left: 50px;">{{institute_data.name|upper}}</div>
+                    </b>
+                </td>
+                <td class='font-weight-bold text-align-center;'>
+                    <div class="box" style="vertical-align: top;text-align: right;position: relative;">
+                    {% if student.profile_pic_file %}
+                    <div>
+                        <img src={{student.profile_pic_file}}
+                        style="width: 98px;height: 98px;border-radius:8px;text-align: right;vertical-align: top;position:absolute;top:1px;right:1px;"/>
+                    {% endif %}
+                </td>
+                </tr></table>
+                </div>
+                <div class="noborder">
+                <table width="90%" style="margin-top:-50px;border:0px solid black;font-weight: bold;">
+                    <tr>
+                        <td width="57%">
+                            STUDENT NAME : {{student.student_name|upper}}
+                        </td>
+                        <td>
+                            CLASS & SEC : {{data.standard_name}} - {{data.section_name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            FATHER NAME : {{student.father_name}}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            <div class='text-align-center font-weight-bold' style="font-size:21px;margin-top: 8px;">
+                <!-- {{data.exam_details|upper}}-({{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"Y"}})<br/> -->
+                {{data.exam_details|upper}}-(2024-2025)<br/>
+            </div>
+                <table class='subject-list' style='width: 100%;border-radius: 10px;margin-top: 8px;'>
+                    <tr style='font-weight: bold;' class='td-font-size'>
+                        <th width=30% style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;text-align: left;padding-left:20px;">
+                            SUBJECTS
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                            MAX MARKS
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                            OBTAINED MARKS
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;"> 
+                            GRADE
+                        </th>
+                    </tr>
+                    {% for subject_data in student.subject_list_list_type %}
+                        <tr class='td-font-size'>
+                            <td style="text-align: left;padding-left: 12px;">{{subject_data.subject_name|upper}}</td>
+                            <td>{{subject_data.total_configured_marks}}</td>
+                            <td style="font-weight: bold;">{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                            <td style="font-weight: bold;">{{subject_data.grade_round}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <div class="noborder" style="margin-top:50px;">
+                    <table width=100% style="border:0px solid black">
+                        <tr>
+                            <td>
+                                Signature of the <br> Class Teacher
+                            </td>
+                            <td style="text-align: center;">
+                                Signature of the <br> Principal
+                            </td>
+                            <td style="text-align: right;">
+                                Signature of the <br> Parent/Guardian
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {% if not forloop.last %}
+            <div style="page-break-after: always;"></div>
+        {% endif %}
+        {%endfor%}
+    </body>
+
+</html>

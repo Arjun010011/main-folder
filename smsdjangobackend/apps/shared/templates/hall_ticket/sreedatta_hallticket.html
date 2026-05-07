@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+            font-size: 12px;
+            background-color: PINK;
+            font-weight: bold;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        .th-subject-view{
+           text-align: center;
+           border: 1px solid black;
+           padding-top: 10px;
+            padding-bottom: 10px;
+        }
+        .td-subject-view{
+            text-align: center;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; 
+            margin:0px;
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 13px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        .rectangle {
+        height: 20px;
+        width:70px;
+        border-bottom:1px solid black;
+        display:inline-block;
+        }
+
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px;margin-left:30px;margin-right:30px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <!-- <div style="position:relative">
+                        {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 60px;height:60px;position:absolute;top:1.5%;left:20px;" /> {% endif %}
+                    </div> -->
+                    <div class="heading text-center " style="font-size: 17px;">
+                        {{ institute.name }} </br>
+                    </div>
+                </div>
+            </tr>
+            <br>
+            <tr>
+                <div class="t-center mt-5" style="font-size: 15px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %} -
+                    {{ institute.pincode}}
+                </div>
+            </tr>
+            <br>
+            <tr>
+                <div class="address-heading t-center fs-bold" style="font-size: 16px;">
+                    {{ examDetail.exam_type.name | upper }}
+                </div>
+            </tr>
+            <br>
+            <tr>
+                <td>
+                    <div class="address-heading t-center fs-20 fs-bold" style="font-size:15px">HALL TICKET </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table style="width: 100%;font-size: 16px;margin-left: -5px;">
+                    <tr style="font-weight: bold;">
+                        <td style="width:70px">Name </td><td style="width:1%;">:</td>
+                        <td style="width:400px;">{{student.student_data.full_name | title }}</td>
+                        <td style="text-align:left;width:50px;padding-right:45px">Class </td><td style="width:1%;">:</td>
+                        <td style="width:400px;">{{ student.student_data.standard_section__standard__name | capfirst }} 
+                        </td>
+                    </tr>                 
+        </table>
+        <br>
+        <br>
+        <table class="text-center w-10 border=1" style="border-collapse: collapse;
+        border: 1px solid black;font-size:16px">
+            <tr>
+                <th class="th-subject-view"style="font-size:16px">DATE</th>
+                <th class="th-subject-view" style="font-size:16px">DAY</th>
+                <th class="th-subject-view" style="font-size:16px">SUBJECT</th>
+                <th class="th-subject-view" style="font-size:16px">TIMINGS</th>
+                <th class="th-subject-view" style="font-size:16px">ROOM SUPERVISOR SIGN</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view" style="font-size:14px;width:14%">
+                        {{ subject.fordate|date:'j-n-Y' }} <br/>
+                    </td>
+                    <td class="td-subject-view" style="font-size:14px;width:14%">{{subject.fordate|date:'l'}}</td>
+                    <td class="td-subject-view" style="font-size:14px;width:25%"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.subject_name | title}}{%if subject.subject_part_code == 'part1' %}{%if 'Oral' not in subject.subject_name %} Writing{%endif%}{%endif%}</div></td>
+                        <td class="td-subject-view" style="font-size:14px;width:23%"> {{start_time|time:'h:i A'}} - {{end_time|time:'h:i A'}}</td>
+                    <td class="td-subject-view"style="width:15%">
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </br>
+    </br>
+    </br>
+    <br>
+    {% endfor %} 
+    <p style="margin:-5px;font-size:16px;font-weight: bold;">
+        <b style="margin:-5px;font-size:14px;font-weight: bold;">Note:</b>
+        <br>
+        <br>
+        <ul style="margin:-5px;list-style-type:disc;font-weight: bold;;font-size:14px;" >
+        <li>Student should bring your hall ticket to the exam otherwise we are not allowing to the exam</li>
+        <li>Student should get their belongings things to the exam : pen,pencil,scale,colours,eraser</li>
+        <li>Students should be present 10 minutes before in the exam hall</li>
+        </ul>
+    </p>
+    <br>
+    <br>
+    <br>
+    <table class="w-100" style="margin-top:30px;font-size:16px">
+        <tr>
+            <th style="text-align: right;position: relative;">
+                <img src="https://production-edubricz.s3.amazonaws.com/89/WhatsApp_Image_2024-07-30_at_10.32.24_AM-removebg-preview.png"  style="width:200px;height: 80px;position:absolute;left:500px;top:-50px;font-size:16px"/>
+                Head Mistress Sign
+            </th>
+        </tr>
+    </table>   
+</div>
+
+
+ 
+</body>
+</html>

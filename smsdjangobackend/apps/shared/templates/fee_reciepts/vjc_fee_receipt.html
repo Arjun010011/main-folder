@@ -1,0 +1,260 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fee Receipt</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-border {
+            border: 2px solid #000;
+            padding: 15mm;
+            min-height: calc(100vh - 20mm - 4px);
+            box-sizing: border-box;
+            margin: 10mm;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .subtext {
+            font-size: 12px;
+        }
+
+        .section {
+            margin-top: 10px;
+            padding: 5px 0;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .col {
+            width: 48%;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 6px 0;
+        }
+
+        td {
+            padding: 5px 0;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+
+        .signature {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .divider {
+            margin: 25px 0;
+            border-top: 1px dashed #000;
+        }
+        .office-section {
+            /* position: fixed; */
+            bottom: -370px;
+            left: 30mm;
+            right: 30mm;
+        }
+    </style>
+</head>
+
+<body>
+<div class="page-border">
+
+<!-- HEADER -->
+<div class="header">
+    <table  >
+                    <tr>
+                        <td>
+                            <div style='display:flex;'>
+                                {% if institute.logo %}
+                                        <img src={{ institute.logo.file.url }}
+                                        style="width: 100px;height: 100px;text-align: left;"/>
+                                {% endif %}
+                                <div style='padding-left:50px;padding-top:10px;text-align: center;'>
+                                    {% if institute.trust_name|upper %}
+                                    <span>{{ institute.trust_name }}</span>
+                                    {% endif %}
+                                    <div style="font-size: 34px;font-weight: bold;text-align: center;">
+                                        {{ institute.name|title }} </br>
+                                    </div>
+                                    <div style="line-height: 20px;font-size: 15px;text-align: center;">
+                                    RC. NO. 11109/C13/Acad/2015-16, Kaluvapalli(V),Parigi(M),Sri Sathya Sai (D), <br>
+                                    Hindupur-515261.Ph-9441498885
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+    <br>
+    <div style="font-weight: bold;text-align: center;">Fee Receipt</div>
+</div>
+
+<hr>
+
+<!-- STUDENT INFO -->
+ <div >Receipt To</div>
+<div class="section">
+    <div class="row">
+        <div class="col">
+            <p><b>Student Name:</b>
+                {{ fee_collection.student_detail.first_name|upper }}
+                {{ fee_collection.student_detail.middle_name|upper }}
+                {{ fee_collection.student_detail.last_name|upper }}
+            </p>
+
+            <p><b>Admission No:</b> {{ admission_num }}</p>
+
+            <p><b>Class:</b>
+               {{ fee_collection.standard_name }}
+            </p>
+
+            <p><b>Academic Year:</b>
+                {{ fee_collection.academic_year.start_date|date:"Y" }}-
+                {{ fee_collection.academic_year.end_date|date:"Y" }}
+            </p>
+        </div>
+
+        <div class="col">
+            <p> </p>
+            <p><b>Father's Name:</b>
+                {{ fee_collection.student_detail.student_parent.parent.father_name|upper }}
+            </p>
+
+            <p><b>Receipt No:</b> {{ fee_collection.receipt_num }}</p>
+
+            <p><b>Receipt Date:</b>
+                {{ fee_collection.transaction_date }}
+            </p>
+        </div>
+    </div>
+</div>
+<hr>
+<!-- FEES TABLE -->
+<table>
+    <tr>
+        <th>Sl No</th>
+        <th>Particulars</th>
+        <th class="right">Amount (₹)</th>
+    </tr>
+    
+
+    {% for fee in fee_collection.payment_detail %}
+    <tr>
+        <td>{{ forloop.counter }}</td>
+        <td>{{ fee.fee_type_name }}</td>
+        <td class="right">{{ fee.amount_paid|floatformat|intcomma }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<hr>
+
+<!-- TOTAL -->
+<div class="section">
+    <div class="row">
+        <div>
+            <b>Total in Words:</b>
+            {{ amount_in_words_rupees_first|title }}
+        </div>
+        <div class="right">
+            <b>Total:</b> ₹ {{ fee_collection.total_amount|floatformat|intcomma }}
+        </div>
+    </div>
+
+    <p><b>Payment Mode:</b>
+        {% for mode in fee_collection.mode_of_payment_list %}
+            {{ mode.mode_of_payment }}
+        {% endfor %}
+    </p>
+
+    {% if fee_collection.mode_of_payment != 'Cash' %}
+    <p><b>Transaction ID:</b> {{ fee_collection.payment_ref_num }}</p>
+    {% endif %}
+
+    <p><b>Balance Amount:</b> ₹ {{ student_fee_summary.total_pending_amount|floatformat|intcomma }}</p>
+</div>
+<hr>
+
+<!-- SIGNATURE -->
+<div class="signature">
+    <div>Received By: Principal</div>
+    <div>Authorised Signature</div>
+</div>
+<hr>
+
+<p style="text-align:right;">Thank you for the payment</p>
+
+<!-- CUT LINE -->
+<!-- <div class="divider"></div> -->
+<hr>
+<!-- OFFICE COPY -->
+<!-- OFFICE COPY -->
+
+<br><br><br><br> <br><br> <br>
+<div class="office-section">
+    <hr>
+    <div class="bold" style="text-align:center;">FOR OFFICE USE ONLY</div>
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <p><b>Student Name:</b> {{ fee_collection.student_detail.first_name|upper }}</p>
+            <p><b>Admission No:</b> {{ admission_num }}</p>
+            <p><b>Father Name:</b>
+                {{ fee_collection.student_detail.student_parent.parent.father_name|upper }}
+            </p>
+            <p><b>Total Fees:</b> ₹ {{ student_fee_summary.total_amount|intcomma }}</p>
+            <p><b>Balance:</b> ₹ {{ student_fee_summary.total_pending_amount|intcomma }}</p>
+        </div>
+
+        <div class="col">
+            <p><b>Receipt No:</b> {{ fee_collection.receipt_num }}</p>
+            <p><b>Class:</b>  {{ fee_collection.standard_name }}</p>
+            <p><b>Receipt Date:</b> {{ fee_collection.transaction_date }}</p>
+            <p><b>Fees Paid:</b> ₹ {{ student_fee_summary.total_paid_amount|intcomma }}</p>
+            <p><b>Payment Mode:</b>
+                {% for mode in fee_collection.mode_of_payment_list %}
+                    {{ mode.mode_of_payment }}
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+
+    <br>
+    <!-- <p><b>Note:</b> Fees once paid will not be refunded</p> -->
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+	"notification_type" : "immediate",
+	"notification_for" : "Student",
+	"message" : "Hi ###student.full_name### your address is ###studentaddress.full_address### and your email Id is ###student.email###       'Nikhil'  / / / // ///// /// // // / ",
+	"academic_year" :1,
+	"mobile_num": "parentdetail.parent_mobile",
+	"standard_ids": [1]
+}

@@ -1,0 +1,387 @@
+@import "styles/helpers.scss";
+.width-85{
+    width:85%!important;
+    margin-top: 1rem!important;
+}   
+
+.action-basic-detail-width{
+    .MuiDialog-container{
+        .MuiDialog-paper{
+            width:350px!important;
+        }
+    }
+}
+ 
+.modify-prev-standard-width{
+    .MuiDialog-container{
+        .MuiDialog-paper{
+            width:600px!important;
+        }
+    }
+}
+
+.modify-standard-name{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.school-logo{
+    width: -webkit-fill-available;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.paperBackground {
+    background: #FFFFFF!important;
+    box-shadow: 0px 15px 35px rgba(49, 69, 244, 0.1)!important;
+    border-radius: 15px!important;
+    margin: 40px!important;
+    padding: 50px!important;
+}
+
+.view-label {
+    font-size: 18px!important;
+    line-height: 15px!important;
+    display: flex!important;
+    align-items: flex-end!important;
+    color: #444444!important;
+    opacity: 0.9!important;
+}
+.view-value{
+    margin-top: 7px;
+    font-size: 20px;
+    line-height: 23px;
+    display: flex;
+    align-items: flex-end;
+    color: #000000;
+}
+.basic-details{
+    font-weight: 500;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: flex-end;
+    color: #1665D8;
+}
+
+
+
+.width-45{
+    width:45%;
+    text-align: center;
+}
+.width-10{
+  width:10%;
+}
+
+.add-standard-strength{
+    display:flex!important; 
+    justify-content:center!important;
+    margin-top: 35%!important; 
+}
+
+.add-standard-strength-icon{
+  font-size: 130px!important;
+  color:#1665D8!important;
+}
+
+.padding-20{
+    padding:20px!important;
+}
+.padding-3{
+    padding:3px!important;
+}
+
+.upload-icon{
+    padding-left: 7px;
+    font-size: 20px;
+}
+
+.upload-logo-button{
+    text-transform: capitalize!important;
+    border: 1px solid!important;
+    padding: 4px 20px!important;
+    margin-left: 20px!important;
+}
+
+.logo-position{
+    background: white;
+    height: 150px;
+    width: 150px;
+    position: relative;
+    top: -97px;
+    left: 70px;
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 3px;
+    margin-bottom: -161px;
+}
+
+.logo-view{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.school-view-margin-top{
+    margin-top: 70px!important;
+}
+
+.school-logo-cross-remove{
+    position: absolute;
+    top: -18px;
+    right: -24px;
+    color: red;
+    cursor: pointer;
+  }
+
+  .strength-card-position{
+      display: flex;
+      flex-wrap: wrap;
+  }
+
+  .standard-add-section-button{
+      margin-bottom: 10px !important;
+      height: 30px;
+      font-size: 16px !important;
+      line-height: 14px !important;
+      color: #FFFFFF !important;
+      background-color: #1665D8 !important;
+      padding: 17px!important;
+      text-transform: none!important;
+  }
+
+  .add-section-button-position{
+      padding-left: 20px!important;
+  }
+
+  .school-logo-position{
+    position: absolute;
+    min-width: 130px!important;
+}
+
+.heading-label-box{
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.counter-box{
+    padding: 0px;
+    font-size: 15px;
+    text-align-last: center;
+    font-weight: 500;
+    margin-top: 15px;
+}
+
+.format-value-box{
+    text-align: center;
+    font-size: 23px!important;
+    align-self: center;
+    font-weight: 400;
+}
+
+.paper-counter-background{
+    width: 100%;
+    padding: 30px;
+    margin: 20px 0px;
+}
+
+.details-outer-box{
+    padding: 5px 30px!important;
+}
+
+.accordion-outer-box{
+    margin: 20px 0px!important;
+    padding: 5px 0px!important;
+}
+
+.standard-label-counter{
+    font-size: 20px!important;
+    font-weight: 500!important;
+}
+
+.standard-vise-heading{
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 23px !important;
+    line-height: 20px !important;
+    line-height: 30px !important;
+}
+
+.subject-list-is-language {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: green;
+    margin-top: 6px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+  
+.counter-format-toggle-outer-div {
+    border: 2px solid #4B74FF;
+    box-sizing: border-box;
+    border-radius: 50px !important;
+    width: 307px;
+}
+
+.counter-format-current-value{
+    color: #4680ff;
+    font-size: 26px;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 980px) {
+    .paperBackground {
+        background: none;
+        box-shadow: none;
+        margin: 5px !important;
+        padding: 5px !important;
+    }
+
+    .logo-position{
+        // height: 100px!important;
+        // width: 100px!important;
+        // border: 1px solid;
+        // border-radius: 50%;
+        // padding: 3px;
+        // position: inherit;
+        // margin-bottom: 8px!important;
+        display: none;
+    }
+    .strength-card-position{
+        margin-top: 10px;
+        place-content: center;
+    }
+    .school-view-margin-top{
+        margin-top: 0px!important;
+    }
+    .upload-logo-button{
+        margin-left: 0px!important;
+    }
+    .school-logo-center{
+        text-align: -webkit-center;
+    }
+    .view-label{
+        padding-left: 10px!important;
+    }
+    .view-value{
+        padding-left: 10px!important;
+    }
+    .add-section-button-position{
+        padding-left: 0px!important;
+        text-align: center!important;
+        margin-top: 10px!important;
+    }
+    .school-logo-position{
+        position: relative;
+        min-width: 130px!important;
+    }
+    
+}
+
+@media only screen and (max-width: 1300px) {
+    .logo-position{
+        background: white;
+        height: 120px;
+        width: 120px;
+        top: -87px;
+        left: 70px;
+    }
+}
+
+.text-field-style{
+    .MuiOutlinedInput-input{
+        padding: 15px;
+    }
+    .MuiOutlinedInput-notchedOutline{
+        top: -4px!important;
+    }
+    .MuiInputLabel-formControl{
+        top: -3px!important;
+    }
+    .MuiOutlinedInput-multiline{
+        padding: 0px;
+    }
+    margin: 8px 0px!important;
+    width: 100%;
+}
+
+.school-timing-standard-list-outer-box{
+    height: 60vh;
+    overflow: auto;
+} 
+
+.height-55vh{
+    height: 55vh;
+    overflow: auto;
+}
+
+.height-55vh::-webkit-scrollbar {
+    width: 1px;
+}
+
+.height-55vh::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+}
+
+.height-55vh::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid rgb(126, 87, 235);
+}
+
+.height-50vh{
+    height: 50vh;
+    overflow: auto;
+}
+
+.height-50vh::-webkit-scrollbar {
+    width: 1px;
+}
+
+.height-50vh::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+}
+
+.height-50vh::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid rgb(126, 87, 235);
+}
+
+.min-height-58vh{
+    min-height: 58vh;
+    overflow: auto;
+}
+
+.min-height-58vh::-webkit-scrollbar {
+    width: 1px;
+}
+
+.min-height-58vh::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+}
+
+.min-height-58vh::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid rgb(126, 87, 235);
+}
+
+.min-height-55vh{
+    min-height: 55vh;
+    overflow: auto;
+}
+
+.min-height-55vh::-webkit-scrollbar {
+    width: 1px;
+}
+
+.min-height-55vh::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+}
+
+.min-height-55vh::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid rgb(126, 87, 235);
+}

@@ -1,0 +1,156 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th
+        {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td{
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 30px 10px 0px 10px;
+        }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+        <div class='page'>
+            <table style="width:100%">
+                <tr>
+                    <td colspan="2" style="padding: 8px;">
+                        <div style='display:flex;justify-content:center;padding-right:30px'>
+                            <div style='text-align:right'>
+                                {% if institute.logo.file.url %}
+                                    <img src={{ institute.logo.file.url }}
+                                    style="width: 100px;height: 100px;padding-right:"/>
+                                {% endif %}
+                            </div>
+                            <div style='text-align:center'>
+                                <div style="font-size: 22px;font-weight: bold;">
+                                    {{ institute.name }} </br>
+                                </div>
+                                {% if institute.trust_name %}
+                                    <span style='font-size: 13px'>{{ institute.trust_name }}</span>
+                                {% endif %}
+                                <div style="line-height: 25px;font-size:14px">
+                                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                                    {% if institute.tel_num %}Ph: {{ institute.tel_num }}
+                                    {% if institute.tel_num_2 %}
+                                    , {{ institute.tel_num_2 }} {% endif %}<br/>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="text-align: center;font-weight: bold;">Fee Receipt</div>
+            <table style="width: 100%">
+                <tr>
+                    <td class='noborder bold line-height' style='width:60%;vertical-align:top'> Student Name : 
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        <br/>
+                        Admission Number : {{admission_num|title}}<br>
+                        Class / Section :
+                        {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}<br>
+                        Academic Year : {{fee_collection.academic_year.start_date|date:"Y"}}-{{fee_collection.academic_year.end_date|date:"Y"}}
+
+                    </td>
+                    <td class='bold line-height'>
+                        Father Name : {{fee_collection.student_detail.student_parent.parent.father_name|upper}}<br/>
+                        Mother Name : {{fee_collection.student_detail.student_parent.parent.mother_name|upper}} <br/>
+                        Receipt No: {{fee_collection.receipt_num|title}} <br/>
+                        Receipt Date:  {{fee_collection.transaction_date}} <br/>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <thead>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Particulars</th>
+                    <th>Amount</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment_data in fee_collection.payment_detail_fee_type %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{payment_data.fee_type_name}}</td>
+                        <td>{{payment_data.amount_paid|floatformat|intcomma }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan='2' style='font-weight:bold;line-height:1.5'>
+                        Total In Words : {{amount_in_words|title}} Only </br>
+                        Mode Of Payment : {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %} <br/>
+                    </td>
+                    <td style='font-weight:bold;line-height:1.5;vertical-align:top;'>
+                        Total : {{ fee_collection.total_amount | floatformat |intcomma}}/-
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='2' style='font-weight:bold;line-height:1.5'>
+                        Payment Mode : {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %} <br/>
+                        Balance Amount : Rs {{fee_collection.pending_amount | floatformat |intcomma}} </br> <br>
+                        Thank You For Your Payment
+                    </td>
+                    <td style='font-weight:bold;line-height:1.5;vertical-align:top;'>
+                        Transaction Id : {{fee_collection.payment_ref_num}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style='vertical-align:bottom;border-right:0px;text-align: center;' colspan='3'>
+                        This is system generated receipt
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="display:flex">
+                <div align="left">Receipt Generated at : {{ today }}</div>
+                <div style='margin-left:auto'>Powered By Edubricz</div>
+            </div>
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+        </div>
+{% endfor %}
+</body>

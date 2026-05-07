@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ID School</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo:700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya:900">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anek+Bangla:900">
+  <style>
+    @page {
+      size: 85mm 54mm;
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      width: 85mm;
+      height: 54mm;
+      color: #0A0A0A;
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+    .profile-circle {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      border: 1.5px solid #0504aa;
+      overflow: hidden;
+      margin-right: 15px;
+    }
+    .front-side {
+      width: 85mm;
+      height: 54mm;
+      background-image: url('https://production-edubricz.s3.amazonaws.com/18/Math_Project.png');
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    .content-container {
+      padding: 20px;
+      padding-top: 80px;
+      display: flex;
+      align-items: center;
+    }
+    .student-info {
+      font-size: 15px;
+      line-height: 1.4;
+    }
+    .label {
+      color: #0504aa;
+      font-weight: bold;
+      text-align: center;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+    .value {
+      color: black;
+      font-weight: bold;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+  </style>
+</head>
+<body>
+{% for student in data %}
+<!-- FRONT SIDE ONLY -->
+<div class="front-side">
+  <div class="content-container">
+    <div class="profile-circle">
+      <img src="{{ student.profile_pic_details.file }}" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+    <div class="student-info">
+      <!-- <div style="color: red;font-weight: bold;text-align: center;">Student Name: </div> -->
+      <div style="
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-weight: bold;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: {% if student.name|length > 14 %}12px{% else %}15px{% endif %};
+">
+  {{ student.name|upper }}
+</div>
+      <div><span class="label">Standard:</span> <span class="value">{{ student.standard_name_roman|cut:"(kan)" }} Sec: {{ student.section_name }}</span></div>
+      <div><span class="label">Subject:</span> <span class="value">.....................</span></div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+</body>
+</html>

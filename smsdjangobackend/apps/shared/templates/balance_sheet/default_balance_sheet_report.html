@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 12mm;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 9pt;
+            color: #222;
+        }
+
+        /* ── School header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #1F4E79;
+            padding-bottom: 8px;
+        }
+
+        .header .school-name {
+            font-size: 16pt;
+            font-weight: bold;
+            color: #1F4E79;
+        }
+
+        .header .trust {
+            font-size: 10pt;
+            font-style: italic;
+            color: #555;
+            margin: 2px 0;
+        }
+
+        .header .info {
+            font-size: 8pt;
+            color: #666;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 13pt;
+            font-weight: bold;
+            color: #1F4E79;
+            margin: 8px 0 2px 0;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 10pt;
+            color: #4472C4;
+            margin-bottom: 10px;
+        }
+
+        /* ── Two-column container ── */
+        .bs-wrapper {
+            display: flex;
+            gap: 10px;
+        }
+
+        .side {
+            flex: 1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: #4472C4;
+            color: #fff;
+            padding: 5px 6px;
+            text-align: left;
+            font-size: 9pt;
+        }
+
+        th.amt {
+            text-align: right;
+            width: 100px;
+        }
+
+        td {
+            padding: 3px 6px;
+            border-bottom: 1px solid #e8e8e8;
+            font-size: 9pt;
+        }
+
+        td.amt {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ── Row types ── */
+        .cat td {
+            background: #FFFF00;
+            font-weight: bold;
+            font-size: 9.5pt;
+        }
+
+        .subcat td {
+            background: #FFFF00;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .item td {
+            padding-left: 14px;
+        }
+
+        .cat-total td {
+            border-top: 1px solid #888;
+            font-weight: bold;
+        }
+
+        .grand td {
+            border-top: 2px solid #1F4E79;
+            border-bottom: 2px solid #1F4E79;
+            font-weight: bold;
+            font-size: 10pt;
+            color: #1F4E79;
+        }
+
+        /* ── Footer ── */
+        .balance-msg {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 10pt;
+        }
+
+        .balanced {
+            color: #006100;
+            font-weight: bold;
+        }
+
+        .unbalanced {
+            color: #9C0006;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="school-name">{{ inst.name }}</div>
+        {% if inst.trust_name %}<div class="trust">{{ inst.trust_name }}</div>{% endif %}
+        {% if info_line %}<div class="info">{{ info_line }}</div>{% endif %}
+    </div>
+
+    <div class="title">Balance Sheet</div>
+    <div class="subtitle">{{ formatted_date }} &mdash; Financial Year: {{ data.financial_year_label }}</div>
+
+    <div class="bs-wrapper">
+        <!-- ═══ LIABILITIES (Left) ═══ -->
+        <div class="side">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Liabilities</th>
+                        <th class="amt">Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in liab_rows %}
+                    {% if row.type == 'category' %}
+                    <tr class="cat">
+                        <td>{{ row.name }}</td>
+                        <td class="amt"></td>
+                    </tr>
+                    {% elif row.type == 'subcategory' %}
+                    <tr class="subcat">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.credit_fmt }}</td>
+                    </tr>
+                    {% elif row.type == 'item' %}
+                    <tr class="item">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.credit_fmt }}</td>
+                    </tr>
+                    {% elif row.type == 'category_total' %}
+                    <tr class="cat-total">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.credit_fmt }}</td>
+                    </tr>
+                    {% elif row.type == 'grand_total' %}
+                    <tr class="grand">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.credit_fmt }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ═══ ASSETS (Right) ═══ -->
+        <div class="side">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Assets</th>
+                        <th class="amt">Amount (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in asset_rows %}
+                    {% if row.type == 'category' %}
+                    <tr class="cat">
+                        <td>{{ row.name }}</td>
+                        <td class="amt"></td>
+                    </tr>
+                    {% elif row.type == 'subcategory' %}
+                    <tr class="subcat">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.debit_fmt }}</td>
+                    </tr>
+                    {% elif row.type == 'item' %}
+                    <tr class="item">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.debit_fmt }}</td>
+                    </tr>
+                    {% elif row.type == 'category_total' %}
+                    <tr class="cat-total">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.debit_fmt }}</td>
+                    </tr>
+                    {% elif row.type == 'grand_total' %}
+                    <tr class="grand">
+                        <td>{{ row.name }}</td>
+                        <td class="amt">{{ row.debit_fmt }}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="balance-msg">
+        {% if data.is_balanced %}
+        <span class="balanced">✓ Balance Sheet is balanced</span>
+        {% else %}
+        <span class="unbalanced">⚠ Difference: ₹{{ difference_fmt }}</span>
+        {% endif %}
+    </div>
+</body>
+
+</html>

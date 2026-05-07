@@ -1,0 +1,149 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fee Structure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.5rem;
+      font-size: 14px;
+    }
+
+    .heading {
+      font-size: 22px;
+      font-weight: bold;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .info-section {
+      width: 90%;
+      margin: 0 auto 20px;
+    }
+
+    .info-section p {
+      margin: 4px 0;
+    }
+
+    table {
+      width: 90%;
+      margin: 0 auto;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid #000;
+      padding: 6px 10px;
+      text-align: center;
+    }
+
+    .footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    .sign-section {
+      width: 90%;
+      margin: 40px auto 0;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .sign-box {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    @page {
+      size: A4;
+      margin: 2cm;
+    }
+
+    .term-cell {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <table style="width: 90%; margin: auto; border: none;">
+    <tr>
+      <td colspan="2" style="padding: 8px; border: none;">
+        <div style='display:flex;justify-content:center;padding-right:30px'>
+          <div style='text-align:right'>
+            {% if institute.logo.file.url %}
+              <img src="{{ institute.logo.file.url }}" style="width: 100px;height: 100px;padding-right:20px;" />
+            {% endif %}
+          </div>
+          <div style='text-align:center'>
+            <div style="font-size: 22px;font-weight: bold;">
+              {{ institute.name }}<br/>
+            </div>
+            {% if institute.trust_name %}
+              <span style='font-size: 13px'>{{ institute.trust_name }}</span><br/>
+            {% endif %}
+            <div style="line-height: 25px;font-size:14px">
+              {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+              {% if institute.pincode %} - {{ institute.pincode }}{% endif %}<br/>
+              {% if institute.tel_num %}Ph: {{ institute.tel_num }}
+              {% if institute.tel_num_2 %}, {{ institute.tel_num_2 }}{% endif %}{% endif %}
+            </div>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <div class="heading">
+    Fee Structure
+  </div>
+
+  <div class="info-section">
+    <p><strong>Student Name:</strong> {{ student_name }}</p>
+    <p><strong>Standard:</strong> {{ standard }}</p>
+    <p><strong>Academic Year:</strong> {{ academic_year }}</p>
+    <p><strong>Today Date:</strong> {{ today }}</p>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Sl. No</th>
+        <th>Fee Type (with Term)</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fee in fee_items %}
+        {% if fee.standard_fee %}
+          {% for term in fee.standard_fee %}
+          <tr>
+            <td>{% if forloop.first %}{{ forloop.parentloop.counter }}{% endif %}</td>
+            <td class="term-cell">{{ fee.fee_type_name }} - {{ term.term_alias }}</td>
+            <td>{{ term.rate }}</td>
+          </tr>
+          {% endfor %}
+        {% else %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td class="term-cell">{{ fee.fee_type_name }}</td>
+          <td>{{ fee.amount }}</td>
+        </tr>
+        {% endif %}
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="sign-section">
+    <div class="sign-box">
+      <p>Authorized Signature</p>
+      <p>________________________</p>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+
+        body {
+            font-family: Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 100px; /* Space for footer */
+        }
+
+        p {
+            text-indent: 50px;
+            text-align: justify;
+            line-height: 2.0em;
+        }
+
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.1;
+            z-index: -1; /* Behind all content */
+            pointer-events: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .watermark img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            /* padding: 2px 0; */
+            background-color: white;
+        }
+
+        .footer .line1 {
+            margin-bottom: 1px;
+            color: rgb(0, 0, 0);
+            font-size: 12px;
+        }
+
+        .footer-boldline {
+            border-top: 1px solid black;
+            margin: 5px auto;
+            width: 90%;
+        }
+
+        .line {
+            border-top: 1px solid black;
+        }
+
+        /* .img-box {
+            border: 1px solid black;
+            width: 110px;
+            height: 120px;
+            text-align: center;
+            display: inline-block;
+        } */
+
+        img.profile-pic {
+            width: 110px;
+            height: 120px;
+        }
+        
+        .container {
+            padding-bottom: 80px; /* Ensure content doesn't overlap with footer */
+        }
+        
+        .signature-area {
+            margin-top: 70px;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <!-- Watermark -->
+    <div class="watermark">
+        <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/103/jaihindlogo.jpeg" alt="Watermark Logo">
+    </div>
+
+    <div class="container">
+        <div style="text-align: center">
+            <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jaihind/jaihind-logo-horizontal-fee-receipt.jpeg" style="height: 100px; width: 300px;">
+        </div>
+
+        <div class="line"></div><br><br><br>
+
+        <div style="text-align: left; margin: 25px 0px;"><b>Reference No: {{admission_num}}</b></div>
+
+        <div style="font-size:23px; text-align: center; margin:60px 10px 0px; text-decoration: underline;"><b>STUDY CERTIFICATE</b></div>
+
+        <div style="font-size:16px; text-align: center; margin:5px 10px 20px;"><i>To whom so ever it may concern</i></div>
+
+        <!-- Centered Student Photo -->
+        <div style="text-align: center; margin-bottom: 50px;">
+            <div class="img-box">
+                <img src="{{profile_pic_details}}"  class="profile-pic" />
+            </div>
+        </div>
+
+        <p>
+            This is to certify that <b>{{student_full_name}}</b> {{student_relate}} <b>{{father_name}}</b> is a bonafide student of this institution studying in <b>{{standard_name}}{{standard_suffix}}</b> during the academic year <b>{{academic_year}}</b>.
+            As per the admission register of our institution {{student_her_him}} DOB is <b>{{dob_str}}</b> and <b>admission No</b> is <b>{{admission_num}}</b>, {{student_he_she}} belongs to the caste {{caste|title}} and residing {{address}}.
+        </p>
+
+        <div style="text-align: left; margin: 70px 0px;">School DISE Code:29200903227</div>
+
+        <div class="signature-area">
+            <table style="width: 100%;">
+                <tr>
+                    <td style="text-align: left;">
+                        Date: {{today_date}}<br>
+                        <div style="text-align: left; margin-top: 20px;">Place: Bengaluru</div>
+                    </td>
+                    <td style="text-align: right; padding-right: 40px;">
+                        Seal & Signature of the Principal
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-boldline"></div>
+        <div style="color: blue;font-size: 13px;">No-91, MR Tower, Begur Main Road, Hongasandra, Bangalore-560068 (SCHOOL CODE-45710)</div>
+    </div>
+</body>
+</html>

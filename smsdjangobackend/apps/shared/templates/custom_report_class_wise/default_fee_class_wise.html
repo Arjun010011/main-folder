@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fee Status Compact Report - 2025-26</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 15px;
+            padding: 40px 20px;
+        }
+
+        h2, h3, h4 {
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        .school-header {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            color: green;
+        }
+
+        .sub-header {
+            font-size: 15px;
+            text-align: center;
+        }
+
+        .sub-header1 {
+            font-size: 16px;
+            text-align: center;
+            color: red;
+        }
+
+        .report-date {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            page-break-inside: auto;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        tbody {
+            display: table-row-group;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        th, td {
+            border: 1px solid #000;
+            padding: 6px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    {% comment %} <div class="school-header">SRI BHAIRAVESHWARA VIDYA SAMSTHE (R)</div>
+    <div class="sub-header">Affiliated to Central Board of Secondary Education (CBSE), Delhi - Affiliation No: 831117</div>
+    <div class="sub-header1">Kaiwara Cross, Kaiwara, Chintamani(Tq), Chikkaballapur(Dist)</div> {% endcomment %}
+    
+    <h3 style="color: blue;">Fees Status Compact for 2025–26</h3>
+    <p class="report-date">Date: {{ today_date }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Sl. No</th>
+                <th>Fee</th>
+                <th>Class</th>
+                <th>Collectable</th>
+                <th>Collected</th>
+                <th>Balance</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee_type, rows in summary.items %}
+                {% for row in rows %}
+                    <tr>
+                        {% if forloop.first %}
+                            <td rowspan="{{ rows|length }}">{{ forloop.parentloop.counter }}</td>
+                            <td rowspan="{{ rows|length }}">{{ fee_type }}</td>
+                        {% endif %}
+                        <td>{{ row.class }}</td>
+                        <td>{{ row.collectable }}</td>
+                        <td>{{ row.collected }}</td>
+                        <td>{{ row.balance }}</td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

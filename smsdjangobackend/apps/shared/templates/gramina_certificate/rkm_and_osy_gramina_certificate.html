@@ -1,0 +1,235 @@
+{% load transliteration %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ಗ್ರಾಮೀಣ ಅಭ್ಯರ್ಥಿ ಪ್ರಮಾಣ ಪತ್ರ</title>
+
+<style>
+@page {
+    size: A4;
+    margin: 7mm;
+}
+
+body {
+    font-family: "Noto Sans Kannada", Arial, sans-serif;
+    margin: 0;
+    font-size: 13px;
+    color: #000;
+}
+
+.container {
+    width: 100%;
+    border: 1.8px solid #000;
+    padding: 7mm 8mm 9mm;
+    box-sizing: border-box;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    gap: 10px;
+    text-align: center;
+}
+
+.school-info {
+    font-size: 14px;
+    line-height: 1.35;
+    margin-bottom: 4px;
+    text-align: center;
+}
+
+.school-info p {
+    margin: 0;
+}
+
+.reference-lines {
+    font-size: 18px;
+    line-height: 1.5;
+    text-align: center;
+    flex: 1;
+}
+
+.reference-row {
+    display: flex;
+    justify-content: center;
+}
+
+/* TITLE SECTIONS */
+.namune {
+    text-align: center;
+    font-weight: bold;
+    margin: 8px 0 7px;
+    font-size: 17px;
+}
+
+.title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 30px;
+    border: 1.7px solid #000;
+    padding: 7px 10px 8px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+/* CONTENT */
+.content {
+    margin-top: 2px;
+    line-height: 1.7;
+    text-align: justify;
+    font-size: 18px;
+}
+
+.content p {
+    margin: 0;
+}
+
+/* DECLARATION */
+.declaration-area {
+    margin-top: 15px;
+    min-height: 180px;
+    display: flex;
+}
+
+.declaration-text {
+    width: calc(100% - 145px);
+    text-align: justify;
+    line-height: 1.6;
+    font-size: 18px;
+}
+
+/* PHOTO BOX */
+.photo-box {
+    width: 118px;
+    height: 136px;
+    overflow: hidden;
+    margin-top: 5%;
+    margin-left: 20%;
+}
+
+.photo-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* FOOTER */
+.foot-lines {
+    margin-top: 7px;
+    line-height: 1.9;
+    font-size: 18px;
+    width: 50%;
+}
+
+.signature-row {
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 18px;
+}
+
+.signature-right {
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* ✅ BOLD VARIABLES */
+.var {
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- School Info -->
+    <div class="school-info">
+        <p style="font-size: 30px;font-weight: bold;">{{school_name|to_kannada}}</p>
+        <p style="font-size: 18px;font-weight: bold;">{{school_address|to_kannada}}</p>
+    </div>
+
+    <!-- Government References -->
+    <div class="header">
+        <div class="reference-lines">
+            <div class="reference-row">ಸರ್ಕಾರಾದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 06 ಸನೆನಿ 2001 - 13-02-2001</div>
+            <div class="reference-row">ಸರ್ಕಾರಾದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 08 ಸನೆನಿ 2001 - 13-02-2001</div>
+            <div class="reference-row">ಸರ್ಕಾರಾದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 97 ಸನೆನಿ 2002 - 22-11-2002</div>
+            <div class="reference-row">ಸರ್ಕಾರಾದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 96 ಸನೆನಿ 2005 - 10-08-2005</div>
+            <div class="reference-row">ಸರ್ಕಾರಾದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 53 ಸನೆನಿ 2007 - 04-01-2008</div>
+        </div>
+    </div>
+
+    <!-- नमूने -->
+    <div class="namune">ನಮೂನೆ - 2</div>
+
+    <!-- Title -->
+    <div class="title">ಗ್ರಾಮೀಣ ಅಭ್ಯರ್ಥಿ ಪ್ರಮಾಣ ಪತ್ರ</div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <p>
+            ಶ್ರೀ <span class="var">{{ father_name|to_kannada }}</span> ರವರ
+{% if student_son_daughter == "Son" %}
+    ಮಗನಾದ
+{% else %}
+    ಮಗಳಾದ
+{% endif %}
+{{ student_sri_kum|to_kannada }}
+<span class="var">{{ student_full_name|to_kannada }}</span>
+
+            <span >{{student_address.state|to_kannada}}</span> ಜಿಲ್ಲೆ
+            <span >{{student_address.district|to_kannada}}</span> ತಾಲ್ಲೂಕು
+            <span >{{student_address.city|to_kannada}}</span> ಗ್ರಾಮದಲ್ಲಿ ವಾಸವಾಗಿರುವ ಇವರು,
+
+            <span class="var">{{from_standard_name|to_kannada}}</span> ತರಗತಿಯಿಂದ
+            <span class="var">{{to_standard_name|to_kannada}}</span> ತರಗತಿಯವರೆಗೆ.
+            {{school_state|to_kannada}} ಜಿಲ್ಲೆ 
+            {{school_district|to_kannada}} ತಾಲ್ಲೂಕು
+            {{school_city|to_kannada}} ಪಟ್ಟಣದ
+
+            <span class="var">{{school_name|to_kannada}}</span> ಶಾಲೆಯಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡಿ
+
+            <span class="var">{{to_academic_year|to_kannada}}</span>
+            ವರ್ಷದ ಪರೀಕ್ಷೆಯಲ್ಲಿ ಉತ್ತೀರ್ಣರಾಗಿರುತ್ತಾರೆ. ಈ ಶಾಲೆಯು ಕರ್ನಾಟಕ ಪೌರ ನಿಗಮಗಳು ಅಧಿನಿಯಮ 1976 ಅಥವಾ ಕರ್ನಾಟಕ ಪೌರಸಭೆಗಳ ಅಧಿನಿಯಮ,
+            1964ರ ಅಡಿಯಲ್ಲಿ ನಿರ್ದಿಷ್ಟಪಡಿಸಿದ ದೊಡ್ಡ ನಗರ ಪ್ರದೇಶ, ಸಣ್ಣ ನಗರ ಪ್ರದೇಶ ಅಥವಾ ಪರಿವರ್ತನೆ ಹಂತದಲ್ಲಿರುವ ಪ್ರದೇಶಗಳ ಹೊರತಾಗಿ ಇರುವ ಪ್ರದೇಶದಲ್ಲಿದೆ.
+        </p>
+    </div>
+
+    <!-- Declaration -->
+    <div class="declaration-area">
+        <div class="foot-lines" >
+            ಜನ್ಮ ದಿನಾಂಕ : <span class="var">{{dob_str|to_kannada}}</span><br>
+            ದಾಖಲೆ ಸಂಖ್ಯೆ : <span class="var">{{admission_num}}</span><br>
+            ಶಾಲೆ ಬಿಟ್ಟ ದಿನಾಂಕ : <span class="var">{{today_date|to_kannada}}</span><br>
+            ದಿನಾಂಕ : <span class="var">{{today_date|to_kannada}}</span><br>
+            ಸ್ಥಳ : <span class="var">{{school_address|to_kannada}}</span>
+        </div>
+
+        <div class="photo-box" >
+            <img src="{{profile_pic_details}}" alt="Student Photo">
+           
+        </div>
+    </div>
+
+    <!-- Footer -->
+    
+
+    <!-- Signature -->
+    <div class="signature-row">
+        <div>
+            ಕ್ಷೇತ್ರ ಶಿಕ್ಷಣಾಧಿಕಾರಿ
+        </div>
+
+        <div class="signature-right">
+            ಮುಖ್ಯೋಪಾಧ್ಯಾಯರು
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

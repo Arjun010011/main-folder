@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+</head>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin:0px;
+    width: 100%;
+    height:100%;
+    border:none;
+  }
+  body{
+    background-size: 54mm 85mm;
+    margin:0px;
+    color:#0A0A0A;
+    background-image: linear-gradient(#fff6ed, #efd0bc);
+  }
+</style>
+{%for staff in data %}
+<body style="font-family:Raleway;">
+  <div>
+    <div style="text-align: center;">
+  {% if institute.logo.file.url %}
+  <img src={{ institute.logo.file.url }} style="height: 40px; width: 60px;margin-top: 10px;"></div>
+  {% endif %}
+  <div>
+    <div style="font-size: 8.5px;color:#2e1c12;font-weight:700;
+    text-align: center;">ASIAN INTERNATIONAL PUBLIC SCHOOL</div>
+    <div style="font-size: 9px;color:#956052;font-weight:700;
+    text-align: center;">2025 - 2026</div>
+  </div>
+  </div>
+  <div style="margin-top: 5px;">
+    <div style="height: 85px; width:79px;right:3px;border-radius: 25% 0%;border:2px solid white;background-color: white;margin:auto;">
+      <img src={{staff.profile_pic_details.file}} style="height: 83px; width: 77px;border-radius: 25% 0%;border:2px solid white;">
+    </div>
+    <div style="color:#3a0300;text-align: center;font-size: 12px;font-weight: bold;margin-top: 3px;">{{staff.name|upper}}</div>
+  </div>
+  <table width="100%"
+  style="font-size: 10px;color:#3a0300;margin:auto;margin-top: 6px;">
+      <td>
+        DESIGNATION
+      </td>
+      <td style="font-weight: bold;"> : {{ staff.users.groups.0.name|upper }}</td>
+      </tr>
+      <tr>
+      <td>
+        Mobile
+      </td>
+      <td style="font-weight: bold;"> : {{staff.mobile_num|cut:"+91"}}</td>
+      </tr>
+      
+     
+  </table>
+  <div style="margin-top: 33px; font-size:9px;letter-spacing:0px;text-align: center;border-top:1px solid black;
+  background-color: #f99406;color:#3a0300;height:60px;">
+    602/2,Rajanna layout,Gubbalala, Raghuvanahalli,Kanakapura Main Road, Behind Union Bank,Bangalore - 560 061<br>
+    <div style="font-size:11px;font-weight: bold;padding-top:3px;">SCHOOL NUMBER: 9071063255</div>
+  </div>
+  <div style="page-break-after: always;"></div>
+</body>
+{%endfor%}
+</html>

@@ -1,0 +1,72 @@
+{% load static %}
+{% load transliteration %}
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+    <meta charset="UTF-8">
+    <title>ಗ್ರಾಮೀಣ ಅಭ್ಯಂತರ ಪ್ರಮಾಣ ಪತ್ರ</title>
+    <style>
+        .border {
+            border: 2px solid black;
+            padding: 10px;
+            margin: 10px;
+            width:160mm;
+            height:200mm;
+            font-family: "Nudi 01 e", "Kedage", "Tunga", sans-serif;
+            line-height: 1.8;
+            position: relative;
+        }
+        .center {
+            text-align: center;
+        }
+        .profile-pic {
+            width: 120px;
+            height: 140px;
+            object-fit: cover;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="border">
+        <div style="margin-left: 0px;">
+    <div style="display: flex; justify-content: space-between;">
+        <div style="text-align: left; font-weight: bold; margin-top: 10px;">
+            ದಾಖಲೆ ಸಂಖ್ಯೆ: {{ admission_num|upper }}
+        </div>
+    </div>
+
+    <div style="text-align: left; font-size: 16px; font-weight: bold; margin-top: 10px;">
+        ಸಂಸ್ಥೆಯ ಹೆಸರು: ಸರ್ ಸಿ ವಿ ರಾಮನ್ ಪಬ್ಲಿಕ್ ಶಾಲೆ
+    </div>
+</div>
+
+            <h3 style='text-align:center;'>ನಮೂನೆ - 2</hr>
+            <h2 style='text-align:center;'>ಗ್ರಾಮೀಣ ಅಭ್ಯರ್ಥಿ ಪ್ರಮಾಣ ಪತ್ರ</h3>
+
+                <p>
+                    ಶ್ರೀ <span style="font-weight: bold; text-decoration: underline;">{{ father_name|to_kannada}}</span> ರವರ 
+                     <span style="font-weight: bold; text-decoration: underline;">{{ student_son_daughter|to_kannada }}</span>
+                     <span style="font-weight: bold; text-decoration: underline;">{% if student_sri_smt %}{{ student_sri_smt|to_kannada}}{%endif%}</span>
+                    <span style="font-weight: bold; text-decoration: underline;">{{ student_full_name |to_kannada }}</span>
+                     ಜಿಲ್ಲೆ <span style="font-weight: bold; text-decoration: underline;">{{ district|to_kannada }}</span>ತಾಲ್ಲೂಕು  
+                    <span style="font-weight: bold; text-decoration: underline;">{{ taluk|to_kannada }}</span>
+                    ಗ್ರಾಮದಲ್ಲಿ<span style="font-weight: bold; text-decoration: underline;">{{ village|to_kannada }}</span> 
+                    <span style="font-weight: bold; text-decoration: underline;">{{address|to_kannada}} ಯಲ್ಲಿ ವಾಸವಾಗಿರುವ ಇವರು </span>
+                    <span style="font-weight: bold; text-decoration: underline;">{{ from_standard_name }}</span>ತರಗತಿಯಿಂದ 
+                    <span style="font-weight: bold; text-decoration: underline;"> {{ to_standard_name }}</span>
+                    ತರಗತಿಯವರಿಗೆ  <span style="font-weight: bold; text-decoration: underline;"> {{ school_address|to_kannada }}</span> ಯಲ್ಲಿ ಇರುವ
+                    <span style="font-weight: bold; text-decoration: underline;">ಸರ್ ಸಿ ವಿ ರಾಮನ್ ಪಬ್ಲಿಕ್ ಶಾಲೆ</span>ಯಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡಿ
+                    <span style="font-weight: bold; text-decoration: underline;">{{ academic_year }}</span> 
+                    ವರ್ಷ ನಡೆದ ಪರೀಕ್ಷೆಯಲ್ಲಿ ಉತ್ತೀರ್ಣರಾಗಿರುತ್ತಾರೆ. ಈ ಶಾಲೆಯು ಕರ್ನಾಟಕದ ಪೌರನಿಗಮಗಳ ಅಧಿನಿಯಮ, 1976 ಅಥವಾ ಕರ್ನಾಟಕ ಪೌರ ಸಭೆಗಳ ಅಧಿನಿಯಮ, 1964ರ ಅಡಿಯಲ್ಲಿ 
+                    ನಿರ್ಧಿಷ್ಟಗೊಳಿಸಲ್ಪಟ್ಟ ದೊಡ್ಡ ನಗರ ಪ್ರದೇಶ, ಸಣ್ಣ ಪ್ರದೇಶ ಅಥವಾ ಪರಿವರ್ತನೆಯ ಹಂತದಲ್ಲಿರುವ ಪ್ರದೇಶಗಳ ಹೊರಗಿರುವ ಪ್ರದೇಶದಲ್ಲಿದೆ ಎಂಬ ಕಾರಣದಿಂದ ಆಗಿದೆ.
+                    
+                </p>
+                
+                    ದಾಖಲಾತಿ ಸಂಖ್ಯೆ ಮತ್ತು ದಿನಾಂಕ: <strong>{{ admission_num|upper }}</strong><br>
+                    ಜನ್ಮ ದಿನಾಂಕ: <strong>{{ dob_str}}</strong><br>
+                    ಶಾಲೆ ಬಿಟ್ಟುಹೋದ ದಿನಾಂಕ: <strong>{{ leave_date }}</strong>
+
+
+</body>
+</html>

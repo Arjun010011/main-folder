@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chordial School</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla Slab">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anek Bangla:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=inter tight:900">
+</head>
+<style>
+  @page {
+    size: 85mm 54mm;
+    margin:0px;
+    width: 100%;
+    height:100%;
+    border:none;
+  }
+  .page {
+    width: 85mm;
+    height: 54mm;
+    background-size: cover;
+  }
+  body {
+    margin:0px;
+    color:#0A0A0A
+  }
+  .back-side, .front-side {
+    background-repeat: no-repeat;
+    background-size: 85mm 54mm;
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/GURUKULA_ID_Card_bck_staff_1.jpg");
+  }
+  .front-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/GURUKULA_STAFF_ID_Card.jpg"); /* Replace with the correct front-side background image URL */
+  }
+  .box {
+    width: 77px;
+    height: 94px;
+    border: 1px solid black;
+    border-radius: 3px;
+    /* padding-top: 84px; */
+    top: 84px; 
+  }
+  
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .box1 {
+    width: 70px;
+    height: 35px;
+    border: 1.3px solid black;
+    padding-top: 50px;
+  }
+  .user-name {
+    font-size: 12px;
+    margin-bottom: 0px;
+     
+    color:#580303;
+    font-weight: bold;
+    
+    letter-spacing:0.6px;
+    margin-top:7.5px;
+    padding-left: 10px;
+  }
+  .user-name-small {
+    font-size: 10px; /* Smaller font size for long names */
+    margin-bottom: 0px;
+    
+    color:#580303;
+    font-weight: bold;
+    
+    letter-spacing:0.6px;
+    margin-top:7.5px;
+    padding-left: 10px;
+  }
+  hr {
+    color: black;
+  }
+ 
+ 
+</style>
+{% for staff in data %}
+<body>
+  <div class="page front-side">
+    
+    <div style="display:flex; page-break-inside: avoid;position: relative;">
+        <!-- <div>
+          <div style="color: red;font-weight: bold;font-size: 8;">
+              2024-25
+          </div>
+          <img src= {{ student.profile_pic_details.file }} style="height: 94px; width: 77px; position: absolute; top: 84px; left: 17px; right: 3px; border-radius: 13px;border: 1px solid black;">
+        </div> -->
+      <div class="box" style="margin-top: 87px; margin-left: 15px; position: relative;">
+        <div>
+          <img src={{ staff.profile_pic_details.file}} style="height: 94px; width: 77px; position: absolute; top: -1px; left: -1px; right: 3px; border-radius: 3px;border: 1px solid black;">
+        </div>
+      </div>  
+      </div>
+      <div style="position: absolute;left: 150px;top: 100px;">
+        <div>
+          {% if staff.name|length > 18 %}
+            <div class="user-name user-name-small">
+              {{staff.name|upper}}
+            </div>
+          {% else %}
+            <div class="user-name">
+              {{staff.name|upper}}
+            </div>
+          {% endif %}
+        </div>
+        <br>
+        <div style="font-size: 12px;font-weight: bold;color: rgb(25, 25, 128); padding-left: 10px;">
+          AYAMMA
+        </div>
+       
+       
+       
+      </div>
+    </div>
+  </div>
+  <div class="page back-side" style="page-break-after: always;">
+    
+    <table style="font-size: 10px; font-family: anek malyalam; font-weight: 600; letter-spacing: 0.1px; color: #000000;margin-top: 30px;padding-top: 65px;padding-left: 18px;">
+      <tr>
+        <td style="width: 100px;">
+          D.O.J
+        </td>
+        <td style="min-width: 100%;">
+          : {{staff.doj_changed_format}}
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px;">
+          Blood Group
+        </td>
+        <td style="min-width: 100%;">
+          : 
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          Phone No
+        </td>
+        <td style="min-width: 100%;">
+          : 8105316475
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 100px;">
+          Husband Name
+        </td>
+        <td style="min-width: 100%;">
+          : LINGAPPA
+        </td>
+      </tr>
+    </table>
+    
+
+  <table style="font-size: 10px; margin: 24px 0px 4px 23px; font-family: anek malyalam; font-weight: 600; letter-spacing: 0px; color: #000000;">
+      <tr>
+       
+        
+          <td style="vertical-align: top;">
+            Address :
+          </td>
+          <td>
+            #2/1 13th Cross 10th C-Main 6th Block Rajajinagar Bangalore-10
+          </td>
+        </tr>
+    
+    </table>
+    </div>
+  
+{% endfor %}
+</body>
+</html>

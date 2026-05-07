@@ -1,0 +1,225 @@
+import React from 'react';
+import { GET_URL, POST_URL, PUT_URL, DEL_URL } from 'Includes/urls';
+
+import ViewLeaveType from 'Containers/LeaveManagement/ViewLeaveType';
+import AddLeaveType from 'Containers/LeaveManagement/AddLeaveType';
+import LeavePlanTable from 'Containers/LeaveManagement/LeavePlanTable';
+import LeavePlanStaffWise from 'Containers/LeaveManagement/LeavePlanStaffWise';
+import ApplyLeaveManagement from 'Containers/LeaveManagement/ApplyLeaveManagement';
+import LeaveApprovalManagement from 'Containers/LeaveManagement/LeaveApprovalManagement';
+
+const Actions = {
+    manage_leave_types: {
+        view: {
+            codenames: [GET_URL.leavetype.basename],
+            action_code: 'visible_manage_leave_types_view',
+            is_superuser_action: false,
+            name: 'View Manage Leave Types',
+            label: 'Manage Leave Types',
+            action: 'sub-menu',
+            url: '/leave/view',
+            component: <ViewLeaveType />,
+            permission_needed: true,
+            exclude_roles:[7],
+            associated_urls: ['/leave/add'],
+        },
+        create: {
+            codenames: [POST_URL.leavetype.basename],
+            action_code: 'visible_manage_leave_types_add',
+            is_superuser_action: false,
+            name: 'Create Manage Leave Types',
+            label: 'Add Leave Type',
+            action: 'action-url',
+            url: '/leave/add',
+            component: <AddLeaveType />,
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        update: {
+            codenames: [PUT_URL.leavetype.basename],
+            action_code: 'visible_manage_leave_types_change',
+            is_superuser_action: false,
+            name: 'Update Manage Leave Types',
+            label: 'Edit',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        delete: {
+            codenames: [DEL_URL.leavetype.basename],
+            action_code: 'visible_manage_leave_types_delete',
+            is_superuser_action: false,
+            name: 'Delete Manage Leave Types',
+            label: 'Delete',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+
+        },
+        name: 'Manage Leave Types',
+        type: 'leave_management',
+    },
+    manage_leave_plan: {
+        view: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.getfinancialyear.basename, GET_URL.leavetype.basename],
+            action_code: 'visible_manage_leave_plan_view',
+            is_superuser_action: false,
+            name: 'View Manage Leave Plan',
+            label: 'Manage Leave Plan',
+            action: 'sub-menu',
+            url: '/leave/plan',
+            component: <LeavePlanTable />,
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        create: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.getfinancialyear.basename, GET_URL.leavetype.basename,
+            POST_URL.leaveplan.basename],
+            action_code: 'visible_manage_leave_plan_add',
+            is_superuser_action: false,
+            name: 'Create Manage Leave Plan',
+            label: 'Add new Leavetype Plan',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        update: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.getfinancialyear.basename, GET_URL.leavetype.basename,
+            POST_URL.leavetype.basename],
+            action_code: 'visible_manage_leave_plan_change',
+            is_superuser_action: false,
+            name: 'Update Manage Leave Plan',
+            label: 'Edit Leave Plan',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        delete: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.financialyear.basename, GET_URL.leavetype.basename,
+            DEL_URL.leaveplan.basename],
+            action_code: 'visible_manage_leave_plan_delete',
+            is_superuser_action: false,
+            name: 'Delete Manage Leave Plan',
+            label: 'Delete',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+
+        },
+        name: 'Manage Leave Plans',
+        type: 'leave_management',
+    },
+    staff_wise_manage_leave_plan: {
+        view: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.getfinancialyear.basename, GET_URL.leavetype.basename
+            ],
+            action_code: 'visible_staff_wise_manage_leave_plan_view',
+            is_superuser_action: false,
+            name: 'Staff Wise Leave Plan',
+            label: 'Staff Wise Leave Plan',
+            action: 'sub-menu',
+            url: '/staff-wise-leave-plan/list',
+            component: <LeavePlanStaffWise />,
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        create: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.getfinancialyear.basename, GET_URL.leavetype.basename,
+            POST_URL.leaveplan.basename, GET_URL.staff.basename],
+            action_code: 'visible_staff_wise_manage_leave_plan_add',
+            is_superuser_action: false,
+            name: 'Add Staff Wise Leave Plan',
+            label: 'Add Staff Wise Leave Plan',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        update: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.getfinancialyear.basename, GET_URL.leavetype.basename,
+            POST_URL.leavetype.basename],
+            action_code: 'visible_staff_wise_manage_leave_plan_change',
+            is_superuser_action: false,
+            name: 'Edit Staff Wise Leave Plan',
+            label: 'Edit Staff Wise Leave Plan',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        delete: {
+            codenames: [GET_URL.leaveplan.basename, GET_URL.financialyear.basename, GET_URL.leavetype.basename,
+            DEL_URL.leaveplan.basename],
+            action_code: 'visible_staff_wise_manage_leave_plan_delete',
+            is_superuser_action: false,
+            name: 'Delete Staff Wise Leave Plan',
+            label: 'Delete',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+
+        },
+        name: 'StaffWise Leave Plans',
+        type: 'leave_management',
+    },
+    apply_leave_application: {
+        create: {
+            codenames: [GET_URL.leavetype.basename, POST_URL.applyleave.basename, GET_URL.applyleave.basename,
+            GET_URL.leavesummary.basename, GET_URL.staffleavelist.basename, PUT_URL.applyleave.basename],
+            action_code: 'visible_apply_leave_application_add',
+            is_superuser_action: false,
+            name: 'Apply Leave',
+            label: 'Apply Leave',
+            action: 'sub-menu',
+            url: '/leave/application',
+            component: <ApplyLeaveManagement />,
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        name: 'Apply leave Application',
+        type: 'leave_management'
+    },
+
+    approve_leave_application: {
+        view: {
+            codenames: [GET_URL.leavesummary.basename, GET_URL.staffleavelist.basename, GET_URL.leaveapprovalview.basename],
+            action_code: 'visible_approve_leave_application_view',
+            is_superuser_action: false,
+            name: 'View Approve Leave Application',
+            label: 'Approve Leave Application',
+            action: 'sub-menu',
+            url: '/leave/approvalapplication',
+            component: <LeaveApprovalManagement />,
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        update: {
+            codenames: [GET_URL.leavetype.basename, PUT_URL.applyleave.basename,],
+            action_code: 'visible_approve_leave_application_change',
+            is_superuser_action: false,
+            name: 'Approve Leave',
+            label: 'Approve Leave',
+            action: 'action',
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        name: 'Approve leave Application',
+        type: 'leave_management'
+    },
+    staff_leave_plan_report: {
+        create: {
+            codenames: [],
+            action_code: 'visible_staff_leave_plan_report_data_add',
+            is_superuser_action: false,
+            name: 'Staff Leave Plan Report',
+            label: 'Staff Leave Plan Report',
+            action: 'sub-menu',
+            url: '/leave/staff-leave-plan-report',
+            component: <LeavePlanStaffWise />,
+            permission_needed: true,
+            exclude_roles:[7],
+        },
+        name: 'Staff Leave Plan',
+        type: 'leave_management'
+    },
+}
+
+export default Actions

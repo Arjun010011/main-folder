@@ -1,0 +1,674 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PGDIS Admission Form</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20px;
+        }
+
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-border {
+            border: 4px solid orange;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+            margin-bottom: 10px;
+            border: 1px solid orange;
+        }
+
+        td,
+        th {
+            border: 1px solid #000;
+            padding: 6px;
+            vertical-align: top;
+        }
+
+        .noborder {
+            border: none;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .section-header {
+            background-color: #ddd;
+            font-weight: bold;
+            text-align: center;
+            color: maroon;
+        }
+        
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .label-above {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-border">
+        <table class="noborder">
+            <tr>
+                <td style="width: 15%; text-align: center; border: none;">
+                    {% if institute.logo %}<img src="{{ institute.logo.file.url }}" style="height:100px;"><br>{% endif %}
+                </td>
+                <td style="width: 70%; text-align: center; font-family: 'Times New Roman', Times, serif; border: none;">
+                    <h3 style="margin: 0; color: rgb(0, 0, 0);">ಭಾರತ್ ಇನ್ಸಿಟ್ಯೂಟ್ ಆಫ್ ಇಂಡಸ್ಟ್ರಿಯಲ್ ಸೇಫ್ಟಿ ಮ್ಯಾನೇಜೆಂಟ್</h3>
+                    <h2 style="margin: 0; color: brown;">BHARATH INSTITUTE OF INDUSTRIAL<br>SAFETY MANAGEMENT</h2>
+                    <p style="margin: 0; font-size: 14px; color: green;">
+                        Recognized by Department of Factories & Boilers (Government of Karnataka)</p>
+                    <p style="margin: 0; font-weight: bold;">Affiliated To<br>
+                        VISVESVARAYA TECHNOLOGICAL UNIVERSITY<br>(VTU) BELAGAVI - GOVT OF KARNATAKA</p>
+                    <h3 style="margin: 5px 0; color: maroon;">Student Admission Application Form for<br>
+                        POST GRADUATE DIPLOMA IN INDUSTRIAL<br>
+                        SAFETY MANAGEMENT (PGDIS)</h3>
+                </td>
+                <td style="width: 15%; text-align: center; border: none;padding-top: 130px;">
+                    <div style="border:1px solid #000; height:100px;">PHOTO</div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="border: 1px solid orange;">
+            <tr>
+                <td style="width: 50%;">Academic Year: {% if student_details.academic_start_year and student_details.academic_end_year %}20{{ student_details.academic_start_year }} - 20{{ student_details.academic_end_year }}{% endif %}</td>
+                <td style="width: 25%;">Date: {{ today|default:"" }}</td>
+                <td style="width: 25%;">Application - BIISM</td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="4" class="section-header">Personal Information</td></tr>
+            <tr>
+                <td style="width: 25%;">Candidate Name (CAPITAL LETTER)</td>
+                <td colspan="3">{% if first_name %}{{ first_name|upper }}{% endif %} {% if middle_name %}{{ middle_name|upper }} {% endif %}{% if last_name %} {{ last_name|upper }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>D.O.B.</td>
+                <td>{% if dob %}{{ dob|date:'d/m/Y' }}{% endif %}</td>
+                <td>Gender</td>
+                <td>{{ gender|default:"" }}</td>
+            </tr>
+            <tr>
+                <td>Father Name</td>
+                <td>{{ student_parent.parent.father_name|default:"" }}</td>
+                <td>Mother Name</td>
+                <td>{{ student_parent.parent.mother_name|default:"" }}</td>
+            </tr>
+            <tr>
+                <td>Blood Group</td>
+                <td>{{ student_details.blood_group|default:"" }}</td>
+                <td>Handicapped : Y/N</td>
+                <td>{{ student_details.handicapped|default:"" }}</td>
+            </tr>
+            <tr>
+                <td>Parent Occupation</td>
+                <td colspan="3">{{ student_parent.parent.occupation|default:"" }}</td>
+            </tr>
+            <tr>
+                <td colspan="2">Domicile of Karnataka (YES/NO)</td>
+                <td colspan="2">{{ student_details.karnataka_domicile|default:"" }}</td>
+            </tr>
+            <tr>
+                <td>Religion</td>
+                <td>{{ student_details.religion_name|default:"" }}</td>
+                <td>Caste</td>
+                <td>{{ student_details.caste_name|default:"" }}</td>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>{{ student_details.category_name|default:"" }}</td>
+                <td>Community</td>
+                <td>{{ student_details.community|default:"" }}</td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="4" class="section-header">Contact Information</td></tr>
+            <tr>
+                <td>Candidate Mobile No.</td>
+                <td>Mother's Contact No.</td>
+                <td>Landline No.</td>
+                <td>Father's Contact No.</td>
+            </tr>
+            <tr>
+                <td>{{ mobile_num|default:"" }}</td>
+                <td>{{ student_parent.parent.m_mobile_num|default:"" }}</td>
+                <td>{{ student_details.landline|default:"" }}</td>
+                <td>{{ student_parent.parent.f_mobile_num|default:"" }}</td>
+            </tr>
+            <tr>
+                <td>Candidate Email</td>
+                <td>Father's Email</td>
+                <td>Spouse's Email</td>
+                <td>Spouse's Contact No.</td>
+            </tr>
+            <tr>
+                <td>{{ student_details.email|default:"" }}</td>
+                <td>{{ student_parent.parent.f_email|default:"" }}</td>
+                <td>{{ student_details.spouse_email|default:"" }}</td>
+                <td>{{ student_details.spouse_contact|default:"" }}</td>
+            </tr>
+        </table>
+        
+
+        <table>
+            <tr><td colspan="4" class="section-header">Personal Address</td></tr>
+            <tr><td colspan="4">Address : {% if student_address.0.address %}{{ student_address.0.address }}{% endif %}</td></tr>
+            <tr>
+                <td style="vertical-align: top;">
+                    <span class="label-above">City</span>
+                    {{ student_address.0.city|default:"" }}
+                </td>
+                <td style="vertical-align: top;">
+                    <span class="label-above">Pin code</span>
+                    {{ student_address.0.pincode|default:"" }}
+                </td>
+                <td style="vertical-align: top;">
+                    <span class="label-above">District</span>
+                    {{ student_address.0.district|default:"" }}
+                </td>
+                <td style="vertical-align: top;">
+                    <span class="label-above">State</span>
+                    {{ student_address.0.state|default:"" }}
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="4" class="section-header">Correspondence Address</td></tr>
+            <tr><td colspan="4">Address: {% if student_address.1.address %}{{ student_address.1.address }}{% endif %}</td></tr>
+            <tr>
+                <td style="vertical-align: top;">
+                    <span class="label-above">City</span>
+                    {{ student_address.1.city|default:"" }}
+                </td>
+                <td style="vertical-align: top;">
+                    <span class="label-above">Pin Code</span>
+                    {{ student_address.1.pincode|default:"" }}
+                </td>
+                <td style="vertical-align: top;">
+                    <span class="label-above">District</span>
+                    {{ student_address.1.district|default:"" }}
+                </td>
+                <td style="vertical-align: top;">
+                    <span class="label-above">State</span>
+                    {{ student_address.1.state|default:"" }}
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="8" class="section-header">Educational Details</td></tr>
+
+            <tr><td colspan="8" style="font-weight: bold; color: brown;text-align: center;">Details of Academic Records of High School Examination</td></tr>
+            <tr><td>Board</td><td colspan="7">{{ student_education.high_school.board|default:"" }}</td></tr>
+            <tr><td>Reg. No.</td><td colspan="7">{{ student_education.high_school.reg_no|default:"" }}</td></tr>
+            <tr>
+                <td colspan="1">Max Marks</td>
+                <td colspan="2">Obtained Marks</td>
+                <td colspan="2">Percentage</td>
+                <td colspan="3">Division</td>
+            </tr>
+            <tr>
+                <td colspan="1">{{ student_education.high_school.max_marks|default:"" }}</td>
+                <td colspan="2">{{ student_education.high_school.obtained_marks|default:"" }}</td>
+                <td colspan="2">{{ student_education.high_school.percentage|default:"" }}%</td>
+                <td colspan="3">{{ student_education.high_school.division|default:"" }}</td>
+            </tr>
+
+            <tr><td colspan="8" style="font-weight: bold; color: brown;text-align: center;">Details of Academic Records of PUC / 12th / ITI Examination</td></tr>
+            <tr><td>Board</td><td colspan="7">{{ student_education.puc.board|default:"" }}</td></tr>
+            <tr><td>Reg. No.</td><td colspan="7">{{ student_education.puc.reg_no|default:"" }}</td></tr>
+            <tr>
+                <td colspan="1">Max Marks</td>
+                <td colspan="2">Obtained Marks</td>
+                <td colspan="2">Percentage</td>
+                <td colspan="3">Division</td>
+            </tr>
+            <tr>
+                <td colspan="1">{{ student_education.puc.max_marks|default:"" }}</td>
+                <td colspan="2">{{ student_education.puc.obtained_marks|default:"" }}</td>
+                <td colspan="2">{{ student_education.puc.percentage|default:"" }}%</td>
+                <td colspan="3">{{ student_education.puc.division|default:"" }}</td>
+            </tr>
+            
+            <tr><td colspan="8" style="font-weight: bold; color: brown;text-align: center;">Details of Academic Records of Qualifying Examination - Diploma / B.Sc.</td></tr>
+            <tr><td>Branch</td><td colspan="7">{{ student_education.diploma.branch|default:"" }}</td></tr>
+            <tr><td>Name of the College</td><td colspan="7">{{ student_education.diploma.college|default:"" }}</td></tr>
+            <tr><td>University</td><td colspan="7">{{ student_education.diploma.university|default:"" }}</td></tr>
+            <tr><td>University Reg. No.</td><td colspan="7">{{ student_education.diploma.university_reg_no|default:"" }}</td></tr>
+        </table>
+    </div>
+
+    <div class="page-border">
+        <table style="text-align:center">
+            <tr><td colspan="8" class="section-header">Particulars of Qualifying Examination Passed</td></tr>
+            <tr>
+                <th rowspan="2">Year</th>
+                <th rowspan="2">Semester</th>
+                <th rowspan="2">Max.Marks</th>
+                <th rowspan="2">Marks.Obt.</th>
+                <th rowspan="2">% of Marks</th>
+                <th colspan="2">Passing</th>
+            </tr>
+            <tr>
+                <td>
+                    Month
+                </td>
+                <td>
+                    Year
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 1 </td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 2 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 2 </td>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 4 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 3 </td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 6 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            {% comment %} {% for record in student_education.qualifying_records %}
+            <tr>
+                <td>{{ record.year|default:"" }}</td>
+                <td>{{ record.semester|default:"" }}</td>
+                <td>{{ record.max_marks|default:"" }}</td>
+                <td>{{ record.marks_obt|default:"" }}</td>
+                <td>{{ record.percentage|default:"" }}</td>
+                <td colspan="2"></td>
+                <td>{{ record.pass_month|default:"" }}</td>
+                <td>{{ record.pass_year|default:"" }}</td>
+            </tr>
+            {% endfor %} {% endcomment %}
+            <tr>
+                <td  class="center"><strong>Total</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="1">Class Obtained: {{ student_education.qualifying_total.class_obtained|default:"" }}</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="8" style="font-weight: bold; color: brown;text-align: center;">Details of Academic Records of Qualifying Examination - B.E / B.Tech.</td></tr>
+            <tr><td>Branch</td><td colspan="7">{{ student_education.diploma.branch|default:"" }}</td></tr>
+            <tr><td>Name of the College</td><td colspan="7">{{ student_education.diploma.college|default:"" }}</td></tr>
+            <tr><td>University</td><td colspan="7">{{ student_education.diploma.university|default:"" }}</td></tr>
+            <tr><td>University Reg. No.</td><td colspan="7">{{ student_education.diploma.university_reg_no|default:"" }}</td></tr>
+        </table>
+        
+        <!-- B.E./B.Tech. Qualification -->
+        <table style="text-align:center">
+            <tr><td colspan="8" class="section-header">Particulars of Qualifying Examination Passed</td></tr>
+            <tr>
+                <th rowspan="2">Year</th>
+                <th rowspan="2">Semester</th>
+                <th rowspan="2">Max.Marks</th>
+                <th rowspan="2">Marks.Obt.</th>
+                <th rowspan="2">% of Marks</th>
+                <th colspan="2">Passing</th>
+            </tr>
+            <tr>
+                <td>
+                    Month
+                </td>
+                <td>
+                    Year
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 1 </td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 2 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 2 </td>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 4 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 3 </td>
+                <td>5</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 6 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 3 </td>
+                <td>7</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 8 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            {% comment %} {% for record in student_education.qualifying_records %}
+            <tr>
+                <td>{{ record.year|default:"" }}</td>
+                <td>{{ record.semester|default:"" }}</td>
+                <td>{{ record.max_marks|default:"" }}</td>
+                <td>{{ record.marks_obt|default:"" }}</td>
+                <td>{{ record.percentage|default:"" }}</td>
+                <td colspan="2"></td>
+                <td>{{ record.pass_month|default:"" }}</td>
+                <td>{{ record.pass_year|default:"" }}</td>
+            </tr>
+            {% endfor %} {% endcomment %}
+            <tr>
+                <td  class="center"><strong>Total</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="1">Class Obtained: {{ student_education.qualifying_total.class_obtained|default:"" }}</td>
+                <td></td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="8" style="font-weight: bold; color: brown;text-align: center;">Details of Academic Records of Qualifying Examination - M.E./M.Tech./M.Sc.</td></tr>
+            <tr><td>Branch</td><td colspan="7">{{ student_education.diploma.branch|default:"" }}</td></tr>
+            <tr><td>Name of the College</td><td colspan="7">{{ student_education.diploma.college|default:"" }}</td></tr>
+            <tr><td>University</td><td colspan="7">{{ student_education.diploma.university|default:"" }}</td></tr>
+            <tr><td>University Reg. No.</td><td colspan="7">{{ student_education.diploma.university_reg_no|default:"" }}</td></tr>
+        </table>
+        <!-- M.E./M.Tech./M.Sc. Qualification -->
+        <table style="text-align:center">
+            <tr><td colspan="8" class="section-header">Particulars of Qualifying Examination Passed</td></tr>
+            <tr>
+                <th rowspan="2">Year</th>
+                <th rowspan="2">Semester</th>
+                <th rowspan="2">Max.Marks</th>
+                <th rowspan="2">Marks.Obt.</th>
+                <th rowspan="2">% of Marks</th>
+                <th colspan="2">Passing</th>
+            </tr>
+            <tr>
+                <td>
+                    Month
+                </td>
+                <td>
+                    Year
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 1 </td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 2 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td rowspan="2"> 2 </td>
+                <td>3</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td > 4 </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+
+            {% comment %} {% for record in student_education.qualifying_records %}
+            <tr>
+                <td>{{ record.year|default:"" }}</td>
+                <td>{{ record.semester|default:"" }}</td>
+                <td>{{ record.max_marks|default:"" }}</td>
+                <td>{{ record.marks_obt|default:"" }}</td>
+                <td>{{ record.percentage|default:"" }}</td>
+                <td colspan="2"></td>
+                <td>{{ record.pass_month|default:"" }}</td>
+                <td>{{ record.pass_year|default:"" }}</td>
+            </tr>
+            {% endfor %} {% endcomment %}
+            <tr>
+                <td  class="center"><strong>Total</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="1">Class Obtained: {{ student_education.qualifying_total.class_obtained|default:"" }}</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="page-border">
+        <table>
+            <tr><td colspan="6" class="section-header">Work Experience</td></tr>
+            <tr>
+                <th>Sl. No.</th>
+                <th>Name of Employer / Organization</th>
+                <th>Designation</th>
+                <th>Date of Join</th>
+                <th>Date of Leave</th>
+                <th>Duration of Service</th>
+            </tr>
+            <tr><td>1.</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>2.</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>3.</td><td></td><td></td><td></td><td></td><td></td></tr>
+            <tr><td>4.</td><td></td><td></td><td></td><td></td><td></td></tr>
+        </table>
+
+        <table>
+            <!-- <tr><td colspan="6" class="section-header">Details of application along with DD of 1000/- (Non-refundable)</td></tr> -->
+            <tr style="text-align: center;">
+                <td colspan="6">
+                    Details of application along with DD of 1000/- (Non-refundable) <br>
+                    In favour of "BHARATH INSTITUTE OF INDUSTRIAL SAFETY MANAGEMENT" payable @ Bangalore
+                </td>
+            </tr>
+            <tr>
+                <th>DD Number</th><th>Date</th><th colspan="4">Bank/Branch</th>
+            </tr>
+            <tr style="height: 30px">
+                <td></td><td></td><td colspan="4"></td>
+            </tr>
+        </table>
+
+        <table style="font-size: 14px">
+            <tr><td colspan="6" class="section-header">List of Enclosures (Photo copy only)</td></tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li>Statement of marks SSLC / Class X / PUC / XII</li>
+                        <li>Marks list of each semester of Qualifying Degree</li>
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        <li>Certificate of Professional Experience (if applicable)</li>
+                        <li>Degree Certificate issued by University</li>
+                        <li>Aadhar card</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="6" class="section-header">Declaration by the Applicant</td></tr>
+            <tr>
+                <td colspan="6">
+                    I ................................................................. declare that all the information given by me is true and authentic to the best of my knowledge and belief. If I admitted on the basis of incorrect / false information, I agree that, VTU/BIISM reserves the right of prosecution and cancellation of seat without notice.
+                </td>
+            </tr>
+            <tr style="height: 30px">
+                <td colspan="2"></td><td colspan="2"></td><td colspan="2"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Place</td><td colspan="2">Date</td><td colspan="2">Signature of Applicant</td>
+            </tr>
+        </table>
+
+        <table>
+            <tr><td colspan="6" class="section-header">FOR OFFICE USE ONLY</td></tr>
+            <tr>
+                <td>Application received date</td>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td>Application number</td>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td>Aggregate % of all the examination of degree</td>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td>Eligible / Not eligible</td>
+                <td colspan="5"></td>
+            </tr>
+            <tr>
+                <td colspan="2">Verified by :</td>
+                <td colspan="2">Co-ordinator's signature :</td>
+                <td colspan="2"></td>
+            </tr>
+        </table>
+
+        <table class="noborder">
+            <tr>
+                <td colspan="6">
+                    <strong>Note:</strong> Duly filled application forms along with DD & relevant documents should be sent to below address by speed post or courier.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" class="center">
+                    <strong>BHARATH INSTITUTE OF INDUSTRIAL SAFETY MANAGEMENT - "BIISM"</strong><br>
+                    #125/1A, Shivanandi Arcade, Brahmadevaragutte, Behind Shivanandi layout bus stop, Kodigehalli, Bengaluru - 560091<br>
+                    Email : <a href="mailto:biism.blr@gmail.com">biism.blr@gmail.com</a>, Website : <a href="http://www.biism.ind.in">www.biism.ind.in</a>,<br>
+                    Mob. No. : +91 9986106969, +91 9108459108, +91 9606218409
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

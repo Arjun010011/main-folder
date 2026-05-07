@@ -1,0 +1,92 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page {
+            size: A4
+        }
+
+        .center {
+            text-align: center;
+            margin: 15px;
+        }
+
+        p {
+            text-indent: 50px;
+            text-align: justify;
+            line-height: 2.0em;
+        }
+
+        .border {
+            height: 900px;
+            border: 2px solid black;
+            padding: 20px;
+            margin: 0px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+        <div style="display: flex;">
+            <div>
+                <td style="width:10%; text-align:left; vertical-align:top;">
+                    {% if institute.logo.file.url %}
+                    <img src="{{ institute.logo.file.url }}" style="width:100px; height:100px;margin-top: 12%;">
+                    {% endif %}
+                </td>
+            </div>
+            <div>
+                <div class="center" style="text-transform: uppercase;font-size:25px;padding-left: 12%;"><b>{{school_name}}</b></div>
+                <div class="center" style="font-size:14px;padding-left: 12%;">(Recognized by the Govt. of Karnataka)
+                </div>
+                <div style="line-height:22px;font-size: 13px;padding-left: 12%;">
+                    {{ institute.address }}
+                    {% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %}<br>
+                    {% if institute.tel_num %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Cell: {{ institute.tel_num }}
+                    {% if institute.tel_num_2 %}, {{ institute.tel_num_2 }}{% endif %}
+                    {% endif %}
+                    &nbsp; email: vedadri2024@gmail.com
+                </div>
+                <div style="padding-left: 24%;">School DISE Code : 29280234910</div>
+            </div>
+        </div>
+
+        <div style="text-align: left;margin-right:50%;margin-top:40px;"><b>Reference No:{{reference_num}}</b></div>
+
+        <div style="margin-top:0px;margin-bottom: 4px;margin-top: -20px;">
+            <div style="border:0.5px solid black;margin-left: 80%;height: 130px;width:100px;">
+                <img src="{{profile_pic_details}}" style="width:100px;height:130px;" />
+            </div>
+        </div>
+        <div style="font-size:19px;text-align: center;margin:10px 10px 0px;text-decoration: underline;"><b>STUDY
+                CERTIFICATE</b></div>
+        <div style="font-size:12px;text-align: center;margin:5px 10px 70px;"><i><b>To whom so ever it may
+                    concern</i></b></div>
+        <p>This is to certify that <b> {{student_full_name}} </b> {{student_relate}} <b>{{father_name}}</b> is a
+            bonafide student of this institution studying in <b>{{standard_name}}{{standard_suffix}}
+            </b>during the academic year <b>{{academic_year}}</b>, As per the admission register of our institution
+            {{student_her_him}} DOB is <b>{{dob_str}}</b> and <b>admission No</b> is <b>{{admission_num}}</b>,
+            {{student_he_she}} belongs to the caste {{caste|title}}.
+        </p>
+        <!-- <div style="text-align:left;margin:70px 0px;"> School DISE Code : {{from_standard_dise_code}}</div> -->
+        <table style="width:100%;position: absolute;bottom:100px;">
+            <td style="text-align: left;">Date : {{today_date}} </br>
+                <div style="text-align:left;margin-top:20px;">Place : {{school_city}} </div>
+            <td style="text-align:right;position:absolute;right:40px;bottom:0px;">Seal & Signature of the Head Master
+            </td>
+    </div>
+</body>
+
+</html>

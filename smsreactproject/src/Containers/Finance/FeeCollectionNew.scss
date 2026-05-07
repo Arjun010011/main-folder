@@ -1,0 +1,82 @@
+/* Student fee collection / adjustment page layout */
+.student-fees-page {
+  padding: 8px 16px 24px;
+
+  @media (min-width: 600px) {
+    padding: 12px 24px 32px;
+  }
+}
+
+.student-fees-page__header {
+  margin-bottom: 8px;
+}
+
+.student-fees-page__header-title {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+
+.student-fees-page__header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 48px;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  @media (max-width: 959px) {
+    justify-content: flex-start;
+  }
+}
+
+.student-fees-page__header-actions .editbutton-view {
+  margin-left: 0 !important;
+  margin-top: 0 !important;
+}
+
+.student-fees-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 16px;
+  padding: 12px 0 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    .student-fees-toolbar__item {
+      width: 100%;
+    }
+
+    .student-fees-toolbar__item--grow {
+      flex: 1 1 auto;
+    }
+  }
+}
+
+.student-fees-toolbar__item {
+  display: flex;
+  align-items: flex-end;
+}
+
+.student-fees-toolbar__item--grow {
+  flex: 1 1 220px;
+  min-width: 200px;
+  max-width: 100%;
+}
+
+.student-fees-toolbar .collect-fees {
+  text-transform: none;
+}
+
+.student-fees-toolbar .MuiButton-root {
+  white-space: nowrap;
+}
+
+.student-fees-content {
+  margin-top: 8px;
+}

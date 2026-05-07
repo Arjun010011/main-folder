@@ -1,0 +1,210 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        * {
+        padding: 3px;
+        margin: 0px;
+        }
+        @page { size: A5 }
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-bottom: 0px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        table {
+        width: 100%;
+      }
+      #cashsign {
+        text-align: right;
+        margin-top: auto;
+        margin-right: 10%;
+      }
+      #receipt2 {
+        text-align: center;
+        margin-top: auto;
+        margin-right: 20%;
+      }
+      .r10 {
+        display: flex;
+        height: 60px;
+        justify-content: space-between;
+      }
+      body{
+        font-family: 'Times New Roman', Times, serif; 
+      }
+      .center{
+        text-align: center;
+      }
+      .colorblue{
+        color: #37aede;
+      }
+      .flexs{
+        display:flex;
+        justify-content: space-between;
+      }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+    <div>
+        <table>
+            <tr>
+                <td class="center">
+                    {% if institute.logo.file.url %}
+                        <img src={{ institute.logo.file.url }} style="height: 100px; width: 100px;">
+                        <div class="colorblue" style="font-size:30px;font-weight: bold;">{{institute.name}}</div>
+                    {% endif %}
+                    <div>
+                        #87/88, 9th Cross, Acharya College Road Andrahalli, <br>
+                        Vishwaneedam (PO), Bengaluru North (Tq) <br>
+                        Bengaluru-91
+                    </div>
+                    <div class="flexs">
+                        <div>
+                            Email : puttannainternationalschool99@gmail.com
+                        </div>
+                        <div style="color: black;margin-right: 60px;">
+                            080-23245337, 29555337, 23245377
+                        </div>
+                    </div>
+                </td>
+            </tr> 
+            <tr>
+                <td>
+                    <div class="flexs">
+                        <div>Receipt No: <span style="color: darkred;">{% if application_receipt.receipt_num %}{{application_receipt.receipt_num|cut:"appln_recipt"|title}}{% endif %}</span></div>
+                        <div class="colorblue" style="margin-left:40px;font-weight: bold;">Receipt</div>
+                        <div style="margin-right: 120px;">Date: {% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d-m-Y"}}
+                          {% endif %}</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                  <div>
+                    <div>Name :
+                      {% if application_receipt.student.first_name %}
+                      {{application_receipt.student.first_name}}
+                  {% endif %}
+                  {% if application_receipt.student.middle_name %}
+                      {{application_receipt.student.middle_name}}
+                  {% endif %}
+                  {% if application_receipt.student.last_name %}
+                      {{application_receipt.student.last_name}}
+                  {% endif %}
+                    </div>
+                    <div>Father Name: {% if father_name %}{{father_name}}{% endif %}</div>
+                    <div>Class :
+                      {% if application_receipt.student.current_standard.name %}
+                      {{application_receipt.student.current_standard.name}}{% endif %}
+                    </div>
+                  </div>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+              <td style="width: 20%; font-weight: bold; text-align: center; vertical-align: bottom;">
+                <div>Sl.No.</div>
+              </td>
+    
+              <td style="width: 50%; font-weight: bold; text-align: center">
+                <div>Particulars</div>
+              </td>
+    
+              <td style="font-weight: bold; text-align: center">
+                <div>Payable(in Rs.)</div>
+              </td>
+            </tr>
+    
+            <tr>
+              <td>
+                <div style="text-align: center;">
+                    1.</br>
+                </div>
+              </td>
+    
+              <td>
+                <div>{{ application_receipt.name }}</br></div>
+              </td>
+
+              <td style='text-align:right'>{{ application_receipt.amount_paid}}</br>
+              </td>
+            </tr>
+    
+            <tr>
+              <td colspan="2">
+                <div class="flexs">
+                  <div>Payment Mode: {% if application_receipt.mode_of_payment %}
+                    {{application_receipt.mode_of_payment}}{% endif %} {% if application_receipt.payment_ref_num %}{{application_receipt.payment_ref_num}}{% endif %}</div>
+                  <div style="font-weight: bold;">Total(Rs.)</div>
+                </div>
+              </td>
+
+              <td style='text-align:right'> 
+                ₹ {{ application_receipt.amount_paid }}
+              </td>
+            </tr>
+        </table>        
+                
+        <table>
+            <tr>
+              <td>
+                Balance Fee : <span style="color: darkred;font-weight: bold"> 0.0</span>
+              </td>
+            </tr>
+    
+            <tr>
+              <td>
+                <div style="font-weight: bold;">
+                  Rupees in Word : ({{ amount_in_words|title }} Only )
+                </div>
+              </td>
+            </tr>
+    
+            <tr>
+              <td>
+                <div class="flexs">
+                  <div>Remarks:{% if fee_collection.payment_note %}{{fee_collection.payment_note}} {% endif %}</div>
+                  <div style="margin-right: 160px;">Collected By: {% if collected_by.staff__first_name %}{{collected_by.staff__first_name}}{%endif%} 
+                    {% if collected_by.staff__middle_name %}{{collected_by.staff__middle_name}}{%endif%}
+                    {% if collected_by.staff__last_name %}{{collected_by.staff__last_name}}{%endif%}</div>
+                </div>
+              </td>
+            </tr>
+    
+            <tr style="border-bottom:1px solid black ;">
+              <td>
+                <div class="r10">
+                  <div>*Fee once paid will not be refunded</div>
+                  <div id="receipt2">
+                    {%  if forloop.counter|divisibleby:"2" %}
+                      <div></div>
+                      <div style="text-align:right;margin-right:8px">Student Copy</div>
+                      {% else %}
+                      <div style="text-align:right;margin-right:8px">Office Copy</div>
+                      {% endif %}
+                  </div>
+                  <div id="cashsign">Cashier Sign</div>
+                </div>
+              </td>
+            </tr>
+        </table> 
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+    </div>
+{% endfor %}
+</body>
+</html>

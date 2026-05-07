@@ -1,0 +1,162 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Study Certificate</title>
+    <style>
+      @page {
+        size: A4;
+      }
+
+      .border {
+        height: 935px;
+        border: 5px solid black;
+        border-style: double;
+        padding: 20px;
+        margin: -50px;
+
+        position: relative;
+      }
+      .trust {
+        text-align: center;
+        font-size: 12px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .recognisition {
+        text-align: center;
+        font-size: 15px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .title {
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 8%;
+      }
+      .content {
+        font-style: italic;
+        font-family: "Cinzel Decorative", sans-serif;
+      }
+      .dot-line {
+        border-bottom: 1px dotted;
+        flex-grow: 100;
+        text-align: center;
+      }
+
+      .display-flex {
+        display: flex;
+      }
+      .schoolname {
+        text-transform: uppercase;
+        font-size: 25px;
+        padding: 3px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .photo {
+        line-height: 0px;
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 15px;
+        right: 2%;
+        top: 15%;
+        padding: 5%;
+        font-weight: bold;
+        text-align: center;
+      }
+      .img-box {
+        border: 1px solid black;
+        height: 110px;
+        width: 100px;
+        position: absolute;
+        top: 200px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .line {
+        border-bottom: 1px solid white;
+        width: 35%;
+        margin-left: 40%;
+      }
+      .footer {
+        margin-top: 10%;
+        text-align: right;
+      }
+      .double-line {
+        border-bottom: 1px solid black;
+        flex-grow: 100;
+      }
+      p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="border">
+      <div class="display-flex">
+        <div style="text-align: center">
+          {% if institute.logo.file.url %}
+          <img
+            src="{{institute.logo.file.url}}"
+            style="width: 100px; height: 100px"
+          />
+          {% endif %}
+        </div>
+
+        <div style="margin-left: auto; margin-right: auto">
+          <div class="trust">{{ institute.trust_name|upper }}</div>
+          <div class="schoolname"><b>{{ school_name }}</b></div>
+         <div style="font-size: 12px; text-align: center">
+            Recognised by the Government of Karnataka
+          </div>
+          <div style="font-size: 13px; text-align: center">
+            {{school_address}}
+          </div>
+          <br />
+        </div>
+      </div>
+
+      <div style="line-height: 5px">
+        <div class="double-line"></div>
+        <br />
+        <div class="double-line"></div>
+      </div>
+      <br />
+
+      <div class="display-flex">
+        <div>Ref:PVK/ {{refno}}</div>
+        <div style="margin-left: auto">Date: {{today_date}}</div>
+      </div>
+      <br />
+
+      <div>
+        <div class="img-box">
+          <img
+            src="{{profile_pic_details}}"
+            style="width: 100px; height: 110px"
+          />
+        </div>
+        <div class="bold title">STUDY CERTIFICATE</div>
+      </div>
+      <br />
+      <br />
+      <div style="font-size:14px;text-align: center;margin:5px 10px 70px;"><i><b>To whom so ever it may concern</i></b></div>
+        <p>This is to certify that <b> {{student_full_name}} </b> {{student_relate}} <b>{{father_name}}</b> is studying in <b>{{standard_name}}{{standard_suffix}}</b> in the 
+            above mentioned institution during the academic year <b>{{academic_year}}</b>. As per the admission register, her DOB <b>{{dob_str}}</b> and <b>admission No</b> is <b>{{admission_num}}</b>, {{student_he_she}} belongs to the caste {{caste|title}} and residing at {{ address|cut:"None" }}.
+        </p>
+        <table style="width:100%;margin-top: 20px;">
+            <!-- <td style="text-align: left;">Date  :   {{today|date:'d/m/Y'}} </br> -->
+            <div style="text-align:left;margin-top:50px;">Place  :  Bengaluru </div>  <br> <br><br>
+
+            <div >Seal & Signature of the Head Mistress </div>
+
+            <!-- <td style="text-align:right;vertical-align: bottom;">Seal & Signature of the Head Mistress </td> -->
+    </div>
+  </body>
+</html>

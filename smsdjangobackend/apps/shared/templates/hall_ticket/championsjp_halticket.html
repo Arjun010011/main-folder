@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 19px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-timetable-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-timetable-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4;
+            margin: 2mm;
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .th-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                        {% if institute.logo.file.url %}
+                        <img src={{institute.logo.file.url}} style="width: 80px;height:70px;position:absolute;top:-15px;left:40px;" />
+                        {% endif %}
+                    </div>
+                    <div class="heading text-center ">
+                        {{ institute.name|upper }} </br>
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold">
+                    {{ examDetail.exam_type.name }}, {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <div class="address-heading t-center fs-20 fs-bold">HALL TICKET </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;font-size: 14px;">
+            <tr>
+                <td style="width:10%">Name </td>
+                <td style="width:38%">:&nbsp;&nbsp; {{student.student_data.full_name | title }}</td>
+                <td style="text-align:left;width:10%">Class</td>
+                <td style="width:32%">:&nbsp;&nbsp;{{ student.student_data.standard_section_standardname | capfirst }} - {{ student.student_data.standard_sectionsection_name | capfirst }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;width:10%">CIS No.</td>
+                <td style="width:32%">:&nbsp;&nbsp;{% if student.admission_num %}{{ student.admission_num }}{% endif %}</td>
+            </tr>
+        </table>
+
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px;font-size: 14px;">
+        {% for subject in student.session_wise %}
+        {% if forloop.counter == 1 %}
+            <tr>
+                <th class="th-subject-view" width="30%;">Date<br>Day</th>
+                <th class="th-subject-view" width="30%">Morning Session <br><div style="font-size: 10px;">{{subject.session0start_time}}-{{subject.session0end_time}}</div></th>
+                <th class="th-subject-view" width="20%">Invigilator's Sign</th>
+                <th class="th-subject-view" width="30%;">Afternoon Session <br><div style="font-size: 10px;">1:30 PM-3:00 PM</div></th>
+                <th class="th-subject-view" width="20%">Invigilator's Sign</th>
+            </tr>
+        {%endif%}
+        {% endfor %}
+            {% for subject in student.session_wise %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} <br/>{{subject.fordate|date:'l'}}
+                    </td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.session0 }}</div></td>
+                    <th class="th-subject-view"></th>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.session1 }}</div></td>
+                    <td class="td-subject-view">
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    <ul style="font-size: 12px;">
+    <li><b>*Note:-</b>Student must produce hall ticket at the session of the examination.Without hall ticket,admission to the examination hall is not accepted.</li>
+    <li>Student should bring all exam required materials such as pencils, pens, erasers etc., and not to be borrowed from others.</li>
+    <li>On 18th December, G1 & G2 has EVS exam and G3 to G9 has Science Exam.</li>
+    <li>On 19th December, G1 & G2 has no exam in the morning session.</li>
+    </ul>
+        <table class="w-100" style="margin-top: 30px;">
+            <tr>
+                <th style="text-align: left;">
+                    Sign of Class Teacher
+                </th>
+                <th style="text-align: right;">
+                    Sign of Principal
+                </th>
+            </tr>
+        </table>
+    </div>
+    {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

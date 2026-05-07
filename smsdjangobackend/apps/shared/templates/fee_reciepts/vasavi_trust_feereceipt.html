@@ -1,0 +1,151 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .trust {
+            font-size: 15px;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+    {%  if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top: 25px"></div>
+        <div style="text-align:right;margin-right:10px">Student Copy</div>
+    {% else %}
+<div style="text-align:right;margin-right:10px">Office Copy</div>
+    {% endif %}
+<div style='border: 1px solid;padding:20px;margin:10px'>
+        <div style='display:flex;width:100%'>
+            <div style="position:absolute">
+                {% if institute.logo.file.url %}
+                    <img src={{ institute.logo.file.url }}
+                    style="width: 160px;height: 100px;"/>
+                {% endif %}
+            </div>
+            
+            <div style="text-align: center;margin-left:auto;margin-right:auto;font-size:20px">
+                
+                VASAVI GROUP OF EDUCATIONAL INSTITUTIONS
+               
+                <div style="line-height: 20px;font-size:14px;">
+                    Hoshalli Extension,SBI Staff Colony, Stage 1, Vijayanagar <br/>
+                    Ph No : 9686839761,9945019761
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 18px;font-weight: bold;margin-top:15px;text-align: center;">
+            Fees Receipt  </br></div>
+    <table class='noborder' style="width: 100%">
+        <tr class='noborder'>
+            <td class='noborder line-height' style='width:60%;vertical-align:top'> 
+                Receipt No: {%if fee_collection.vasavi_trust_feereceipt.payment_details.0.receipt_num %}{{fee_collection.vasavi_trust_feereceipt.payment_details.0.receipt_num|title}}{%else%}{{fee_collection.receipt_num}}{%endif%} <br/>
+               
+                Name : 
+                    <b>
+                    {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name|upper}}{% endif %}
+                    {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name|upper}}{% endif %}
+                    {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name|upper }}{% endif %}
+                    </b>
+                <td class="noborder" style="line-height: 23px;text-align: right;">
+                    Date:  {{fee_collection.transaction_date}} <br/>
+                    Class:
+                    {{fee_collection.standard_name}}
+                </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='60%' style="text-align:center">Particulars</th>
+                <th width='30%' style="text-align:right;">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td style="text-align: center;">
+              
+                1
+            </td>
+            <td>
+               - Development Fee <br>
+               - Maintainance Fee <br>
+               - General Fees <br>
+               - Misc Fees
+            </td>
+            <td style='text-align:right;line-height:25px;padding-top: 10px;'>
+                {{ fee_collection.vasavi_trustfee_receipt.total_amount_paid | floatformat |intcomma}}</td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="2" style='text-align:right'>TOTAL </td>
+             <td style='text-align:right;line-height:25px;padding-top: 10px;'>
+                {{ fee_collection.vasavi_trust_feereceipt.total_amount_paid | floatformat |intcomma}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="margin-top: 5px">
+        <div style="display:flex;justify-content:space-between">
+            <div>
+                <b>Balance Amount:</b>{{ student_fee_summary.balance_till_date_including_adjustment_till_date | floatformat:0 | intcomma}}<br/>
+            </div>
+            <div><b>Mode Of Payment:</b>{%for mode_of_pay in fee_collection.mode_of_payment_list %}
+                {{mode_of_pay.mode_of_payment}} : 
+                ₹ {{mode_of_pay.amount|floatformat|intcomma}}</br>{%endfor%}</div>
+        </div>
+    </div>
+    <table style="width: 100%" class="noborder" colspan="2">
+        <tr class="noborder">
+            <td class="noborder" style="text-align:right">
+                
+            </td>
+        <tr>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+        <td class="noborder"><b>Parents Signature</b></td>
+    <td style="text-align:right;" class="noborder bold"> Signature</td>
+    </table>
+</div>
+    {%  if forloop.counter|divisibleby:"2" and not forloop.last%}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</html>

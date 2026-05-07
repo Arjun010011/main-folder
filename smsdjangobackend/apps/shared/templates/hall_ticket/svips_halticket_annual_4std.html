@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        table, th, td {
+            text-align: center;
+        }
+        .table-border>tr, .table-border>tr>td, .table-border>tr>th {
+            border: 1px solid black !important;
+        }
+        .table-border-td{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div style="display:flex">
+                    <div>
+                        {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 120px;height:100px;" /> {% endif %}
+                    </div>
+                    <div class="heading text-center " style="padding:10px; line-height: 30px;padding-bottom:0px">
+                        {{ institute.name }}
+                        <div class="address-heading t-center mt-5">
+                            ATTUR LAYOUT, YELAHANKA NEW TOWN, BANGALORE – 560064.
+                        </div>
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <div class="address-heading t-center fs-20 fs-bold">Annual Examination Hall ticket 2023-2024 </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+            <tr>
+                <td style="width:15%;text-align:left">Name </td>
+                <td style="width:50%;text-align:left">{{student.student_data.full_name | title }}</td>
+                <td style="text-align:left;width:15%">Grade </td>
+                <td style="text-align:left;width:32%">:&nbsp;&nbsp;{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left">Timings</td>
+                <td style="text-align:left">8:30 AM - 3:30 PM</td>
+                <td style="text-align:left">Roll No</td>
+                <td style="text-align:left"> : </td>
+            </tr>
+        </table>
+        <table class="text-center w-100 table-border" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px">
+            <tr>
+                <th class="th-subject-view">SL.NO</th>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject ORAL & DICTATION</th>
+                <th class="th-subject-view t-center">Written Exam</th>
+                <th class="th-subject-view">Invigilator </br>Signature</th>
+            </tr>
+            <tr class="table-border-tr">
+                <td class="table-border-td">1</td>
+                <td class="table-border-td">15/03/24</td>
+                <td class="table-border-td">Friday</td>
+                <td class="table-border-td">Kannada</td>
+                <td class="table-border-td">Computer</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">2</td>
+                <td class="table-border-td">16/03/24</td>
+                <td class="table-border-td">Saturday</td>
+                <td class="table-border-td">Science</td>
+                <td class="table-border-td">GK</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">3</td>
+                <td class="table-border-td">18/03/24</td>
+                <td class="table-border-td">Monday</td>
+                <td class="table-border-td">Hindi</td>
+                <td class="table-border-td">MS</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">4</td>
+                <td class="table-border-td">19/03/24</td>
+                <td class="table-border-td">Tuesday</td>
+                <td class="table-border-td">Social</td>
+                <td class="table-border-td">Math {oral}</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">5</td>
+                <td class="table-border-td">20/03/24</td>
+                <td class="table-border-td">Wednesday</td>
+                <td class="table-border-td">English</td>
+                <td class="table-border-td">Drawing</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td" colspan="6">
+                    <span>WRITTEN EXAMS </span>
+                    ( 8:30 AM - 12:30 PM )
+                </td>
+            </tr>
+            <tr>
+                <td class="table-border-td">6</td>
+                <td class="table-border-td">21/03/24</td>
+                <td class="table-border-td">Thursday</td>
+                <td class="table-border-td">Kannada</td>
+                <td class="table-border-td">Written</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">7</td>
+                <td class="table-border-td">22/03/24</td>
+                <td class="table-border-td">Friday</td>
+                <td class="table-border-td">Science</td>
+                <td class="table-border-td">Written</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">8</td>
+                <td class="table-border-td">23/03/24</td>
+                <td class="table-border-td">Saturday</td>
+                <td class="table-border-td">Social</td>
+                <td class="table-border-td">Written</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">9</td>
+                <td class="table-border-td">25/03/24</td>
+                <td class="table-border-td">Monday</td>
+                <td class="table-border-td">Mathematics</td>
+                <td class="table-border-td">Written</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">10</td>
+                <td class="table-border-td">26/03/24</td>
+                <td class="table-border-td">Tuesday</td>
+                <td class="table-border-td">Hindi</td>
+                <td class="table-border-td">Written</td>
+                <td class="table-border-td"></td>
+            </tr>
+            <tr>
+                <td class="table-border-td">11</td>
+                <td class="table-border-td">27/03/24</td>
+                <td class="table-border-td">Wednesday</td>
+                <td class="table-border-td">English</td>
+                <td class="table-border-td">Written</td>
+                <td class="table-border-td"></td>
+            </tr>
+        </table>
+    </div>
+    <div style="margin-top: 50px;margin-left:20px">
+        <div>
+            Note: Students should carry Hall ticket Compulsorily during all the examinations
+        </div>
+        <div class="mt-5">
+            * Students are informed to be seated in the examination hall 10mins prior to given timings
+        </div>
+        <div class="mt-5">
+            * You must carry Stationeries & a water bottle
+        </div>
+        <div class="mt-5">
+            * School Uniform and attendance is mandatory
+        </div>
+    </div>
+    <div style="page-break-after: always;"></div>
+    {% endfor %}
+</body>
+</html>

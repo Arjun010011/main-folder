@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 7%;
+            padding-right: 7%;
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 3px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4;
+            margin: 2mm;
+        }
+        .fs-20{
+            font-size: 20;
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 4px;
+        }
+        .sign-container{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            font-size: 17px;
+        }
+        .sign-item{
+            text-align: center;
+        }
+        .sign-right{
+            text-align: right;
+        }
+        .principal-sign{
+            text-align: right;
+        }
+        .img-sign{
+            width: 120px;
+            height: 40px;
+            margin-top: -25px;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                        {% if institute.logo.file.url %} 
+                        <img src={{institute.logo.file.url}} style="width: 100px;height:100px;position:absolute;left:-3px;" /> 
+                        {% endif %}
+                    </div>
+                    <div  style="padding-left: 10%;padding-right: 10%;text-align: center;font-size: 12px;">
+                        {{ institute.trust_name|upper }}
+                    </div>
+                    <div class="address-heading t-center fs-bold" style="padding-left: 10%;padding-right: 10%;text-align: center;font-size: 16px;">
+                        {{ institute.name|upper }} </br>
+                    </div>
+                    <div style="padding-left: 10%;padding-right: 10%;text-align: center;font-size: 12px;">(Affiliated to CISCE, New Delhi) Affiliation No:KA-479</div>
+    
+                </div>
+            </tr>
+            <tr>
+                <div class="t-center mt-5" style="font-size: 10.7px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %} -
+                    {{ institute.pincode}}
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold" style="padding-top: 10px;font-size: 18px;">
+                    {{ examDetail.exam_type.code }}
+                </div>
+            </tr>
+        </table>
+
+        <table style="padding-top:14px;font-size: 14px;">
+            <tr>
+                <td style="width:15%">Student Name </td>
+                <td>: {{student.student_data.full_name|upper}}</td>
+            </tr>
+            <tr>
+                <td style="width:15%">Class/Section</td>
+                <td>: {{ student.student_data.standard_section_standardname | capfirst }} - {{ student.student_data.standard_sectionsection_name | capfirst }}</td>
+
+                <td style="width:18%">Register Number </td>
+                <td>: <td>
+            </tr>
+        </table>
+
+        <table class="t-center w-100" border="1" style="border-collapse: collapse;border: 1px solid black;margin-top:3px;font-size: 13px;">
+            <tr>
+                <th class="th-subject-view">DATE</th>
+                <th class="th-subject-view">DAYS</th>
+                <th class="th-subject-view">SUBJECT</th>
+                <th class="th-subject-view">TIMING</th>
+                <th class="th-subject-veiw">Signature</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}}<br/>
+                    </td>
+                    <td class="td-subject-view">{{subject.fordate|date:'l'|upper}}</td>
+                    <td class="td-subject-view">
+                        <div style="width:90%;">{{subject.subject_name}}</div>
+                    </td>
+                    <td class="td-subject-view">
+                        <div style="width:100%;">{{subject.start_time}} TO {{subject.end_time}}</div>
+                    </td>
+                    <td class="td-subject-view"></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </br>
+
+        <table class="w-100" style="margin-top: 40px;font-size: 17px;">
+            <tr>
+                <td style="text-align: left;width: 33%;">
+                    <span>Sign of Student</span>
+                </td>
+                <td style="text-align: center;width: 33%;">
+                    <span>Sign of Class Teacher</span>
+                </td>
+                <td style="text-align: right;width: 33%;">
+                    <img src="https://production-edubricz.s3.amazonaws.com/18/WhatsApp_Image_2025-03-11_at_11.31.34_AM.jpeg" 
+                        style="width: 120px; height: 40px; display: block; margin-top: -40px; margin-left: auto; margin-right: 0;"/>
+                    <span>Sign of Principal</span>
+                </td>
+            </tr>
+        </table>
+        
+        
+        
+    </div>
+
+    {% if forloop.counter|divisibleby:"2" %}
+        <div style="page-break-after: always;"></div>
+    {% else %}
+        <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

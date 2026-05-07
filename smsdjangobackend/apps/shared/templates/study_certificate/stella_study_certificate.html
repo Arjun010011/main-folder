@@ -1,0 +1,174 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Study Certificate</title>
+    <style>
+        @page {
+            size: A4;
+        }
+
+        .border {
+            height: 935px;
+            border: 5px solid black;
+            border-style: double;
+            padding: 20px;
+            margin: -15px;
+            position: relative;
+        }
+
+        .trust {
+            text-align: center;
+            font-size: 12px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .schoolname {
+            text-transform: uppercase;
+            font-size: 28px;
+            padding: 3px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 25px;
+            font-weight: bold;
+            margin-top: 8%;
+        }
+
+        .display-flex {
+            display: flex;
+        }
+
+        .img-box {
+            border: 1px solid black;
+            height: 110px;
+            width: 100px;
+            position: absolute;
+            top: 200px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .double-line {
+            border-bottom: 1px solid black;
+            flex-grow: 100;
+        }
+
+        p {
+            text-indent: 50px;
+            text-align: justify;
+            line-height: 2.0em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+        <div class="display-flex">
+            <div style="text-align: center">
+                {% if institute.logo.file.url %}
+                <img src="{{institute.logo.file.url}}" style="width: 100px; height: 100px" />
+                {% endif %}
+            </div>
+
+            <div style="margin-left: auto; margin-right: auto">
+                <div class="trust">{{ institute.trust_name|upper }}</div>
+                <div class="schoolname"><b>{{ school_name }}</b></div>
+                <div style="font-size: 15px; text-align: center">
+                    {{school_address}}
+                </div>
+            </div>
+        </div>
+
+        <div style="line-height: 5px">
+            <div class="double-line"></div>
+            <br />
+            <div class="double-line"></div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+            <div>Ref: {{refno}}</div>
+            <div style="margin-left: auto">Date: {{today_date}}</div>
+        </div>
+        <br />
+
+        <div>
+            <div class="img-box">
+                {% if profile_pic_details %}
+                <img src="{{profile_pic_details}}" style="width: 100px; height: 110px" />
+                {% endif %}
+            </div>
+            <div class="bold title">STUDY CERTIFICATE</div>
+        </div>
+        <br />
+        <br />
+            <p>
+                This is to certify that <b>{{ student_full_name|upper }}</b> {{ student_relate }}
+                <b>{{ father_name|upper }}</b>
+                belongs to
+                <b>{{ village|default:"-" }}</b> Village,
+                <b>{{ taluk|default:"-" }}</b> Taluk,
+                <b>{{ district|default:"-" }}</b> District.
+
+                {{ student_he_she }} has studied in
+                <b>{{ school_name }}</b> school & College from
+                <b>{{ from_academic_year }}</b> to <b>{{ to_academic_year }}</b>,
+                from <b>{{ from_standard_name }}</b> to <b>{{ to_standard_name }}</b>
+                and passed
+                <b>{{ passed_standard|default:to_standard_name }}</b>
+                in the year <b>{{ academic_year }}</b>.
+
+                As per the admission register of our institution
+                {{ student_her_him }} DOB is <b>{{ dob_str }}</b> and
+                <b>admission No</b> is <b>{{ admission_num }}</b>.
+
+                {{ student_her_him }} Record No.
+                <b>{{ recordnum|default:"-" }}</b> & Date is
+                <b>{{ recordnum_date|default:"-" }}</b>
+                {% if date_leaving_school %}
+                    and Date of Leaving School is <b>{{ date_leaving_school }}</b>
+                {% endif %}.
+            </p>
+
+
+        <div style="margin-top: 10px;">
+            <b>
+                This certificate is issued according to records of our
+                {% if "PUC" in from_standard_name or from_standard_name == "10" or from_standard_name == "11" or from_standard_name == "12" %}
+                    College
+                {% else %}
+                    School
+                {% endif %}
+            </b>
+
+        </div>
+
+        <table style="width:100%;margin-top: 50px;">
+            <tr>
+                <td style="text-align: left;">
+                    Date : {{today_date}}<br />
+                    <div style="margin-top:20px;">Place : {{school_city}}</div>
+                </td>
+                <td style="text-align:right;vertical-align: bottom;"><b>Signature & Seal of the<br />Head Master /
+                        Principal</b></td>
+            </tr>
+        </table>
+
+        <div
+            style="text-align: center; margin-top: 10px; width: 70%; margin-left: auto; margin-right: auto; padding-top: 50px;">
+            <b>Signature of AEO / D.D.P.I. with Seal</b>
+        </div>
+    </div>
+</body>
+
+</html>

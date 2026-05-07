@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chordial School</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anek+Bangla:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter+Tight:900">
+</head>
+<style>
+  @page {
+    size: 85mm 54mm;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  .page {
+    width: 85mm;
+    height: 54mm;
+    background-size: cover;
+  }
+  body {
+    margin: 0;
+    color: #0A0A0A;
+  }
+  .back-side, .front-side {
+    background-repeat: no-repeat;
+    background-size: 85mm 54mm;
+  }
+  .back-side {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/lourdes_std_ID_bck_1_1.jpg");
+  }
+  .front-side {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/lourdes_std_ID__1_2.jpg");
+  }
+  .box {
+    width: 77px;
+    height: 94px;
+    border: 1px solid black;
+    border-radius: 13px;
+    top: 84px;
+  }
+  
+  /* @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  } */
+  .user-name {
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif; 
+    color: #4b0000;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 7.5px;
+    padding-left: 10px;
+  }
+  .user-name-small {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif; 
+    color: #4b0000;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 7.5px;
+    padding-left: 10px;
+  }
+  .phone-section {
+    background-color: #FFFDD0;
+    padding: 2px 5px;
+    margin: 2px 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+  }
+  .phone-section td {
+    padding: 2px 3px;
+  }
+</style>
+{% for student in data %}
+<body>
+  <div class="page front-side">
+    <div style="display:flex; page-break-inside: avoid; position: relative;">
+      <div class="box" style="margin-top: 87px; margin-left: 15px; position: relative;">
+        <div>
+          <!-- Apply all filters for brightness enhancement -->
+          <img src="{{ student.profile_pic_details.file }}" 
+               style="height: 94px; 
+                      width: 77px; 
+                      position: absolute; 
+                      top: -1px; 
+                      left: -1px; 
+                      border-radius: 13px; 
+                      border: 1px solid black; 
+                      filter: brightness(6.6) contrast(15.3) saturate(15.3) sepia(0.1);">
+        </div>
+      </div>  
+    </div>
+    <div style="position: absolute; left: 87px; top: 74px; font-family: 'Times New Roman', Times, serif;">
+      <div style="font-family: Arial, Helvetica, sans-serif;font-weight: bold;">
+        {% if student.name|length > 18 %}
+          <div class="user-name user-name-small">
+            {{ student.name|upper }}
+          </div>
+        {% else %}
+          <div class="user-name">
+            {{ student.name|upper }}
+          </div>
+        {% endif %}
+      </div>
+      <table style="margin-left: 15px; margin-top: 1.3px; font-weight: bold; font-size: 11px; line-height: 1;color: #000000;font-family: Arial, Helvetica, sans-serif;">
+        <tr>
+          <td>Class</td>
+          <td style="width: 40px; font-weight: bold;">: <span style="color: #00214d; font-size: 11px;">{{student.standard_name_roman}}</span></td>
+        </tr>
+        <tr>
+          <td>Admission No</td>
+          <td style="font-weight: bold;">: {{student.admission_num}}</td>
+        </tr>
+        <tr>
+          <td>D.O.B</td>
+          <td style="letter-spacing: 0.25px; font-weight: bold;">: {{student.dob_changed}}</td>
+        </tr>
+        <tr>
+          <td>Father's Name</td>
+          <td>: {% if student.student_parent.parent.father_name %}{{student.student_parent.parent.father_name}}{% endif %}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="page back-side" style="page-break-after: always;">
+    <table style="font-size: 10px; margin: 24px 0px 4px 23px; font-family: anek malyalam; font-weight: 600; color: #000; margin-top: 10px;">
+      <tr>
+        <td style="text-align: center;">Address :</td>
+      </tr>
+      <tr>
+        <td>
+          {% for address in student.student_address %}
+          {% if address.address %}{{ address.address }} {% endif %}{% endfor %}
+        </td>
+      </tr>
+    </table>
+    <div class="phone-section">
+      <table style="font-size: 10px; text-align: center;color: #000;font-weight: 600;">
+        <tr>
+          <td style="color: red;">Phone 1</td>
+          <td>: {% if student.student_parent.parent.f_mobile_num %}{{ student.student_parent.parent.f_mobile_num|cut:"+91" }}{% endif %}</td>
+          <td>|</td>
+          <td style="color: red;">Phone 2</td>
+          <td>: {% if student.student_parent.parent.m_mobile_num %}{{ student.student_parent.parent.m_mobile_num|cut:"+91" }}{% endif %}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+{% endfor %}
+</body>
+</html>

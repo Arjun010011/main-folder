@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Hallticket</title>
+
+  <style>
+    :root {
+      --font-main: 9px;
+      --line-main: 1.0rem;
+      --border: 1px solid #000;
+    }
+
+    @page { size: A4 landscape; margin: 2mm; }
+    /* @media print {
+      html, body { width: 297mm; height: 210mm; }
+      .ticket { page-break-inside: avoid; }
+    } */
+
+    * { box-sizing: border-box; }
+    body { line-height: var(--line-main); font-size: var(--font-main); }
+
+    .t-center { text-align: center; }
+    .w-100 { width: 100%; }
+    .fs-20 { font-size: 15px; }
+    .fs-bold { font-weight: bold; }
+
+    /* Tables */
+    table { border-collapse: collapse; width: 100%; }
+    th, td { padding: 4px 6px; border: 1px solid black; }
+    .table-borderless, .table-borderless th, .table-borderless td { border: none !important; }
+    .th-subject-view { text-align: center; }
+    .td-subject-view { text-align: center; }
+
+    /* Ticket wrapper (visible outer border) */
+    .ticket {
+      border: 1px solid black;
+      padding: 8px 10px 10px;
+      margin: 0;
+    }
+
+    .header-flex { display: flex; align-items: center; gap: 10px; }
+    .school-block { text-align: center; flex: 1; }
+
+    /* Side-by-side columns */
+    .two-col { display: flex; gap: 10px; margin-top: 8px; align-items: stretch; }
+    .col { flex: 1 1 0; min-width: 0; }
+
+    /* .col table {
+      flex:1;
+    } */
+
+    /* Section header bar */
+    .section-title {
+      border: 1px solid black;
+      border-bottom: none;
+      text-align: center;
+      font-weight: bold;
+      padding: 6px 4px;
+    }
+
+    .note { font-size: 9px; margin-top: 4px; padding-left: 20px; }
+
+    .sigs { width: 100%; font-size: 10px; margin-top: 10px; border: none; }
+    .sigs th { border: none; }
+
+    .page-gap { margin-top: 15px; }
+
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+{% for student in student_list %}
+  <div class="ticket">
+    <!-- Top Header (no border) -->
+    <table class="w-100 table-borderless">
+      <tr>
+        <td style="padding: 0;">
+          <div class="header-flex">
+            {% if institute.logo.file.url %}
+              <img src="{{ institute.logo.file.url }}" style="width: 100px; height: 100px; margin-left: 10px;" />
+            {% endif %}
+
+            <div class="school-block">
+              <div style="font-size: 13px; font-family: 'Dancing Script', cursive;">
+                "Gain The Knowledge; Share The Knowledge"
+              </div>
+              <div style="font-size: 16px; font-weight: bold; margin-top: 2px;">
+                SRI GNANAJYOTHI SCHOOL<br/>
+              </div>
+              <div style="font-size: 13px;">[A Unit of Sri Gnanajyothi Education Society (R)]</div>
+              <div style="font-size: 13px;">Gnanada Gudi</div>
+              <div style="line-height: 14px; font-size: 13px;">
+                Gnanarathna Dr. D. A. Gowda Sir School Road,<br/>
+                Agrahara Layout, Yelahanka, Bengaluru - 560064.
+              </div>
+              <div class="t-center fs-bold" style="margin-top: 2px;">
+                {{ examDetail.exam_type.name | upper }}&nbsp;&nbsp;
+                {{ examDetail.academic_year.start_date|date:"Y" }} - {{ examDetail.academic_year.end_date|date:"y" }}
+              </div>
+            </div>
+
+            <div style="position: relative;width: 20%; ">
+              {% if student.student_data.profile_pic_details %}
+                <img src="{{ student.student_data.profile_pic_details.file }}"
+                     style="height: 100px; width: 100px; position: absolute; border-radius: 13px; border: 2px solid #000; margin-left: -40px; top: 17px;">
+              {% endif %}
+              <div style="margin-left: -40px; position: absolute; top: 115px; font-size: 13px; white-space: nowrap;">
+                <strong>SATS No.:</strong>
+                {% if student.student_data.sts %} {{ student.student_data.sts }} {% endif %}
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <!-- Student Info -->
+    <div style="display:flex; justify-content: space-between; align-items: flex-start; margin-top: 10px; padding-left: 20px;">
+      <div>
+        <div><strong>Student Name:</strong> {{ student.student_data.full_name | title }}</div>
+        <div>
+          <strong>Grade/Sec:</strong>
+          {% if student.student_data.standard_section__standard__name == "Pre-KG" or student.student_data.standard_section__standard__name == "JKG" or student.student_data.standard_section__standard__name == "SKG" or student.student_data.standard_section__standard__name == "NURSERY" %}
+            {{ student.student_data.standard_section__standard__name | capfirst }}
+          {% else %}
+            {{ student.student_data.standard_section__standard__name | cut:"G" | capfirst }}
+          {% endif %}
+          - {{ student.student_data.standard_section__section__name | capfirst }}
+        </div>
+        <div><strong>Roll No.:</strong> {% if student.student_data.current_reg_num %} {{ student.student_data.current_reg_num }} {% endif %}</div>
+      </div>
+    </div>
+
+    <!-- Admission Ticket Heading -->
+    <div class="t-center fs-bold" style="margin-left: 20px; padding-left: 20px; margin-top: 6px;">
+      ADMISSION TICKET
+    </div>
+
+    <!-- SIDE-BY-SIDE EXAM TABLES (outer border removed; kept on ticket) -->
+    <div class="two-col">
+      <!-- ORAL EXAM -->
+      <div class="col">
+        <div class="section-title">ORAL EXAMINATION</div>
+      <table>
+        <thead>
+          <tr>
+            <th class="th-subject-view">DATE</th>
+            <th class="th-subject-view">DAY</th>
+            <th class="th-subject-view">SESSION</th>
+            <th class="th-subject-view">SUBJECT</th>
+            <th class="th-subject-view">TIMINGS</th>
+            <th class="th-subject-view">Sign of Invigilator</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for subject in student.session_wise %}
+          {% if 'ORAL' in subject.session0 or 'ORAL' in subject.session1 %}
+            <tr>
+              <td class="td-subject-view" rowspan="2">{{ subject.fordate|date:'d-m-Y' }}</td>
+              <td class="td-subject-view" rowspan="2">{{ subject.fordate|date:'l' }}</td>
+              <td class="td-subject-view">MORNING</td>
+              <td class="td-subject-view">{{ subject.session0|cut:"(ORAL)"|title }}</td>
+              <td class="td-subject-view"> {{ subject.session0start_time }} - {{ subject.session0end_time }}</td>
+              <td class="td-subject-view"></td>
+            </tr>
+            <tr>
+              <td class="td-subject-view">AFTERNOON</td>
+              <td class="td-subject-view">{{ subject.session1|cut:"(ORAL)"|title }}</td>
+              <td class="td-subject-view"> {{ subject.session1start_time }} - {{ subject.session1end_time }}</td>
+              <td class="td-subject-view"></td>
+            </tr>
+          {% endif %}
+        {% endfor %}
+        <!-- Full-width message row -->
+        <!-- <tr>
+          <td colspan="6" class="td-subject-view" style="font-weight:bold; text-align:center; padding:8px;">
+            ALL THE BEST FOR EXAMINATION
+          </td>
+        </tr> -->
+        <tr>
+      <td colspan="6" class="td-subject-view" 
+          style="font-weight:bold; text-align:center; padding:8px;">
+        <div style=" display:flex; align-items:center; justify-content:center;">
+          ALL THE BEST FOR EXAMINATION
+        </div>
+      </td>
+
+        </tbody>
+      </table>
+    </div>
+
+      <!-- WRITTEN EXAM -->
+      <div class="col">
+        <div class="section-title">WRITTING EXAMINATION</div>
+        <table>
+          <thead>
+             <tr>
+            <th class="th-subject-view">DATE</th>
+            <th class="th-subject-view">DAY</th>
+            <th class="th-subject-view">SESSION</th>
+            <th class="th-subject-view">SUBJECT</th>
+            <th class="th-subject-view">TIMINGS</th>
+            <th class="th-subject-view">Sign of Invigilator</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for subject in student.subject_list %}
+            {% if 'ORAL' not in subject.subject_name %}
+              <tr>
+                <td class="td-subject-view">{{ subject.fordate|date:'d-m-Y' }}</td>
+                <td class="td-subject-view">{{ subject.fordate|date:'l' }}</td>
+                 <td class="td-subject-view">MORNING</td>
+                <td class="td-subject-view">
+                  <div style="width: 90%; margin: 0 auto;">{{ subject.subject_name|title }}</div>
+                </td>
+                <td class="td-subject-view">{{ subject.start_time }} - {{ subject.end_time }}</td>
+                <td class="td-subject-view"></td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Notes -->
+    <div class="note">
+      <b>NOTE:</b><br/>
+
+      {% if student.student_data.standard_section__standard__name == "NURSERY" %}
+        1. Admission ticket is compulsory for oral and writing test.<br/>
+        2. If any malpractices found in Examination hall, the student will be debarred from Examination. Solely and wholly responsible for further consequences.<br/>
+        3. Parents Teachers meeting date : 11-10-2025 (Saturday).<br/>
+        4. Dussehra Vacation commences from 23-09-2025 (Tuesday) - 07-10-2025 (Tuesday).<br/>
+        5. School will reopen on 08-10-2025 (Wednesday).<br/>
+
+      {% elif student.student_data.standard_section__standard__name in "JKG,SKG" %}
+        1. Admission ticket is compulsory for oral and writing test.<br/>
+        2. If any malpractices found in Examination hall, the student will be debarred from Examination. Solely and wholly responsible for further consequences.<br/>
+        3. Dussehra Vacation commences from 24-09-2025 (Wednesday) - 07-10-2025 (Tuesday).<br/>
+        4. Parents Teachers meeting date : 11-10-2025 (Saturday).<br/>
+
+      {% elif student.student_data.standard_section__standard__name in "G01,G02,G03,G04,G05" %}
+        1. Admission ticket is compulsory for oral and writing test.<br/>
+        2. If any malpractices found in Examination hall, the student will be debarred from Examination. Solely and wholly responsible for further consequences.<br/>
+        3. Parents Teachers meeting date : 11-10-2025 (Saturday).<br/>
+        4. Dussehra Vacation commences from 25-09-2025 (Thursday) - 07-10-2025 (Tuesday).<br/>
+        5. School will reopen on 08-10-2025 (Wednesday).<br/>
+
+      {% elif student.student_data.standard_section__standard__name in "G06,G07,G08,G09" %}
+        1. Admission ticket is compulsory for oral and writing test.<br/>
+        2. If any malpractices found in Examination hall, the student will be debarred from Examination. Solely and wholly responsible for further consequences.<br/>
+        3. Parents Teachers meeting date : 11-10-2025 (Saturday).<br/>
+        4. Dussehra Vacation commences from 26-09-2025 (Friday) - 07-10-2025 (Tuesday).<br/>
+        5. School will reopen on 08-10-2025 (Wednesday).<br/>
+
+      {% elif student.student_data.standard_section__standard__name == "G10" %}
+        1. Admission ticket is compulsory for oral and writing test.<br/>
+        2. If any malpractices found in Examination hall, the student will be debarred from Examination. Solely and wholly responsible for further consequences.<br/>
+        3. Parents Teachers meeting date : 11-10-2025 (Saturday).<br/>
+
+      {% else %}
+        1. Admission ticket is compulsory for oral and writing test.<br/>
+        2. If any malpractices found in Examination hall, the student will be debarred from Examination. Solely and wholly responsible for further consequences.<br/>
+        3. Parents Teachers Meeting of FA-02 2025-26 is likely to be held on 06-09-2025 (Saturday). Parents must and should attend the meeting without fail.<br/>
+      {% endif %}
+    </div>
+
+    <div style="text-align: center; font-weight: bold; font-size: 11px; margin: 12px 0;">
+      ***HAPPY DUSSEHRA FESTIVAL IN ADVANCE***
+    </div>
+
+    <!-- Signatures -->
+    {% if student.subject_list|length >= 8 %}
+      <table class="sigs">
+        <tr>
+          <th style="text-align: left;">Student</th>
+          <th style="text-align: center;">Grade Mentor</th>
+          <th style="text-align: right;">AHM&nbsp;&nbsp;</th>
+        </tr>
+      </table>
+    {% else %}
+      <table class="sigs" style="margin-top: 20px;">
+        <tr>
+          <th style="text-align: left;">Student</th>
+          <th style="text-align: center;">Grade Mentor</th>
+          <th style="text-align: right;">AHM&nbsp;&nbsp;</th>
+        </tr>
+      </table>
+    {% endif %}
+  </div>
+
+ {% if not forloop.last %}
+  <div style="page-break-after: always;"></div>
+ {% endif %}
+  <div class="page-gap"></div>
+{% endfor %}
+</body>
+</html>

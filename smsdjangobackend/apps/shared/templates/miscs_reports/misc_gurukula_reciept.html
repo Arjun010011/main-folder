@@ -1,0 +1,173 @@
+<html>
+<head>
+<style>
+
+@page {
+    size: A5;
+    margin: 10mm;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family: Verdana, sans-serif;
+}
+
+.container{
+    width: 100%;
+    max-width: 520px;   
+    margin: auto;
+}
+
+.school-name{
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;   
+}
+
+.school-address{
+    text-align: center;
+    font-weight: bold;
+    font-size: 13px;   
+}
+
+table{
+    width: 100%;
+    font-size: 12px;   
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.text-align-center{
+    text-align: center;
+}
+
+.text-align-right{
+    text-align: right;
+}
+
+.mt-10{
+    margin-top: 15px;
+}
+
+.break-before {
+    page-break-before: always;
+}
+
+.upper-case {
+    text-transform: uppercase;
+}
+
+</style>
+</head>
+
+<body>
+
+{% for i in number_of_copies %}
+
+<div class='container break-before'>
+
+    <div class="school-name upper-case">
+        {{ institute.name }}
+    </div>
+
+    <div class="school-address upper-case">
+        {{ institute.institute_address.map_address_data.address_one_map }}
+        {{ institute.institute_address.map_address_data.address_two_map }}
+    </div>
+
+    <div class="school-address upper-case">
+        {{ institute.institute_address.map_address_data.city_map }}
+        {{ institute.institute_address.map_address_data.pincode_map }}
+    </div>
+
+    <table class='mt-10'>
+        <tr>
+            <th>Fee Receipt</th>
+            <th class="text-align-center">
+                Academic Year :
+                {% if payment_details.0.misc.academic_year %}
+                {{payment_details.0.misc.academic_year.start_date.year}} -
+                {{payment_details.0.misc.academic_year.end_date.year}}
+                {% endif %}
+            </th>
+        </tr>
+    </table>
+
+    <table class='mt-10'>
+        <tr>
+            <td><b>Date</b></td>
+            <td>{{ misc_collection.date|date:"d-m-Y" }}</td>
+            <td><b>Receipt No.</b></td>
+            <td>{{ payment_details.0.receipt_num }}</td>
+        </tr>
+    </table>
+
+    <table class='mt-10'>
+        <tr>
+            <td><b>Name</b></td>
+            <td>
+                {{misc_collection.student.first_name}}
+                {{misc_collection.student.middle_name}}
+                {{misc_collection.student.last_name}}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Class</b></td>
+            <td>{{misc_collection.student.current_standard.name}}</td>
+        </tr>
+        <tr>
+            <td><b>Admission No.</b></td>
+            <td>{{ admission_num }}</td>
+        </tr>
+    </table>
+
+    
+    <table class='mt-10'>
+        <tr>
+            <th>Sl.</th>
+            <th>Particulars</th>
+            <th class="text-align-right">Rate</th>
+            <th class="text-align-right">Amount</th>
+        </tr>
+
+        {% for fee in payment_details %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ fee.misc.misc_type.name }}</td>
+            <td class="text-align-right">{{ fee.amount|floatformat:2 }}</td>
+            <td class="text-align-right">{{ fee.amount|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    
+    <table class='mt-10'>
+        <tr>
+            <td>Amount Paid in Words</td>
+            <td>Total</td>
+            <td class="text-align-right">
+                {{ misc_collection.total_amount|floatformat:2 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ amount_in_words|title }} Rupees Only
+                <div style="margin-top:5px">
+                    {{ fee.bottom_text }}
+                </div>
+            </td>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

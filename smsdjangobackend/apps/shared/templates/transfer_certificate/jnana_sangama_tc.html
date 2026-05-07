@@ -1,0 +1,325 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>      
+        @page {
+            size: A4;
+            /* border:2px solid black; */
+        }
+        table,
+            th,
+            td {
+                border: 2px solid black;
+                border-collapse: collapse;
+                font-size: 14px;
+                font-family: 'Calibri';
+                
+            }
+        table{
+          /* padding-left:35px;
+            margin-left:35px; */
+            margin-left:5px;
+        }
+        .center{
+            text-align:center;
+            /* margin:5px; */
+        }
+        .info_table{
+            table-layout: fixed;
+        }
+        .info_table td:nth-child(1){
+            width:4%;
+        }
+        .info_table td:nth-child(2){
+            width:50%;
+        }
+        td {
+            padding:6px;
+            padding-right: 0px;
+        }
+        .admno {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+        }
+        .dupcopy {
+            font-size: 15px;
+            text-align: left;
+            position: absolute;
+        }
+        .logo {
+            display: flex;
+            text-align: left;
+        }
+        .logo1 {
+            display: flex;
+            text-align: right;
+        }
+        .border {
+            border: 1px solid white;
+            width: 100%;
+        }
+    </style>
+</head>
+<body style="font-family: 'Calibri';margin:-40px;border:3px solid black;margin-top: -45px;margin-bottom:-240px;padding-bottom: -240px;">
+    <br>
+      
+    <div class="border">    
+        <div style="display: flex; align-items: center; height: 100px;">
+  
+            <div style="width: 15%; display: flex; align-items: center; justify-content: center;left:10px;">
+                {% if institute.logo.file.url %}
+              <img src="https://production-edubricz.s3.amazonaws.com/18/WhatsApp_Image_2025-03-17_at_11.00.08_AM_2_1.jpeg" alt="Logo" style="width: 100px; height: auto;">
+              {% endif %}  
+            </div>
+            
+            <div style="flex: 1; text-align: center;">
+              <div class="center" style="font-size: 13px;">Gnana Sangama Education Trust</div>
+              <div class="center" style="text-transform: uppercase; font-size: 19px; font-weight: bold;">GNANA SANGAMA PU COLLEGE</div>
+              <div class="center" style="font-size: 14px;">Agalakuppe Road, Behind J.K Hospital, Dabaspete Town</div>
+              <div class="center" style="font-size: 14px;">Bangalore Rural - 562111 </div>
+            </div> 
+            <div style="width: 15%; display: flex; align-items: center; justify-content: center;right:10px;">
+                {% if institute.logo.file.url %}
+              <img src="https://production-edubricz.s3.amazonaws.com/18/swaeje.jpg" alt="Logo" style="width: 100px; height: auto;">
+              {% endif %}  
+            </div>         
+          </div>
+          <table class="info_table" style="width:94.5%;margin-top: 20px;padding: 0px;border-bottom:none;margin-left: 10px;;">
+            <tr style=" line-height: 24px;border-bottom: none;">
+                <td style="width: 33.33%; text-align: left;border-right: none;border-right:none">TC No: {{tc_num}}</td>
+                <td style="width: 33.33%; text-align: center; font-weight: bold;border-left: none;border-right: none;">TRANSFER CERTIFICATE</td>
+                <td style="width: 33.33%; text-align: right;border-left: none;border-right:none;">Admission No: {{admission_num}}</td>
+              </tr>
+          </table> 
+        <table class="info_table" style="width:97%;margin-top: 20px;padding: 0px;border-top:none;margin:0px;font-size: 10px;line-height: 14px;margin-left:10px">
+            <tr style="border-top:none">
+                <td style="width: 4%;">
+                    1
+                </td>
+                <td>
+                    Name of the student <br>
+                </td>
+                <td>
+                    {{student_full_name}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;">
+                    2
+                </td>
+                <td>
+                    Gender:
+                </td>
+                <td>
+                    {{gender}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;">
+                    3
+                </td>
+                <td>
+                    Date Of Birth: <br>
+                    (In figures & in Words)
+                </td>
+                <td>
+                    {{dob}}</br>
+                    {{dob_in_words}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >
+                    4
+                </td>
+                <td>
+                    Name of the Father:
+                </td>
+                <td>
+                    {{father_name}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >
+                    5
+                </td>
+                <td>
+                    Name of the mother:
+                </td>
+                <td>
+                    {{mother_name}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >6</td>
+                <td colspan="2" style="width:100%">
+                  <div style="display: flex; justify-content: space-between; width: 100%;">
+                    <span>Nationality: {{nationality}}</span>
+                    <span>Religion: {{religion}}</span>
+                    <span>Caste: {{caste}}</span>
+                  </div>
+                </td>
+              </tr>        
+            <tr>
+                <td style="width: 4%;">7.</td>
+                <td>Whether the student belongs to SC/ST</td>
+                <td>{{is_sc_st|upper}}</td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >  
+                    8
+                </td>
+                <td>Whether  qualified for promotion to the higher standard
+                </td>
+                <td>{{is_qualified}}
+                    </td>
+                </tr>
+            <tr>
+                <td style="width: 4%;" >9.</td>
+                <td>Standard in which the pupil was studying at the time of leaving the College(In Words)</td>
+                <td>
+                    {{standard_name}}
+                </td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="vertical-align: middle; text-align: center;width:4%" >10</td>
+                <td style="padding: 10px; width: 30%;border-right:none">
+                  In case of Student of higher standard
+                </td>
+                <td style="padding: 10px; width: 70%;border-left:none">
+                  <div style="display: flex; flex-direction: column;">
+                    <span>First language: {{first_language}}</span>
+                    <span>Second language: {{second_language}}</span>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="padding: 10px;">
+                  Optional Subjects: {{optional_subjects}}
+                </td>
+              </tr>             
+            <tr>
+                <td  style="width: 4%;">
+                    11
+                </td>
+                <td>
+                    Whether the student has paid all the fees dues to college 
+                </td>
+                <td>
+                    {{is_full_payment}}
+                </td>
+            </tr>
+            <tr>
+                <td  style="width: 4%;">
+                    12
+                </td>
+                <td> Fees concessions, if any (nature & period to be specified)                  
+                </td>
+                <td>
+                    {{fee_concessions}}
+                </td>
+            </tr>
+            <tr>
+                <td  style="width: 4%;">
+                    13
+                </td>
+                <td>
+                     Scholarship, if any (nature & period to be specified)
+                </td>
+                <td>
+                    {{is_scholarship}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;">
+                    14
+                </td>
+                <td>
+                     Whether medically examined
+                </td>
+                <td>{{is_medicaly_examined}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >
+                    15
+                </td>
+                <td>
+                     Date of admission to the College
+                </td>
+                <td>
+                    {{admission_date}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >
+                    16
+                </td>
+                <td>
+                     Date of Student last attended at the college
+                </td>
+                <td>
+                    {{last_date_attendance}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;">
+                    17
+                </td>
+                <td>
+                    Date on which the application for the Transfer Certificate was received
+                </td>
+                <td>{{appln_date}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;">
+                    18
+                </td>
+                <td>
+                     Date of issue of the Transfer Certificate
+                </td>
+                <td>
+                    {{issue_date}}
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 4%;" >
+                    19
+                </td>
+                <td>
+                    Number of College days up to the date of leaving
+                </td>
+                <td>
+                    {{no_of_school_days}}
+                </td>
+            </tr>
+            <tr style="width: 4%;">
+                <td>20.</td>
+                <td>Number of College days the Pupil attended</td>
+                <td>
+                    {{no_of_days_attended}}
+                </td>
+            </tr>
+            <tr style="width: 4%;">
+                <td>21.</td>
+                <td>Conduct and character of the student</td>
+                <td>{{stud_char}}</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <br>
+        <div>
+            <div style=' font-size: 14px;text-align: right;'>Signature Of Principal</div>
+        </div>  
+    </div>
+
+</body>
+</html>

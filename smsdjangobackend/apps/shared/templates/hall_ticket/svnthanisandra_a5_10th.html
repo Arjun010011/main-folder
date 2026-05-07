@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 10px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+            padding:5px;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4;
+            padding:0;
+            margin:10px;    
+        }
+        .fs-20{
+            font-size: 20;
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .padding-table{
+            padding:7px;
+        }
+   
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="height: 515px;border:1px solid black;padding:5px;">
+        <table class="w-100" style="border-collapse: collapse; width: 100%;">      
+            <tr style="border:2px solid black">
+              <td>
+                <div style="display: flex; align-items: center;">
+                  {% if institute.logo.file.url %}
+                  <img src="{{institute.logo.file.url}}" style="width: 70px; height: 70px; margin-left:20px;" />
+                  {% endif %}
+                  <div style="text-align: center; flex-grow: 1;padding-left: -00px;;margin-left: -55px;;">
+                    <div style="font-size: 18px; font-weight: bold; line-height: 20px;">
+                        SRI SHARADA VIDYANIKETANA ENGLISH HIGH SCHOOL</br>
+                    </div>
+                    <div style="line-height: 16px; font-size: 13px;">
+                        Nagawara -Thanisandra, Bangalore – 560 077                    </div>
+                    <div class="address-heading t-center fs-bold">
+                      {{ examDetail.exam_type.name | upper }}&nbsp;&nbsp;
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="address-heading t-center fs-bold" style="margin-left:40px;padding-left: 60px;">                    
+                ADMISSION TICKET 
+              </td>
+            </tr>
+          </table>
+          
+    <table style="width: 100%; border-collapse: collapse; margin-top: 10px;font-size: 16px;">
+        <tr>
+          <td style="width: 50%;text-align: left;"><strong>Candidate's Name:</strong> {{student.student_data.full_name | upper }}</td>
+          <td style="width: 50%; text-align: left;"><strong>Class/Sec:</strong> {{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+        </tr>
+        <tr>
+          <td class='padding-table' style="width: 50%; text-align: left;"><strong>Register no:</strong> {% if student.student_data.current_reg_num %} {{ student.student_data.current_reg_num }}{% endif %}</td>
+        </tr>
+      </table>
+        {% comment %}  Extract only unique timings with valid start_time {% endcomment %}
+        {% with valid_timings=student.subject_list|dictsort:"start_time" %}
+        {% comment %}  Filter timings only once {% endcomment %}
+        {% with unique_timings=valid_timings|dictsort:"start_time" %}
+        <table class="text-center w-100" border="1"
+            style="border-collapse: collapse; border: 1px solid black; margin-top:5px; font-size: 16px; line-height: 16px;">
+            {% for subject in student.session_wise %}
+            {% if forloop.counter == 1 %}
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view"><br><div>{{subject.session0start_time}}-{{subject.session0end_time}}</div></th>
+                <th class="th-subject-view"><br><div>{{subject.session1start_time}}-{{subject.session1end_time}}</div></th>
+            </tr>
+        {%endif%}
+        {% endfor %}
+            {% for subject in student.session_wise %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view">{{subject.fordate|date:'l'}}</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.session0 | title}}</div></td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.session1 | title}}</div></td>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endwith %}
+        {% endwith %}
+        <br>
+        <table style="padding-top:3px;padding-bottom: 3px;">
+            Note:<br>
+            <tr>1.Please stick to the Exam Pad no deviation is allowed.</tr><br>
+            <tr>2.If Govt. declare unexpected holiday that day's test will be postponed to last day.</tr>
+        </table>
+        <table class="w-100" style="margin-top:50px;font-size: 16px;">
+            <tr>
+                <th style="text-align: left;">
+                </th>
+                <th style="text-align: right;">
+                    <img src='https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/svnenglishschool/svnprincipal.jpeg' style="width: 150px;height: 50px;"/>
+                    &nbsp; &nbsp; &nbsp;
+                </th>
+            </tr>
+            <tr>
+                <th style="text-align: left;padding:0px;">
+                    Class Teacher Signature 
+                </th>
+                <th style="text-align: right;padding:0px;">
+                    Principal Signature &nbsp; &nbsp; 
+                </th>
+            </tr>
+        </table>
+
+    </div>
+    <!-- <hr style="margin-top: -20px;"> -->
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    </br>
+    </br>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

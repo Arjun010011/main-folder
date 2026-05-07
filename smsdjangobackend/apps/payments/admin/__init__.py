@@ -1,0 +1,2 @@
+from .payment_methods import OnlinePaymentMethodsAdmin
+from .beneficiary import BeneficiaryAdmin

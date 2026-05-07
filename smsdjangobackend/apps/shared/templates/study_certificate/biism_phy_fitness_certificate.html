@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physical Fitness Certificate</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            color: #000;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            flex: 0 0 auto;
+            margin-right: 20px;
+        }
+        .logo img {
+            width: 130px;
+            height: 140px;
+        }
+        .school-info {
+            flex: 1;
+            text-align: center;
+        }
+        .student-photo {
+            border: 1px solid #000;
+            width: 120px;
+            height: 150px;
+            text-align: center;
+            float: right;
+            margin-top: -22px;
+        }
+        .title {
+            padding-left: 150px;
+            font-weight: bold;
+            font-size: 18px;
+            text-decoration: underline;
+            margin-top: 119px;
+        }
+        .section {
+            margin-top: 30px;
+            line-height: 1.2;
+            font-size: 18px;
+        }
+        .footer {
+            margin-top: 60px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .footer div {
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo">
+            {% endif %}
+        </div>
+        <div class="school-info">
+            <h2>Bharath Institute of Industrial Safety Management (BIISM)</h2>
+            <p>
+                <strong>#125/1A, Shivanandi Arcade, Brahmadevaragutte,</strong><br>
+                Behind Shivanandi layout bus stop, Kodigehalli, Bengaluru - 560091
+            </p>
+        </div>
+    </div>
+
+    <div class="student-photo">
+        <img src="{{ profile_pic_details }}" alt="Student Photo">
+    </div>
+
+    <div class="title">PHYSICAL FITNESS CERTIFICATE</div>
+    <div class="section">
+        <div style="text-align: center;">For admission</div> 
+        <div>To be obtained only from Gazetted Government Medical officer/Medical Officer of a Government Undertaking.</div>   
+
+        <p>Name : <b>{{ student_full_name|upper }}</b></p>
+        <p>Father’s Name : <b>{{ father_name|title }}</b></p>
+        <p>Blood Group: <b>{{ blood_group }}</b> &nbsp; Height: <b>{{ student_height }}</b> &nbsp; Weight: <b>{{ student_weight }}</b></p>
+        <p>Chest : <b>{{ student_chest }}</b></p>
+        <p>Vision : L: <b>{{ vision_l }}</b> R: <b>{{ vision_r }}</b></p>
+        <p>Colour Vision : <b>{{ colour_vision }}</b></p>
+        <p>Hearing : <b>{{ student_hearing }}</b></p>
+        <p>Allergies, if any : <b>{{ student_allergies }}</b></p>
+        
+        <p>Any other Remarks : <b>{{ remarks }}</b></p>
+
+        <p>I, Dr. <b>{{ doctor }}</b> after careful personal examination of the case do hereby certify that Sri./Kumari <b>{{ student_full_name|title }}</b> is found physically fit to undergo professional education.</p>
+    </div>
+
+    <div class="footer">
+        <div>
+            Place: <b>{{ place }}</b><br><br>
+            Date: <b>{{ today_date }}</b>
+        </div>
+        <div style="text-align: right;">
+            Signature with seal:<br>
+            Reg. No.: <b>{{ reg_no }}</b><br>
+            Designation: <b>{{ designation }}</b>
+        </div>
+    </div>
+</body>
+</html>

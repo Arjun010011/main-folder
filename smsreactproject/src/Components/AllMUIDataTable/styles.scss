@@ -1,0 +1,29 @@
+@import "styles/helpers.scss";
+
+.search-button {
+    background: $submit-button-background !important;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    color: white!important;
+    max-height: 25px!important;
+    // float: right;
+}
+
+.reset-button {
+    background: red !important;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    color: white!important;
+    max-height: 25px!important;
+    // float: right;
+}
+
+.my-tooltip-table .MUIDataTable-responsiveBase-1295 {
+    overflow-y: visible !important;
+    position: relative; /* helps with stacking context */
+}
+
+.my-tooltip-table [class*="MUIDataTable-responsiveBase"] {
+    overflow-x: visible !important;
+    position: relative;
+  }

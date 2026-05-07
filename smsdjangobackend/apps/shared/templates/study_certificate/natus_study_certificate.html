@@ -1,0 +1,68 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+        }
+        .border {
+        height:900px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:0px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        position: relative;
+     }
+     .schoolname{
+        display:flex;
+     }
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div class="schoolname">
+    <div>{% if institute.logo.file.url %}
+            <img src={{institute.logo.file.url}}
+            style="width: 100px;height: 100px;"/>
+        {% endif %}</div>
+        <div style="text-align: center;margin-left:auto;margin-right:auto;font-size:23px;">
+            <!-- {% if institute.trust_name %}
+                <div class="trust">{{ institute.trust_name|title }} (R)</div>
+            {% endif %} -->
+            <div style="font-weight: bold;">{{institute.name|upper}}</div>
+            
+            <div style="line-height: 14px;font-size:14px;">(Affiliated to CBSE, New Delhi. Affiliation No: 831334)</div>
+            <div style="line-height: 14px;font-size:14px;">
+                Bilagumba Road, Ramnagara-562159 <br/>
+                Ph No : 080-29911191
+            </div>
+        </div>
+    </div>
+    <div style="text-align: left;margin: 25px 0px ;"><b>Reference No:</b></div>
+    <div style="font-size:19px;text-align: center;margin:100px 10px 0px;text-decoration: underline;"><b>STUDY CERTIFICATE</b></div>
+    <div style="font-size:12px;text-align: center;margin:5px 10px 70px;"><i><b>To whom so ever it may concern</i></b></div>
+    <p>This is to certify that <b> {{student_full_name}} </b> {{student_relate}} <b>{{father_name}}</b> is a bonafide student of this institution studying in <b>{{standard_name}}{{standard_suffix}}
+    </b>during the academic year <b>{{academic_year}}</b>, As per the admission register of our institution {{student_her_him}} DOB is <b>{{dob_str}}</b> and <b>admission No</b> is <b>{{admission_num}}</b>, {{student_he_she}} belongs to the caste {{caste|title}} and residing {{address}}.
+    </p>
+    <div style="text-align:left;margin:70px 0px;"> School DISE Code : 29320603105 </div>
+    <table style="width:100%;position: absolute;bottom:100px;">
+    <td style="text-align: left;">Date  :   {{today|date:'d/m/Y'}} </br>
+    <div style="text-align:left;margin-top:20px;">Place  :   </div>
+    <td style="text-align:right;position:absolute;right:40px;bottom:0px;">Seal & Signature of the Head Master </td>
+    </div>
+</body>
+</html>

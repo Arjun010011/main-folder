@@ -1,0 +1,358 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        @page {
+            size: A5;
+        }
+        table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 14px;
+                font-family: 'Calibri';
+            }
+        .center{
+            text-align:center;
+            margin:5px;
+        }
+        .info_table{
+            table-layout: fixed;
+        }
+        .info_table td:nth-child(1){
+            width:4%;
+        }
+        .info_table td:nth-child(2){
+            width:50%;
+        }
+        td {
+            padding:6px;
+            padding-right: 0px;
+        }
+        .admno {
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+        }
+        .admission {
+            margin-left: 25%;
+        }
+        .tc {
+            margin-right: 30%;
+        }
+        .dupcopy {
+            font-size: 15px;
+            text-align: left;
+            padding-left: 10%;
+            position: absolute;
+        }
+        .logo {
+            display: flex;
+            text-align: left;
+        }
+        .border {
+            border: 1px solid white;
+            width: 80%;
+            margin-left: 10%;
+        }
+    </style>
+</head>
+<body style="font-family: 'Calibri';">
+    
+      
+    <div class="border">
+        <div class="logo">
+            {% if institute.logo.file.url %}
+                <img style="display: flex;" src={{ institute.logo.file.url }}
+                style="width: 80px;height: 80px;"/>
+            {% endif %}             
+        </div>
+        
+        <div>
+            <div>
+                <div class="center" style="text-transform: uppercase;font-size:19px">SARASWATHI VIDYA MANDIR-ANEKAL</div>
+                <div class="center" style="font-size:14px;">(Recognised under the Board of Secondary school Education Karnataka, Bangalore)</div>
+        
+                <div class="center" style="text-transform: uppercase;font-size:19px"><b>TRANSFER CERTIFICATE</b>  
+        
+                <div class="admno">
+                    <div class="admission">Admission No : {{admission_num}}</div>
+                    <div class="tc">TC No : {{tc_num}}</div>
+                </div>
+        
+                <div class="admno">
+                    <div class="admission">School disc Code : 94/2017-18</div>
+                    <div class="tc">SATS No : 161453813</div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="dupcopy"><b>(Duplicate copy)</b></div>
+        <table class="info_table" style="width:100%;margin-top: 20px;">
+            <tr>
+                <td style="padding-bottom: 20px;">
+                    1
+                </td>
+                <td>
+                    Name of the student <br>
+                    (As entered in the Admission register)
+                </td>
+                <td>
+                    <b>{{student_full_name|upper}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    2
+                </td>
+                <td>
+                    SEX: MALE/FEMALE
+                </td>
+                <td>
+                    {{gender|upper}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 20px;">
+                    3
+                </td>
+                <td>
+                    DATE OF BIRTH <br>
+                    (In figures & in Words)
+                </td>
+                <td>
+                    {dob}}</br>
+                    {{dob_in_words|upper}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    4
+                </td>
+                <td>
+                    NAME OF THE FATHER
+                </td>
+                <td>
+                    <b>{{father_name|upper}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    5
+                </td>
+                <td>
+                    NAME OF THE MOTHER
+                </td>
+                <td>
+                    <b>{{mother_name|upper}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    6
+                </td>
+                <td>
+                    NATIONALITY
+                </td>
+                <td>
+                    {{nationality|upper}}&#160;
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    7
+                </td>
+                <td>
+                    RELIGION /CASTE /SUB CASTE
+                </td>
+                <td>
+                    <b>{{religion|upper}}</b><br><b>&#160;{{caste|upper}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 55px;">
+                    8
+                </td>
+                <td>
+                    WHETHER THE STUDENT BELONGS <br>
+                    TO SCHEDULED CASTE. SCHEDULED <br>
+                    TRIBE BACKWARD TRIBE. BACK <br>
+                    WARD COMMUNITY
+                </td>
+                <td>
+                    {{is_sc_st|upper}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 40px;"> 
+                    9
+                </td>
+                <td>
+                    CLASS IN WHICH THE STUDENT WAS <br>
+                    STUDYING AT THE TIME OF LEAVING <br>
+                    THE INSTITUTION
+                </td>
+                <td>
+                    <b>{{standard_name|upper}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 25px;">
+                    10
+                </td>
+                <td>
+                    LANGUAGE OFFERED UNDER PART-I <br>
+                    SUBJECTS OFFERED UNDER PART-II
+                </td>
+                <td>      
+    
+                    PART-I : {{part1_lan|upper}}
+                    PART-II : {{part2_sub|upper}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 30px;">
+                    11
+                </td>
+                <td>
+                    PUBLIC EXAMINATION APPEARED <br>
+                    WITH REG NO MONTH AND YEAR 
+                </td>
+                <td>
+                    EXAMINATION : KSEEB <br><br>
+                    a) MONTH AND YEAR: {{exam_month_year}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 85px;">
+                    12
+                </td>
+                <td>
+                    RESULTS IN PUBLIC EXAMINATION: <br>
+                    <div style="margin-left: 17px;">
+                        A) WHETHER PASSED IN ALL 
+                        <div style="margin-left: 18px;"> 
+                            SUBJECTS 
+                        </div>
+                        
+                    </div>
+                    <div style="margin-left: 17px;">
+                        B) IF NOT PASSED IN ALL
+                        <div style="margin-left: 18px;">
+                            SUBJECTS, MENTION THE
+                        </div>
+                        <div style="margin-left: 18px;">
+                            SUBJECTS IN WHICH PASSED 
+                        </div>
+                    </div>
+                    
+                </td>
+                <td>
+                    <b>PROMOTED TO HIGHER STUDIES</b>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 40px;">
+                    13
+                </td>
+                <td>
+                    APPROVAL OF ADMISSION</br>
+                    ACCORDED BY THEDIRECTOR OF</br>
+                    SECONDARY SCHOOL IN KARNATAKA 
+                </td>
+                <td>
+                    {{order_date}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 40px;">
+                    14
+                </td>
+                <td>
+                    PARTICULAR OF GOVT SCHOLARSHIP <br>
+                    AND FREESHIPS ENJOYED BY THE <br>
+                    STUDENT
+                </td>
+                <td>
+                    A)SCHOLARSHIP : {{is_scholarship|upper}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 20px;">
+                    15
+                </td>
+                <td>
+                    LAST DATE OF STUDENT'S <br>
+                    ATTENDANCE IN THE INSTITUTION
+                </td>
+                <td>
+                    {{last_date_attendance}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 30px;">
+                    16
+                </td>
+                <td>
+                    TOTAL NO OF WORKING DAYS AND <br>
+                    NO ATTENDED
+                </td>
+                <td><b>
+                    {{fee_balance|upper}}</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    17
+                </td>
+                <td>
+                    DATE OF APPLICATION
+                </td>
+                <td>
+                    {{appln_date}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    18
+                </td>
+                <td>
+                    DATE OF ISSUE
+                </td>
+                <td>
+                    {{issue_date}}
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-bottom: 25px;">
+                    19
+                </td>
+                <td>
+                    CHARACTER AND CONDUCT OF THE <br>
+                    STUDENT
+                </td>
+                <td>{{stud_char|upper}}
+    
+                </td>
+            </tr>
+        </table>
+        
+        <div style="display:flex;margin-top:25px">
+            <div style='margin-left:68%; font-size: 14px;line-height: 1.6;'>SIGNATURE OF THE PRINCIPAL</div>
+        </div>  
+    </div>
+
+</body>
+</html>

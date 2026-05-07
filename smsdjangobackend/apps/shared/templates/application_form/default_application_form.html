@@ -1,0 +1,143 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Application Form</title>
+    <style>
+        @page { size: A4 }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 16px;
+        }
+        .center { text-align: center; margin: 5px; }
+        .info_table { table-layout: fixed; }
+        .info_table td:nth-child(1) { width: 50%; }
+        .info_table td:nth-child(2) {
+            width: 50%;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        td { padding: 4px; padding-right: 0px; }
+        .noborder { border: 0px solid; }
+    </style>
+</head>
+<body style="font-family: 'Calibri';">
+    <table style="width:100%;table-layout: fixed;">
+        <tr style="text-align: center;">
+            <td style="width:30%">
+                {% if institute.logo %}
+                <img src="{{ institute.logo.file.url }}" style="width: 100px;height: 100px;"/>
+                {% endif %}
+            </td>
+            <td style="width:70%;font-family:'Times New Roman', Times, serif;font-weight:bold;">
+                {{ institute.name|upper }}<br>
+                {{ institute.address }}
+            </td>
+        </tr>
+    </table>
+
+    <table class="info_table" style="width:100%;">
+        <tr>
+            <td>Application Form Id</td>
+            <td>{% if custom_form_data.form_id %}{{ custom_form_data.form_id }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Application No</td>
+            <td>{{ application_num|default:"" }}</td>
+        </tr>
+        <tr>
+            <td>Application Date</td>
+            <td>{{ application_date|date:'d/m/Y'|default:"" }}</td>
+        </tr>
+        <tr>
+            <td>Student Name</td>
+            <td>{{ first_name|upper }} {% if middle_name %}{{ middle_name|upper }}{% endif %} {% if last_name %}{{ last_name|upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Father's Name</td>
+            <td>{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.father_name|upper|default:"" }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Mother's Name</td>
+            <td>{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.mother_name|upper|default:"" }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>{{ gender|upper }}</td>
+        </tr>
+        <tr>
+            <td>Mobile 1</td>
+            <td>{{ mobile_num|default:"" }}</td>
+        </tr>
+        <tr>
+            <td>Mobile 2</td>
+            <td>{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_mobile_num|default:"" }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Date of Birth</td>
+            <td>{{ dob|date:'d/m/Y'|default:"" }}</td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td>{% if student_address and student_address.0 %}{{ student_address.0.address|default:"" }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Academic Year</td>
+            <td>{{ entry_academic_year_value|default:"" }}</td>
+        </tr>
+        <tr>
+            <td>Class Applying For</td>
+            <td>{{ current_standard_name|upper|default:"" }}</td>
+        </tr>
+        <tr>
+            <td>Board</td>
+            <td>{% if custom_form_data.board_name %}{{ custom_form_data.board_name }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Religion</td>
+            <td>{% if student_details and student_details.religion_name %}{{ student_details.religion_name|upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Caste</td>
+            <td>{% if student_details and student_details.caste_name %}{{ student_details.caste_name|upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Category</td>
+            <td>{% if student_details and student_details.category_name %}{{ student_details.category_name|upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Mother Tongue</td>
+            <td>{% if student_details and student_details.mother_tongue %}{{ student_details.mother_tongue|upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>SC/ST</td>
+            <td>{% if student_details and student_details.is_sc_st %}{{ student_details.is_sc_st|upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Aadhar No</td>
+            <td>{% if student_details and student_details.aadhar_num %}{{ student_details.aadhar_num }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Aadhar No of Father</td>
+            <td>{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_aadhar|default:"" }}{% endif %}</td>
+        </tr>
+    </table>
+
+    <table style="width:100%;table-layout: fixed;">
+        <tr style="height: 80px;">
+            <td class="noborder" style="width:50%;line-height: 1.6;">
+                Date: {{ today }}<br>
+                Place:
+            </td>
+            <td class="noborder" style="width:50%;vertical-align: bottom; text-align: center;">
+                Applicant / Parent Signature
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

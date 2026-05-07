@@ -1,0 +1,99 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        .center{
+            text-align:center;
+            padding:2px;
+        }
+        .logo {
+            text-align: center;
+        }
+        .schoolname {
+            text-align: center;
+            font-weight: bold;
+            font-size: 25px;
+            color: dimgray;
+        }
+        .address {
+            text-align: center;
+            color: dimgray;
+        }
+        .title {
+            text-align: center;
+            font-size: 20px;
+            color: dimgray;
+            text-decoration: underline;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .content {
+            text-align: center;
+        }
+    </style>
+</head>
+<body style="margin:0px;">
+    <div class="logo">
+        {% if institute.logo.file.url %}
+            <img src={{institute.logo.file.url}}
+            style="width: 100px;height: 100px;padding-right:"/>
+        {% endif %}
+    </div> <br><br>
+
+    <div class="schoolname">
+        {{ school_name }}
+    </div> <br>
+
+    <div class="address">
+        <b>{{school_address}}</b>
+    </div> <br>
+
+    <div class="title">
+        <b>STUDY CERTIFICATE</b>
+    </div> <br> <br> <br>
+
+    <div class="content">
+        <div>
+            This is to certify that {{student_full_name|upper}} {{student_relate}} {{father_name|upper}} and {{mother_name|upper}} 
+            is Studying in the class {{standard_name}}{{standard_suffix}} in our institution during 
+            the Academic Year {{academic_year}}. {{student_her_him}} admission number is {{admission_num}} and 
+            date of birth is {{dob_str}}. {{dob_in_words|title}}
+        </div> <br> <br> <br>
+    
+        <div>
+            {{student_her_him|title}} Character and Conduct are Good during the stay in this Institution
+        </div> <br> <br> <br>
+    
+        <div>
+            {{student_he_she|title}} belongs to {{ religion|upper }} Religion and belongs to {{caste|upper}} caste and {{student_her_him}}
+            mother tounge is {{mother_tongue|upper}} 
+        </div> <br> <br>
+
+        <div>
+            The above details are as per School Admission Records given by the Parent 
+        </div>
+    </div> <br> <br>
+
+    <div style="font-style: italic; color: dimgray;">
+        <b>Address:- {{address}}</b>
+    </div> <br> <br> <br>
+
+    <div style="font-style: italic; color: dimgray;">
+        <b>Date:{{today_date}}</b>
+    </div> <br>
+    <div style="font-style: italic; color: dimgray;">
+        <b>Place: Laggere Bengaluru</b>
+    </div> <br>
+
+    <div style="text-align: right; color: dimgray;">
+        <b>Signature of the Head of the Institution</b>
+    </div>
+</body>
+</html>

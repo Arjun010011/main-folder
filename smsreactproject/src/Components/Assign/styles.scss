@@ -1,0 +1,86 @@
+@import 'styles/helpers.scss';
+.assign-col-head{
+    border-radius: 0px 50px 50px 0px;
+    width: fit-content;
+    padding: 6px 10px;
+    font-Size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.assign-subject-name {
+    background: $primary-color;
+    color: #FFF;
+}
+.assigned-subject-name{
+    background: #FFF;
+    color: $primary-color;
+}
+.assign-header-bar{
+    display: flex;
+    justify-content: space-between;
+}
+.assign-subject-button {
+    background: linear-gradient(41.73deg, #1C52C8 4%, #0070FF 78%, #0070FF 79.78%);
+    box-shadow: 0px 15px 35px rgba(51, 106, 242, 0.15);
+    padding: 8px;
+    color: #FFFFFF;
+    font-size: 14px;
+    cursor: pointer;
+    width: fit-content;
+    float: right;
+    margin: 18px 30px 18px auto!important;
+    // position: absolute!important;
+    // bottom: 40px;
+    // right: 60px;
+}
+.assign-outer-body {
+    box-shadow: $card-box-shadow;
+}
+.assign-subject-outer-body{
+    background: $secondary-body-color2;
+    // height: 55vh;
+    overflow-y: auto;
+}
+.assigned-subject-outer-body{
+    background: $secondary-body-color1;
+    // height: 55vh;
+    // overflow-y: auto;
+}
+.assign-subjects-body{
+    height: 32vh;
+    overflow: auto;
+    min-height: 300px;
+    // border-bottom:  1px dashed $section-detail-text-color;
+}
+
+.selected-item{
+    .assign-item-name{
+        color: $primary-font-color;
+    }
+    .assign-menu-hr{
+        border-bottom:  1px solid $section-detail-text-color;
+        width: 300px;
+        margin-left: 0;
+        margin-bottom: -12px;
+        margin-top: 12px;
+    }
+}
+.unselected-item{
+    .assign-item-name{
+        // color: rgba(132, 132, 132, 0.47);
+        color: black!important;
+    }
+    .assign-menu-hr{
+        border-bottom:  1px solid rgba(132, 132, 132, 0.47);
+        width: 300px;
+        margin-left: 0;
+        margin-bottom: -12px;
+        margin-top: 12px;
+        
+    } 
+}
+.assigned-item-list{
+    margin-left: 20px;
+    max-width: 380px;
+}

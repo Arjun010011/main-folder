@@ -1,0 +1,298 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer Certificate</title>
+
+    <style>
+        @page {
+            margin: 40px;
+        }
+
+        body {
+            font-family: Calibri;
+            font-size: 16px;
+        }
+
+        /* ✅ Outer Border */
+        .tc-container {
+            border: 2px solid black;
+            padding: 20px;
+            min-height: 1000px;
+            box-sizing: border-box;
+        }
+
+        .center {
+            text-align: center;
+            margin: 5px;
+        }
+
+        .row {
+            display: flex;
+            margin-bottom: 8px;
+            /* line-height: 5; */
+        }
+
+        .col1 {
+            width: 4%;
+        }
+
+        .col2 {
+            width: 56%;
+        }
+
+        .col3 {
+            width: 40%;
+            margin-left: 30px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .full {
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+        }
+
+        .schoolname {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .school {
+            width: 100%;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        .title {
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 4px;
+            margin-left: 25%;
+            width: 45%;
+        }
+
+        .no {
+            width: 20%;
+            margin-right: 1%;
+            font-weight: bold;
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="tc-container">
+
+    <!-- Header with Logo -->
+    <div class="header">
+        <div class="logo">
+            {% if institute.logo.file.url %}
+            <img src="{{ institute.logo.file.url }}" alt="School Logo" style="width: 100px; height: 100px;">
+            {% endif %}
+        </div>
+
+        <div class="school">
+            <div>APPENDIX-16,RULES 99,CHAPTER 3</div>
+            <div class="schoolname">
+                {{school_name|upper}}
+            </div>
+            <div>(R.C.No. 11109/C13/ACAD/2015-16)Dt. 02-06-2016</div>
+            <div>{{school_address}},  {{school_city}} - {{school_pincode}}</div>
+
+            <div style="display: flex;">
+                <div class="title">TRANSFER CERTIFICATE</div>
+                <div class="no">T.C. No : {{tc_num}}</div>
+            </div>
+        </div>
+    </div> 
+
+    <br>
+
+    <div class="row">
+        <div class="col2">Transfer Certificate No: {{tc_num}}</div>
+        <div class="col3">Admission no: {{admission_num}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col1">1.</div>
+        <div class="col2">Name of the student</div>
+        <div class="col3 bold">{{student_full_name|upper}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col1">2.</div>
+        <div class="col2">Father Name</div>
+        <div class="col3 bold">{{father_name|upper}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col1">3.</div>
+        <div class="col2">Mother Name</div>
+        <div class="col3 bold">{{mother_name|upper}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col1">4.</div>
+        <div class="col2">Nationality and Religion</div>
+        <div class="col3 bold">{{nationality|upper}}-{{religion|upper}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col1">5.</div>
+        <div class="col2">Whether the Candidate belongs to S.C./S.T./B.C.(if so specify the caste)</div>
+        <div class="col3 bold">{{caste|upper}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col1">6.</div>
+        <div class="col2">Date of Birth as entered in the Admission Register</div>
+        <div class="col3 bold">
+            {{dob|date:'d-m-Y'}}<br>
+            {{dob_in_words|upper}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col1">7.</div>
+        <div class="col2"> a) Class in which the pupil was studying <br> at the time of leaving. <br>
+        b) First language under Part I <br>
+        c) Second language under Part II <br>
+        d) Optionals under Part III
+        </div>
+        <div class="col3 bold">
+            {{standard_name|upper}}<br> <br>
+            {{part1_lan|upper}}<br>
+            {{part2_sub|upper}}<br>
+            {{part3_sub|upper}}
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col2"> b) First language under Part I</div>
+        <div class="col3 bold">
+            {{part1_lan|upper}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col2"> c) Second language under Part II</div>
+        <div class="col3 bold">
+            {{part2_sub|upper}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col2"> d) Optionals under Part III</div>
+        <div class="col3 bold">
+            {{part3_sub|upper}}
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col1">8.</div>
+        <div class="col2">Mother Tongue and Medium of instruction:</div>
+        <div class="col3 bold">
+            {{mother_tongue|upper}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col1">9.</div>
+        <div class="col2">Date of admission to 1st Year Intermediate Course</div>
+        <div class="col3 bold">
+            {{admission_date}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col1">10.</div>
+        <div class="col2">Class and year in which the pupil was first admitted into the Intermediate Course</div>
+        <div class="col3 bold">
+            {{standard_name|upper}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col1">11.</div>
+        <div class="col2">Whether qualified to study IInd year Class or Intermediate Course</div>
+        <div class="col3 bold">
+            {{qualified_to_study|upper}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col1">12.</div>
+        <div class="col2">Whether the pupil has been declared eligible by the Board of Intermediate Education for University course of study</div>
+        <div class="col3 bold">
+            {{eligible_for_university|upper}}
+        </div>
+    </div>  
+
+    <div class="row">
+        <div class="col1">13.</div>
+        <div class="col2"> a)  Whether the pupil was in receipt of any scholarship <br>
+        b)  Whether the pupil was in receipt of any concession
+        </div>
+        <div class="col3 bold">
+           {{scholarship|upper}}<br>
+           {{concession|upper}}
+        </div>
+    </div> 
+    
+    <!-- <div class="row">
+        <div class="col2"> b)  Whether the pupil was in receipt of any concession</div>
+        <div class="col3 bold">
+           {{concession|upper}}
+        </div>
+    </div>  -->
+
+    <div class="row">
+        <div class="col1">14.</div>
+        <div class="col2"> Personal Marks of Identification</div>
+        <div class="col3 bold">
+           {{personal_marks}}
+        </div>
+    </div> 
+
+    <div class="row">
+        <div class="col1">15.</div>
+        <div class="col2">Date on which the pupil has actually left the College</div>
+        <div class="col3 bold">
+           {{leaving_date}}
+        </div>
+    </div> 
+
+    <div class="row">
+        <div class="col1">16.</div>
+        <div class="col2">Date of the Transfer Certificate</div>
+        <div class="col3 bold">
+           {{tc_date}}
+        </div>
+    </div> 
+
+    <div class="row">
+        <div class="col1">17.</div>
+        <div class="col2">Conduct</div>
+        <div class="col3 bold">
+           {{conduct|upper}}
+        </div>
+    </div> 
+
+    <div style="text-align: right;margin-top: 40px;margin-right: 20px;margin-bottom: 20px;">
+        Signature of the Head of the Institution with seal
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Study Certificate</title>
+    <style>
+      @page {
+        size: A4;
+      }
+      .border {
+        height: 935px;
+        border: 5px solid black;
+        border-style: double;
+        padding: 20px;
+        margin: -15px;
+        position: relative;
+      }
+      .trust {
+        text-align: center;
+        font-size: 12px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .recognisition {
+        text-align: center;
+        font-size: 15px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .title {
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+      }
+      .content {
+        font-style: italic;
+        font-family: "Cinzel Decorative", sans-serif;
+      }
+      .dot-line {
+        border-bottom: 1px dotted;
+        flex-grow: 100;
+        text-align: center;
+      }
+      .display-flex {
+        display: flex;
+      }
+      .schoolname {
+        text-transform: uppercase;
+        font-size: 28px;
+        padding: 3px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .photo {
+        line-height: 0px;
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 15px;
+        right: 2%;
+        top: 15%;
+        padding: 5%;
+        font-weight: bold;
+        text-align: center;
+      }
+      .img-box {
+        border: 1px solid black;
+        height: 110px;
+        width: 100px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .line {
+        border-bottom: 1px solid white;
+        width: 35%;
+        margin-left: 20%;
+      }
+      .footer {
+        text-align: right;
+        margin-top: 5%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="border">
+      <div class="display-flex">
+        <div style="text-align: center">
+          {% if institute.logo.file.url %}
+          <img
+            src="{{institute.logo.file.url}}"
+            style="width: 100px; height: 100px"
+          />
+          {% endif %}
+        </div>
+
+        <div style="margin-left: auto; margin-right: auto">
+          <div class="schoolname"><b>{{ school_name }}</b></div>
+          <div class="trust">{{ institute.trust_name|upper }}</div>
+          <div style="font-size: 15px; text-align: center">
+            {{school_address}}
+          </div>
+          <br />
+        </div>
+
+        <div class="img-box"></div>
+      </div>
+
+      <div class="bold title">STUDY CERTIFICATE</div>
+
+      <div style="margin-top: 15%; font-style: italic">
+        <div class="display-flex">
+          <div>This is to certificate that Kumari</div>
+          <div class="dot-line bold">{{student_full_name|title}}</div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+          <div>son/daughter of</div>
+          <div class="dot-line bold">{{father_name|upper}}</div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+          <div>is studying in</div>
+          <div class="dot-line bold">{{standard_name}}</div>
+          <div>in our school for the academic year</div>
+          <div class="dot-line bold">{{academic_year}}</div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+          <div>According to our school record his/her Date of Birth is</div>
+          <div class="dot-line bold">{{dob_str}}</div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+          <div>and his/her</div>
+          <div>caste is</div>
+          <div class="dot-line bold">{{ religion|upper }} {{caste|title}}</div>
+          <div>as per</div>
+        </div>
+        <br />
+        <div>the Admission register of the institution and their</div>
+        <br />
+        <br />
+      </div>
+      <div
+        class="bold"
+        style="text-decoration: underline; font-style: italic; margin-left: 2%"
+      >
+        Address:
+      </div>
+
+      <div class="line">{{address}}</div>
+      <br />
+
+      <div class="footer">
+        <div>Seal & Signature of the</div>
+        <div>Head of the Institution</div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+<div class="page-break-after"></div>
+
+<style>
+    .page-break-after {
+        page-break-after: always;
+    }
+</style>
+
+
+
+
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Study Certificate</title>
+    <style>
+      @page {
+        size: A4;
+      }
+      .border {
+        height: 935px;
+        border: 5px solid black;
+        border-style: double;
+        padding: 20px;
+        margin: -15px;
+        position: relative;
+      }
+      .trust {
+        text-align: center;
+        font-size: 12px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .recognisition {
+        text-align: center;
+        font-size: 15px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+      .title {
+        text-align: center;
+        font-size: 25px;
+        font-weight: bold;
+        margin-top: 8%;
+      }
+      .content {
+        font-style: italic;
+        font-family: "Cinzel Decorative", sans-serif;
+      }
+      .dot-line {
+        border-bottom: 1px dotted;
+        flex-grow: 100;
+        text-align: center;
+      }
+      .display-flex {
+        display: flex;
+      }
+      .schoolname {
+        text-transform: uppercase;
+        font-size: 28px;
+        padding: 3px;
+        font-weight: bold;
+        text-align: center;
+      }
+      .photo {
+        line-height: 0px;
+        position: absolute;
+        border: 1px solid black;
+        border-radius: 15px;
+        right: 2%;
+        top: 15%;
+        padding: 5%;
+        font-weight: bold;
+        text-align: center;
+      }
+      .img-box {
+        border: 1px solid black;
+        height: 110px;
+        width: 100px;
+      }
+      .bold {
+        font-weight: bold;
+      }
+      .line {
+        border-bottom: 1px solid white;
+        width: 35%;
+        margin-left: 40%;
+      }
+      .footer {
+        margin-top: 10%;
+        text-align: right;
+      }
+      .double-line {
+        border-bottom: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="border">
+      <div class="display-flex">
+        <div style="text-align: center">
+          {% if institute.logo.file.url %}
+          <img
+            src="{{institute.logo.file.url}}"
+            style="width: 100px; height: 100px"
+          />
+          {% endif %}
+        </div>
+
+        <div style="margin-left: auto; margin-right: auto">
+          <div class="schoolname"><b>{{ school_name }}</b></div>
+          <div class="trust">{{ institute.trust_name|upper }}</div>
+          <div style="font-size: 15px; text-align: center">
+            {{school_address}}
+          </div>
+          <br />
+        </div>
+      </div>
+      <div style="line-height: 5px">
+        <div class="double-line"></div>
+        <br />
+        <div class="double-line"></div>
+      </div>
+
+      <div class="bold title">STUDY CERTIFICATE</div>
+
+      <div style="margin-top: 5%; font-style: italic">
+        <div class="display-flex">
+          <div>This is to certificate that Master</div>
+          <div class="dot-line bold">{{student_full_name|title}}</div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+          <div>Son of Shri</div>
+          <div class="dot-line bold">{{father_name|upper}}</div>
+          <div>is studying</div>
+        </div>
+        <br />
+
+        <div class="display-flex">
+          <div>in our school in class</div>
+          <div class="dot-line bold">{{standard_name}}</div>
+          <div>for the Academic year</div>
+          <div class="dot-line bold">{{academic_year}}</div>
+        </div>
+        <br />
+
+        <div style="margin-left: 5%">
+          <div class="display-flex">
+            <div>His date of birth on record is &nbsp;</div>
+            <div><span class="dot-line bold">{{dob|date:'d/m/Y'}}</span></div>
+          </div>
+          <br />
+          <div class="display-flex">
+            <div>Admission No: &nbsp;</div>
+            <div><span class="dot-line bold">{{admission_num}}</span></div>
+          </div>
+        </div>
+        <br />
+      </div>
+      <div class="bold" style="font-style: italic; margin-left: 5%">
+        Residential Address:
+      </div>
+
+      <div class="line">{{address}}</div>
+      <br />
+
+      <div>
+        <div class="footer">
+          <div style="text-align: center; margin-left: 70%">
+            Signature of <br />
+            Head of the Institution
+          </div>
+        </div>
+
+        <div style="text-align: left">
+          <div>Place :</div>
+          <br />
+          <div>Date : {{today_date}}</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

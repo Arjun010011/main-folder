@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h2 {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+
+        .header h3 {
+            margin: 5px 0;
+            font-size: 14px;
+            font-weight: normal;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 5px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .grand-total {
+            font-weight: bold;
+            background-color: #e6e6e6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h2>{{ institute.name }}</h2>
+        {% if institute.address %}
+        <h3>{{ institute.address }}</h3>
+        {% endif %}
+        <h3>FEES COLLECTION REPORT FOR THE YEAR OF {{ financial_year }}</h3>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                {% for month_label in month_labels %}
+                <th>{{ month_label|title }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for row in report_rows %}
+            <tr>
+                <td>{{ row.day }}</td>
+                {% for amount in row.amounts %}
+                <td>{{ amount|default:"0" }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+
+            <tr class="grand-total">
+                <td><b>Total</b></td>
+                {% for total in monthly_totals %}
+                <td><b>{{ total|default:"0" }}</b></td>
+                {% endfor %}
+            </tr>
+
+            <tr class="grand-total">
+                <td colspan="3" style="text-align:left">
+                    <b>TOTAL Dr of {{ financial_year }}</b>
+                </td>
+                <td style="text-align:right">
+                    <b>{{ grand_total }}</b>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,160 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+        margin:0px;
+      }
+      .schldetail {
+        height: 120px;
+      }
+      .logo {
+        display: flex;
+        position: absolute;
+        left:10px;
+        top:10px;
+      }
+      .schoolname {
+        text-align: center;
+        font-size: 25px;
+      }
+      .address {
+        text-align: center;
+        width: 70%;
+        line-height: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .authsign {
+        height: 70px;
+        padding-left: 10px;
+        margin-top: auto;
+        vertical-align: bottom;
+      }
+      .container {
+        font-family: 'Times New Roman', Times, serif;
+      }
+      .school {
+        margin-left: 15%;
+      }
+    </style>
+  </head>
+<body>
+{% for count in number_of_copies %}
+    <div class="container" style="border: 1px solid black;">
+        <table width="100%">
+            <tr>
+            <td>
+                <div class="schldetail">
+                  <div style="text-align: right;">original copy</div>
+                    <div class="logo">
+                        {% if institute.logo.file.url %}
+                            <img src={{institute.logo.file.url}}
+                            style="height: 130px; width: 130px;">
+                        {% endif %}
+                    </div>
+                    <div class="school">
+                        <div class="schoolname">
+                            {{ institute.name|upper }}
+                        </div>
+                        <div class="address">
+                            {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                            {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            </tr>
+        </table>
+        <table style="border-top:1px solid black;border-bottom:0px solid black;border-right:0px solid black;border-left:0px solid black;border-style:dashed;width:100%"></table>
+        <table width="100%">
+            <tr>
+              <td colspan="4" style="text-align: center;font-weight:bold;padding:0px;font-size:18px;">FEE RECIPT</td></tr>
+              <tr>
+                <td style="width:280px;font-weight:bold;">Transaction ID </td>
+                <td>: {%if fee_collection.payment_ref_num %}{{fee_collection.payment_ref_num}}{%endif%}</td>
+                <td style="width:180px;font-weight:bold;">Transaction Date </td>
+                <td>: {{fee_collection.transaction_date}}</td></tr>
+                <tr><td style="font-weight:bold;">Student Name </td>
+                <td>: {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name|title}}{% endif %}
+                  {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name|title}}{% endif %}
+                  {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name|title}}{% endif %}
+                </td><td style="font-weight:bold;">Recipt No </td>
+                <td>: {{fee_collection.receipt_num}}</td>
+              </tr>
+                <tr><td style="font-weight:bold;">Father Name </td>
+                <td>: {{student_fee_summary.student.student_parent.parent.father_name|upper}}</td>
+                <td style="font-weight:bold;">Admission No </td>
+                <td>: {{ admission_num }}</td>
+              </tr>
+                <tr><td style="font-weight:bold;">Mother Name </td>
+                <td>: {{student_fee_summary.student.student_parent.parent.mother_name|upper}}</td>
+                <td style="font-weight:bold;">Class/Section </td>
+                <td>: {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}
+                </td>
+              </tr>
+              <tr>
+                <td style="font-weight:bold;">Unique ID / Enrollment Code  </td>
+                <td>: {{ admission_num }}</td>
+                <td style="font-weight:bold;">Academic Year </td>
+                <td>: {% if fee_collection.academic_year %}
+                  {{fee_collection.academic_year.start_date.year}} -
+                  {{fee_collection.academic_year.end_date.year}}
+              {% endif %}
+                </td>
+                </tr>
+            <table width="900px;" style="margin:10px 30px;border:1px solid black;border-collapse: collapse;">
+            <tr style="border:1px solid black;border-collapse: collapse; font-weight: bold;">
+              <td style="border:1px solid black;border-collapse: collapse;">Sl.No</td>
+
+              <td colspan="2" style="border:1px solid black;border-collapse: collapse;">Particulars</td>
+
+              <td style="border:1px solid black;border-collapse: collapse;">Paid Amt</td>
+          </tr>
+          {% for fee in fee_collection.payment_detail %}
+          <tr style="border:1px solid black;border-collapse: collapse;">
+              <td style="border:1px solid black;border-collapse: collapse;">{{forloop.counter}}</td>
+              <td colspan="2" style="border:1px solid black;border-collapse: collapse;">{{fee.fee_type_name}}</td>
+              <td style="border:1px solid black;border-collapse: collapse;">{{fee.amount_paid|floatformat|intcomma }}</td>
+          </tr>
+          {% endfor %}
+          <tr style="border:1px solid black;border-collapse: collapse;font-weight:bold;">
+            <td colspan="3" style="border:1px solid black;border-collapse: collapse;text-align: right;">Total Amount</td>
+            <td style="border:1px solid black;border-collapse: collapse;">{{ fee_collection.total_amount | floatformat |intcomma}}</td>
+        </tr>
+          </table>
+        </table>
+        <table width="100%">
+            <tr>
+                <td>
+                  <div>Received by {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}</div>
+                  <div>{{fee_collection.payment_note}}</div>                  
+                  <div style="text-align: right;font-weight:bold;">Cashier/Manager</div>
+                  <div style="font-weight:bold;">Note : Parents are requested to preserve this receipt for future clarifications in respect of fee paid by you.
+                  Fee once paid will not be refunded or transferred.Cheques subject to realization.</br>
+                  This is computer generated receipt seal is not required.</div>
+                </td>
+            </tr>
+        </table>
+      </div>
+
+            <div style="display:flex">
+                <div align="left">Receipt Generated at : {{ today }}</div>
+                <div style='margin-left:auto'>Powered By Edubricz</div>
+            </div>
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+{%endfor%}
+</body>
+</html>

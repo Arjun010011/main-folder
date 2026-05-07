@@ -1,0 +1,31 @@
+@import './mixins.scss';
+
+%approve-button {
+    background-color: $button-color;
+    font-weight: bold;
+    font-family: $button-font-family;
+}
+
+%mui-table-custom-header{
+    display: table-cell;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    padding: 16px;
+    line-height: 1.5rem;
+    font-weight: 500;
+    top: 0px;
+    color: black;
+    z-index: 100;
+    position: sticky;
+    font-size: 1.1rem;
+    background-color: #e6ecfd;
+}
+
+
+%justify-center{
+    @include flex-prop(center, center, flex, wrap); //justify-content, text-align, display, flex-flow
+}
+
+%justify-space-between{
+    @include flex-prop(space-between, center, flex, wrap); //justify-content, text-align, display, flex-flow
+}
+

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A4 Full Background</title>
+
+<style>
+@page {
+    size: A4;
+    margin: 0;
+}
+
+/* RESET */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+/* RESET */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* COMMON PAGE STYLE */
+.page {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* FIRST PAGE BG */
+.page.page-1 {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/nightingales_markscard.jpeg");
+    width: 100%;
+    height: 100%;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* SECOND PAGE BG */
+.page.page-2 {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/nightingales3.jpeg");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Avoid blank last page */
+.page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+    {% for s in data.student_list %}
+    <div class="page page-1">
+
+<div style="padding-top: 3cm;padding-left: 6cm;">
+    <div style="display: flex;">
+        <p style="width: 12cm;">{{s.student_admission_form.admission_num}}</p>
+        <p>{{data.subject_list.0.exam_from_date|date:"M"}}/{{data.subject_list.0.exam_from_date|date:"Y"}}</p>
+    </div>
+    <div style="display: flex;">
+        <p style="width: 12cm;">{{s.grade}}</p>
+        <p>{{s.marked_attendance_days}}/{{data.max_no_of_days_attendance}}</p>
+    </div>
+</div>
+<div style="padding-top: 0.6cm;padding-left: 7cm;">
+    <p style="height: 0.7cm;">{{s.student_name}}</p>
+    <p style="height: 0.7cm;">{{s.father_name}}</p>
+    <p style="height: 0.7cm;">{{s.mother_name}}</p>
+</div>
+<div style="padding-top: 0.2cm;padding-left: 7cm;display: flex;">
+    <p style="height: 0.7cm;width: 13cm;">{{s.dob}}</p>
+    <p style="height: 0.7cm;">{{s.gender}}</p>
+</div>
+<div style="padding-top:3.2cm;padding-left:8.85cm;height:10cm;">
+
+<table style="border-collapse:collapse;font-size:14px;">
+
+{% comment %} SUBJECT 1 – ENGLISH {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'english' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} SUBJECT 2 – KANNADA {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'kannada' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} SUBJECT 3 – HINDI {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'hindi' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} SUBJECT 4 – MATHS {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'maths' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} SUBJECT 5 – SCIENCE {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'science' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} SUBJECT 6 – SOCIAL SCIENCE {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'socialscience' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} SUBJECT 7 – COMPUTER SCIENCE {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    {% for subject in s.subject_list_data_part1 %}
+        {% if subject.subject__codename == 'computerscience' %}
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.exam_cumulative__max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.cumulative_marks_data.0.marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_min_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_max_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.total_obtained_marks|default:"0"}}</td>
+            <td style="padding:0.3cm;height: 0.5cm;width: 1cm;">{{subject.grade|default:"0"}}</td>
+        {% endif %}
+    {% empty %}
+        <td colspan="9" style="padding:0.3cm;height: 0.5cm;">0</td>
+    {% endfor %}
+</tr>
+
+{% comment %} TOTAL {% endcomment %}
+<tr>
+    <td style="padding:0.3cm;height: 0.5cm;">&nbsp;</td>
+    <td style="padding:0.3cm;height: 0.5cm;">0</td>
+    <td style="padding:0.3cm;height: 0.5cm;">0</td>
+    <td style="padding:0.3cm;height: 0.5cm;">0</td>
+    <td style="padding:0.3cm;height: 0.5cm;">0</td>
+    <td style="padding:0.3cm;height: 0.5cm;">0</td>
+    <td style="padding:0.3cm;height: 0.5cm;">{{s.total_summary.total_min_marks|default:"0"}}</td>
+    <td style="padding:0.3cm;height: 0.5cm;">{{s.total_summary.total_marks|default:"0"}}</td>
+    <td style="padding:0.3cm;height: 0.5cm;">{{s.total_summary.total_obtained_marks|default:"0"}}</td>
+    <td style="padding:0.3cm;height: 0.5cm;">{{s.grade|default:"0"}}</td>
+</tr>
+<tr style="margin-top: 2cm; height: 1.5cm;padding: 2cm;">
+    <td colspan="10" style="padding-left: 1cm;">{{s.total_summary.total_obtained_marks_in_word}}</td>
+</tr>
+
+</table>
+</div>
+
+<div style="padding-top: 1.5cm;padding-left: 20cm;">
+    <p style="height: 0.4cm;">A</p>
+    <p style="height: 0.4cm;">A</p>
+    <p style="height: 0.4cm;">A</p>
+    <p style="height: 0.4cm;">A</p>
+</div>
+
+<div style="padding-top: 0.8cm;padding-left: 20cm;">
+    <p style="height: 0.4cm;">A</p>
+    <p style="height: 0.4cm;">A</p>
+    <p style="height: 0.4cm;">A</p>
+    <p style="height: 0.4cm;">A</p>
+</div>
+
+
+    {% endfor %}
+
+
+</body>
+</html>
+

@@ -1,0 +1,167 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Certificate</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    @page {
+      size: A4;
+      margin: 22px;
+      border: 2px solid black;
+    }
+
+    body {
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      left:0px;
+      margin-left: 20px;
+    }
+
+    .schoolname {
+      font-size: 22px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .schooladd {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .org-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+
+    .photo-box {
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 10px auto 30px auto;
+    }
+
+    .content {
+      text-align: justify;
+      line-height: 70px;
+      font-size: 21px;
+      padding: 0 50px;
+    }
+
+    .placeholder {
+      border-bottom: 1px dotted #000;
+      display: inline-block;
+      min-width: 150px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .signature {
+      margin-top: 60px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .principal {
+      text-align: right;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="padding-top: 20px;">
+    <div class="logo">
+      {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" alt="School Logo">
+      {% endif %}
+    </div>
+
+    <div style="line-height: 25px;padding-left: -50px;margin-left: -50px;">
+      <div class="org-name">Sri Shiradi Sai Baba Education Society(R)</div>
+      <div class="schoolname">Shikshanadhara Vidya Niketan</div>
+      <div class="schooladd">
+        (Recognised by Govt. Of Karnataka)<br/>
+        Near Corian Church, Vidyasagara, Ashwathnagar, Bangalore – 560 077<br/>
+        Phone No : 99169 82028<br/>
+      </div>
+    </div>
+
+    <div style="width: 20px; height: 120px;"></div> 
+  </div>
+
+  <div class="title">STUDY CERTIFICATE</div>
+   <div style="font-size:21px;"> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Admission No : <b>{{admission_num}}</b></div>
+  {% if profile_pic_details %}
+    <div class="photo-box">
+      <img src="{{ profile_pic_details }}" alt="Student Photo" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+  {% endif %}
+
+  <div class="content">
+    This is to certify that
+    {% if student_he_she == "he" %}
+      Mast. <span class="placeholder">{{ student_full_name|title }}</span>, Son of Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% else %}
+      Miss. <span class="placeholder">{{ student_full_name|title }}</span>, Daughter of Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% endif %}
+    is  a student of this Institution  studying in Grade <span class="placeholder">{{ standard_name }}</span> during the Academic Year
+    <span class="placeholder">{{ academic_year }}</span>
+
+    {% if student_he_she == "he" %}
+      His Date of Birth is <span class="placeholder">{{ dob_str }}</span> as per school records.
+    {% else %}
+      Her Date of Birth is <span class="placeholder">{{ dob_str }}</span> as per school records.
+    {% endif %}
+
+    {% if student_he_she == "he" %}
+      He belongs to <span class="placeholder">{{ caste }}</span> caste.
+    {% else %}
+      She belongs to <span class="placeholder">{{ caste }}</span> caste.
+    {% endif %}
+
+
+
+  </div>
+
+  <br><br><br>
+  <br><br>
+
+  <div style="display: flex; justify-content: space-between; font-size: 21px; padding: 0 50px;">
+    <div>Date: <span class="placeholder">{{ today_date }}</span></div>
+    <div>Seal & Signature of the Head Master/<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;       Head Mistress</div>
+  </div>
+
+</body>
+</html>

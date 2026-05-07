@@ -1,0 +1,183 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fee Receipt</title>
+
+<style>
+body{
+    font-family: monospace;
+    font-size:12px;
+    width:280px;
+    margin:0;
+    padding:5px;
+}
+
+.center{text-align:center;}
+.right{text-align:right;}
+.bold{font-weight:bold;}
+
+.line{
+    border-top:1px dashed #000;
+    margin:5px 0;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+}
+
+.small{
+    font-size:11px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="center bold">
+{{ institute.name|upper }}
+</div>
+
+<div class="center small">
+{{ institute.address }}
+{% if institute.city %}<br>{{ institute.city }}{% endif %}
+{% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+</div>
+
+<div class="line"></div>
+
+<div class="center bold">FEE RECEIPT</div>
+
+<div class="line"></div>
+
+
+<!-- RECEIPT INFO -->
+
+<div class="row">
+<span>Receipt No</span>
+<span>{{ misc_collection.receipt_num }}</span>
+</div>
+
+<div class="row">
+<span>Date</span>
+<span>{{ misc_collection.date|date:"d-m-Y" }}</span>
+</div>
+
+<div class="row">
+<span>Payment Mode</span>
+<span>{{ misc_collection.mode_of_payment }}</span>
+</div>
+
+{% if misc_collection.mode_of_payment != 'Cash' %}
+<div class="row">
+<span>Txn ID</span>
+<span>{{ misc_collection.ref_number }}</span>
+</div>
+{% endif %}
+
+<div class="line"></div>
+
+
+<!-- STUDENT DETAILS -->
+
+<div><b>Name:</b>
+            {% if misc_collection.student.first_name %}{{misc_collection.student.first_name}}{% endif %}
+            {% if misc_collection.student.middle_name %}{{misc_collection.student.middle_name}}{% endif %}
+            {% if misc_collection.student.last_name %}{{misc_collection.student.last_name }}{% endif %}
+</div>
+
+<div><b>Course:</b>
+{{ misc_collection.student.current_standard.name }}
+</div>
+
+<!-- <div><b>Batch:</b>
+{{ misc_collection.enrollment_data.section_name }}
+</div> -->
+
+<div><b>Adm No:</b>
+{{ admission_num }}
+</div>
+
+<!-- <div><b>Father:</b>
+{{ student_parent.0.parent.father_name }}
+</div> -->
+
+<div class="line"></div>
+
+
+<!-- FEE DETAILS -->
+
+<div class="bold center">FEE DETAILS</div>
+
+<div class="line"></div>
+
+{% for fee in payment_details %}
+
+<div class="row">
+<span>{{ fee.misc.misc_type.name }}</span>
+<span>{{ fee.amount|floatformat:0|intcomma }}</span>
+</div>
+
+{% endfor %}
+
+<div class="line"></div>
+
+
+<!-- TOTAL -->
+
+<div class="row bold">
+<span>Total</span>
+<span>{{ misc_collection.total_amount|floatformat:0|intcomma }}</span>
+</div>
+
+{% if student_fee_summary.total_concession_adjustment %}
+
+<div class="row">
+<span>Discount</span>
+<span>{{ student_fee_summary.total_concession_adjustment }}</span>
+</div>
+
+{% endif %}
+
+<div class="line"></div>
+
+
+<!-- AMOUNT WORDS -->
+
+<div class="small">
+<b>Amount in Words</b><br>
+Rupees {{ amount_in_words|title }} Only
+</div>
+
+<div class="line"></div>
+
+
+<!-- NOTES -->
+
+{% if misc_collection.payment_note %}
+
+<div class="small">
+<b>Note:</b> {{ misc_collection.payment_note }}
+</div>
+
+{% endif %}
+
+<br>
+
+<div class="center">
+------------------------
+Authorized Signature
+</div>
+
+<br>
+
+<div class="center small">
+Fees once paid will not be refunded
+</div>
+
+</body>
+</html>

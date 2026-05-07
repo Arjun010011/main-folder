@@ -1,0 +1,122 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 30px 10px 0px 10px;
+        }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+    {% for group in fee_collection.payment_detail_group_wise %}
+        <div class='page'>
+            <table style="width:100%" class="noborder">
+                <tr>
+                    <td colspan="2" style="padding: 8px;" class='noborder'>
+                        <div style='display:flex;justify-content:center;padding-right:30px'>
+                            <div style='text-align:center'>
+                                <div style='text-align:right;'>GSTIN:29AATCS7990M1ZZ</div>
+                                <div style="font-size: 26px;font-weight: bold;">
+                                    <span style="font-size: 60px;">☆</span>STAR CHILDHOOD CUDDLE & CARE PVT.LTD </br>
+                                </div>
+                                <div style="line-height: 25px;font-size:18px">
+                                    WHITEFILED,BANGALORE
+                                </div>
+                                <div style="line-height: 25px;font-size:20px;font-weight: bold;text-decoration:underline ;">
+                                    FEE RECEIPT
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table class='noborder' style="width: 100%">
+                <tr>
+                    <td class='noborder bold line-height' style='width:60%;vertical-align:top'> 
+                        No:
+                        <br/>
+                        Name : 
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        <br/>
+                        Standard :
+                        {{fee_collection.standard_name}}
+                    </td>
+                    <td class='noborder bold line-height'>
+                        Date:  {{fee_collection.transaction_date}} <br/>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <tbody>
+                {% for payment_data in group.fee_type_mapping %}
+                    <tr>
+                        <td colspan='4'>Monthly Fees:</br></br>
+                            {%for addition_fee in fee_collection.payment_detail.0.fee_collection_addition_charge_mapping_fee_collection %}
+                            {{addition_fee.additional_charge_data.additional_charge_type_name}}:</br></br>
+                            {% endfor %}
+                        </td>
+                        <td style='width:20%'>{{payment_data.currently_paid_amount|floatformat|intcomma }}</br></br>
+                            {%for addition_fee in fee_collection.payment_detail.0.fee_collection_addition_charge_mapping_fee_collection %}
+                            {{addition_fee.amount}}</br></br>
+                            {% endfor %}
+                        </td></br>
+                    </td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan='4' style='font-weight:bold;line-height:1.5;text-align: right;'>
+                        TOTAL : </td><td>{% if fee_collection.mode_of_payment %}{{fee_collection.total_amount}}{% endif %}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="display:flex">
+                
+                <div align="left" style="margin-top: 5%;">Receiver's Signature</div>
+            </div>
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endfor %}
+</body>

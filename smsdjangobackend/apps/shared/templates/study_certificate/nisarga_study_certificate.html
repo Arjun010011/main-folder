@@ -1,0 +1,165 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        
+        .border {
+            height: 935px;
+            /* border: 5px solid black; */
+            /* border-style: double; */
+            padding: 20px; 
+            margin:-15px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            position: relative;
+        }
+        .trust {
+            text-align: center;
+            font-size: 12px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: black;
+        }
+        .recognisition {
+            text-align: center;
+            font-size: 12px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: black;
+        }
+        .title {
+            margin-left: 25%;
+            font-size: 25px;
+            color: orangered;
+            border: 1px solid orangered;
+            border-radius: 8px;
+            font-weight: bold;
+            border-width: fit-content;
+        }
+        .content {
+            font-style: italic;
+            color: black;
+            line-height: 30px;
+            font-family: "Cinzel Decorative", sans-serif;
+        }
+        .dot-line {
+            border-bottom: 1px dotted;
+            flex-grow: 100;
+            text-align: center;
+        }
+        .sign {
+            margin-left: 50%;
+            width: 100%;
+            text-align: center;
+        }
+        .display-flex{
+            display: flex;
+        }
+        .dotted-line {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 250px; 
+    text-align: center;
+    }
+    .dotted-line1 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 200px; 
+    text-align: center;
+
+    }
+    .dotted-line2 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 150px; 
+    text-align: center;
+
+    }
+    .dotted-line3 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 180px; 
+    text-align: center;
+
+  }
+  .dotted-line4 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 180px; 
+    text-align: center;}
+
+    </style>
+</head>
+<body style="padding: 0px;margin:0px;border: 3px solid black;">
+    <div class="border">
+        <div style='justify-content:center;padding-right:30px'>
+            <div style='text-align:center;margin-top: 15px;'>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 270px; height: 200px; align-content: center;">
+                {% endif %}
+            </div>
+            <br>
+            <!-- <div style='text-align:center'>
+                <div style="font-size: 18px; color: black;text-align: center;font-weight: bolder;">NISARGA VIDYANIKETHANA HIGH SCHOOL</div>
+                <div style="font-size: 14px; color: black;text-align: center;">Thyamagondlu, Nelamangala Block, Bengaluru -562132</div>
+                <div style="font-size: 15px; color: black;text-align: center;">Phone No: +91-9880706291</div>
+            </div> -->
+        </div>
+         <br>
+         <br>
+        <div >
+            <div class="title" style="display: inline-block; padding: 5px;">STUDY CERTIFICATE</div>
+        </div>
+        <br><br> <br><br>
+        <div style="position: absolute; top: 250px; right: 40px; width: 140px; height: 150px; border: 1px solid black;">
+            <img src="{{profile_pic_details}}" alt="Student Photo" style="width: 100%; height: 100%; object-fit: cover;">                
+        </div>
+        <div >
+        <div style="text-align: justify;margin:25px;font-size: 19px;line-height: 29px;
+">This is to certify that Mr/Miss <span class="dotted-line">{{student_full_name|title}}</span> S/o.D/o Sri
+            <span class="dotted-line">{{father_name|upper}}</span> was a bonafide student of this Institution during the years
+            <span class="dotted-line1">{{from_academic_year}}</span> to <span class="dotted-line1">{{to_academic_year}}</span> and studied from
+            <span class="dotted-line1">{{from_standard_name}}</span> to <span class="dotted-line1">{{to_standard_name}}</span>.His/Her date of birth is <span class="dotted-line2">{{dob_str}}</span> and admission No. is <span class="dotted-line4">{{admission_num|title}}</span>.He/She belongs to <span class="dotted-line3">{{caste|title}}</span> caste and his/her mother tongue is <span class="dotted-line3">{{mother_tongue}}</span> as per the admission register of this institution.His/Her Character and conduct were good during the stay in this Institution. The above particulars are true and correct to the best of my knowledge.</div>
+        </div>
+  
+            
+            
+            <br> <br> <br>
+
+            <div style="font-size: 18px;margin:20px;margin-bottom: 0px;">Date: {{today_date}}</div> <br>
+            <div style="display: flex; justify-content: space-between;font-size: 18px;margin:20px;margin-top: 5px;">
+                <div>Place: Bangalore</div>
+                <div>Signature of the Head Mistress</div>
+              </div>
+              
+           
+
+       
+
+        
+    </div>
+</body>
+</html>
+
+<!--
+<div style='display:flex;justify-content:flex-end;'>
+    
+    <div class="box"></div>
+</div>
+<div style="text-align: left;font-style: italic;">Admission No.:{{admission_num}}</div>
+<div style='display: flex; justify-content:space-between;'>
+    <div style="text-align: left;margin: 30px 0px ;font-style: italic;">SATS No.:{% if stats %}{{stats}}{%endif%}</div>
+    <div style="margin: 30px 0px ;font-style: italic;">Date:{{today}}</div>
+</div>
+<div class="space">This is to certify that Master/Miss {{student_full_name|title}} {{student_relate}} {{father_name|title}} has / is studied / Studying {{standard_name}}{{standard_suffix}} in our institution from {{from_academic_year}}  to {{to_academic_year}} academic years.</div>
+<div class="space">The Mother tongue of the candidate is {{mother_tongue}} and {{student_he_she}} belongs {{caste|title}} caste {{student_her_him}} DOB is {{dob|date:'d/m/Y'}} The address of the student {{address}} correct as per our school records</div>
+<table style="width:100%;position: absolute;bottom:100px;font-style: italic;">
+<td style="text-align:left;position:absolute;bottom:0px;"> Institution seal </td>
+<td style="text-align:right;position:absolute;right:40px;bottom:0px;">Signature of the Principal </td>
+-->

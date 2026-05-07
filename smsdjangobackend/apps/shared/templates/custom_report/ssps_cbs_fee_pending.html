@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Reminder Slip</title>
+    <style>
+        @page {
+            size: 54mm 87mm;  /* Same size as the first template */
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        body {
+            font-family: "Times New Roman", Times, serif;
+            line-height: 1.5;
+            padding: 0px;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 54mm 87mm;
+        }
+        .container {
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .school-name {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .school-address {
+            font-size: 16px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .fee-reminder {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .date {
+            font-size: 16px;
+            margin-bottom: 10px;
+            word-wrap: break-word; /* Handle long dates */
+        }
+        .content {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .amount {
+            font-weight: bold;
+        }
+        .student-details {
+            font-weight: bold;
+        }
+        .note {
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: 10px; 
+        }
+        .principal {
+            position:relative;
+            font-size: 13px; 
+            font-weight: bold;
+            text-align: right;
+            margin-top: 50px;
+            margin-right:40px;
+        }
+        @media print {
+            body {
+                font-size: 12px;
+                margin: 0;
+                padding: 10px;
+            }
+
+            .container {
+                width: 100%;
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                background-color: transparent;
+                border: none;
+                box-sizing: border-box;
+            }
+            .fee-reminder, .date, .content, .note, .principal {
+                margin: 0;
+                padding: 0;
+            }
+            hr {
+                border: none;
+                border-top: 1px dashed black;
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    {{data}}
+    <div class="container">
+        <div class="school-name">SUNSHINE PUBLIC SCHOOL</div>
+        <div class="school-address">
+            CHIKKABOMMASANDRA, YELAHANKA BANGALORE-64
+        </div>
+        <div class="fee-reminder">FEE REMINDER SLIP</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <div class="content" style="text-align: left;"><b>Dear Parents,</b></div>
+            <div class="date" id="date" style="margin-right:24px"> Date : {{today_date}}</div>
+        </div>
+        <div class="content">
+            As per date of our School records, &nbsp;&nbsp;your outstanding amount is &nbsp;
+            <span class="amount">Rs. {{ student.pending_amount }}</span> in connection with overall balance fees of your child 
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="student-details">{{ student.name }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from Class 
+            <span class="student-details">{{standard_suffix}}</span>.<br>
+	    &nbsp;&nbsp;&nbsp;&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;</span>Please pay the amount immediately.<br><br><br>
+            <div style="display: flex; justify-content: space-between; align-items: center; position: relative;">
+                <span class="note">
+                <!--  Note: {{note}}-->
+                </span>
+                <div style="text-align: center; position: relative;">
+                    <img src="https://production-edubricz.s3.amazonaws.com/90/WhatsApp_Image_2024-07-30_at_10.32.24_AM-removebg-preview.png" 
+                        style="width: 150px; height: 50px; position: absolute; right:0px; top: -30px"/>
+                    <div style= "font-size: 14px;margin-top: 05px;margin-right:26px;letter-spacing: 1px;">
+                        PRINCIPAL
+                    </div>
+                </div>
+            </div>
+            
+        <div style="width: 100%; text-align: center; margin-top: 5px;">
+            <hr/>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:"5" %}
+    <div style="page-break-after: avoid;"></div>
+    {% else %}
+    <div style="margin-top: 20px;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

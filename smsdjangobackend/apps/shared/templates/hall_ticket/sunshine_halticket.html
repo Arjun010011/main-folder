@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10px;
+            padding-right: 10px;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 18px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="border:1px solid black;padding: 0px 20px 20px 20px;margin:20px 20px 0px 20px;height: 1010px;">
+    <div style="margin: 1rem;height: 515px;">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div class='t-center'>
+                        <img src="https://edubricz-production.s3.ap-south-1.amazonaws.com/companies-images/sunshine-abbigere/governmentofkarnataka.jpeg"
+                         style="width: 100px;height: 100px;margin-top: 10px;"/>
+                    </div>
+                    <div class="heading text-center " style="margin-top: 3px;">
+                    KARNATAKA SCHOOLEXAMINATION & ASSESSMENT, KSQAAC MALLESHWARAM, BANGALORE-560003 </br>
+                    </div>
+                    <div class="heading text-center " style="margin-top: 10px;">
+                    Admission ticket of class {{student.student_data.standard_section__standard__name|cut:"Standard"|capfirst}} Assessment for the year 2023-24 </br>
+                    </div>
+                </div>
+            </tr>
+        </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px;font-size:15px;">
+                    <tr>
+                        <td class="th-subject-view" style="width:50%;font-weight: bold;">SATS NUMBER</td>
+                        <td class="th-subject-view" style="width:50%">{% if student.student_data.sts %}{{student.student_data.sts}}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td class="th-subject-view" style="font-weight: bold;">School U-Dise Code & Address</td>
+                        <td class="th-subject-view" style="font-size: 13px;">{{ institute.name }} 29280703006 {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                            {% if institute.pincode %} - {{ institute.pincode }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td class="th-subject-view" style="font-weight: bold;">Center U-Dise Code & Address</td>
+                        <td class="th-subject-view" style="font-size: 13px;">{{ institute.name }} 29280703006 {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                            {% if institute.pincode %} - {{ institute.pincode }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td class="th-subject-view" style="font-weight: bold;">Student Name</td>
+                        <td class="th-subject-view">{{student.student_data.full_name}}</td>
+                    </tr>
+                    <tr>
+                        <td class="th-subject-view" style="font-weight: bold;">Date of birth</td>
+                        <td class="th-subject-view">{{student.student_data.dob|date:'d/m/Y'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="th-subject-view" style="font-weight: bold;">Physical Condition</td>
+                        <td class="th-subject-view">NORMAL</td>
+                    </tr>
+                    <tr>
+                        <td class="th-subject-view" style="font-weight: bold;">Medium</td>
+                        <td class="th-subject-view">ENGLISH</td>
+                    </tr>
+        </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:15px;font-size: 15px;">
+            <tr><th class="th-subject-view" colspan="4">TIME TABLE</th></tr>
+            <tr>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Timings</th>
+                <th class="th-subject-view">Invigilator </br>Signature</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {%if subject.subject_name == "English" %}
+                        First language
+                        {% elif subject.subject_name == "Kannada" %}
+                        Second language
+                        {% elif subject.subject_name == "Hindi" %}
+                        Third language
+                        {% else %}
+                        {{subject.subject_name | title}}</div></td>
+                        {%endif%}
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view">
+                        {{subject.start_time}} - {{subject.end_time}}
+                    </td>
+                    <td class="td-subject-view">
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="w-100" style="margin-top: 70px;">
+            <tr>
+                <th style="text-align: left;">
+                </th>
+                <th style="text-align: right;">
+                    Seal and signature of the Head Master
+                </th>
+            </tr>
+        </table>
+        <table class="w-100" style="margin-top: 10px;font-size: 12px;">
+            <tr>
+                <th style="text-align: left;">
+                    Read and Follow the Instructions Below:-
+                </th>
+            </tr>
+            <tr>
+                <td style="line-height: 1rem;text-align: justify;">
+                    <div>1. There is no opportunity to write the exam without the admit card. </div>
+                    <div>2. Be at the examination center by 2:00 PM on the day of examination. Students those who come after &nbsp;&nbsp;&nbsp; 
+                        2:30 PM are not allowed to write the exam.</div>
+                    <div>3. Bring all necessary stationery to write the exam.</div>
+                    <div>4. Students should sit and write the examination in the alloted seats.</div>
+                    <div>5. No chits, mobile phones, smart watches, calculators or any other electronic devices are allowed &nbsp;&nbsp;&nbsp;&nbsp;inside the examination hall.</div>
+                    <div>6. Leave the examination room after the examination period.</div>
+                    <div>7. At the end of the examination period, the answered question paper should be submitted to the room &nbsp;&nbsp;&nbsp;&nbsp;invigilator before leaving the room.</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </div>
+    <div style="page-break-after: always;"></div>
+    {% endfor %}
+</body>
+</html>

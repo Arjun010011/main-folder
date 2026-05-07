@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.5rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            background-color: #514545;
+            color: white;
+            padding: 10px;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 5px;
+        }
+        .th-subject-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;">
+        <table class="w-100" style="border-collapse: collapse;margin-top: 10px;">
+            <tr>
+                <div class="heading text-center">
+                    {{ institute.name }} {% if institute.type %}<span>({{ institute.type }})</span>{% endif %}</br>
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                </div>
+            </tr>
+            <tr class="header-bg">
+                <td>
+                    <div class="header-bg"> {{dateString}} </div>
+                </td>
+                <td class="header-bg text-right">
+                    <div> {{standard_name}} </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+            <td>
+                <table>
+                    <tr>
+                        <td>Reg No </td><td>:&nbsp;&nbsp; {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Name </td><td>:&nbsp;&nbsp; {{student.student_data.full_name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Father's Name </td><td>:&nbsp;&nbsp;{% if student.student_data.student_parent.parent.father_name %}  {{ student.student_data.student_parent.parent.father_name }}{% endif %}</td>
+                    </tr>
+                    <tr>
+                        <td>Mother's Name </td><td>:&nbsp;&nbsp;{% if student.student_data.student_parent.parent.mother_name %}  {{ student.student_data.student_parent.parent.mother_name }}{% endif %}</td>
+                    </tr>
+                </table>
+            </td>
+            <td style="text-align:right;">
+                <div class="photo" style="float:right">
+                    <div style="margin-top: 45px;">
+                        Please attach your latest photo
+                    </div>
+                </div>
+            </td>
+        </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top: 10px;">
+            <tr><th class="th-subject-view">Subject Name</th><th class="th-subject-view">Date of Exam</th></tr>
+            {% for subject in student.subject_list %}
+                <tr><td class="td-subject-view">{{subject.subject_name}}</td>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}}
+                        <br />
+                        {{subject.start_time}} - {{subject.end_time}}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table class="w-100" style="margin-top: 10px;">
+            <tr>
+                <th style="text-align: left;">
+                    Important Instructions
+                </th>
+            </tr>
+            <tr>
+                <td style="line-height: 2rem;">
+                    <div class="p-5">• You are advised to report at the venue 30 minutes before the Entrance Exam begins. </div>
+                    <div class="p-5">• Please attach a Passport Size Photograph on the top of the letter.</div>
+                    <div class="p-5">• You are required to bring a valid ID Proof, in the absence of which you will not be allowed to appear in the Entrance Exam.</div>
+                    <div class="p-5">• No TA/DA will be paid for appearing in the Examination.</div>
+                    <div class="p-5">• The syllabus of the Examination is already posted on the website.</div>
+                    <div class="p-5">• Please note that your permit to appear in the Entrance Exam is provisional and is subject to cancellation if, for any reason you are subsequently found not eligible.</div>
+                </td>
+
+            </tr>
+        </table>
+    </div>
+    <div style="page-break-after: always;"></div>
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lugrasimo">
+    <style>
+        @page { size: A4 ;
+        margin:0px;}
+        .center{
+            text-align:center;
+            margin:5px;
+        }
+        p{
+            text-align:justify;
+            line-height: 4.0em;
+            word-spacing: 10px;
+            font-weight: bold;
+        }
+        .border {
+        height:1000px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:30px;
+        position: relative;
+     }
+     .box{
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bolder;
+        font-size: 35px;
+        border:1px solid black;
+        border-radius: 50px;
+        margin: auto;
+        text-align: center;
+        width:60%;
+        margin-top:30px;
+     }
+     .font{
+        font-family: 'Lugrasimo', sans-serif;
+     }
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div style="margin-left: 70px;">
+    <div style="display:flex;">
+    <div> {% if institute.logo.file.url %}
+        <img src={{institute.logo.file.url}}
+        style="width: 100px;height: 100px;"/>
+    {% endif %}</div>
+    <div>
+    <div class="center" style="text-transform: uppercase;font-size:30px"><b>Sainik Public School</b></div>
+    <div class="center" style="font-size: 13px;">(Recognised by the Government of Karnataka)</div>
+    <div class="center" style="font-size: 13px;">No. 135, Vidhanasudha Layout, Leggere,Bangalore - 560 058</div>
+    <div class="center" style="font-size: 12px;font-weight: bold;">School Dise Code - 29280203012</div></div>
+    </div></div>
+    <div class="box"> Study Certificate </div>
+    <div style="text-align: right;margin-top: 40px;font-weight: bold;">Admission no.  :  {{admission_num}} </div>
+    <div class="font">
+    <p>This is to certify that {{student_identify|title}} {{student_full_name|title}} {{student_relate}} {{father_name|title}} belong to {{village|title}} Village {{taluk|title}} Taluk 
+        {{district|title}} he/she studied in {{school_name|title}} from {{from_standard_name|title}} to {{to_standard_name|title}} and passed {{standard_name|title}} in the year {{academic_year|title}}.
+    </p>
+    <div style="text-align: left;margin-top: 30px;font-weight: bold;margin-left: 40px;">His/Her Date of Birth : {{dob_str}}</div>
+    <div style="text-align: left;margin-top: 30px;font-weight: bold;margin-left: 40px;">His/Her Record No. & Date : {{admission_num}}</div>
+    <div style="text-align: left;margin-top: 30px;font-weight: bold;margin-left: 40px;">Date of Leaving School : {{leave_date}}</div>
+    <div style="text-align: left;margin-top: 30px;font-weight: bold;margin-left: 40px;">This Certificate Issued according to records of ur school</div>
+    <div style="position: absolute;bottom:30px;width:95%">
+    <table style="width: 100%;margin-top: 30px;font-weight: bold;">
+        <tr>
+            <td style="text-align: left;margin-top: 60px;">Date : {{today_date}}</br>
+        </tr>
+    </table> 
+    <table style="width: 100%;margin-top: 20px;font-weight: bold;">
+    <tr>
+        <td style="padding-right: 5px;margin-top: 100px;">Place : Bengaluru</td>
+        <td style="text-align: right;margin-top: 60px;">Signature and seal of the Head Master</br>
+    </tr>
+    </table>
+    <div style="text-align: center;margin-top: 35px;font-weight: bold;">Signature of AEO/D.D.P.L with Seal</div>
+    <div style="border-top:1px solid black;"></div>
+    <div style="text-align: center;">Note: If the Candidate studied in more than one school they have to produce separate Certificate</div></div>    </div></div>
+
+</body>
+</html>

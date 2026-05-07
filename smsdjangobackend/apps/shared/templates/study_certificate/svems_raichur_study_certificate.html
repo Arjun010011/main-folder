@@ -1,0 +1,103 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lugrasimo">
+    <style>
+        @page { size: A4 ;
+        margin:0px;}
+        .center{
+            text-align:center;
+            margin:5px;
+        }
+        p {
+            text-align: justify;
+            line-height: 2.0em;
+            word-spacing: 10px;
+            font-weight: normal;
+            font-size: 20px;      
+        }
+        .border {
+        height:1000px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:30px;
+     }
+     .box{
+        font-family: 'Times New Roman', Times, serif;
+        font-weight: bolder;
+        font-size: 35px;
+        border:1px solid black;
+        border-radius: 50px;
+        margin: auto;
+        text-align: center;
+        width:60%;
+        margin-top:30px;
+     }
+     .font{
+        font-family: 'Lugrasimo', sans-serif;
+     }
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div style="margin-left: 20px;">
+    <div style="display:flex;">
+    <div> {% if institute.logo.file.url %}
+        <img src={{institute.logo.file.url}}
+        style="width: 100px;height: 100px;margin-left:1px;"/>
+    {% endif %}</div>
+    <div>
+    <div class="center" style="text-transform: uppercase;font-size:24px"><b>SWAMY VIVEKANANDA ENGLISH MEDIUM SCHOOL</b></div>
+    <div class="center" style="font-size: 17px;">(Recognised by the Government of Karnataka)</div>
+    <div class="center" style="font-size: 17px;">SUNKESHWARAHAL, DEVADURGA TQ, RAICHUR DST 584126</div>
+    <div class="center" style="font-size: 17px;font-weight: bold;">Phone No: 9480796071 </div></div>
+    </div></div>
+        <div style="text-align: left;margin-top: 40px;font-weight: bold;">Reference No.  : </div>
+    <h2 style="text-align: center; font-weight: bold; text-decoration: underline; margin-top: 30px;">STUDY CERTIFICATE</h2>
+    {% comment %} <div style="text-align: right;margin-top: 40px;font-weight: bold;">Admission no.  :  {{admission_num}} </div> {% endcomment %}
+    <div class="font">
+  <p>
+    This is to certify that
+    <span style="font-weight: bold; text-decoration: underline;">
+      {{ student_identify|title }}</span>
+    <span style="font-weight: bold; text-decoration: underline;">
+      {{ student_full_name|title }}</span> {{ student_relate }}
+    <span style="font-weight: bold; text-decoration: underline;">
+      {{ father_name|title }}</span> & 
+    <span style="font-weight: bold; text-decoration: underline;"> {{ mother_name|title }}</span> is a bonafide
+    student of our institution studying in   
+    <span style="font-weight: bold; text-decoration: underline;">
+      {{ standard_name|title }}</span> during the academic year 
+        <span style="font-weight: bold; text-decoration: underline;">
+      {{ academic_year|title }}
+    </span>. As per the admission register of our institution his DOB is
+    <span style="font-weight: bold; text-decoration: underline;">{{dob_str}}</span> and 
+    <span style="font-weight: bold; text-decoration: underline;">Admission Number</span>
+     is 
+    <span style="font-weight: bold; text-decoration: underline;">{{admission_num}}</span>
+    & SATS Number is . He belongs to the religon
+    <span style="font-weight: bold; text-decoration: underline;">{{religion|title}}</span>  , category
+    <span style="font-weight: bold; text-decoration: underline;">{{category|title}}</span>  and caste 
+    <span style="font-weight: bold; text-decoration: underline;">{{caste|title}}</span> and residing at 
+    <span style="font-weight: bold; text-decoration: underline;">
+      {{ address }}</span>.
+  </p>
+</br>
+</br>
+<div style="margin-top: 30px; font-size: 20px;">School Dise Code : {{institute.dise_code}}</div>
+</br>
+</br>
+<div style="margin-top: 20px; font-size: 20px;">Date : {{ today_date }}</div>
+<div style="margin-top: 20px; font-size: 20px;">Place : Sunkeshwarahal</div>
+</br>
+<div style="margin-top: 40px; text-align: right; font-size: 20px;">Seal & Signature of the Head Mistress</div>
+
+</body>
+</html>

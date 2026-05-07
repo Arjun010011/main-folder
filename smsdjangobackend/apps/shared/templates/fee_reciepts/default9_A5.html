@@ -1,0 +1,176 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        .display-flex {
+            display: flex;
+        }
+        .schoolname {
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 50px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .trust {
+            font-size: 15px;
+            text-align: center;
+        }
+        .address {
+            text-align: center;
+            font-size: 15px;
+        }
+        .font-family {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .dot-line {
+            border-bottom: 1px dotted;
+            flex-grow: 100;
+            text-align: center;
+        }
+        .date {
+            text-align: right;
+        }
+        .center {
+            text-align: center;
+        }
+        .noborder{
+            border: 0px solid black;
+        }
+        .noborder-top-bottom{
+            border-top: 0px solid black;
+            border-bottom: 0px solid black;
+        }
+        .noborder-bottom{
+            border-bottom: 0px solid black;
+        }
+        .noborder-top{
+            border-top: 0px solid black;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<body>
+    <div style="text-align: center;font-weight: bold;">
+            <div>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 500px;height: 130px;"/>
+                {% endif %}
+            </div>
+            <div>
+                <div>
+                    {{ institute.trust_name }}
+                </div>
+                <div>
+                    {{ institute.address_line_one }}{% if institute.address_line_two %}<br/>
+                {{ institute.address_line_two }}{% endif %}{% if institute.city %}, {{ institute.city }}{% endif %}
+                {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+                {% if institute.tel_num %}Ph: {{ institute.tel_num }}
+                {% if institute.tel_num_2 %}
+                , {{ institute.tel_num_2 }}{% endif %}<br/>{% endif %}
+                Email id - brilliantschool.wc@gmail.com
+                </br>
+                </div>
+                
+            </div>
+    </div> <br>
+
+    <div class="date">
+        Date <span class="dot-line">{{fee_collection.transaction_date}}</span>
+    </div>
+
+    <div class="display-flex">
+          <div>No.</div> &nbsp; <div style="color: red;">{% if fee_collection.receipt_num %}{{fee_collection.receipt_num}}{% endif %}</div>
+    </div>
+    <br>
+    <div class="display-flex">
+        <div>Name</div> &nbsp;
+        <div class="dot-line" style="text-align: left !important;">
+            {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+            {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+            {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+        </div>
+    </div>
+    <br>
+    
+        <div class="display-flex">
+            <div>Class</div>
+            <div class="dot-line">{{fee_collection.standard_name|title}}</div>
+            <div>Section</div>
+            <div class="dot-line">{{fee_collection.enrollment_data.section_name}}</div>
+        </div>
+   
+
+    <br>
+
+    <table class="font-family" style="border: 1px solid black; width: 100%;">
+        <tr>
+            <td>Sl. <br> No.</td>
+            <td class="center">Particulars</td>
+            <td class="center">Amount</td>
+        </tr>
+        {% for fee in fee_collection.payment_detail %}
+        <tr>
+            <td class="noborder-top-bottom">{{forloop.counter}}</td>
+            <td class="noborder">
+                {% if fee.fee_payment_terms_alias %}
+                {{fee.fee_payment_terms_alias}}{%else%}
+                    {{fee.fee_type_name}}
+                    {%endif%}
+                </br>
+            </td>
+            <td class="noborder-top-bottom" style="padding-left: 2%;">{{fee.amount_paid|floatformat|intcomma }}</td>
+        </tr>
+        {% endfor %} 
+        <tr>
+            <td colspan="2" class="noborder-bottom">  <br>
+                <div class="display-flex">
+                    <div>Rupees</div>
+                    <div class="dot-line">{{amount_in_words|title}} Only</div>
+                </div>
+                <br>
+                <div class="display-flex">
+                    <div>Cash/Cheque</div> &nbsp;&nbsp; <div>Cheque No</div> <div class="dot-line">{{ref_number}}</div>
+                </div>
+                <br>
+            </td>
+            <td class="noborder-top"></td>
+        </tr> 
+        <tr>
+            <td colspan="2" class="noborder-top"> <br>
+                <div class="display-flex">
+                    <div>Bank Name</div> &nbsp; &nbsp; <div class="dot-line"></div> <div>TOTAL</div> 
+                </div> <br>
+            </td>
+            <td style="padding-left: 2%;">
+                {{fee_collection.total_amount}}
+            </td>
+        </tr>
+    </table>
+    <div>Amount once paid cannot refund or exchange.</div>
+    {%  if forloop.counter|divisibleby:"2" and not forloop.last%}
+    <div style="page-break-after: always;"></div>
+    {%else%}
+    <div style="margin-bottom:20px;"></div>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

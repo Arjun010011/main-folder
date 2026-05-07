@@ -1,0 +1,183 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 0px solid black;
+            border-collapse: collapse;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 30px 10px 0px 10px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+        <div class='page'>
+            <table style="width:100%">
+                <tr>
+                    <td colspan="2" style="padding: 8px;">
+                        <div style='display:flex;justify-content:center;padding-right:30px'>
+                            <div style='text-align:left'>
+                                {% if institute.logo.file.url %}
+                                    <!-- <img src={{ institute.logo.file.url }}
+                                    style="width: 120px;height: 120px;"/> -->
+                                {% endif %}
+                            </div>
+                            <div style='text-align:center'>
+                                <div style="font-size: 18px;font-weight: bold;margin:5px;">
+                                    {%  if forloop.counter|divisibleby:"2" %}
+                                    <div style="text-align:right;margin-right:-100px">Office Copy</div>
+                                    {% else %}
+                                    <div style="text-align:right;margin-right:-100px">Student Copy</div>
+                                    {%endif%}
+                                </div>
+                                <div style="font-size: 35px;font-weight: bold;">
+                                    {{ institute.name }}
+                                </div>
+                                <div style="font-size:15px;font-weight: lighter;">
+                                    Vijayapura C R Pattna Devanhalli Taluk, Bangalore Rural-562135 </br>
+                                    Email id - nandiniicse@gmail.com , {% if institute.tel_num %} Phone Number - {{ institute.tel_num }}
+                                    {% if institute.tel_num_2 %}
+                                    , {{ institute.tel_num_2 }} {% endif %}{%endif%}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <tr>
+                    <td class='noborder bold line-height' style='width:60%;text-align: center;margin-top: 100px;'>Name : 
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name|title}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name|title}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name|title }}{% endif %}
+                        <br/>
+                        Class:
+                        {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}
+                        <br/>
+                        Father Name:
+                        {{fee_collection.student_detail.student_parent.parent.father_name|title}}
+                    </td>
+                    <td class='bold line-height' style="text-align: center;">
+                        Receipt Number: {{fee_collection.receipt_num|title}} <br/>
+                        Date:  {{fee_collection.transaction_date}} <br/>
+                        Mode: {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}
+                    </td>
+                </tr>
+            </table>
+            <div style="font-weight: bold;font-size:20px;margin-top: 30px;margin-bottom: 10px;padding-left:10px;"> Fee Details </div>
+            <table style="width: 98%;background-color: #e8e8e8;margin:10px;">
+                <thead>
+                <tr>
+                    <th>Collection Head</th>
+                    <th>Payable</th>
+                    <th>Amount Paid</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for plan in student_fee_summary.plans %}
+                {% if plan.pending_till_date != 0 or plan.id in fee_collection.paid_standard_fee_ids %}
+                    <tr>
+                        <td style="font-weight:bold;">
+                          {% if plan.fee_type_name|default:plan.codename|title == 'School Fee For Old Admission' or plan.fee_type_name|default:plan.codename|title == 'School Fee For New Admission' %} 
+                          School Fees
+                          {%else%}
+                          {{ plan.fee_type_name|default:plan.codename|title }}
+                          {%endif%}
+                        </td>
+                        <td></td><td></td><td></td>
+                    </tr>
+                    {% for term in plan.standard_fee %}
+                    {% if term.pending_amount != 0  or term.id in fee_collection.paid_fee_plan_ids %}
+                    <tr>
+                        <td style="padding-left: 30px;">
+                            {% if term.terms|lower == "term1" %}
+                                Fee for 1st Term
+                            {% elif term.terms|lower == "term2" %}
+                                Fee for 2nd Term
+                            {% else %}
+                                {{ term.term_alias|default:term.terms }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ term.total_amount|floatformat|intcomma }}
+                        </td>
+                        <td>
+                            {{ term.paid_amount|floatformat|intcomma }}
+                        </td>
+                        <td>
+                            {{ term.pending_amount|floatformat|intcomma }}
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                {% endif %}
+                {% endfor %}
+                <tr>
+                    <th>Total</th>
+                    <th>{{ fee_collection.total_amount|add:fee_collection.pending_amount }}</th>
+                    <th>{{ fee_collection.total_amount|floatformat|intcomma }}</th>
+                    <th>{{ fee_collection.pending_amount|floatformat|intcomma }}</th>
+                </tr>
+                </tbody>
+            </table>
+
+            <table width="100%">
+            <tr>
+                <td style='font-weight:bold;line-height:1.5;text-align: center;'>
+                    Amount in words: {{amount_in_words|title}}<br/>
+                </td>
+            </tr>
+            </table>
+
+            <div style="margin: 10px; font-size: 14px; border-top: 1px solid #000; padding-top: 5px;">
+                <strong>Note:</strong> Once fees is paid, it will not be refunded under any circumstances.
+            </div>
+            <div>
+                <div style="text-align: right;">Authorized Signature</div>
+                <div style="text-align: center;font-size: 20px;">Powered By Edubricz</div>
+            </div>
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+        </div>
+{% endfor %}
+</body>
+</html>

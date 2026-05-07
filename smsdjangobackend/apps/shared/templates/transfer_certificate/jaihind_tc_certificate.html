@@ -1,0 +1,105 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transfer Certificate</title>
+    <style>
+         @page { size: A4 ;
+            margin: 9px;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 15px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .center {
+            text-align: center;
+            margin: 5px;
+        }
+        .info_table {
+            table-layout: fixed;
+            width: 100%;
+        }
+        .info_table td:nth-child(1) {
+            width: 4%;
+        }
+        .info_table td:nth-child(2) {
+            width: 50%;
+        }
+        td {
+            padding: 6px;
+            padding-right: 0;
+        }
+    </style>
+</head>
+<body style="font-family: 'Times New Roman', Times, serif;">
+
+    <div style="text-align: center">
+        <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jaihind/jaihind-logo-horizontal-fee-receipt.jpeg" style="height: 60px; width: 220px;">
+    </div>
+    <div class="center" style="font-size: 14px;">(Affiliated to the Central Board of Secondary Education, New Delhi)</div>
+    <div class="center" style="font-size: 14px;">No-91, MR Tower, Begur Main Road, Hongasandra, Bangalore-560068</div>
+    <div class="center" style="text-transform: uppercase; font-size: 19px;">
+        <b><u>TRANSFER CERTIFICATE</u></b> TC.NO: <b>{{tc_num}}</b>
+    </div>
+
+    <table class="info_table" style="margin-top: 20px;">
+        <tr>
+            <td></td>
+            <td>Admission no: {{admission_num}}</td>
+            <td>Date: <b>{{today}}</b></td>
+        </tr>
+        <tr><td>1.</td><td>Name of the Pupil</td><td><b>{{student_full_name|upper}}</b></td></tr>
+        <tr><td>2.</td><td>Mother's Name</td><td><b>{{mother_name|upper}}</b></td></tr>
+        <tr><td>3.</td><td>Father's/Guardian's Name</td><td><b>{{father_name|upper}}</b></td></tr>
+        <tr><td>4.</td><td>Nationality</td><td><b>{{nationality|upper}}</b></td></tr>
+        <tr><td>5.</td><td>Whether the student belongs to Schedule Caste/Schedule Tribe</td><td><b>{{is_sc_st|upper}}</b></td></tr>
+        <tr><td>6.</td><td>Date of first admission in the school with class</td><td><b>{{Date_of_first_admission}}</b></td></tr>
+        <tr>
+            <td>7.</td>
+            <td>Date of Birth (in Christian Era) in figures and words</td>
+            <td><b>{{dob|date:"d-m-Y"}}<br>{{dob_in_words|upper}}</b></td>
+        </tr>
+        <tr><td>8.</td><td>Class in which the pupil last studied (in figures)</td><td><b>{{standard_name|upper}}</b></td></tr>
+        <tr><td>9.</td><td>School/Board Annual Examination last taken with result</td><td><b>{{board_annual_examination_result}}</b></td></tr>
+        <tr><td>10.</td><td>Whether failed, if so once/twice in the same class</td><td>{{failed_once_twice}}</td></tr>
+        <tr><td>11.</td><td>Subjects studied</td>
+            <td>
+                 <b>{{part1_lan|upper}}</b>,
+                 <b>{{part2_sub|upper}}</b>,
+                 <b>{{part3_sub|upper}}</b>,
+                 <b>{{part4_sub|upper}}</b>,
+                <b>{{part5_sub|upper}}</b>,
+                 <b>{{part6_sub|upper}}</b>
+            </td>
+        </tr>
+        <tr><td>12.</td><td>Whether qualified for promotion to the higher class: Yes / No<br>If yes, to which class:</td><td>{{promotion_higherclass_yes_no_class}}</td></tr>
+        <tr><td>13.</td><td>Month up to which the pupil has paid school dues</td><td><b>{{school_dues_paid}}</b></td></tr>
+        <tr><td>14.</td><td>Any fee concession availed of: If so, the nature of such concession</td><td><b>{{anyfeeconcession}}</b></td></tr>
+        <tr><td>15.</td><td>Total No. of working days</td><td><b>{{total_working_days}}</b></td></tr>
+        <tr><td>16.</td><td>Total No. of working days present</td><td><b>{{total_working_days_present}}</b></td></tr>
+        <tr><td>17.</td><td>Whether NCC Cadet/Boy Scout/Girl Guide (details)</td><td><b>{{nss_cadetboydetails}}</b></td></tr>
+        <tr><td>18.</td><td>Games played or extra-curricular activities (mention achievement level)</td><td><b>{{extra_curricular_achievement}}</b></td></tr>
+        <tr><td>19.</td><td>General conduct</td><td><b>{{general_conduct}}</b></td></tr>
+        <tr><td>20.</td>
+            <td>a) Date of application for certificate<br>b) Date of issue of Transfer Certificate</td>
+            <td><b>{{appln_date}}<br>{{issue_date}}</b></td>
+        </tr>
+        <tr><td>21.</td><td>Reasons for leaving the school</td><td><b>{{reasons_for_leaving_school}}</b></td></tr>
+        <tr><td>22.</td><td>Any other remarks</td><td><b>{{any_other_remarks}}</b></td></tr>
+    </table>
+
+    <div style="display: flex; margin-top: 38px;">
+        <div>
+            Prepared by: {{Prepared}}<br>
+            Checked by: {{checked}}
+        </div>
+        <div style="margin-left: auto; font-size: 12px; line-height: 1.6; text-align: center;">
+            <b>     <br>Principal(Signature with Seal)</b>
+        </div>
+    </div>
+</body>
+</html>

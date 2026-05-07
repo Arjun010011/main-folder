@@ -1,0 +1,296 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Study Certificate</title>
+
+<style>
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 14pt;
+    color: #000;
+    line-height: 1.9;
+}
+
+.page {
+    position: relative;
+    min-height: 100vh;
+    padding: 22mm 20mm 18mm 20mm;
+    box-sizing: border-box;
+}
+
+.page-border {
+    position: fixed;
+    top: 10mm;
+    left: 10mm;
+    right: 10mm;
+    bottom: 10mm;
+    border: 2px solid #1f3c88;
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.10;
+}
+
+.watermark img {
+    width: 520px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.logo {
+    width: 95px;
+    margin-right: 15px;
+}
+
+.header-text {
+    line-height: 1.3; 
+}
+
+.school-name {
+    margin-bottom: 5px;  
+}
+
+.sub-line {
+    margin: 2px 0; 
+}
+
+.header-text {
+    flex: 1;
+    text-align: center;
+}
+
+.school-name {
+    font-size: 23pt;
+    font-weight: bold;
+    color: #1f3c88;
+    text-transform: uppercase;
+}
+
+.sub-line {
+    font-size: 11pt;
+    margin-top: 3px;
+}
+
+.double-line {
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.double-line .thick {
+    border-top: 3px solid #1f3c88;
+}
+
+.double-line .thin {
+    border-top: 1px solid #1f3c88;
+    margin-top: 4px;
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.title span {
+    font-size: 22pt;
+    font-weight: bold;
+    color: #1f3c88;
+}
+
+.meta {
+    margin-bottom: 40px;
+}
+
+.meta-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.content {
+    text-align: justify;
+}
+
+.paragraph {
+    margin-bottom: 30px;
+}
+
+.principal {
+    margin-top: 140px;
+    text-align: right;
+    margin-right: 60px;
+    font-weight: bold;
+}
+
+.footer {
+    margin-top: 50px;  
+}
+
+.footer .double-line {
+    margin-top: 15px;
+    margin-bottom: 10px;  
+}
+
+.note {
+    margin-top: 5px;  
+    text-align: center;
+    font-size: 9pt;
+    color: #1f3c88;
+    font-style: italic;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+<div class="page-border"></div>
+
+<!-- WATERMARK -->
+<div class="watermark">
+    {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}">
+    {% endif %}
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" class="logo">
+    {% endif %}
+
+    <div class="header-text">
+        <div class="school-name">NATUS INTERNATIONAL SCHOOL</div>
+        <div class="sub-line">(Affiliated to CBSE, New Delhi, Affiliation No: 831334 and School Code: 46969)</div>
+        <div class="sub-line">Survey No - 75/4, 75/5, Bilagumba Road, Ramanagara - 562159</div>
+        <div class="sub-line">Next to Bangalore-Mysore Expressway, Ramanagara - 562159</div>
+        <div class="sub-line">Phone: 900 833 3874 | Email: info@natusschool.com</div>
+    </div>
+</div>
+
+<div class="double-line">
+    <div class="thick"></div>
+    <div class="thin"></div>
+</div>
+
+<!-- TITLE -->
+<div class="title">
+    <span>STUDY CERTIFICATE</span>
+</div>
+
+<!-- META -->
+<div class="meta">
+    <div class="meta-row">
+        <div>Certificate No.: <b>{{ certificate_no }}</b></div>
+        <div>Date: <b>{{ today_date }}</b></div>
+    </div>
+    <div class="meta-row">
+        <div>Admission No.: <b>{{ admission_num }}</b></div>
+        <div>School DISE Code: <b>29320603105</b></div>
+    </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<div class="paragraph">
+This is to certify that 
+<b>
+{% if gender|lower == "male" or gender|lower == "boy" %}
+Mr.
+{% else %}
+Ms.
+{% endif %}
+{{ student_full_name|title }}
+</b>, 
+<b>
+{% if gender|lower == "male" or gender|lower == "boy" %}
+S/O
+{% else %}
+D/O
+{% endif %}
+</b>
+<b>
+{% if father_name %}
+Sri. {{ father_name|title }}
+{% elif mother_name %}
+Smt. {{ mother_name|title }}
+{% elif guardian_name %}
+Sri. {{ guardian_name|title }}
+{% endif %}
+</b>, 
+is a bonafide student of this institution.
+</div>
+
+<div class="paragraph">
+{% if gender|lower == "male" or gender|lower == "boy" %}
+He
+{% else %}
+She
+{% endif %}
+is studying in Class 
+<b>{{ standard_name }} - {{ section_name }}</b>
+during the Academic Year 
+<b>{{ from_academic_year }}</b>.  
+
+As per the admission register of our institution, 
+{% if gender|lower == "male" or gender|lower == "boy" %}
+His
+{% else %}
+Her
+{% endif %}
+Date of Birth is 
+<b>{{ dob_str }}</b>.
+</div>
+
+<div class="paragraph">
+Medium of Instruction: <b>English</b>.  
+{% if gender|lower == "male" or gender|lower == "boy" %}
+He
+{% else %}
+She
+{% endif %}
+bears a <b>Good</b> moral character.
+</div>
+
+<div class="paragraph">
+This certificate is issued on the request of the student / parent for the purpose of 
+<b>{{ purpose|title }}</b>.
+</div>
+
+</div>
+
+<div class="principal">
+Principal
+</div>
+
+<div class="footer">
+    <div class="double-line">
+        <div class="thick"></div>
+        <div class="thin"></div>
+    </div>
+    <div class="note">
+        Note: This certificate is issued on the request of the student/parent and is valid only with the official seal of the school.
+    </div>
+</div>
+
+</div>
+</body>
+</html>

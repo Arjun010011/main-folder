@@ -1,0 +1,247 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Study Certificate</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 27px;
+    }
+
+    body {
+      font-family: Cambria;
+      margin: 0px;
+    }
+
+    .container {
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      margin: auto;
+      font-family: Cambria;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid black;
+      padding-bottom: 10px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-right: 15px;
+    }
+
+    .school-info {
+      flex: 1;
+      text-align: center;
+    }
+
+    .photo-box {
+      width: 100px;
+      height: 120px;
+      border: 1px solid #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .student-photo {
+      width: 100px;
+      height: 120px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 24px;
+      margin: 20px 0 10px;
+      text-decoration: underline;
+      color: rgb(5, 5, 73);
+      font-weight: bold;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border: 2px solid black;
+      font-size: 17px;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      border: 2px solid black;
+      text-align: left;
+    }
+
+    .label {
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    .date-section {
+      font-size: 19px;
+      margin-top: 10px;
+    }
+
+    .signature {
+      margin-top: 85px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .certificate table td {
+      padding: 4px 8px;
+      font-size: 19px;
+      border: none;
+      vertical-align: top;
+    }
+
+    .dotted-line {
+      border-bottom: 2px dotted black;
+      display: inline-block;
+      width: 250px;
+      text-align: center;
+    }
+
+    .dotted-line5 {
+      border-bottom: 2px dotted black;
+      display: inline-block;
+      width: 300px;
+      text-align: center;
+    }
+
+    .dotted-line1 {
+      border-bottom: 2px dotted black;
+      display: inline-block;
+      width: 200px;
+      text-align: center;
+    }
+
+    .dotted-line2 {
+      border-bottom: 2px dotted black;
+      display: inline-block;
+      width: 150px;
+      text-align: center;
+    }
+
+    .dotted-line3 {
+      border-bottom: 2px dotted black;
+      display: inline-block;
+      width: 180px;
+      text-align: center;
+    }
+
+    .dotted-line4 {
+      border-bottom: 2px dotted black;
+      display: inline-block;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      {% if institute.logo and institute.logo.file and institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" alt="logo" class="logo" />
+      {% endif %}
+      <div class="school-info">
+        <div style="text-transform: uppercase; font-size: 22px;"><b>PRIYADARSHINI VIDYAKENDRA</b></div>
+        <div style="text-transform: uppercase; font-size: 19px;"><b>KENGERI SATELLITE TOWN BENGALURU</b></div>
+        <div style="text-transform: uppercase; font-size: 20px;"><b>STUDY CERTIFICATE</b></div>
+      </div>
+      <div class="photo-box">
+        <img class="student-photo" src="{{ profile_pic_details }}" alt="Student Photo">
+      </div>
+    </div>
+
+    <div style="text-align: justify; font-size: 22px; line-height: 36px;margin-left:80px;margin-right: 80px;margin-top: 10px;">
+      This is to certify that {{ student_sri_kum }} <span class="dotted-line">{{ student_full_name|title }}</span> <br>
+      {{ student_relate }} of Mr. <span class="dotted-line5">{{ father_name|upper }}</span> is studying <br>
+      in our school <span class="dotted-line4">PRIYADARSHINI VIDYAKENDRA</span>.<br>
+      According to the school record {%if student_he_she == "he" %} his {% else %} her {% endif %}
+    </div>
+
+    <br><br>
+
+    <div style="line-height: 36px;">
+      <div class="certificate">
+        <table style="border: none; width: 100%;font-size: 10px;">
+          <tr>
+            <td>1.</td>
+            <td style="width: 30%;"><b>Admission Number</b></td>
+            <td>:</td>
+            <td>{{ admission_num|title }}</td>
+          </tr>
+          <tr>
+            <td>2.</td>
+            <td><b>Date of Birth</b></td>
+            <td>:</td>
+            <td>{{ dob_str }}</td>
+          </tr>
+          <tr>
+            <td>3.</td>
+            <td><b>Mother Name</b></td>
+            <td>:</td>
+            <td>{{ mother_name }}</td>
+          </tr>
+          <tr>
+            <td>4.</td>
+            <td><b>Nationality</b></td>
+            <td>:</td>
+            <td>Indian</td>
+          </tr>
+          <tr>
+            <td>5.</td>
+            <td><b>Religion</b></td>
+            <td>:</td>
+            <td>{{ religion }}</td>
+          </tr>
+          <tr>
+            <td>6.</td>
+            <td><b>Caste</b></td>
+            <td>:</td>
+            <td>{{ caste }}</td>
+          </tr>
+          <tr>
+            <td>7.</td>
+            <td><b>Address</b></td>
+            <td>:</td>
+            <td>{{ address }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <br>
+
+    <div style="margin-top: 50px; font-size: 27px;">
+      <div style="display: flex; justify-content: space-between;">
+        <div style="text-align: left;">
+          <p><b>Date</b>: {{ today_date }}</p>
+          <p><b>Place</b>: K S Town</p>
+        </div>
+        <div style="text-align: right;">
+          <p><b>Signature & Seal of the</b></p>
+          <p style="text-align: center;"><b>Head Mistress</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

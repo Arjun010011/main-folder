@@ -1,0 +1,233 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #3B1918;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #3B1918 !important;
+            padding: 5px 5px;
+            display: inline-block;
+        }
+
+        .noborder {
+            border: 0px solid;
+        }
+
+        .bold {
+            font-weight: bold
+        }
+
+        .line-height {
+            line-height: 1.5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .page {
+            margin: 30px 10px 0px 10px;
+            color: #3B1918;
+        }
+    </style>
+</head>
+
+<body>
+    {% for count in number_of_copies %}
+    {% with count_loop=forloop %}
+    {% for fee_type in fee_collection.payment_detail_fee_type %}
+    <div class='page'>
+        {% if forloop.counter|divisibleby:"2" %}
+        <div></div>
+        {% else %}
+        <div></div>
+        {% endif %}
+        <table style="width:100%;border-collapse: collapse;">
+            <tr>
+                <td colspan="2" style="padding: 1px;">
+                    <div style='display:flex;justify-content:center;padding-right:30px'>
+                        <div style='text-align:left;'>
+                            {% if institute.logo.file.url %}
+                            <img src={{institute.logo.file.url}} style="width: 150px;height: 150px;" />
+                            {% endif %}
+                        </div>
+                        <div style='text-align:center;padding-left:15px;'>
+                            <br>
+
+                            <div style='font-size: 14px;'>{% if institute.trust_name %}
+                                <span>{{ institute.trust_name }}</span>
+                                {% endif %}</div>
+                            <div style="font-size: 24px;font-weight: bold;">
+                                <!-- STELLA MARIS HIGH SCHOOL AND PU COLLEGE </br> -->
+                                {{ institute.name|upper }} </br>
+                            </div>
+                            <div style="line-height: 18px;font-size:14px;padding-top:5px;">
+                                <!-- Vidyanagar, BM Road,Kunigal 572130<br>Phone No: 9141824023, 08132-220477</br> -->
+                                {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}</br>
+                            </div>
+                            <br>
+                            <!-- <div style='margin:0px 200px;font-size: 19px;background-color: #3B1918;color: white;font-weight: bolder;'>FEE RECEIPT</div> -->
+                            <div
+                                style="margin:0px 200px; font-size: 19px; background-color: #3B1918; color: white; font-weight: bolder;">
+                                {% if fee_type.fee_type_name == "Tution Fees - Re Admission" %}
+                                Re Admission
+                                {% elif fee_type.fee_type_name == "Tution Fees - New Admission" %}
+                                New Admission
+                                {% else %}
+                                {{ fee_type.fee_type_name }}
+                                {% endif %}
+                            </div>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;border-collapse: collapse;font-size: 18px;;">
+            <tr style="height:40px;">
+                <td class='noborder' style="font-size: 18px;"> <b>Student Name : </b>
+                    {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                    {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                    {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}</td>
+                <td class='noborder' style="width:280px;padding-right: 50px;font-size: 18px;"> <b>Receipt No. </b>
+                    {% if fee_collection.receipt_num %}{{fee_collection.receipt_num}}{% endif %}</td>
+            </tr>
+        </table>
+        <table style="width: 100%;border-collapse: collapse;font-size: 18px;">
+            <tr style="height:40px;">
+                <td class='noborder' style="font-size: 18px;"> <b>Class & Sec.</b>
+                    {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}-{{fee_collection.enrollment_data.section_name}}{%endif%}</td>
+                <td class='noborder' style="width:280px;padding-right: 50px;font-size: 18px;"> <b>Date :
+                    </b>{{fee_collection.transaction_date}}</td>
+            </tr>
+        </table>
+        <table style="width:100%;border-collapse: collapse;font-size: 14px;padding: 0px;">
+            <thead>
+                <tr style="background-color: #3B1918;color: white; border:1px solid white;
+                    border-top:1px solid #3B1918; border-bottom: 1px solid #3B1918;">
+                    <th style="width:10%;border:1px solid white;border-left:1px solid #3B1918;font-size: 18px;">Sl.No
+                    </th>
+                    <th style="border:1px solid white;font-size: 18px;">Particulars</th>
+                    <th style="border:1px solid white;font-size: 18px;">Paid Fees</th>
+                    <th style="border:1px solid white;font-size: 18px;">Total Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for payment_data in fee_collection.payment_detail %}
+                {% if payment_data.fee_type == fee_type.fee_type %}
+                <tr>
+                    <td style="font-size: 18px;">{{forloop.counter}}</td>
+                    <td style="font-size: 18px;">{{payment_data.fee_type_name}}</td>
+                    <td style="font-size: 18px;">{{payment_data.amount_paid|floatformat|intcomma}}</td>
+                    <td style="font-size: 18px;">{{payment_data.pending_amount_till_date|floatformat|intcomma}}</td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+                <tr>
+                    <td colspan='8'
+                        style='font-weight:bold;line-height:1.5;height: 70px;border-bottom: none;font-size: 18px;'>
+                        Rupees in words : {{ fee_type.amount_paid_in_words|upper }}<br />
+                        <div style="font-weight: lighter;font-size: 18px;">
+                            <b>Mode Of Payment : </b>
+                            {% for mode_of_pay in fee_collection.mode_of_payment_list %}
+                            {{ mode_of_pay.mode_of_payment }}: {{ fee_type.amount_paid|floatformat|intcomma }}
+                            {% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    </td>
+                </tr>
+
+                <tr style="border: none;margin-top: -40px;">
+                    <td colspan="5" style="padding-top: 0px;border-bottom: none;border-top: none;">
+                        <table
+                            style="width: 80%;margin-top: -5px; border-collapse: collapse;font-size: 12px;border-bottom: none;">
+                            {% for history in fee_collection_history %}
+                            {% for fee_type_history in history.fee_term_type %}
+                            {% if fee_type_history.fee_type == fee_type.fee_type %}
+                            {% if forloop.parentloop.first and forloop.first %}
+                            <tr style="background-color: #3B1918;color: white;">
+                                <th colspan="5" style="padding: 2px;;font-size: 18px;">Payment History</th>
+                            </tr>
+                            <tr>
+                                <th style="padding: 5px;font-size: 18px;">Sl.No</th>
+                                <th style="padding: 5px;font-size: 18px;">Receipt No</th>
+                                <th style="padding: 5px;font-size: 18px;">Mode Of Payment</th>
+                                <th style="padding: 5px;font-size: 18px;">Transaction Date</th>
+                                <th style="padding: 5px;font-size: 18px;">Total Amount</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 5px;font-size: 18px;">{{ forloop.counter }}</td>
+                                <td style="padding: 5px;font-size: 18px;">{{ history.receipt_num }}</td>
+                                <td style="padding: 5px;font-size: 18px;">{{history.mode_of_payment}}</td>
+                                <td style="padding: 5px;font-size: 18px;">{{ history.transaction_date }}</td>
+                                <td style="padding: 5px;font-size: 18px;">{{ fee_type_history.amount_paid|floatformat|intcomma }}</td>
+                            </tr>
+                            {%endif%}
+                            {%endif%}
+                            {%endfor%}
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+
+
+                <tr style="border:none;">
+                    <td colspan='8' style='font-weight:bold;line-height:1.5;height: 25px;border:none;border-top: none;'>
+
+                        <span style="font-size:18px;float:right;padding-right: 55px;border:none;"> Signature</span>
+                    </td>
+                </tr>
+        </table>
+        {%if not fee_collection.payment_detail_fee_type|length|divisibleby:"2" %}
+        {%if count_loop.counter == 1 %}
+        {% if forloop.counter|divisibleby:"2" and not forloop.last %}
+        <div style="page-break-after: always;"></div>
+        {%else%}
+        <div style="margin-top:80px;"></div>
+        {% endif %}
+        {%else%}
+        {% if not forloop.counter|divisibleby:"2" and not forloop.last %}
+        <div style="page-break-after: always;"></div>
+        {%else%}
+        <div style="margin-top:80px;"></div>
+        {% endif %}
+        {%endif%}
+        {%else%}
+        {% if forloop.counter|divisibleby:"2" and not forloop.last %}
+        <div style="page-break-after: always;"></div>
+        {%else%}
+        <div style="margin-top:80px;"></div>
+        {% endif %}
+        {%endif%}
+    </div>
+    {% endfor %}
+    {%endwith%}
+    {% endfor %}
+
+</body>
+
+</html>

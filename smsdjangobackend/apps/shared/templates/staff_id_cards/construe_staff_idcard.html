@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 1px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #000000;
+    background-image: linear-gradient(#F59E2A);
+    /* background-color: #000000; */
+
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    /* background-color: #000000; */
+    font-family: Raleway;
+    background-image: linear-gradient(#F59E2A);
+    
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+   
+  }
+  .front-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/construe_staff_ID_FNT_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/construe_staff_ID_BCK_1.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+  .box1 {
+            width: 55px;
+            height: 60px;
+            border: 1.3px solid black;             
+        }
+  .size {
+    font-size: 9px;
+  }
+</style>
+</head>
+<body>
+  {% for staff in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+    
+  <div style="padding-top: 85px;">
+    <div style="height: 80px; width:76px;right:3px;border-radius: 50%;background-color: rgb(250, 249, 249);margin:auto;">
+      <img src={{staff.profile_pic_details.file}} style="height: 80px; width: 76px;border-radius: 50%;border:2px solid rgb(247, 244, 244);">
+    </div>
+    <div style="color:#3a0300;text-align: center;font-size: 11px;font-weight: bold;margin-top: 5px;">{{staff.name|upper}}</div>
+  </div> 
+    <table width="100%" style="top: 175px; margin-left: 13px; margin-top: 9.5px; font-size: 11px; color: #000000;margin-right: 4px;">
+     
+      <tr>
+        <td>Phone No</td>
+        <td>: {{staff.mobile_num}}</td>
+      </tr>
+      <tr>
+        <td>D.O.J</td>
+        <td>: {{staff.dob_changed_format}}</td>
+      </tr>
+      <tr>
+        <td>ADDRESS</td>
+        <td>:  
+          {{staff.staff_address}}
+          <!-- {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}-{{student.custom_pincode}}</td> -->
+      </tr>
+     
+      
+    </table>
+    
+  </div>
+  
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card 
+  
+    <div class="page back-side">
+      <div style="text-align: center;">
+        <table style="padding-top: 115px;width:100%">
+          <tr>
+            <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div>
+            <td style="font-size: 7px;color:#000000;text-align: center;">
+              <!-- {% for address in student.student_address %}
+              {% if address.address %}{{address.address}} {% endif %}{% endfor %} 
+              {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}-{{student.custom_pincode}}
+            </td>
+          </tr>
+        </table>
+        <div style="font-size: 7px;color:#000000;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+      </div> 
+    </div>  -->
+  
+  <div class="page back-side size,">
+
+ 
+    
+    </div>
+  {% endfor %}
+</body>
+</html>

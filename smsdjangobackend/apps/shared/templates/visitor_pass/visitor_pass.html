@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Pass</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 8mm;
+        }
+        body {
+            margin: 0;
+            font-family: DejaVu Sans, Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.35;
+            color: #222;
+        }
+        .pass-wrap {
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 14px;
+        }
+        .header-table td {
+            vertical-align: top;
+            padding-bottom: 12px;
+        }
+        .logo img {
+            max-width: 100px;
+            max-height: 80px;
+        }
+        .institute-block {
+            text-align: center;
+            padding: 0 12px;
+        }
+        .institute-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0 0 4px 0;
+        }
+        .institute-address {
+            font-size: 11px;
+            color: #444;
+        }
+        .badge {
+            display: inline-block;
+            background: #1565c0;
+            color: #fff;
+            font-weight: bold;
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 14px;
+            letter-spacing: 0.05em;
+        }
+        table.fields {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table.fields th {
+            text-align: left;
+            width: 32%;
+            padding: 6px 8px 6px 0;
+            vertical-align: top;
+            font-weight: bold;
+            color: #333;
+        }
+        table.fields td {
+            padding: 6px 0;
+            vertical-align: top;
+        }
+        .footer-note {
+            margin-top: 12px;
+            font-size: 10px;
+            color: #666;
+            text-align: center;
+        }
+        .qr-cell {
+            text-align: center;
+            vertical-align: top;
+        }
+        .qr-cell img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .qr-hint {
+            font-size: 9px;
+            color: #666;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+{% for row in visitor_rows %}
+    <div class="pass-wrap">
+        <table class="header-table">
+            <tr>
+                <td style="width: 110px;" class="logo">
+                    {% if institute.logo and institute.logo.file %}
+                    <img src="{{ institute.logo.file.url }}" alt="logo" />
+                    {% endif %}
+                </td>
+                <td class="institute-block">
+                    <div class="institute-name">{{ institute.name }}</div>
+                    {% if institute.address %}
+                    <div class="institute-address">{{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}{% if institute.pincode %} - {{ institute.pincode }}{% endif %}</div>
+                    {% endif %}
+                    <div style="margin-top: 10px;">
+                        <span class="badge">VISITOR PASS</span>
+                    </div>
+                </td>
+                <td style="width: 110px;" class="qr-cell">
+                    {% if row.qr_data_url %}
+                    <img src="{{ row.qr_data_url }}" alt="Verify in ERP" />
+                    <div class="qr-hint">Scan to verify (ERP login)</div>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <table class="fields">
+            <tr><th>Visitor name</th><td>{{ row.name }}</td></tr>
+            <tr><th>Mobile</th><td>{{ row.mobile }}</td></tr>
+            <tr><th>Check-in</th><td>{{ row.checkin }}</td></tr>
+            <tr><th>Check-out</th><td>{{ row.checkout }}</td></tr>
+            <tr><th>Building</th><td>{{ row.building }}</td></tr>
+            <tr><th>Purpose / reason</th><td>{{ row.reason }}</td></tr>
+            <tr><th>Visited for</th><td>{{ row.visited_for_type }}</td></tr>
+            <tr><th>Person name</th><td>{{ row.visited_name }}</td></tr>
+        </table>
+    </div>
+{% endfor %}
+    <p class="footer-note">Generated on {{ generated_at }} &mdash; Please carry this pass while on campus. Security may scan the QR and verify details after logging into the ERP.</p>
+</body>
+</html>

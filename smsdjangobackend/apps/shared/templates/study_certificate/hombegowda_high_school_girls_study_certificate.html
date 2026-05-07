@@ -1,0 +1,185 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Certificate</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    @page {
+      size: A4;
+      margin: 22px;
+      border: 2px solid black;
+    }
+
+    body {
+      line-height: 1.5;
+      font-size: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      left:40px;
+      margin-left: 0px;
+    }
+
+    .schoolname {
+      font-size: 19px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .schooladd {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .org-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+
+    .photo-box {
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 10px 0 30px 50px; /* bit left */
+    }
+
+    .content {
+      text-align: justify;
+      line-height: 50px;
+      font-size: 20px;
+      padding: 0 50px;
+    }
+
+    .placeholder {
+      border-bottom: 1px;
+      display: inline-block;
+      min-width: 150px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .signature {
+      margin-top: 60px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .principal {
+      text-align: right;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="padding-top: 20px;">
+    <div class="logo">
+      {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" alt="School Logo">
+      {% endif %}
+    </div>
+
+    <div style="line-height: 25px;padding-left: -50px;margin-left: -50px;">
+      <div class="schoolname">SMT. GANGAMMA HOMBEGOWDA GIRLS' HIGH SCHOOL</div>
+      <div class="schooladd">
+        Hombegowda Nagar, Bangalore – 560 027<br/>
+      </div>
+    </div>
+
+    <div style="width: 20px; height: 120px;"></div> 
+  </div>
+
+  <div class="title">STUDY CERTIFICATE</div>
+  <div style='text-align:center; font-size:20px;font-weight:bold'> To whomsoever it may concern</div>
+  <br/>
+  <br/>
+
+
+  <div class="content">
+    This is to certify that
+    {% if student_he_she == "he" %}
+      Chi. <span class="placeholder">{{ student_full_name|title }}</span>, S/O Sri <span class="placeholder">{{ father_name|title }}</span>
+    {% else %}
+      Kumari <span class="placeholder">{{ student_full_name|title }}</span>, D/O  <span class="placeholder">{{ father_name|title }}</span>
+    {% endif %}
+    is a bonafide student of this institution studying in Standard {{ standard_name }} during the academic year {{ academic_year }} . As per the admission
+    register of our institution 
+
+    {% if student_he_she == "he" %}
+      His Admission No. <span class="placeholder">{{ admission_num }}</span> & Date of Birth <span class="placeholder">{{ dob_str }}</span> and he belongs to 
+    {% else %}
+      Her  Date of Birth is <span class="placeholder">{{ dob_str }}</span> and Admission No. <span class="placeholder">{{ admission_num }}</span> she belongs to
+    {% endif %}
+
+    {% if student_he_she == "he" %}
+        {% if caste %}
+          <span class="placeholder">{{ caste|capfirst }}</span>.
+        {% else %}
+          <span class="placeholder">{{ religion|capfirst }}</span>.
+        {% endif %}
+
+    {% else %}
+        {% if caste %}
+          <span class="placeholder">{{ caste|capfirst }}</span> and resides in Bengaluru.
+        {% else %}
+          <span class="placeholder">{{ religion|capfirst }}</span> and resides in Bengaluru.
+        {% endif %}
+    {% endif %}
+  </div>
+
+  <br/><br/><br/>
+  <div style='margin-left:50px;font-size:20px;' > <strong>School DISE Code:</strong> 29200906738</div>
+  
+  {% if profile_pic_details %}
+    <div class="photo-box">
+      <img src="{{ profile_pic_details }}" alt="Student Photo" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+  {% endif %}
+  {% comment %} <div style='margin-left:50px;'><strong>Date:</strong>{{ today_date }}</div>
+  <div style='margin-left:50px;'><strong>Place:</strong>Bangalore</div>
+
+  <br/>
+    <div style="display: flex; justify-content: space-between; font-size: 21px; padding: 0 50px;">
+    <div>Head Master</div>
+    <div>Seal & Signature</div> {% endcomment %}
+<div style="width: 100%; display: flex; justify-content: space-between; font-size: 21px; ">
+  <span style='margin-left:50px;'><strong>Date:</strong> {{ today_date }}</span>
+  <span style='margin-right:60px;'>Head Master</span>
+</div>
+<div style="width: 100%; display: flex; justify-content: space-between; font-size: 21px; ">
+  <span style='margin-left:50px;'><strong>Place:</strong> Bangalore</span>
+  <span style='margin-right:40px;'>Seal & Signature</span>
+</div>
+
+  </div>
+
+</body>
+</html>

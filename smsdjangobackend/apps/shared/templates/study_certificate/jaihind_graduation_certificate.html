@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jaihind School Certificate</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+  <style>
+    /* Setting A4 landscape dimensions */
+    @page {
+      size: 315mm 210mm; /* A4 dimensions in landscape */
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Raleway', sans-serif;
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .certificate-container {
+      width: 315mm; /* A4 landscape width */
+      height: 210mm; /* A4 landscape height */
+      position: relative;
+      background: url('https://production-edubricz.s3.amazonaws.com/18/UKG_graduation_certificate_1.jpg') no-repeat center center;
+      background-size: contain;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    /* Styling for student photo */
+    .student-photo {
+      display: block;
+      margin: 275px auto 20px; /* Adjust margin for spacing */
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 5px solid #fff;
+    }
+
+    /* Styling for student name and description */
+    .student-name {
+      font-family: 'Raleway', sans-serif;
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #a10000;
+    }
+
+    .student-description {
+      font-family: 'Zilla Slab', serif;
+      font-size: 28px;
+      margin-top: 10px;
+      color: #555;
+      font-weight: bold;
+     margin-right: 11%;
+     margin-left: 11%;
+    }
+  </style>
+</head>
+<body>
+  <div class="certificate-container">
+    <div style="margin-top: 370px;">
+    <!-- Placeholder for student photo -->
+    <!-- <img class="student-photo" src="{{profile_pic_details}}" alt="Student Photo"> -->
+    
+    <!-- Student name -->
+    <div class="student-name">{{student_full_name}}</div>
+
+    <!-- Student description -->
+    <div class="student-description">
+        of UKG - CBSE has been qualified to receive graduation from kindergarten and was placed in class 1 with
+        Distinction. <br> <br>
+        Congratulations,MAHITH N!We are proud of your achievements and wish you allthe best as
+        you continue on your educational journey.
+    </div>
+  </div>
+</div>
+</body>
+</html>

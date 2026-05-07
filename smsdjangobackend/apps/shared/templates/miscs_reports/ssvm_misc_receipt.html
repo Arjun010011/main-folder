@@ -1,0 +1,192 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Transport Receipt</title>
+
+<style>
+@page {
+    size: A5;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+.noborder {
+    border: 0px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body style="padding-right:10px">
+
+<div>
+{% for count in number_of_copies %}
+
+    <!-- COPY LABEL -->
+    {% if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top:25px;"></div>
+        <div style="text-align:right;margin-right:10px">Student Copy</div>
+    {% else %}
+        <div style="text-align:right;margin-right:10px">Office Copy</div>
+    {% endif %}
+
+    <div style="height:147mm;padding-top:20px">
+
+        <!-- HEADER -->
+        <table style="width:100%;">
+            <tr>
+                <td colspan="2" style="padding:8px;">
+                    <div style="display:flex;justify-content:center;padding-right:30px">
+
+                        <!-- LOGO -->
+                        <div style="text-align:right;margin-right:60px;">
+                            {% if institute.logo.file.url %}
+                                <img src="{{ institute.logo.file.url }}" style="width:120px;height:100px;" />
+                            {% endif %}
+                        </div>
+
+                        <!-- SCHOOL DETAILS -->
+                        <div style="text-align:center">
+                            <div style="font-size:13px;">
+                                {{ institute.trust_name }}<br />
+                            </div>
+
+                            <span style="font-size:22px;font-weight:bold;">
+                                {{ institute.name }}
+                            </span>
+
+                            <div style="line-height:25px;font-size:14px;">
+                                #12,40/7, Vaishnavi Layout, Uttarahalli, Bangalore-560 061<br />
+                                9845553837 / 9481427969 / 9901528980
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- TITLE -->
+        <div style="text-align:center;font-weight:bold;font-size:18px;margin:10px 0;">
+            RECEIPT
+        </div>
+
+        <!-- STUDENT DETAILS -->
+        <table style="width:100%;line-height:1.5;">
+            <tr>
+                <td>
+                    <b>Name:</b>
+                    {% if misc_collection.student %}
+                        {{ misc_collection.student.first_name }}
+                        {{ misc_collection.student.middle_name }}
+                        {{ misc_collection.student.last_name }}
+                    {% else %}
+                        {{ misc_collection.guest_name }}
+                    {% endif %}
+                    <br>
+
+                    {% if misc_collection.student %}
+                        <b>Class / Section:</b>
+                        {{ misc_collection.student.current_standard.name }}
+                    {% endif %}
+                </td>
+
+                <td>
+                    <b>Date:</b>
+                    {{ misc_collection.date|date:"d-m-Y" }}<br>
+                    <b>Rec No:</b>
+                    {{ misc_collection.receipt_num }}
+                </td>
+            </tr>
+        </table>
+
+        <!-- FEES TABLE -->
+        <table style="width:100%;margin-top:10px;">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+                    <th>Particulars</th>
+                    <th style="text-align:right;">Amount (₹)</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for fee in payment_details %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{% for fee in payment_details %}{{ fee.misc.misc_type.name}}</br>{% endfor %}</td>
+                    <td style="text-align:right;">
+                        {{ fee.amount|floatformat:2|intcomma }}
+                    </td>
+                </tr>
+                {% endfor %}
+
+                <!-- TOTAL -->
+                <tr>
+                    <td colspan="3" style="font-weight:bold;">
+                        TOTAL PAID AMOUNT:
+                        ₹ {{ misc_collection.total_amount|floatformat:2|intcomma }}/-
+                        ({{ amount_in_words|upper }})<br>
+
+                        Mode Of Payment:
+                        {{ misc_collection.mode_of_payment }}<br>
+
+                        Fine: 0/-
+                    </td>
+                </tr>
+
+                <!-- SIGN -->
+                <tr>
+                    <td colspan="3" style="text-align:right;padding-top:50px;">
+                        AUTHORISED SIGNATURE
+                    </td>
+                </tr>
+
+                <!-- FOOTER -->
+                <tr>
+                    <td colspan="3" style="text-align:center;">
+                        * Fees once paid will not be refunded *
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">
+                        Receipt Generated at: {{ today }}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- PAGE BREAK LOGIC -->
+    {% if not forloop.last and forloop.counter|divisibleby:"2" %}
+        <div style="page-break-after: always;"></div>
+    {% else %}
+        <div style="margin-top:120px"></div>
+    {% endif %}
+
+{% endfor %}
+</div>
+
+</body>
+</html>

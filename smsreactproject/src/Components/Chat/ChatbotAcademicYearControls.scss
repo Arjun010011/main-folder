@@ -1,0 +1,52 @@
+.chatbot-ay-bar {
+  flex-shrink: 0;
+  padding: 10px 16px 12px;
+  background: linear-gradient(180deg, #f0f6ff 0%, #f8fafc 100%);
+  border-bottom: 1px solid rgba(70, 128, 255, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chatbot-ay-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #475569;
+}
+
+.chatbot-ay-select {
+  width: 100%;
+  max-width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(70, 128, 255, 0.35);
+  background: #fff;
+  font-size: 13px;
+  color: #0f172a;
+  cursor: pointer;
+}
+
+.chatbot-ay-select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.chatbot-ay-hint {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+.chatbot-ay-hint strong {
+  font-weight: 600;
+  color: #334155;
+}
+
+.chatbot-ay-loading,
+.chatbot-ay-fallback {
+  font-size: 13px;
+  color: #475569;
+}

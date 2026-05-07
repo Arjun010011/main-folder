@@ -1,0 +1,112 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 40px;  
+            border:2px solid black;   
+        }
+
+        .center {
+            text-align: center;
+            margin: 15px;
+        }
+
+        p {
+            text-align: justify;
+            hyphens: auto;
+            line-height: 2.0em;
+        }
+
+        .border {
+            padding: 20px;
+            margin: 0px;
+            position: relative;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .school-info {
+            flex: 1;
+            text-align: center;
+            line-height: 25px;
+        }
+
+        .logo-container img {
+            width: 120px;
+            height: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+        <div class="header-container">
+            <div class="logo-container">
+                {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="Logo">
+                {% endif %}
+            </div>
+            <div class="school-info">
+                <div style="text-transform: uppercase;font-size:21px"><b>NISARGA VIDYANIKETHANA HIGH SCHOOL</b></div>
+                <div style="font-size:16px;">(Recognized by the Govt. of Karnataka)</div>
+                <div style="font-size: 16px;">
+                    Gangamma temple road, Thyamagondlu, Nelamangala taluk, Bengaluru Rural - 562132
+                    <br>
+                    Phone No: 9945603261 / 9880706291
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div style="text-align: left;margin: 25px 0px;font-size: 19px;"><b>Reference No:{{ref_no}}</b></div>
+        <div style="font-size:21px;text-align: center;margin:50px 10px 0px;text-decoration: underline;line-height: 35px;">
+            <b>STUDY CERTIFICATE</b>
+        </div>
+        <br>
+        <br>
+        <p style="font-size:19px;line-height: 40px;">
+            This is to certify that <u><b>{{ student_full_name }}</b></u> {{ student_relate }} <u><b>{{ father_name }}</b></u> & <u><b>{{ mother_name }}</b></u> is a bonafide student of our institution studying in
+            <u><b>{{ standard_name }}{{ standard_suffix }}</b></u> during the academic year <u><b>{{ academic_year }}</b></u>. As per the admission register of our institution {{ student_her_him }} DOB is <u>
+            <b>{{ dob_str }}</b></u> and <u><b>admission Number</b></u> is <u><b>{{ admission_num }}</b></u> & SATS number is <u><b>{{ sts }}</b></u>. {{ student_he_she }} belongs to the religion <u>
+            <b>{{ religion|title }}</b></u> , category <u><b>{{ category|title }}</b></u> and caste <u><b>{{ caste|title }}</b></u> and residing at <u><b>{{ address }}</b></u>.
+        </p>
+        
+        
+        <br>
+        <br><br>
+
+        <div style="text-align:left;font-size: 19px;"> School DISE Code: 29210110309 </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <table style="width:100%;position: absolute;font-size: 19px;">
+            <tr>
+                <td style="text-align: left;">
+                    Date: {{ today|date:'d/m/Y' }}<br>
+                    <div style="text-align:left;margin-top:20px;">Place: Thyamagondlu</div>
+                </td>
+                <td style="text-align:right;position:absolute;right:40px;bottom:-70px;">
+                    Seal & Signature of the Head Mistress
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

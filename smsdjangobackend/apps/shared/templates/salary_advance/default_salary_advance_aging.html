@@ -1,0 +1,196 @@
+<html>
+{% load humanize %}
+
+<head>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 15mm;
+        }
+
+        body {
+            font-family: 'Calibri', Arial, sans-serif;
+            font-size: 10pt;
+            margin: 0;
+            padding: 0;
+        }
+
+        .school-header {
+            text-align: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #1F4E79;
+            padding-bottom: 10px;
+        }
+
+        .school-name {
+            font-size: 18pt;
+            font-weight: bold;
+            color: #1F4E79;
+            margin: 0;
+        }
+
+        .trust-name {
+            font-size: 10pt;
+            font-style: italic;
+            color: #555;
+            margin: 2px 0;
+        }
+
+        h2 {
+            color: #1F4E79;
+            font-size: 14pt;
+            text-align: center;
+            margin: 10px 0 5px 0;
+        }
+
+        h4 {
+            color: #4472C4;
+            font-size: 10pt;
+            text-align: center;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th {
+            background: #1F4E79;
+            color: white;
+            padding: 6px 8px;
+            text-align: left;
+            font-size: 10pt;
+        }
+
+        th.amount {
+            text-align: right;
+        }
+
+        td {
+            padding: 4px 8px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 9pt;
+        }
+
+        td.amount {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bucket-header {
+            background: #D6E4F0;
+            color: #1F4E79;
+            font-weight: bold;
+            font-size: 10pt;
+            padding: 6px 8px;
+        }
+
+        .overdue {
+            color: #c62828;
+        }
+
+        .total-row td {
+            border-top: 2px solid #1F4E79;
+            font-weight: bold;
+            font-size: 10pt;
+        }
+
+        .summary-table {
+            width: 50%;
+            margin: 10px auto;
+        }
+
+        .summary-table th {
+            font-size: 10pt;
+        }
+
+        .summary-table td {
+            font-size: 10pt;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="school-header">
+        <p class="school-name">{{ institute.name }}</p>
+        {% if institute.trust_name %}<p class="trust-name">{{ institute.trust_name }}</p>{% endif %}
+    </div>
+
+    <h2>Salary Advance — Aging Report</h2>
+    <h4>As of: {{ as_of_date }}</h4>
+
+    <!-- Summary -->
+    <table class="summary-table">
+        <tr>
+            <th>Bucket</th>
+            <th class="amount">Count</th>
+            <th class="amount">Amount (₹)</th>
+        </tr>
+        <tr>
+            <td>Current</td>
+            <td class="amount">{{ count.current }}</td>
+            <td class="amount">{{ totals.current|floatformat:2|intcomma }}</td>
+        </tr>
+        <tr>
+            <td>1–30 Days</td>
+            <td class="amount">{{ count.1_30 }}</td>
+            <td class="amount">{{ totals.1_30|floatformat:2|intcomma }}</td>
+        </tr>
+        <tr>
+            <td>31–60 Days</td>
+            <td class="amount">{{ count.31_60 }}</td>
+            <td class="amount">{{ totals.31_60|floatformat:2|intcomma }}</td>
+        </tr>
+        <tr>
+            <td>61–90 Days</td>
+            <td class="amount">{{ count.61_90 }}</td>
+            <td class="amount">{{ totals.61_90|floatformat:2|intcomma }}</td>
+        </tr>
+        <tr class="overdue">
+            <td>90+ Days</td>
+            <td class="amount">{{ count.90_plus }}</td>
+            <td class="amount">{{ totals.90_plus|floatformat:2|intcomma }}</td>
+        </tr>
+        <tr class="total-row">
+            <td>GRAND TOTAL</td>
+            <td class="amount"></td>
+            <td class="amount">{{ grand_total|floatformat:2|intcomma }}</td>
+        </tr>
+    </table>
+
+    <!-- Detailed list by bucket -->
+    {% for bucket_name, items in buckets.items %}
+    {% if items %}
+    <table>
+        <tr>
+            <td class="bucket-header" colspan="6">{{ bucket_name|upper }} ({{ items|length }})</td>
+        </tr>
+        <tr>
+            <th>Staff Name</th>
+            <th>Advance Name</th>
+            <th class="amount">Total Amount (₹)</th>
+            <th class="amount">Outstanding (₹)</th>
+            <th>Start Month</th>
+            <th class="amount">Days Overdue</th>
+        </tr>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.staff_name }}</td>
+            <td>{{ item.name }}</td>
+            <td class="amount">{{ item.total_amount|floatformat:2|intcomma }}</td>
+            <td class="amount">{{ item.outstanding|floatformat:2|intcomma }}</td>
+            <td>{{ item.start_month|default:"–" }}</td>
+            <td class="amount {% if item.days_overdue > 0 %}overdue{% endif %}">{{ item.days_overdue }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>

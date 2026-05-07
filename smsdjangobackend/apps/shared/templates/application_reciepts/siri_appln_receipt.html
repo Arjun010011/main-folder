@@ -1,0 +1,157 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+      }
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        border-bottom: 0px;
+      }
+      table {
+        width: 100%;
+      }
+      .table3 {
+        border-bottom: 1px solid black !important;
+      }
+      .authsign {
+        height: 70px;
+        padding-left: 70%;
+        margin-top: auto;
+        vertical-align: bottom;
+      }
+      .container {
+        font-family: sans-serif;
+      }
+      
+    </style>
+  </head>
+<body>
+{% for count in number_of_copies %}
+    <div class="container">
+        {%  if forloop.counter|divisibleby:"2" %}
+        <div>SCHOOL FEE RECEIPT STUDENT COPY</div>
+        {% else %}
+        <div>SCHOOL FEE RECEIPT SCHOOL COPY</div>
+        {% endif %}
+        <div style='display:flex;border:1px solid black;border-collapse: collapse;border-bottom: 0px;'>
+            <div style="position:absolute;left:60px">
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 90px;height: 90px;"/>
+                {% endif %}
+            </div>
+            <div style="text-align: center;margin-left:auto;margin-right:auto">
+                <div style="font-size: 35px;padding-left:20px;font-weight: bold;margin-top:5px">
+                    {{institute.name}}
+                </div>  
+                <div style="line-height: 20px;font-size:14px;margin-top:5px">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                </div>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <td colspan="4">
+                    <div>Student Name :<b>
+                        {% if application_receipt.student.first_name %}{{application_receipt.student.first_name}}
+                    {% endif %}{% if application_receipt.student.middle_name %}
+                    {{application_receipt.student.middle_name}}{% endif %}{% if application_receipt.student.last_name%}
+                    {{application_receipt.student.last_name }}{% endif %}
+                    </div>
+                    <div>Class :
+                        <b>{% if application_receipt.student.current_standard.name %}
+                            {{application_receipt.student.current_standard.name|upper}}{% endif %}</b>
+                    </div>
+                </td>
+                <td colspan="4">
+                    <div>Date :
+                        {% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d/m/Y"}}
+                {% endif %}
+                    </div>
+                    <div><i>Receipt No</i> :
+                        <b>{% if application_receipt.receipt_num %}{{application_receipt.receipt_num|cut:"appln_receipt"|title}}{% endif %}</b>
+                    </div>
+                    <div>Student ID :
+                        {{admission_num|title}}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Sl.No</td>
+
+                <td>Particulars</td>
+
+                <td>Installment</td>
+
+                <td>Yearly</td>
+
+                <td>Discount</td>
+
+                <td>Others</td>
+
+                <td>Paid Amt</td>
+
+                <td>Balance</td>
+            </tr>
+                <tr>
+                    <td>1.</td>
+                    <td>{{ application_receipt.name }}</td>
+                    <td>Yearly</td>
+                    <td>{{application_receipt.amount_paid| floatformat |intcomma}}</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>{{application_receipt.amount_paid| floatformat |intcomma}}</td>
+                    <td>0</td>
+                    </tr>
+        </table>
+        <table class="table3">
+            <tr>
+                <td>
+                    <div>Total Paid: ₹ {{ application_receipt.amount_paid | floatformat |intcomma}}/- ( {{amount_in_words|title}} Rupees )</div>
+                    <div>Overall Balance : ₹ 0/- </div>
+                    <div>Mode of Payment: {% if application_receipt.mode_of_payment %}
+                        {{application_receipt.mode_of_payment}} {% endif %}</div>
+                        {% if application_receipt.payment_ref_num %} <div>Transaction:  ({{application_receipt.payment_ref_num}})
+                    </div>{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="authsign">AUTHORISED SIGNATURE</td>
+            </tr>
+            <tr>
+                <td style='vertical-align:bottom;border-right:0px; color:black; text-align: center; height: 30px;' colspan='3'>
+                    ****Fees once paid will not be refunded****
+                </td>
+            </tr>
+        </table>
+            <div style="display:flex">
+                <div align="left">Receipt Generated by : {% if collected_by.staff__first_name %}{{collected_by.staff__first_name}}{%endif%} 
+                    {% if collected_by.staff__middle_name %}{{collected_by.staff__middle_name}}{%endif%}
+                    {% if collected_by.staff__last_name %}{{collected_by.staff__last_name}}{%endif%} {{ today }}</div>
+                <div style='margin-left:auto'>Powered By Edubricz</div>
+            </div>
+        {%  if forloop.counter|divisibleby:"2" and not forloop.last %}
+        <div style="page-break-after: always;"></div>
+        {%else%}
+        <div style="margin:15px;">
+        {% endif %}
+    </div>
+{%endfor%}
+</body>
+</html>

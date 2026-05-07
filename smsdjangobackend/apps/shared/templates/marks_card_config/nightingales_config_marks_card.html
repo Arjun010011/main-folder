@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>A4 Full Background</title>
+
+<style>
+@page {
+    size: A4;
+    margin: 0;
+}
+
+/* RESET */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+@page {
+    size: A4;
+    margin: 0;
+}
+
+/* RESET */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* COMMON PAGE STYLE */
+.page {
+    width: 210mm;
+    height: 297mm;
+    position: relative;
+    page-break-after: always;
+    break-after: page;
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* FIRST PAGE BG */
+.page.page-1 {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/nightingales2.jpeg");
+
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+/* SECOND PAGE BG */
+.page.page-2 {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/nightingales3.jpeg");
+
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Avoid blank last page */
+.page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+    {% for s in data.student_list %}
+    <div class="page page-1">
+
+<div >
+    <div style="margin-top: 2.5cm;margin-left: 180px;" >
+        <div style="display: flex;">
+            <p style="width: 90%;">{{s.student_name}}</p>
+            <p style="width: 50%;">{{s.student_admission_form.admission_num}}</p>
+        </div>
+    </div>
+    <div style="margin-left: 180px;height: 1cm;" >
+        <div style="display: flex;">
+            <p style="width: 90%;">{{data.standard}}{{data.section_name}}</p>
+            <p style="width: 50%;"></p>
+        </div>
+    </div>
+    <div style="margin-left: 180px;height: 1cm;" >
+        <div style="display: flex;">
+            <p style="width: 90%;">{{s.dob}}</p>
+            <p style="width: 50%;">{{s.total_no_of_days_attendance}}/{{s.total_max_no_of_days_attendance}}</p>
+        </div>
+    </div>
+</div>
+<div style="
+    height: 10cm;
+    display: flex;
+    margin-top: 1cm;
+    flex-direction: column;
+    justify-content: space-evenly;
+">
+    {% for subject in s.subject_list_data %}
+        {% if subject.subject_part_type_id == 1 %}
+
+            {% for marksdata in subject.exam_details_list%}
+
+                {% if data.configuration_details.exam == marksdata.exam %}
+        <div style="
+            display: flex;
+            margin-left: 60px;
+            align-items: center;
+            flex: 1;
+            min-height: 0;
+        ">
+            <p style="width:90px; margin:0;  line-height:1;">
+                {{ subject.subject__subject_code|default:"N/A" }}
+            </p>
+
+            <p style="width:430px; margin:0;  line-height:1;">
+                {{ subject.subject__name }}
+            </p>
+                <p style="width:80px; margin:0;  line-height:1;">
+                    {{ marksdata.total_max_marks }}
+                </p>
+
+                <p style="width:100px; margin:0;  line-height:1;">
+                    {{ marksdata.total_min_marks }}
+                </p>
+
+                <p style="width:90px; margin:0;  line-height:1;">
+                    {{ marksdata.total_marks }}
+                </p>
+
+                <p style="width:80px; margin:0;  line-height:1;">
+                    {{ marksdata.obtained_grade }}
+                </p>
+            
+        </div>
+
+                {% endif %}
+        {% endfor  %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div>
+    {% for key, value in s.exam_details.items %}
+    {% if key == data.configuration_details.exam %}
+    <div style="display: flex;">
+        <p style="margin-left: 580px;width: 100px;">{{ value.exam_part1_total_max_marks }}  </p>
+        <p style="width: 100px;">{{ value.exam_part1_total_min_marks }}</p>
+        <p>{{ value.exam_part1_total_marks }}</p>
+        <p>{{ value.exam_part1_obtained_grade }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+</div>
+<div style="
+    height: 3cm;
+    display: flex;
+    margin-top: 1cm;
+    flex-direction: column;
+    justify-content: space-evenly;
+">
+    {% for subject in s.subject_list_data %}
+        {% if subject.subject_part_type_id == 2 %}
+
+            {% for marksdata in subject.exam_details_list%}
+
+                {% if data.configuration_details.exam == marksdata.exam %}
+        <div style="
+            display: flex;
+            margin-left: 60px;
+            align-items: center;
+            flex: 1;
+            min-height: 0;
+        ">
+            <p style="width:90px; margin:0;  line-height:1;">
+                {{ subject.subject__subject_code|default:"N/A" }}
+            </p>
+
+            <p style="width:730px; margin:0;  line-height:1;">
+                {{ subject.subject_name }}
+            </p>
+
+            <p style="width:80px; margin:0;  line-height:1;">
+                {{ marksdata.obtained_grade }}
+            </p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div style="
+    height: 2cm;
+    display: flex;
+    margin-top: 2cm;
+    flex-direction: column;
+    justify-content: space-evenly;
+">
+    {% for subject in s.subject_list_data %}
+        {% if subject.subject_part_type_id == 3 %}
+
+            {% for marksdata in subject.exam_details_list%}
+
+                {% if data.configuration_details.exam == marksdata.exam %}
+        <div style="
+            display: flex;
+            margin-left: 60px;
+            align-items: center;
+            flex: 1;
+            min-height: 0;
+        ">
+            <p style="width:90px; margin:0;  line-height:1;">
+                {{ subject.subject__subject_code|default:"N/A" }}
+            </p>
+
+            <p style="width:730px; margin:0;  line-height:1;">
+                {{ subject.subject_name }}
+            </p>
+
+            <p style="width:80px; margin:0;  line-height:1;">
+                {{ marksdata.obtained_grade }}
+            </p>
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    {% endfor %}
+</div>
+
+<div style="
+    height: 0.4cm;
+    display: flex;
+    margin-top: 2cm;
+    flex-direction: column;
+    justify-content: space-evenly;
+">
+        <div style="
+            display: flex;
+            margin-left: 60px;
+            align-items: center;
+            flex: 1;
+            min-height: 0;
+        ">
+        {% for key,exam in s.exam_details.items %}
+            {% if key == data.configuration_details.exam %}
+            <p style="width:900px; margin:0;  line-height:1;">
+                {{ data.academic_year_details.start_date|date:"Y" }} - {{ data.academic_year_details.end_date|date:"Y" }}
+
+            </p>
+
+            <p style="width:900px; margin:0;  line-height:1;">
+                {{ data.configuration_details.exam_name }}
+            </p>
+
+            <p style="width:800px; margin:0;  line-height:1;">
+                {{ exam.exam_part1_obtained_percentage|floatformat:2 }}%
+
+            </p>
+            <p style="width:730px; margin:0;  line-height:1;">
+                {{ exam.exam_part1_obtained_grade}}
+            </p>
+            <p style="width:730px; margin:0;  line-height:1;">
+                {{ exam.exam_part1_obtained_grade}}
+            </p>
+            <p style="width:730px; margin:0;  line-height:1;">
+                Excellent
+            </p>
+            <p style="width:730px; margin:0;  line-height:1;">
+                {{ exam.exam_part1_obtained_percentage|floatformat:2 }}%
+
+            </p>
+            {% endif %}
+        {% endfor %}
+        </div>
+</div>
+<div style="
+    height: 10cm;
+    display: flex;
+    margin-top: 1.3cm;
+    flex-direction: column;
+    justify-content: space-evenly;
+">
+{% regroup s.subject_list_data by subject_part_type_id as grouped_subjects %}
+
+<table style="border-collapse:collapse;width:20cm;font-size:12px;margin-left:4.2cm;">
+
+    <!-- HEADER -->
+    <tr style="height:1cm;font-weight:bold;text-align:center;">
+        <td style="width:5cm;">Exam</td>
+
+        <!-- Part type = 1 -->
+        <td style="width:12cm;">
+            <table style="width:100%;border-collapse:collapse;">
+                <tr>
+                    {% for group in grouped_subjects %}
+                        {% if group.grouper == 1 %}
+                            {% for subject in group.list %}
+                                <td style="width:2cm;">
+                                    {{ subject.subject__subject_code }}
+                                </td>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
+        </td>
+
+        <!-- Part type != 1 -->
+        <td style="width:8cm;">
+            <table style="width:100%;border-collapse:collapse;">
+                <tr>
+                    {% for group in grouped_subjects %}
+                        {% if group.grouper != 1 %}
+                            {% for subject in group.list %}
+                                <td style="width:2cm;">
+                                    {{ subject.subject__subject_code }}
+                                </td>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+    <!-- DATA ROWS -->
+    {% for exam_key, exam in s.exam_details.items %}
+        {% if exam_key != data.configuration_details.exam %}
+        <tr style="height:0.9cm;">
+            <td style="width:5cm;font-weight:bold;">
+                {{ exam.exam_name }}
+            </td>
+
+            <!-- Part type = 1 -->
+            <td>
+                <table style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        {% for group in grouped_subjects %}
+                            {% if group.grouper == 1 %}
+                                {% for subject in group.list %}
+                                    <td style="width:2cm;text-align:center;">
+                                        {% for k, v in subject.exam_details.items %}
+                                            {% if k == exam_key %}
+                                                {{ v.obtained_grade|default:"-" }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </table>
+            </td>
+
+            <!-- Part type != 1 -->
+            <td>
+                <table style="width:100%;border-collapse:collapse;">
+                    <tr>
+                        {% for group in grouped_subjects %}
+                            {% if group.grouper != 1 %}
+                                {% for subject in group.list %}
+                                    <td style="width:2cm;text-align:center;">
+                                        {% for k, v in subject.exam_details.items %}
+                                            {% if k == exam_key %}
+                                                {{ v.obtained_grade|default:"-" }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                {% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+</div>
+</div>
+<div class="page page-2">
+    <div style="margin-left: 16cm;padding-top: 0.8cm;">
+        <p style="height: 1cm;">1</p>
+        <p style="height: 1cm;">2</p>
+        <p style="height: 1cm;">3</p>
+        <p style="height: 1cm;">4</p>
+        <p style="height: 1cm;">5</p>
+        <p style="height: 1cm;">6</p>
+        <p style="height: 1cm;">7</p>
+    </div>
+    <div style="margin-left: 12cm;padding-top: 0.8cm;">
+        <div style="display: flex;">
+            <p style="width: 10cm;">1</p>
+            <p>2</p>
+        </div>
+        <div style="display: flex;">
+            <p style="width: 10cm;">1</p>
+            <p>2</p>
+        </div>
+        <div style="display: flex;">
+            <p style="width: 10cm;">1</p>
+            <p>2</p>
+        </div>
+        <div style="display: flex;">
+            <p style="width: 10cm;">1</p>
+            <p>2</p>
+        </div>
+    </div>
+    <div style="margin-left: 4cm;margin-top: 1.8cm;">
+        <p>12/01/2026</p>
+    </div>
+</div>
+
+    {% endfor %}
+
+
+</body>
+</html>
+

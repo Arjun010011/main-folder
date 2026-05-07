@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+{% load humanize %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Report</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000;
+            padding: 5px 7px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .no-page-break {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        @media print {
+        thead {
+            display: table-row-group;
+        }
+    }
+    </style>
+</head>
+
+<body>
+<div>
+
+    <table>
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width:100px">
+                <img src="{{ institute.logo.file.url }}" style="width:100px;height:auto;">
+            </td>
+            <td style="text-align:center;padding:8px;">
+            {% else %}
+            <td colspan="2" style="text-align:center;padding:8px;">
+            {% endif %}
+                {% if institute.trust_name %}
+                    <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size:20px;font-weight:bold;">
+                    {{ institute.name }}
+                </div>
+                <div style="line-height:22px;">
+                    {{ institute.address }}
+                    {% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %}<br>
+                    {% if institute.tel_num %}
+                        Cell: {{ institute.tel_num }}
+                        {% if institute.tel_num_2 %}, {{ institute.tel_num_2 }}{% endif %}
+                    {% endif %}
+                </br>email: spsblr2000@gmail.com
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center">
+                <div class="feereceipt-box">Student Fees Report</div>
+            </td>
+        </tr>
+    </table>
+
+    <br>
+
+    <h3><u><center>Student Details</center></u></h3>
+    <table class="no-page-break">
+        <tr>
+            <th>Student Name</th>
+            <th>
+                {{ student.first_name }}
+                {% if student.middle_name %} {{ student.middle_name }}{% endif %}
+                {% if student.last_name %} {{ student.last_name }}{% endif %}
+            </th>
+        </tr>
+        <tr>
+            <td>Standard : {{ standard_name }}</td>
+            <td>
+                Academic Year :
+                {{ student_details.academic_year.start_date.year }} -
+                {{ student_details.academic_year.end_date.year }}
+            </td>
+        </tr>
+        <tr>
+            <td>SATS No :</td>
+            <td>{{ sts }}</td>
+        </tr>
+    </table>
+
+    <br>
+
+    <h3><u><center>Report</center></u></h3>
+    <table>
+        <thead>
+            <tr>
+                <th style="width:40%;text-align:center" rowspan="2">Fee Particulars</th>
+                <th colspan="2" style="text-align:center">Paid</th>
+            </tr>
+            <tr>
+                <th style="text-align:center">Date</th>
+                <th style="text-align:center">Rs.</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in fee_type_wise_collection %}
+            {% for terms in row %}
+                <tr>
+                    <td>{{ terms.fee_type_name }}</td>
+                    <td style="text-align:center">{{ terms.transaction_date_str }}</td>
+                    <td style="text-align:right">
+                        {{ terms.total_amount|floatformat:0|intcomma }}
+                    </td>
+                </tr>
+                {% endfor %}
+        {% endfor %}
+
+                {% comment %} {% if terms.pending_amount <= 0 and terms.paid_amount <= 0 %}
+                <tr>
+                    <td>{{ row.fee_type_name }}</td>
+                    <td colspan="2">
+                        {% if terms.adjustment_amount > 0 %}
+                            Discount : {{ terms.adjustment_amount|floatformat:0|intcomma }}<br>
+                        {% endif %}
+                        {% if terms.concession_amount > 0 %}
+                            Concession : {{ terms.concession_amount|floatformat:0|intcomma }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        {% endfor %} {% endcomment %}
+
+        <tr>
+            <td><b>Payable</b></td>
+            <td colspan="2" style="text-align:right">
+                {{ total_payable_amount|floatformat:0|intcomma }}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Paid</b></td>
+            <td colspan="2" style="text-align:right">
+                {{ paid_amount|floatformat:0|intcomma }}
+            </td>
+        </tr>
+        <tr>
+            <td><b>Pending</b></td>
+            <td colspan="2" style="text-align:right;color:red">
+                {{ pending_amount|floatformat:0|intcomma }}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="no-page-break">
+        <table style="width:80%;margin-top:10px">
+            <tr>
+                <th colspan="4" style="text-align:center">Fees Breakup</th>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align:center">Total Fees</th>
+                <th colspan="2" style="text-align:right">
+                    {{ total_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+
+            {% if total_fine_amount > 0 %}
+            <tr>
+                <th colspan="2" style="text-align:center">Total Fine</th>
+                <th colspan="2" style="text-align:right">
+                    {{ total_fine_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+            {% endif %}
+
+            {% if total_concession_amount > 0 %}
+            <tr>
+                <th colspan="2" style="text-align:center">Total Concession</th>
+                <th colspan="2" style="text-align:right">
+                    -{{ total_concession_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+            {% endif %}
+
+            {% if total_adjusted_amount > 0 %}
+            <tr>
+                <th colspan="2" style="text-align:center">Total Discount</th>
+                <th colspan="2" style="text-align:right">
+                    -{{ total_adjusted_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+            {% endif %}
+
+            <tr>
+                <th colspan="2" style="text-align:center">Total Payable</th>
+                <th colspan="2" style="text-align:right">
+                    {{ total_payable_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align:center">Total Paid</th>
+                <th colspan="2" style="text-align:right">
+                    {{ paid_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align:center">Total Pending</th>
+                <th colspan="2" style="text-align:right">
+                    {{ pending_amount|floatformat:0|intcomma }}
+                </th>
+            </tr>
+        </table>
+
+        <hr>
+        <table style="width:100%; border:0">
+            <tr>
+                <td style="border:0; text-align:left">
+                    Report Generated at : {{ today }}
+                </td>
+                <td style="border:0; text-align:right">
+                    Powered By Edubricz
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>

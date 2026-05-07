@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Application Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <div style="text-align:right;margin-bottom: 10px">Student Copy</div>
+    <table style="width:100%">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <img src={{ institute.logo.file.url }} style="width: 110px;height:110px;" />
+            </td>
+            {% endif %}
+            
+            <td style="text-align:center; padding: 8px;">
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px; font-weight: bold;">
+                    {{ institute.name }}<br/>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %}<br/>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }}{% endif %}{% endif %}
+                    {% if institute.fax_num %}<br/>Fax: {{ institute.fax_num }} {% endif %}
+                </div>
+            </td>
+        
+            <!-- Right side logo -->
+            <td style="text-align:center;width: 130px;">
+                <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/vidyasagarinternational/Logo_Vidyasagar+International+School-1.png" style="width: 130px; height: 130px;" />
+            </td>
+        </tr>
+        
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    FEE RECEIPT
+                </div>
+            </td>
+        </tr>
+    </table>
+    </br>
+    <h3><u>
+        <center>Student Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align:center;width:10%;">
+                <h3>Name: {% if application_receipt.student.first_name %}{{application_receipt.student.first_name}}
+                    {% endif %}{% if application_receipt.student.middle_name %}
+                    {{application_receipt.student.middle_name}}{% endif %}{% if application_receipt.student.last_name%}
+                    {{application_receipt.student.last_name }}{% endif %}
+                </h3>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="width: 50%;">Application # : {% if application_receipt.student.application_num %}
+                {{application_receipt.student.application_num}}{% endif %}
+            </td>
+            <td style="width: 50%;">Mobile # : {% if application_receipt.student.mobile_num %}{{application_receipt.student.mobile_num}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">Standard : {% if application_receipt.student.current_standard.name %}
+                {{application_receipt.student.current_standard.name}}{% endif %}
+            </td>
+            <td style="width: 50%;">Receipt No : {% if application_receipt.receipt_num %}{{application_receipt.receipt_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">Academic year : {% if application_receipt.student.entry_academic_year %}
+                {{application_receipt.student.entry_academic_year.start_date.year}} -
+                {{application_receipt.student.entry_academic_year.end_date.year}}{% endif %}
+            </td>
+            <td style="width: 50%;"> </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Fee Payment Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th style="width: 50%;">Fee Particulars</th>
+            <th style="width: 50%;text-align:right;">Amount(Rs.)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ application_receipt.name }}</td>
+            <td style="text-align:right;">{{ application_receipt.amount_paid  | floatformat:2}}</td>
+        </tr>
+        <tr>
+            <th>TOTAL PAID AMOUNT :</th>
+            <th style="text-align:right;">{{ application_receipt.amount_paid  | floatformat:2}}</th>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Transaction Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%;">Payment Mode :</td>
+            <td style="width: 50%;">{% if application_receipt.mode_of_payment %}
+                {{application_receipt.mode_of_payment}}{% endif %}
+            </td>
+
+        </tr>
+        <tr>
+            <td>Transaction Status :</td>
+            <td>Successful Transaction</td>
+        </tr>
+        <tr>
+            <td>Payment Reference Number :</td>
+            <td>{% if application_receipt.payment_ref_num %}{{application_receipt.payment_ref_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Gateway Transaction ID :</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transaction Date :</td>
+            <td>{% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d/m/Y"}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Transaction Charges :</td>
+            <td>Rs.0.00</td>
+        </tr>
+    </table>
+    </br>
+    <center>Note: This is a system generated receipt and does not require signature.</br>
+        Receipt is valid subject to realization of amount from bank.
+    </center>
+
+    <hr style="color:black">
+
+    <p align="left">Receipt Generated at : {{ today }}</p>
+    <p align="right">Powered By Edubricz</p>
+
+</div>
+<div>
+    <table style="width:100%">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <img src={{ institute.logo.file.url }} style="width: 100px;height: -webkit-fill-available;"/>
+            </td>
+            <td style="text-align:center;padding: 8px;">
+                {% else %}
+            <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px;font-weight: bold;">
+                    {{ institute.name }}</br>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    FEE RECEIPT
+                </div>
+            </td>
+        </tr>
+    </table>
+    </br>
+    <h3><u>
+        <center>Student Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align:center;width:10%;">
+                <h3>Name: {% if application_receipt.student.first_name %}{{application_receipt.student.first_name}}
+                    {% endif %}{% if application_receipt.student.middle_name %}
+                    {{application_receipt.student.middle_name}}{% endif %}{% if application_receipt.student.last_name%}
+                    {{application_receipt.student.last_name }}{% endif %}
+                </h3>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td style="width: 50%;">Application # : {% if application_receipt.student.application_num %}
+                {{application_receipt.student.application_num}}{% endif %}
+            </td>
+            <td style="width: 50%;">Mobile # : {% if application_receipt.student.mobile_num %}{{application_receipt.student.mobile_num}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">Standard : {% if application_receipt.student.current_standard.name %}
+                {{application_receipt.student.current_standard.name}}{% endif %}
+            </td>
+            <td style="width: 50%;">Receipt No : {% if application_receipt.receipt_num %}{{application_receipt.receipt_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td style="width: 50%;">Academic year : {% if application_receipt.student.entry_academic_year %}
+                {{application_receipt.student.entry_academic_year.start_date.year}} -
+                {{application_receipt.student.entry_academic_year.end_date.year}}{% endif %}
+            </td>
+            <td style="width: 50%;"> </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Fee Payment Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th style="width: 50%;">Fee Particulars</th>
+            <th style="width: 50%;text-align:right;">Amount(Rs.)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ application_receipt.name }}</td>
+            <td style="text-align:right;">{{ application_receipt.amount_paid  | floatformat:2}}</td>
+        </tr>
+        <tr>
+            <th>TOTAL PAID AMOUNT :</th>
+            <th style="text-align:right;">{{ application_receipt.amount_paid  | floatformat:2}}</th>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Transaction Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%;">Payment Mode :</td>
+            <td style="width: 50%;">{% if application_receipt.mode_of_payment %}
+                {{application_receipt.mode_of_payment}}{% endif %}
+            </td>
+
+        </tr>
+        <tr>
+            <td>Transaction Status :</td>
+            <td>Successful Transaction</td>
+        </tr>
+        <tr>
+            <td>Payment Reference Number :</td>
+            <td>{% if application_receipt.payment_ref_num %}{{application_receipt.payment_ref_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Gateway Transaction ID :</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transaction Date :</td>
+            <td>{% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d/m/Y"}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Transaction Charges :</td>
+            <td>Rs.0.00</td>
+        </tr>
+    </table>
+    </br>
+    <center>Note: This is a system generated receipt and does not require signature.</br>
+        Receipt is valid subject to realization of amount from bank.
+    </center>
+
+    <hr style="color:black">
+
+    <p align="left">Receipt Generated at : {{ today }}</p>
+    <p align="right">Powered By Edubricz</p>
+
+</div>
+</body>
+
+</html>

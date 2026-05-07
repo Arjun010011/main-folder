@@ -1,0 +1,52 @@
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            border: 10px solid gold;
+            padding: 30px;
+        }
+        .certificate-title {
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 20px;
+        }
+        .content {
+            font-size: 18px;
+            line-height: 1.5;
+            margin: 20px;
+        }
+        .staff-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: darkblue;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 16px;
+        }
+        .signature {
+            margin-top: 40px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="certificate-title">Certificate of Employment</div>
+    <p>This is to certify that</p>
+    <p class="staff-name">{{staff_her_him}}{{ staff_full_name }}</p>
+    <p>has been an esteemed member of our institution,</p>
+    <p><strong>{{ institute_name }}</strong>, serving as <strong>{{ group_type_name}}</strong>.</p>
+    <p>Born on {{ dob }}, {{ staff_her_him }} has demonstrated dedication and professionalism in their role.</p>
+    <p>We appreciate the valuable contributions made by {{ staff_full_name }} to our organization.</p>
+    <p>Issued on: <strong>{{ today_date }}</strong></p>
+    <div class="signature">
+        <p>________________________</p>
+        <p><strong>{{ director_name }}</strong></p>
+        <p><strong>{{ director_position }}</strong></p>
+    </div>
+</body>
+</html>

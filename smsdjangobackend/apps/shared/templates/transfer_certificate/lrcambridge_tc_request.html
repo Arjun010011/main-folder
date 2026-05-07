@@ -1,0 +1,211 @@
+<!-- {% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>
+        @page { size: A4 }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-align:justify;
+            line-height: 4.0em;
+            word-spacing: 10px;
+        }
+        .border {
+            height:900px;
+            border: 2px solid black;
+            padding: 20px;
+            margin:0px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            position: relative;
+     }
+     .underline-bold {
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            font-weight: bold;
+            padding: 0 5px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div style="margin-left: 70px;">
+    <div style="display:flex;">
+    <div> {% if institute.logo.file.url %}
+        <img src={{institute.logo.file.url}}
+        style="width: 100px;height: 100px;"/>
+    {% endif %}</div>
+    <div>
+    <div class="center" style="text-transform: uppercase;font-size:26px;font-weight: bolder;"><b><u>L R Cambridge School</u></b></div>
+    <div class="center" style="font-size: 16px;font-weight: bold;">Wilson Garden, Bengaluru-30</div>
+    <div class="center" style="font-size: 16px;font-weight: bold;">Ph.No. 080-48668918</div></div>
+    </div></div>
+    <div style="text-align: right;margin-top: 60px;">Date  :  {{today_date}} </div>
+    <div style="font-size:16px;text-align: center;margin-top:100px;"><u><b>TO WHOM SO EVER IT MAY CONCERN</u></b></div>
+    <p>
+        This is to certify that <span class="underline-bold">{{student_full_name}}</span> has been admitted to 
+        <span class="underline-bold">{{standard_name}}</span> standard in our institution for the
+        academic year <span class="underline-bold">{{academic_year}}</span>. Kindly issue the Transfer Certificate, STS number, Pen number for admission formalities.
+      </p>
+    <table style="width: 100%;margin-top: 100px;">
+        <tr>
+            <td style="text-align: left;margin-top: 60px;">Thank You,</br>
+        </tr>
+    </table> 
+    <table style="width: 100%;margin-top: 100px;">
+    <tr>
+        <td style="padding-right: 5px;margin-top: 100px;">Principal</td>
+    </tr>
+    </table>
+    </div>
+</body>
+</html> -->
+
+	
+	
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Transfer Certificate Request Form</title>
+<style>
+@page { size: A4; margin: 40px; }
+
+body {
+  font-family: "Times New Roman", serif;
+  margin: 40px;
+  line-height: 1.6;
+  color: #000;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.logo img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-left: 100px;
+}
+
+.school-info {
+  text-align: center;
+  flex-grow: 1;
+  margin-left: -60px;
+}
+
+.school-header {
+  font-size: 24px;
+  font-weight: bolder;
+  margin-left: -60px;
+}
+
+.school-address {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: -60px;
+}
+
+.date {
+  text-align: right;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.body-content {
+  font-size: 18px;
+  max-width: 750px;
+  line-height: 2;
+  text-align: justify;
+
+}
+
+.subject {
+  font-weight: bold;
+  margin: 20px 0 10px;
+  text-decoration: underline;
+}
+
+.blank-line {
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  min-width: 150px;
+  padding: 0 5px;
+}
+
+.signature {
+  margin-top: 60px;
+  font-weight: bold;
+}
+.underline-bold {
+    display: inline-block;
+    border-bottom: 1px solid #000;
+    font-weight: bold;
+    padding: 0 5px;
+    min-width: 100px;
+    text-align: center;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+<div class="logo">
+  {% if institute.logo.file.url %}
+    <img src="{{ institute.logo.file.url }}" alt="School Logo">
+  {% endif %}
+</div>
+<div class="school-info">
+  <div class="school-header">L R Cambridge School</div>
+  <div class="school-address">
+    Wilson Garden, Bengaluru-30<br>
+    Ph.No. 080-48668918
+  </div>
+</div>
+</div>
+
+<div class="date">Date: {{today_date}}</div>
+
+<div class="body-content">
+<p style="font-weight: bolder;">To,</p>
+
+<p style="font-weight: bolder;">
+  The Head Master/Head Mistress,<br>
+  <span>______________________________</span><br>
+  <span>______________________________</span><br>
+  <span>______________________________</span><br>
+
+ 
+</p>
+
+<p class="subject">Subject: Request for issue of School Transfer Certificate</p>
+
+<div style="font-size:16px;text-align: center;margin-top:50px;"><u><b>TO WHOM SO EVER IT MAY CONCERN</u></b></div><br>
+<p>
+    This is to certify that <span class="underline-bold">{{student_full_name}}</span> has been admitted to 
+    <span class="underline-bold">{{standard_name}}</span> standard in our institution for the
+    academic year <span class="underline-bold">{{academic_year}}</span>. Kindly issue the Transfer Certificate, STS number, Pen number for admission formalities.
+  </p>
+
+<p>Thanking you,</p>
+
+<p class="signature">Yours faithfully</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>STUDY Certificate</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 7mm;
+        }
+        .border {
+          border: 8px double black;
+          padding: 20px;
+          margin: 5px;
+          position: relative;
+        }
+        .photo-box {
+            width: 95px;
+            height: 110px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 120px;
+            margin-top: -80px;
+            font-size: 12px;
+            margin-left: 500px;
+        }
+        table{
+            border:3px double #000;
+            border-collapse: collapse;
+            padding:8px;
+        }
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 14px;
+                font-family: 'Calibri';
+            }
+        .center{
+            text-align:center;
+            
+        }
+        .info_table{
+            table-layout: fixed;
+        }
+        .info_table td:nth-child(1){
+            width:10%;
+        }
+        .info_table td:nth-child(2){
+            width:50%;
+        }
+        td {
+            padding:10px;
+            padding-right: 0px;
+        }
+        
+    </style>
+</head>
+<body style="font-family: 'Calibri';">
+    <div class="border">
+
+    <div class="center" style="font-size: 16px; display: flex;">
+        <img src={{institute.logo.file.url}} alt="Institution Logo" style="width: 100px; height: 90px;margin-top:10px">
+        <h1 style="font-size: 15px;font-weight: bold;font-size: 25px;width: 100%;"><b>SIR C V RAMAN PUBLIC SCHOOL</b></h1>
+    </div>
+    <div class="center" style="font-size:14px;margin-top:-40px;padding-left:10%">THAVAREKERE, THYAMAGONDLU-562132</div>
+    <div class="center" style="font-size:14px;padding-left:10%"><b>SCHOOL DISE-29210107502</b></div><br/>
+    <div class="center" style="text-transform: uppercase;font-size:19px;padding-left:7%"><b>STUDY CERTIFICATE</b></div>
+    <div class="photo-box" style="margin-top: 15px;">Photo</div>
+    <table class="info_table" style="width:100%;margin-top: 20px;">
+        <tr>
+            <td>
+                NAME OF STUDENT
+            </td>
+            <td>
+                {{student_full_name|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                FATHER'S NAME
+            </td>
+            <td>
+                {{father_name|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                MOTHER'S NAME
+            </td>
+            <td>
+                {{mother_name|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CLASS STUDYING
+            </td>
+            <td>
+                {{standard_name|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                DATE OF BIRTH
+            </td>
+            <td>{{dob|date:'d-m-Y'}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ADMISSION NUMBER 
+            </td>
+            <td>
+                {{admission_num}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                RELIGION
+            </td>
+            <td>
+                {{religion|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                CASTE
+            </td>
+            <td>
+                {{caste|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ADDRESS
+            </td>
+            <td>
+                {{address}}
+            </td>
+        </tr>
+    </table>
+        <p style="font-weight: bold;margin-top:80px">
+          Date: {{ today_date }}
+        </p>
+
+        <p style="font-weight: bold; display: flex; justify-content: space-between;">
+          <span>Place: Tavarekere</span>
+          <span>Signature and Seal of the Head Master</span>
+         </p>
+
+    <div style="margin-bottom: 20%;"></div>
+    </div>   
+</body>
+</html>

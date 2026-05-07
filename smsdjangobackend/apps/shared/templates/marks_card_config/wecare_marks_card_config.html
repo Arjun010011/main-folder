@@ -1,0 +1,573 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+
+        /* ---------------- PAGE SETTINGS ---------------- */
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Times New Roman", serif;
+        }
+
+        /* ---------------- MAIN PAGE ---------------- */
+
+        .page {
+            padding: 15mm;
+            box-sizing: border-box;
+            border: 3px solid #bfbfbf;
+        }
+
+        /* ---------------- HEADER ---------------- */
+
+        .header {
+            text-align: center;
+            position: relative;
+        }
+
+        .school-logo {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 90px;
+        }
+
+        .school-logo-right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 90px;
+        }
+
+        .school-name {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .school-address {
+            font-size: 14px;
+        }
+
+        .school-contact {
+            font-size: 13px;
+        }
+
+        .term-title {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        /* ---------------- STUDENT INFO ---------------- */
+
+        .student-section {
+            margin-top: 20px;
+            display: flex;
+        }
+
+        .student-details {
+            width: 75%;
+            font-size: 14px;
+        }
+
+        .student-details table {
+            width: 100%;
+        }
+
+        .student-details td {
+            padding: 8px 10px;
+        }
+
+        .student-photo {
+            width: 30%;
+            text-align: center;
+        }
+
+        .student-photo img {
+            width: 150px;
+            height: 150px;
+            border: 1px solid #000;
+        }
+
+        /* ---------------- TABLE ---------------- */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 10px;
+            font-size: 15px;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        .subject-table {
+            margin-top: 20px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        /* ---------------- SUMMARY ---------------- */
+
+        .summary {
+            margin-top: 15px;
+        }
+
+        .summary td {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+
+        /* ---------------- CO SCHOLASTIC ---------------- */
+
+        .co-section {
+            margin-top: 25px;
+            display: flex;
+        }
+
+        .co-table {
+            width: 50%;
+        }
+
+        .co-table table {
+            width: 95%;
+        }
+
+        /* ---------------- GRADE SCALE ---------------- */
+
+        .grade-scale {
+            margin-top: 25px;
+        }
+
+        /* ---------------- REMARKS ---------------- */
+
+        .remarks {
+            margin-top: 20px;
+            font-size: 17px;
+            line-height: 1.4;
+        }
+
+        /* ---------------- SIGNATURE ---------------- */
+        .signature {
+            margin-top: 110px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 17px;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .signature-item {
+            width: 33.33%;
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+
+{% for student in data.student_list %}
+
+<div class="page">
+
+    <!-- ================= HEADER ================= -->
+
+    <div class="header">
+
+        <img src="https://wecareinternationalschool.ac.in/wp-content/uploads/2024/12/We_Care_Charitable_Logo_PDF_page-0001-removebg-preview.png" class="school-logo">
+
+        <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/Wecare/wecaretrustlogo.jpeg" class="school-logo-right">
+
+
+        <!-- TOP LINE -->
+        <div style="text-align:center; font-size:16px; font-weight:bold;">
+            S R Social, Charitable & Educational Trust®
+        </div>
+
+        <!-- SCHOOL NAME (COLORED) -->
+        <div style="text-align:center; font-size:32px; font-weight:bold; margin-top:5px;">
+
+            <span style="color:#2e3192;">WE CARE</span>
+            <span style="color:#2e7d32;">INTERNATIONAL SCHOOL</span>
+
+        </div>
+
+        <!-- TAGLINE -->
+        <div style="text-align:center; font-size:16px; font-weight:bold; margin-top:2px; padding-left:425px;">
+            Bridge for Success...
+        </div>
+
+        <!-- AFFILIATION -->
+        <div style="text-align:center; font-size:15px; font-weight:bold; margin-top:5px;">
+            Affiliated to CBSE, New Delhi. Affiliation Number - 831662
+        </div>
+
+        <div class="school-contact">
+            Contact Number: {{ institute_data.tel_num }} |
+            Email: srtwecareschool@gmail.com |
+            Website: https://wecareinternationalschool.ac.in/
+        </div>
+
+        <div class="term-title">
+            Annual Term (Session {{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"Y"}})
+        </div>
+
+    </div>
+
+    <!-- ================= STUDENT DETAILS ================= -->
+
+    <div class="student-section">
+
+        <div class="student-details">
+
+            <table>
+
+                <tr>
+                    <td><b>Student's Name :</b> {{ student.student_name|upper }}</td>
+                    <td width="40%"><b>Class :</b> {{ data.standard_name }}</td>
+                </tr>
+
+                <tr>
+                    <td><b>Father's Name :</b> {{ student.student_parent__parent__father_name |upper}}</td>
+                    <td><b>Section :</b> {{ data.section_name }}</td>
+                </tr>
+
+                <tr>
+                    <td><b>Mother's Name :</b> {{ student.student_parent__parent__mother_name|upper }}</td>
+                    <td>
+                        <b>Roll No :</b> 
+                        
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><b>D.O.B :</b> {{ student.dob|date:"d-m-Y"|default:"-"  }}</td>
+                    <td><b>Admission No :</b> </td>
+                </tr>
+                <tr>
+                    <td><b>Height :</b>{% for key, subject in student.subject_list.items %}
+                        {% if subject.subject_part_type_code_name == 'height' %}
+                        {% for exam in subject.exam_details.values %}
+                        {% if exam.exam_name == "Annual Examination" %}
+                            {{ exam.total_marks|default:"-" }}
+                        {% endif %}
+                    {% endfor %}{%endif%}{% endfor %}</td>
+                    <td><b>Weight :</b> {% for key, subject in student.subject_list.items %}
+                        {% if subject.subject_part_type_code_name == 'weight' %}
+                        {% for exam in subject.exam_details.values %}
+                        {% if exam.exam_name == "Annual Examination" %}
+                            {{ exam.total_marks|default:"-" }}
+                        {% endif %}
+                    {% endfor %}{%endif%}{% endfor %}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="student-photo">
+
+                {% if student.profile_pic_details and student.profile_pic_details.file %}
+                    <img src="{{ student.profile_pic_details.file }}">
+                {% endif %}
+
+        </div>
+
+    </div>
+
+    <!-- ================= SUBJECT TABLE ================= -->
+
+    <div class="subject-table">
+
+        <table>
+
+            <tr>
+                <th rowspan="3">Subjects</th>
+                <th colspan="6">Term 1</th>
+                <th colspan="6">Term 2</th>
+                <th colspan="2">Overall</th>
+            </tr>
+
+            <tr>
+                <th colspan="2">FA1</th>
+                <th colspan="2">FA2</th>
+                <th colspan="2">SA1</th>
+
+                <th colspan="2">FA3</th>
+                <th colspan="2">FA4</th>
+                <th colspan="2">SA2</th>
+
+                <th>Marks</th>
+                <th>Grade</th>
+            </tr>
+
+            <tr class="small">
+                <th>M</th><th>G</th>
+                <th>M</th><th>G</th>
+                <th>M</th><th>G</th>
+
+                <th>M</th><th>G</th>
+                <th>M</th><th>G</th>
+                <th>M</th><th>G</th>
+
+                <th>100</th><th></th>
+            </tr>
+
+            {% for key, subject in student.subject_list.items %}
+            {% if subject.subject_part_type_code_name == 'part1' %}
+            <tr>
+                <td style="text-align:left">{{ subject.subject__name }}</td>
+
+                <!-- FA1 -->
+                {% for exam in subject.exam_details.values %}
+                <td style="text-align:center;">
+                    {% if exam.attendance_status == 'Absent' %} AB {% else %}
+                            {{ exam.total_marks|default:"-" |floatformat:0}}
+                    {% endif %}
+                </td>
+                <td style="text-align:center;">
+                    {% if exam.attendance_status == 'Absent' %} AB {% else %}
+                            {{ exam.obtained_grade|default:"-"}}
+                    {% endif %}
+                </td>
+                {% endfor %}
+
+                <!-- FA2 -->
+
+                <!-- SA2 -->
+
+                <!-- Overall -->
+                <td style="text-align:center;">{{subject.config_marks_of_test}}</td>
+                <td style="text-align:center;">{{ subject.config_marks_of_test_grade }}</td>
+
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+
+        </table>
+
+    </div>
+
+    <!-- ================= SUMMARY ================= -->
+
+    <table class="summary">
+
+        <tr>
+
+        <td style="text-align:center;">
+            <b>Attendance</b> {{ student.total_no_of_days_attendance|default:0 }} / {{ student.total_max_no_of_days_attendance|default:0 }}
+        </td>
+
+            <td style="text-align:center;">
+                <b>Total Marks</b> {{student.part1_total_config_marks_of_test|default:0}} / {{student.part1_total_config_max_marks_of_test|default:0}}
+            </td>
+
+            <td style="text-align:center;">
+                <b>Percentage</b> {{ student.part1_config_test_total_percentage|floatformat:2 }}%
+            </td>
+
+            <td style="text-align:center;">
+                <b>Grade</b> {{ student.part1_config_test_grade }}
+            </td>
+
+        </tr>
+
+    </table>
+
+    <!-- ================= CO SCHOLASTIC + ACTIVITIES ================= -->
+
+    <div class="co-section">
+
+        <!-- LEFT: CO-SCHOLASTIC -->
+        <div class="co-table">
+
+            <table>
+
+                <tr>
+                    <th>Co Scholastic Subjects Area</th>
+                    <th>Term 1</th>
+                    <th>Term 2</th>
+                </tr>
+
+                {% for subject_data in student.subject_list_data %}
+                    {% if subject_data.subject_part_type_code_name == 'part2' %}
+                    <tr>
+                        <td>{{ subject_data.subject__name }}</td>
+
+                        <!-- TERM 1 -->
+                        <td class="center">
+                            {% for exam in subject_data.exam_details_list %}
+                                {% if exam.exam_name == "SUMMATIVE ASSESSMENT -01" %}
+                                    {% if exam.attendance_status == 'Absent' %} AB {% else %}
+                                        {{ exam.obtained_grade|default:"-" }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+                        <!-- TERM 2 -->
+                        <td class="center">
+                            {% for exam in subject_data.exam_details_list %}
+                                {% if exam.exam_name == "Annual Examination" %}
+                                    {% if exam.attendance_status == 'Absent' %} AB {% else %}
+                                        {{ exam.obtained_grade|default:"-" }}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+
+            </table>
+
+        </div>
+
+        <!-- RIGHT: ACTIVITIES -->
+        <div class="co-table">
+
+            <table>
+
+                <tr>
+                    <th>Activities / Skill Areas</th>
+                    <th>Term 1</th>
+                    <th>Term 2</th>
+                </tr>
+
+        {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'part3' %}
+            <tr>
+                <td>{{ subject_data.subject__name }}</td>
+
+                <!-- TERM 1 -->
+                <td class="center">
+                    {% for exam in subject_data.exam_details_list %}
+                        {% if exam.exam_name == "Annual Examination" %}
+                            {% if exam.attendance_status == 'Absent' %} AB {% else %}
+                                {{ exam.obtained_grade|default:"-" }}
+                            {% endif %}
+                        {% endif %}
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </td>
+
+                <!-- TERM 2 -->
+                <td class="center">
+                    {% for exam in subject_data.exam_details_list %}
+                        {% if exam.exam_name == "Annual Examination" %}
+                            {% if exam.attendance_status == 'Absent' %} AB {% else %}
+                                {{ exam.obtained_grade|default:"-" }}
+                            {% endif %}
+                        {% endif %}
+                    {% empty %}
+                        -
+                    {% endfor %}
+                </td>
+
+            </tr>
+            {% endif %}
+        {% empty %}
+        <tr>
+            <td colspan="3" class="center">-</td>
+        </tr>
+        {% endfor %}
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ================= GRADE SCALE ================= -->
+
+    <table class="grade-scale">
+
+        <tr>
+            <th colspan="5">Grade Scale for Scholastic Areas</th>
+        </tr>
+
+        <tr class="center">
+            <td>90-100</td>
+            <td>70-89</td>
+            <td>50-69</td>
+            <td>30-49</td>
+            <td>0-29</td>
+        </tr>
+
+        <tr class="center">
+            <td>A+</td>
+            <td>A</td>
+            <td>B+</td>
+            <td>B</td>
+            <td>C</td>
+        </tr>
+
+    </table>
+
+    <!-- ================= REMARKS ================= -->
+
+    <div class="remarks">
+
+        <b>Remarks:</b>
+
+        {% for subject in student.subject_list_data|slice:":1" %}
+            {% for exam in subject.exam_details_list %}
+                {% if exam.exam_name == "Annual Examination" %}
+                    {{ exam.remark__name|default:"-" }}
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
+
+        <br><br>
+
+    </div>
+
+    <!-- ================= SIGNATURE ================= -->
+
+    <div class="signature">
+
+        <div class="signature-item">
+            Parent's Signature
+        </div>
+
+        <div class="signature-item">
+            Class Incharge Signature
+        </div>
+
+        <div class="signature-item">
+            Principal Signature
+        </div>
+
+    </div>
+
+</div>
+
+
+
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+
+</body>
+</html>

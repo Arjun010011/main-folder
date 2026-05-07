@@ -1,0 +1,107 @@
+{
+  "data": {
+    "student_list": [
+      {
+        "student": 1,
+        "student_name": "John Doe",
+        "first_name": "John",
+        "middle_name": "",
+        "last_name": "Doe",
+        "current_reg_num": "REG001",
+        "dob": "2010-05-15",
+        "profile_pic": null,
+        "subject_list_data": [
+          {
+            "subject": 1,
+            "subject_name": "Mathematics",
+            "subject_part_type_code_name": "part1",
+            "marks": 85,
+            "max_marks": 100,
+            "total_obtained_marks": 85,
+            "total_max_marks": 100,
+            "grade": "A",
+            "attendance_status": "Present"
+          },
+          {
+            "subject": 2,
+            "subject_name": "Science",
+            "subject_part_type_code_name": "part1",
+            "marks": 92,
+            "max_marks": 100,
+            "total_obtained_marks": 92,
+            "total_max_marks": 100,
+            "grade": "A+",
+            "attendance_status": "Present"
+          },
+          {
+            "subject": 3,
+            "subject_name": "English",
+            "subject_part_type_code_name": "part1",
+            "marks": 78,
+            "max_marks": 100,
+            "total_obtained_marks": 78,
+            "total_max_marks": 100,
+            "grade": "B+",
+            "attendance_status": "Present"
+          }
+        ],
+        "total_summary": {
+          "total_obtained_marks": 255,
+          "total_marks": 300,
+          "percentage": 85.0,
+          "total_obtained_marks_in_word": "two hundred fifty-five"
+        },
+        "grade": "A",
+        "part1_graph": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "part2_graph": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==",
+        "part3_graph": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=="
+      }
+    ],
+    "subject_list": [
+      {
+        "subject": 1,
+        "subject_name": "Mathematics",
+        "subject_part_type_code_name": "part1"
+      },
+      {
+        "subject": 2,
+        "subject_name": "Science",
+        "subject_part_type_code_name": "part1"
+      },
+      {
+        "subject": 3,
+        "subject_name": "English",
+        "subject_part_type_code_name": "part1"
+      }
+    ],
+    "standard_name": "Class 10",
+    "section_name": "A",
+    "standard": 10,
+    "standard_section": 1,
+    "exam_details": "HALF YEARLY EXAM",
+    "exam_code_name": "HYE",
+    "term_details": "Term 1",
+    "academic_year_details": {
+      "start_date": "2024-04-01",
+      "end_date": "2025-03-31",
+      "academic_year": 1
+    },
+    "approval_status": "1",
+    "is_announced": true,
+    "max_no_of_days_attendance": 180,
+    "attendance_from_date": "2024-04-01",
+    "attendance_to_date": "2024-09-30",
+    "api_version": "v2"
+  },
+  "institute_data": {
+    "id": 1,
+    "name": "Sample School",
+    "code": "sampleschool",
+    "address": "123 School Street",
+    "city": "Sample City",
+    "pincode": "123456",
+    "logo": "https://example.com/logo.png",
+    "phone": "+91-1234567890",
+    "email": "info@sampleschool.com"
+  }
+}

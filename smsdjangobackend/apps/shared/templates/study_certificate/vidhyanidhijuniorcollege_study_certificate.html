@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Study and Conduct Certificate</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 8mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 194mm;
+            min-height: 145mm;
+            border: 2px solid #2e7d32;
+            padding: 5mm 6mm;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .logo {
+            float: left;
+            margin-top: 2px;
+            width: 70px;
+        }
+
+        .college-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #d32f2f;
+            font-style: italic;
+        }
+
+        .sub-text {
+            font-size: 11px;
+        }
+
+        .title {
+            margin-top: 6px;
+            font-weight: bold;
+            color: #d32f2f;
+            text-decoration-line: underline;
+            text-underline-offset: 20px !important; /* adds gap */
+            font-size: 16px;
+            font-style: italic;
+        }
+
+        .photo {
+            text-align: center;
+            width: 74px;
+            height: 88px;
+            border: 1px solid #000;
+        }
+
+        .section {
+            margin-top: 10px;
+            font-size: 13px;
+            line-height: 30px;
+            font-style: italic;
+            text-align: justify;
+        }
+
+        .line {
+            display: inline;
+            font-weight: 700;
+        }
+
+        .small-line {
+            display: inline;
+            font-weight: 700;
+        }
+
+        .class-line {
+            display: block;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .stamp {
+            width: 95px;
+            opacity: 0.8;
+        }
+
+        .signature {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .footer-text {
+            font-size: 11px;
+        }
+
+        .top-block {
+            clear: both;
+            margin-top: 8px;
+        }
+
+        .admission-date-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .no-block {
+            line-height: 20px;
+        }
+
+        .date-block {
+            text-align: right;
+        }
+
+        .photo-wrap {
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .footer {
+            margin-top: 80px;
+            margin-left: 70%    ;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Logo -->
+    <img src="{{ institute.logo.file.url }}" class="logo">
+    
+    <!-- Header -->
+    <div class="header" >
+        <div class="college-name" style="text-transform: uppercase;">{{school_name}}</div>
+        <div class="sub-text" style="text-transform: uppercase;">{{school_address}}</div>
+        <div class="sub-text">vidyanidhi.jc2016@gmail.com</div>
+
+        <div class="title"  >STUDY AND CONDUCT CERTIFICATE</div>
+    </div>
+
+    <!-- Admission, Photo & Date -->
+    <div class="top-block">
+        <div class="admission-date-row">
+            <div class="no-block">
+                Admission Number: <span class="small-line">{{ admission_num }}</span>
+            </div>
+            <div class="date-block">Date: <span class="small-line">{{ event_date }}</span></div>
+        </div>
+        <div class="photo-wrap">
+            <img src="{{ profile_pic_details }}" class="photo" alt="Student Photo">
+           
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="section">
+
+        This is to Certify That Master / Kumari
+        <span class="line">{{ student_full_name }}</span>
+
+        
+
+        Son / Daughter Of Shri
+        <span class="line">{{ father_name }}</span>
+
+        
+
+            was / is a Bonafide Student of this college / school studied / studying in class from
+            <span class="small-line">{{ from_standard_name }}</span>
+            to
+            <span class="small-line">{{ to_standard_name }}</span>
+
+        
+
+        During The Year(s) From
+        <span class="small-line">{{ from_academic_year }}</span>
+        To
+        <span class="small-line">{{ to_academic_year }}</span>
+
+        
+
+        {{ student_he_she|title }} Date Of Birth is as per The Records is
+        <span class="small-line">{{ dob }}</span>
+
+        
+
+        {{ student_he_she|title }} Character is / was Found
+        <span class="small-line">{{ student_good_bad }}</span>
+
+    </div>
+
+    <div class="footer">
+        <!-- Signature -->
+        <div class="signature">
+            <div>Principal</div>
+            <div class="footer-text">VIDYANIDHI JUNIOR COLLEGE</div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<div style='border: 1px solid;padding:20px;margin:10px'>
+        <div style='display:flex;width:100%'>
+            <div>
+                {% if institute.logo.file.url %}
+                    <img src={{ institute.logo.file.url }}
+                    style="width: 160px;height: 120px;"/>
+                {% endif %}
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 35px;padding-left:20px;font-weight: bold;">
+                SREE SWAMY VIVEKANANDA </br>
+                </div>
+                <div style="font-size: 25px;padding-left:20px;font-weight: bold;">
+                HIGHER PRIMARY SCHOOL </br>
+                </div>
+                <div style='font-size: 18px;font-weight: bold;'>(Approved By Govt. of Karnataka)</div>
+                <div style='font-size: 18px;font-weight: bold;'>Affiliated to CBSE New Delhi, Affiliation Number 830843</div>
+                {% if institute.trust_name %}
+                    <span style='font-size: 13px'>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="line-height: 20px;font-size:14px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Tel: {{ institute.tel_num }}
+                    {% if institute.tel_num_2 %}
+                    /{{ institute.tel_num_2 }} {% endif %}<br/>{% endif %}
+                    E-mail - ssvhps.ynk@gmail.com
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 18px;font-weight: bold;text-decoration:underline;margin-top:15px;text-align: center;">
+                    RECEIPT </br></div>
+    <table class='noborder' style="width: 100%">
+        <tr class='noborder'>
+            <td class='noborder bold line-height' style='width:70%;vertical-align:top'> 
+                Rec No: {% if application_receipt.receipt_num %}{{application_receipt.receipt_num|upper}}{% endif %} <br/>
+                Name : 
+                    {% if application_receipt.student.first_name %}
+                        {{application_receipt.student.first_name|upper}}
+                    {% endif %}
+                    {% if application_receipt.student.middle_name %}
+                        {{application_receipt.student.middle_name|upper}}
+                    {% endif %}
+                    {% if application_receipt.student.last_name %}
+                        {{application_receipt.student.last_name|upper}}
+                    {% endif %}
+                <br/>
+                Standard:
+                {% if application_receipt.student.current_standard.name %}
+                {{application_receipt.student.current_standard.name|upper}}{% endif %}
+                <td class="noborder">
+                Date:  {% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d/m/Y"}}
+                {% endif %} <br/>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='40%' style="text-align:center">Particulars</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td>
+                1.</br>
+            </td>
+            <td>{{ application_receipt.name }}</td>
+            <td style='text-align:right'>
+                {{ application_receipt.amount_paid  | floatformat:2}}</br></td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="2" style='text-align:right'>TOTAL </td>
+             <td style='text-align:right'> ₹ {{ application_receipt.amount_paid  | floatformat:2}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%" class="noborder" colspan="2">
+    <tr class="noborder">
+        <td class="noborder">
+        Amount in words:{{ amount_in_words|title }} Only<br/>
+        Receipt Generated at : {{ today }}
+    </td>
+    <td class="noborder" style="text-align:right">
+        Powered By Edubricz
+    </td>
+    <tr>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+    <td style="text-align:right;" class="noborder"> Authorised Signatory</td>
+    </table>
+</div>
+    {%  if forloop.counter|divisibleby:"3" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</html>

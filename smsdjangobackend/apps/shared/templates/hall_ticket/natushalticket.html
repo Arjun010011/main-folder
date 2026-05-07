@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                    <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/natus/WhatsApp+Image+2024-02-23+at+8.22.42+AM+(2).jpeg" style="width: 80px;height:80px;position:absolute;top:1.5%;left:-1%" />
+                    </div>
+                    <div style="padding-left: 10%;padding-right: 10%;text-align: center;font-size: 12px;">
+                        {{ institute.trust_name|upper }}<span style="font-size:15px;">®</span></br>
+                    </div>
+                    <div class="heading text-center " style="padding-top: 10px;">
+                        {{ institute.name|upper }} </br>
+                    </div>
+                    <div style="padding-left: 10%;padding-right: 10%;text-align: center;padding-top: 10px;font-size: 14px;">
+                        (Affiliated to CBSE, New Delhi.Affiliation No:831334, School Code: 46969) </br>
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <div class="t-center mt-5" style="font-size: 10.7px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %} -
+                    {{ institute.pincode}}
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold" style="padding-top: 10px;font-size: 18px;">
+                    {{ examDetail.exam_type.code | upper }}
+                </div>
+            </tr>
+        </table>
+        <table style="width: 100%;padding-top:10px;font-size: 14px;">
+                    <tr>
+                        <td style="width:18%">Register Number </td>
+                        {%if forloop.counter < 10 %}
+                        <td>:&nbsp; 202526{{standard_name_in_roman}}{{ student.student_data.standard_section__section__name | upper }}00{{forloop.counter}}</td>
+                        {%else%}
+                        <td>:&nbsp; 202526{{standard_name_in_roman}}{{ student.student_data.standard_section__section__name | upper }}0{{forloop.counter}}</td>{%endif%}
+                        <td style="width:15%">Father Name </td>
+                        {%if student.student_data.id == 334 or student.student_data.id == 333 %}
+                        <td style="font-size: 11px;">:&nbsp; {% if student.student_data.student_parent.parent.father_name %}  {{ student.student_data.student_parent.parent.father_name |upper }}{% endif %}</td>
+                        {%else%}
+                        <td>:&nbsp; {% if student.student_data.student_parent.parent.father_name %}  {{ student.student_data.student_parent.parent.father_name |upper }}{% endif %}</td>
+                        {%endif%}
+                    </tr>
+                    <tr>
+                        <td>Student Name </td>
+                        {%if student.student_data.id == 334 or student.student_data.id == 333 %}
+                        <td style="font-size: 11px;">:&nbsp; {{student.student_data.full_name|upper}}</td>
+                        {%else%}
+                        <td>:&nbsp; {{student.student_data.full_name|upper}}</td>
+                        {%endif%}
+                        <td>Mother Name </td>
+                        {%if student.student_data.id == 334 or student.student_data.id == 333 %}
+                        <td style="font-size: 11px;">:&nbsp; {% if student.student_data.student_parent.parent.mother_name %}  {{ student.student_data.student_parent.parent.mother_name | upper }}{% endif %}</td>
+                        {%else%}
+                        <td>:&nbsp; {% if student.student_data.student_parent.parent.mother_name %}  {{ student.student_data.student_parent.parent.mother_name | upper }}{% endif %}</td>
+                        {%endif%}
+                    </tr>
+                    <tr>
+                        <td>Grade {% if student.student_data.standard_section__standard__name == 'LKG' or student.student_data.standard_section__standard__name == 'UKG'%}/Section{%endif%}</td>
+                        <td>:&nbsp; {{ standard_name_in_roman|cut:"Grade" | upper }} {% if student.student_data.standard_section__standard__name == 'LKG' or student.student_data.standard_section__standard__name == 'UKG'%}
+                            / {{ student.student_data.standard_section__section__name | upper }}{%endif%}</td>
+                    </tr>
+        </table>
+        <table class="t-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px;font-size: 13px;">
+            <tr>
+                <th class="th-subject-view">DATE</th>
+                <th class="th-subject-view">DAYS</th>
+                <th colspan=2 class="th-subject-view">SUBJECT</th>
+		    <th class="th-subject-view">TIMINGS</th>
+                <th class="th-subject-veiw">INVIGILATOR'S SIGN</th>
+            </tr>
+            {% for subject in student.subject_list %}
+            <tr>
+                <td class="td-subject-view">
+                    {{subject.fordate|date:'d-m-Y'}}<br/>
+                </td>
+                <td class="td-subject-view">{{subject.fordate|date:'l'|upper}}</td>
+                <td class="td-subject-view" style="border-right: none;">
+                    <div style="width:90%;margin-left: 10px;margin-right: auto;text-align: left;">
+                        {{subject.subject__code_name|upper}}
+                    </div>
+                </td>
+                <td class="td-subject-view" style="border-left: none;">
+                    <div style="width:90%;margin-left: 10px;margin-right: auto;text-align: left;">
+                        {{subject.subject_name|upper}}
+                    </div>
+                </td>
+                <td class="td-subject-view" style="width:20%">
+                    {{subject.start_time}} - {{subject.end_time}}
+                </td>
+                <td class="td-subject-view"></td>
+            </tr>
+        {% endfor %}
+        </table>
+        <table class="w-100" style="margin-top: 60px;font-size: 17px;">
+            <tr>
+                <th style="text-align: left;">
+                    Sign. of Student
+                </th>
+                <th style="text-align: center;">
+                </th>
+                <th style="text-align: right;">
+                    Sign. of Class Teacher
+                </th>
+            </tr>
+        </table>
+    </div>
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

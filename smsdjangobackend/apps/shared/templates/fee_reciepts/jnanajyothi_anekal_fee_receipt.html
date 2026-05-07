@@ -1,0 +1,163 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 3px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.3;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 30px 10px 0px 10px;
+        }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+{%  if forloop.counter|divisibleby:"2" %}
+<div>ORIGINAL COPY</div>
+{% else %}
+<div>DUPLICATE COPY</div>
+{% endif %}
+        <div class='page'>
+            <table style="width:100%">
+                <tr>
+                    <td style="padding: 8px;">
+                        <div style='display:flex;justify-content:center;padding-right:30px'>
+                            <div style='text-align:right'>
+                                {% if institute.logo.file.url %}
+                                    <img src={{institute.logo.file.url}}
+                                    style="width: 100px;height: 100px;padding-right:20px;"/>
+                                {% endif %}
+                            </div>
+                            <div style='text-align:center'>
+                                {% if institute.trust_name %}
+                                <span style='font-size: 12px;font-weight: bolder;'>{{ institute.trust_name }}</span>
+                                {% endif %}
+                                <div style="font-size: 20px;font-weight: bold;">
+                                    {{ institute.name }} </br>
+                                </div>
+                                <div style="margin-left:315px">....Joy Of Learning....</div>
+                                <div>(Affiliated to CISCE, New Delhi) Affiliation No:KA-479</div>
+                                <div style="line-height: 20px;font-size:13px">
+                                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                                    email: info@jjps.org.in, school@jjps.org.in , website: www.jjps.org.in </br>
+                                    {% if institute.tel_num %}Ph: {{ institute.tel_num }}
+                                    {% if institute.tel_num_2 %}
+                                    , {{ institute.tel_num_2 }} {% endif %}<br/>{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%;font-size: 15px;">
+                <tr>
+                    <td class='noborder bold line-height' style='width:50%;vertical-align:top'> Student Name : 
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        <br/>
+                        Class : {{fee_collection.standard_name}}<br/>
+                        Section : {% if fee_collection.enrollment_data.section_name %}{{fee_collection.enrollment_data.section_name}}{%endif%}
+                    </td>
+                    <td class='bold line-height'>
+                        Date:  {{fee_collection.transaction_date}} <br/>
+                        Rec No: {{fee_collection.receipt_num|title}} <br/>
+                        Admission Number : {{admission_num|title}}
+                    </td>
+                </tr>
+                </td>
+            </table>
+            <table style="width: 100%;font-size: 15px;">
+                <thead>
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Particulars</th>
+                    <th style="text-align:right">Paid Amt</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for payment_data in fee_collection.payment_detail %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{% if payment_data.fee_type_alias_name %}
+                            {{payment_data.fee_type_alias_name}}{%else%}
+                                {{payment_data.fee_type_name}}
+                                {%endif%}</td>
+                        <td style="text-align:right">{{payment_data.amount_paid|floatformat|intcomma }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td class="noborder"></td>
+                    <td class="noborder">
+                        <b>Total Amount Paid &nbsp; &nbsp;</b>
+                    </td>
+                    <td style="text-align:right">
+                        <b>{{ fee_collection.total_amount | floatformat |intcomma}}</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan='3' style='font-weight:bold;line-height:1.5'>
+                        Amount Received : ( {{amount_in_words|title}} ) <br/>
+                        Mode Of Payment : {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %} <br/>
+                        {% if fee_collection.mode_of_payment != 'Cash' %}
+                        Transaction ID : {{fee_collection.payment_ref_num}} 
+                        {% endif %} <br>
+                        Balance : {{student_fee_summary.balance_till_date|floatformat:2}}
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding-top:50px;vertical-align:bottom;border-right:0px' colspan="2">
+                        All fee collection from Jnana Jyoti Public school is collected in favour of Shree Yogi Nareyana Eduction Trust
+                    </td>
+                    <td style='text-align:right;vertical-align:bottom;border-left:0px' colspan="2">
+                        AUTHORISED SIGNATURE
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div style="display:flex">
+                <div align="left">Receipt Generated at : {{ today }}</div>
+                <div style='margin-left:auto'>Powered By Edubricz</div>
+            </div>
+            {% if forloop.counter|divisibleby:"2" and not forloop.last%}
+            <div style="page-break-after: always;"></div>
+            {%else%}
+            <div style="margin-bottom: 70px;"></div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</body>

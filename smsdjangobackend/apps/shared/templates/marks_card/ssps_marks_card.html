@@ -1,0 +1,233 @@
+<html>
+    <head>
+        <style>
+            @page{
+                size:A5;
+            }
+            .text-align-center{
+                text-align: center
+            }
+            table{
+                border-radius: 10px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 15px;
+            }
+            th {
+                text-align: center;
+            }
+            td{
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                text-align: left;
+            }
+            .td-font-size>td{
+                font-size: 13px;
+            }
+            .font-weight-bold{
+                font-weight: bold;
+            }
+            .subject-list>tbody>tr>td{
+                text-align: center
+            }
+            .noborder > table tr td{
+                border: 0px solid black;
+                font-size: large;
+                padding:6px;
+            }
+            .box {
+                width: 100px;
+                height: 100px;
+                border: 1.5px solid black;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        {% for student in data.student_list %}
+        {% if student.subject_list_data|length == 6 %}
+        <div style="border:1px solid black;border-radius:10px; padding:20px;">
+        {% elif student.subject_list_data|length <= 3 %}
+        <div style="border:1px solid black;border-radius:10px; padding:20px;margin: 10px 40px;">
+        {% elif student.subject_list_data|length == 5 %}
+            <div style="border:1px solid black;border-radius:10px; padding:20px;margin: 10px 10px;">
+        {%endif%}
+            <div class="noborder">
+            <table width="100%" style="border:0px solid black;padding:0px;margin-top:-15px;">
+                <tr>
+                <td width="20%" class='font-weight-bold text-align-right;' style="text-align: right;vertical-align: top;">
+                    {% if institute_data.document_details.file %}
+                        <img src={{institute_data.document_details.file}}
+                        style="width: 80px;height: 80px;"/>
+                    {% endif %}
+                </td>
+                {% if student.subject_list_data|length == 6 %}
+                <td class='text-align-center' style="vertical-align: top;">
+                    <b>
+                        <div style="font-size:17px;text-align: center;">{% if institute_data.trust_name %}
+                            <span>{{ institute_data.trust_name }}</span>
+                            {% endif %}</div>
+                        <div style="font-size:35px;font-weight: bold;text-align:left;padding-left: 50px;">{{institute_data.name|upper}}</div>
+                    </b>
+                </td>
+                {% elif student.subject_list_data|length <= 3 %}
+                <td class='text-align-center' style="vertical-align: top;">
+                    <b>
+                        <div style="font-size:15px;text-align: center;">{% if institute_data.trust_name %}
+                            <span>{{ institute_data.trust_name }}</span>
+                            {% endif %}</div>
+                        <div style="font-size:30px;font-weight: bold;text-align:left;padding-left: 50px;">{{institute_data.name|upper}}</div>
+                    </b>
+                </td>
+                {% elif student.subject_list_data|length == 5 %}
+                <td class='text-align-center' style="vertical-align: top;">
+                    <b>
+                        <div style="font-size:15px;text-align: center;">{% if institute_data.trust_name %}
+                            <span>{{ institute_data.trust_name }}</span>
+                            {% endif %}</div>
+                        <div style="font-size:30px;font-weight: bold;text-align:left;padding-left: 50px;">{{institute_data.name|upper}}</div>
+                    </b>
+                </td>
+                {%endif%}
+                <td class='font-weight-bold text-align-center;'>
+                    <div class="box" style="vertical-align: top;text-align: right;position: relative;">
+                    {% if student.profile_pic_file %}
+                    <div>
+                        <img src={{student.profile_pic_file}}
+                        style="width: 98px;height: 98px;border-radius:8px;text-align: right;vertical-align: top;position:absolute;top:1px;right:1px;"/>
+                    {% endif %}
+                </td>
+                </tr></table>
+                </div>
+                <div class="noborder">
+                <table width="100%" style="margin-top:-10px;border:0px solid black;font-weight: bold;">
+                    <tr>
+                        <td width="60%" >
+                            STUDENT NAME : {{student.student_name|upper}}
+                        </td>
+                        <td>
+                            CLASS & SEC : {{data.standard_name}} - {{data.section_name}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            FATHER NAME : {{student.father_name}}
+                        </td>
+                        <td>
+                            ATTENDANCE : {%if student.marked_attendance_days %} {{student.marked_attendance_days|floatformat:0}} {%else%} 0 {% endif %}/ 
+                            {%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %}
+                        </td>
+                    </tr>
+                </table>
+                </div>
+            <div class='text-align-center font-weight-bold' style="font-size:21px;margin-top: 8px;">
+                {{data.exam_details|upper}}-({{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"Y"}})<br/>
+            </div>
+                <table class='subject-list' style='width: 100%;border-radius: 10px;margin-top: 8px;'>
+                    <tr style='font-weight: bold;' class='td-font-size'>
+                        <th width=30% style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;text-align: left;padding-left:20px;">
+                            SUBJECTS
+                        </th>
+                        {%if student.subject_list_data.0.cumulative_mark_data_for_marks_card %}
+                        <th colspan={{student.subject_list_data.0.cumulative_mark_data_for_marks_card|length}} width=20% style="padding-top:10px;padding-bottom:0px;">ACTIVITY
+                        </th>
+                        {%endif%}
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                            WRITTEN
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                            TOTAL
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;"> 
+                            GRADE
+                        </th>
+                        <th style="border-bottom:0px solid black;padding-top:10px;">
+                            PERCENTAGE
+                        </th>
+                    </tr>
+                    <tr style='font-weight: bold' class='td-font-size'>
+                        <td style="border:0px solid black;padding:0px;">
+                        </td>
+                        {%for cumulative_type in student.subject_list_data.0.cumulative_mark_data_for_marks_card%}
+                        <td style='text-align:center;padding:2px;'>{{cumulative_type.max_mark|floatformat:0}}</td>
+                        {%endfor%}
+                        <td style="border-top:0px solid black;padding:2px;">
+                            {{student.subject_list_data.0.max_marks|floatformat:0}}
+                        </td>
+                        <td style="border-top:0px solid black;padding:2px;">
+                            {{student.subject_list_data.0.total_max_marks|floatformat:0}}
+                        </td>
+                        <td style="border-top:0px solid black;padding:0px;">
+                        </td>
+                        <td style="border-top:0px solid black;padding:0px;"></td>
+                    </tr>
+                    {% for subject_data in student.subject_list_data %}
+                        {%if subject_data.subject_part_type_code_name ==  'part1'%}
+                            <tr class='td-font-size'>
+                                <td style="text-align: left;padding-left: 12px;">{{subject_data.subject_name|upper}}</td>
+                                {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                                    <td style='text-align:center'>{{cumulative_type.mark|floatformat:0}}</td>
+                                {%endfor%}
+                                <td> {%if subject_data.attendance_status == 'Absent' %}
+                                    AB
+                                {% else %}
+                                    {{subject_data.marks|floatformat:0}}
+                                {%endif%}
+                                </td>
+                                <td style="font-weight: bold;">{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                                <td style="font-weight: bold;">{{subject_data.grade}}</td>
+                                <td>{{subject_data.percentage|floatformat:0}} <b>%</b></td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                        <tr style='font-weight: bold' class='td-font-size'>
+                            <td style='font-size: 13px'>GRAND TOTAL</td>
+                            {%for cumulative_id_type_mapping_total in student.cumulative_id_type_mapping_total%}
+                                    <td style='text-align:center'> 
+                                        {{cumulative_id_type_mapping_total.total_obtained_mark|floatformat:0}}
+                                    </td>
+                            {%endfor%}
+                            <td>{{student.part_type_data_code_wise.part1.total_written_obtained_marks|floatformat:0}}</td>
+                            <td>{{student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0}}</td>
+                            <td>{{student.part_type_data_code_wise.part1.grade}}</td>
+                            <td>{{student.part_type_data_code_wise.part1.percentage|floatformat:0}} <b>%</b></td>
+                        </tr>
+                </table>
+                <table style='width:100%;margin-top:10px;border:0px'>
+                    <tr>
+                        <td style='border: 0px solid black;font-weight: bold'>
+                            REMARKS :  {{student.remark_name}}
+                        </td>
+                    </tr>
+                </table>
+                <div class="noborder" style="margin-top:20px;">
+                    <table width=100% style="border:0px solid black">
+                        <tr>
+                            <td>
+                                Signature of the <br> class Teacher
+                            </td>
+                            <td style="text-align: center;position:relative">
+                                <img src="https://production-edubricz.s3.amazonaws.com/89/WhatsApp_Image_2024-07-30_at_10.32.24_AM-removebg-preview.png" 
+                                style="width:153px;height: 100px;position:absolute;top:-60px;left:70px"/>
+                                Signature of the <br> Principal
+                            </td>
+                            <td style="text-align: right;">
+                                Signature of the <br> Parent/Guadian
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {% if not forloop.last %}
+            <div style="page-break-after: always;"></div>
+        {% endif %}
+        {%endfor%}
+    </body>
+
+</html>

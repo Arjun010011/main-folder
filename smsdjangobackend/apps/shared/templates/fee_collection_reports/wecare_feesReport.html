@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+{% load humanize %}
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Report</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="width:100%;margin-top: -60px">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <img src={{ institute.logo.file.url }} style="width: 100px;height: -webkit-fill-available;"/>
+            </td>
+            <td style="text-align:center;padding: 8px;">
+                {% else %}
+            <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px;font-weight: bold;">
+                    {{ institute.name }}</br>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} <br/>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}<br/>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    Student fees Report
+                </div>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <h3><u>
+        <center>Student Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th>
+                Student Name
+            </th>
+            <th>
+                {% if student.first_name %}{{student.first_name}}
+                    {% endif %}{% if student.middle_name %}
+                    {{student.middle_name}}{% endif %}{% if student.last_name%}
+                    {{student.last_name }}{% endif %}
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Standard : {% if standard_name %} {{standard_name}}{% endif %}
+            </td>
+            <td>Academic year : {% if student_details %}{{student_details.academic_year.start_date.year}} -
+                {{student_details.academic_year.end_date.year}}{% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td>Roll No : {% if student.current_reg_num %}
+                {{student.current_reg_num}}{% endif %}
+            </td>
+            <td>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Report</center>
+    </u></h3>
+       <table style="width: 100%">
+    <thead>
+        <tr>
+            <th style="width: 30%;" rowspan="2">Fee Particulars</th>
+            <th style="width: 10%;" rowspan="2">Term(s)</th>
+            <th style="text-align:center;width: 30%;" colspan="2">Payment Details</th>
+        </tr>
+        <tr>
+            <th style="text-align:center;width: 15%;">Date</th>
+            <th style="text-align:center;width: 15%;">Rs.</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for row in data %}
+           
+
+                {% for terms in row.standard_fee %}
+                    
+                    {% for payment in terms.payment_detail %}
+                        <tr>
+                            <td>{{ row.fee_type_name }}</td>
+
+                            <!-- TERM NAME -->
+                            <td>
+                                {% if terms.terms == "Term1" %}
+                                    1st Instalment
+                                {% elif terms.terms == "Term2" %}
+                                    2nd Instalment
+                                {% else %}
+                                    {{ terms.terms }}
+                                {% endif %}
+                            </td>
+
+                            <td style="text-align:center;">
+                                {{ payment.transaction_date_str }}
+                            </td>
+
+                            <td style="text-align:right;">
+                                {{ payment.amount_paid|floatformat:0|intcomma }}
+                                {% if payment.fee_fine_amount > 0 %}
+                                    <div>(Fine-{{ payment.fee_fine_amount }})</div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% if terms.pending_amount <= 0 and terms.paid_amount <= 0 %}
+                        <tr>
+                            <td>{{ row.fee_type_name }}</td>
+
+                            <!-- TERM NAME -->
+                            <td>
+                                {% if terms.terms == "Term1" %}
+                                    1st Instalment
+                                {% elif terms.terms == "Term2" %}
+                                    2nd Instalment
+                                {% else %}
+                                    {{ terms.terms }}
+                                {% endif %}
+                            </td>
+
+                            <td colspan="2">
+                                {% if terms.adjustment_amount > 0 %}
+                                    Adjusted : {{ terms.adjustment_amount }}
+                                {% endif %}
+                                {% if terms.concession_amount > 0 %}
+                                    Concession : {{ terms.concession_amount }}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                {% endfor %}
+            
+        {% endfor %}
+
+        <!-- SUMMARY ROW -->
+        <tr>
+            <td>Payable</td>
+            <td>{{total_payable_amount | floatformat:0 | intcomma}}</td>
+            <td>Paid</td>
+            <td style="text-align:right;">{{paid_amount | floatformat:0 | intcomma}}</td>
+        </tr>
+    </tbody>
+</table>
+
+    <table style="width: 80%;margin-top:10px" class='table_color_validation'>
+        <tr>
+            <th colspan="4" style='text-align:center'>Fees Breakup</th>
+        </tr>
+        <tr>
+            <th style="text-align:center;" colspan="2">Total Fees</th>
+            <th style="text-align:right;" colspan="2">{{total_amount | floatformat:0 | intcomma}}</th>
+        </tr>
+        {% if total_fine_amount > 0 %} 
+            <tr>
+                <th style="text-align:center;" colspan="2">Total Fine</th>
+                <th style="text-align:right;" colspan="2">{{total_fine_amount | floatformat:0 | intcomma}}</th>
+            </tr>
+        {% endif %}
+        {% if total_concession_amount > 0 %}
+            <tr>
+                <th style="text-align:center;" colspan="2">Total Concession</th>
+                <th style="text-align:right;" colspan="2">-{{total_concession_amount | floatformat:0 | intcomma}}</th>
+            </tr>
+        {% endif %}
+        {% if total_adjusted_amount > 0 %}
+            <tr>
+                <th style="text-align:center;" colspan="2">Total Adjustment</th>
+                <th style="text-align:right;" colspan="2">-{{total_adjusted_amount | floatformat:0 | intcomma}}</th>
+            </tr>
+        {% endif %}
+        <!-- <tr>
+            <th style="text-align:center;" colspan="2">Total Payable Amount</th>
+            <th style="text-align:right;" colspan="2">{{total_payable_amount | floatformat:0 | intcomma}}</th>
+        </tr> -->
+        <tr>
+            <th style="text-align:center;" colspan="2">Total Paid Amount</th>
+            <th style="text-align:right;" colspan="2">{{paid_amount | floatformat:0 | intcomma}}</th>
+        </tr>
+         <tr>
+            <th style="text-align:center;" colspan="2">Total Pending Amount</th>
+            <th style="text-align:right;" colspan="2">{{ pending_amount | floatformat:0 | intcomma}}</th>
+        </tr>
+        </tbody>
+    </table>
+
+   <hr style="color:black">
+
+<table style="width:100%; border:none;margin-top: -20px;">
+    <tr>
+        <!-- LEFT SIDE : ADMIN SEAL / SIGNATURE -->
+        <td style="width:50%; text-align:left; border:none; vertical-align:bottom;">
+            <div style="margin-top:47px;">
+                <strong>Admin Seal / Signature</strong>
+               
+            </div>
+        </td>
+
+        <!-- RIGHT SIDE : REPORT GENERATED DATE -->
+        <td style="width:50%; text-align:right; border:none; vertical-align:bottom;font-size: 12px;">
+            <p>
+                <strong>Report Generated at :</strong> {{ today }}
+            </p>
+        </td>
+    </tr>
+</table>
+
+
+</div>
+</body>
+</html>

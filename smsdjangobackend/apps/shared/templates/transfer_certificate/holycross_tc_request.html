@@ -1,0 +1,77 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tc request Receipt</title>
+    <style>
+        * {
+        padding: 3px;
+        margin: 0px;
+        }
+        @page { size: A4 }
+      body{
+        font-family: 'Times New Roman', Times, serif; 
+      }
+      .center{
+        text-align: center;
+      }
+      .colorblue{
+        color: #37aede;
+      }
+      .flexs{
+        display:flex;
+        justify-content: space-between;
+      }
+      .hrline{
+        border-top: 2px solid black;
+      }
+      p{
+            text-indent:110px;
+            text-align:justify;
+            line-height: 2.0em;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="center">
+            {% if institute.logo.file.url %}
+                <img src={{ institute.logo.file.url }} style="height: 80px; width: 80px;">
+                <div class="colorblue" style="font-size:26px;font-weight: bold;">{{ school_name |upper}}</div>
+            {% endif %}
+            <div style="font-size: 18px;padding:3px;">{{school_address}}{%if school_city %} ,{{school_city}}{%endif%}{%if school_pincode %}-{{school_pincode}}{%endif%}</div>
+            <div style="font-size: 18px;padding-top:3px;">Mob : {{school_tel_num}}{%if school_tel_num_2 %}, {{school_tel_num_2}}{%endif%}</div>
+            <div class="flexs" style="margin-top:20px;font-size: 18px;">
+                <!-- <div>
+                    Email : puttannainternationalschool99@gmail.com
+                </div> -->
+                <!-- <div style="color: black;">
+                    Mob : {{school_tel_num}}{%if school_tel_num_2 %}, {{school_tel_num_2}}{%endif%}
+                </div> -->
+            </div> 
+            <div class="hrline"></div>
+            <div class="flexs" style="font-weight: bold;">
+                <div>Ref No: {{admission_num}}</div>
+                <div>Date: {{today}}</div>
+            </div>
+            <div style="text-align:left;line-height: 1.8em;width:35%;margin-top: 30px;font-size: 19px;">To,</br>
+                <div style="margin-left:30px;"><br>{{to_school_details_line1}}<br>{{to_school_details_line2}}<br>{{to_school_details_line3}}</div></div>
+                <div style="font-size:20px;text-align: left;"><b>Respected Sir / Madam,</b></div>
+                <div style="font-size:20px;text-align: center;margin:40px 10px 40px;"><b>Subject : Request to Issue Online Transfer Certificate,<br>STS No. and DISE No.</b></div>
+                <p>With Reference to the above subject, {{student_full_name|title}} {{student_relate|lower}} {{father_name|title}}. has been admitted to <b>{{from_standard_name}}
+                </b>in our institution for the Academic Year <b>{{from_academic_year}}.</b>Kindly issue the <b> Transfer certificate</b>.
+                </p>
+                <div style="text-align:left;margin:50px 0px;font-size: 20px;">Thanking you</div>
+                <div style="text-align:right;margin:20px 0px;"><b></b></div>  
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+    </div>
+</body>
+</html>

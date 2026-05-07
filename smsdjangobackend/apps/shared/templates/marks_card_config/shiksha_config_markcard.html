@@ -1,0 +1,482 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Achievement Record</title>
+
+<style>
+
+@page{
+    size:A4;
+    margin:0;
+}
+
+body{
+    margin:0;
+    padding:0;
+    font-family:"Times New Roman", serif;
+}
+
+/* PAGE BACKGROUND */
+
+.page{
+    position:relative;
+    width:1086px;
+    height:1536px;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+
+/* FIRST PAGE */
+.page1{
+    background-image:url("https://production-edubricz.s3.amazonaws.com/18/NANDINI_CONSOLIDATED_REPORT_6.jpg");
+}
+
+/* SECOND PAGE */
+.page2{
+    background-image:url("https://production-edubricz.s3.amazonaws.com/18/NANDINI_CONSOLIDATED_REPORT_5.jpg");
+}
+
+
+/* STUDENT PROFILE TABLE */
+
+.profile-table{
+    position:absolute;
+    top:540px;
+    left:110px;
+    width:690px;
+    font-size:25px;
+    line-height: 35px;
+    
+
+}
+
+.profile-table td{
+    padding:10px;
+}
+
+/* ATTENDANCE TABLE */
+
+.attendance{
+    position:absolute;
+    bottom:220px;
+    left:200px;
+    width:650px;
+    border-collapse:collapse;
+}
+
+.attendance td,
+.attendance th{
+    border:1px solid #000;
+    padding:10px;
+    text-align:center;
+}
+
+/* TABLE STYLE */
+
+table{
+    border-collapse:collapse;
+}
+
+.main-table{
+    position:absolute;
+    top:250px;
+    left:88px;
+    width:920px;
+    font-size:18px;
+}
+
+.main-table th,
+.main-table td{
+    border:1px solid black;
+    padding:8px;
+    text-align:center;
+}
+
+/* CO SCHOLASTIC */
+
+.coscholastic{
+    position:absolute;
+    top:600px;
+    left:80px;
+    width:420px;
+    font-size:18px;
+}
+
+.coscholastic th,
+.coscholastic td{
+    border:1px solid black;
+    padding:8px;
+}
+
+/* PERSONAL TRAITS */
+
+.personality{
+    position:absolute;
+    top:600px;
+    right:80px;
+    width:420px;
+    font-size:18px;
+}
+
+.personality th,
+.personality td{
+    border:1px solid black;
+    padding:8px;
+}
+
+/* REMARK */
+
+.remark{
+    position:absolute;
+    bottom:565px;
+    left:120px;
+    width:820px;
+    border:1px solid black;
+    padding:20px;
+    font-size:18px;
+}
+ 
+.school-address {
+    font-size: 18px;
+    text-align: center;
+    font-weight: bold;
+    position: absolute;
+    top: 360px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+}
+.grade-range{
+    position:absolute;
+    bottom:307px;
+    left:120px;
+    width:820px;
+    border-collapse:collapse;
+    font-size:18px;
+}
+
+
+.grade-range th,
+.grade-range td{
+    border:1px solid black;
+    padding:8px;
+    text-align:center;
+}
+
+.grade-range th{
+    background:#ddd;
+}
+
+.footer-sign {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    width: 920px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.footer-sign img {
+    display: block;
+    margin: 0 auto 5px auto;
+}
+
+</style>
+</head>
+
+<body>
+
+{% for student in data.student_list %}
+
+<!-- PAGE 1 -->
+
+
+<div class="page page1">
+
+    <!-- <div class="school-address">Jnannabharathi University Road, Mariyappanapalya, Bangalore - 560056</div>  -->
+    <div style="font-size: 26px; text-align: center; font-weight: bold; position: absolute; top: 335px; left: 50%; transform: translateX(-50%);">ACHIEVEMENT RECORD</div>
+     <div style="font-size: 26px; text-align: center; font-weight: bold; position: absolute; top: 410px; left: 50%; transform: translateX(-50%);">ACADEMIC YEAR : 2025-2026</div>
+    <div></div>
+
+<table class="profile-table">
+
+<tr>
+<td><b>Name :</b></td>
+<td>{{ student.student_name }}</td>
+</tr>
+
+<tr>
+<td><b>Class :</b></td>
+<td>{{ data.standard_name|cut:"Standard" }} - {{ data.section_name }}</td>
+</tr>
+
+<tr>
+<td><b>Date of Birth :</b></td>
+<td>{{ student.dob|date:"d-m-Y" }}</td>
+</tr>
+
+<tr>
+<td><b>Father's Name :</b></td>
+<td>{{ student.student_parent__parent__father_name }}</td>
+</tr>
+
+<tr>
+<td><b>Mother's Name :</b></td>
+<td>{{ student.student_parent__parent__mother_name }}</td>
+</tr>
+
+<tr>
+<td><b>Admission No :</b></td>
+<td>{{ student.student_admission_form.admission_num }}</td>
+</tr>
+
+<tr>
+<td><b>Contact No :</b></td>
+<td>{{ student.mobile_num }}</td>
+</tr>
+
+<!-- <tr>
+<td style="white-space: normal;width: 100%;"><b>Residential Address :</b> {{ student.address }}</td>
+</tr> -->
+
+</table>
+<table style="position:absolute; top:930px; left:110px; width:690px; font-size:25px; line-height: 35px;">
+    <tr>
+        <td><b>Residential Address :</b></td>
+        <td>{{ student.address }}</td>
+    </tr>
+</table>
+
+
+<table class="attendance">
+
+<tr>
+<th>Attendance</th>
+<th>No of Working Days</th>
+<th>No of Days Present</th>
+</tr>
+
+<tr>
+<td></td>
+<td>{% for subject_data in student.subject_list_data %} {% if forloop.first %} {% for exam in subject_data.exam_details_list %} {% if forloop.last %} {% if exam.max_no_of_days_attendance %} {{ exam.max_no_of_days_attendance|floatformat:0 }} {% else %}0{% endif %} {% endif %} {% endfor %} {% endif %} {% endfor %}</td>
+<td>{% for subject_data in student.subject_list_data %} {% if forloop.first %} {% for exam in subject_data.exam_details_list %} {% if forloop.last %} {% if exam.marked_attendance_days %} {{ exam.marked_attendance_days|floatformat:0 }} {% else %}0{% endif %} {% endif %} {% endfor %} {% endif %} {% endfor %}</td>
+</tr>
+
+<!-- <tr>
+<td>Term-2</td>
+<td>{{ student.term2_working_days }}</td>
+<td>{{ student.term2_present_days }}</td>
+</tr> -->
+
+</table>
+
+</div>
+
+
+<div style="page-break-after:always;"></div>
+
+
+<!-- PAGE 2 -->
+
+<div class="page page2">
+
+  <div style="position:absolute; top:190px; left:300px; font-size:20px; font-weight:bold;">
+    ACADEMIC PERFORMANCE-SCHOLASTIC AREAS
+</div>  
+
+<table class="main-table">
+
+<tr style="background:#ddd">
+<th>Subject</th>
+{% for subject_data in student.subject_list_data %}
+{% if forloop.counter == 1 %}
+{% for exam in subject_data.exam_details_list %}
+<th>{{ exam.exam_code }}</th>
+{% endfor %}
+{% endif %}
+{% endfor %}
+<!-- <th>Total</th> -->
+</tr>
+
+{% for subject_data in student.subject_list_data %}
+{% if subject_data.subject_part_type_code_name == 'part1' %}
+
+<tr>
+
+<td>{{ subject_data.subject__name }}</td>
+
+{% for exam in subject_data.exam_details_list %}
+<td>
+{% if exam.attendance_status == 'Absent' %}
+AB
+{% else %}
+{{ exam.total_marks|floatformat:0|default:"0" }}
+{% endif %}
+</td>
+{% endfor %}
+
+<!-- <td>{{ subject_data.marks|floatformat:0 }}</td> -->
+
+</tr>
+
+{% endif %}
+{% endfor %}
+
+</table>
+
+
+
+<!-- CO SCHOLASTIC TITLE -->
+<div style="position:absolute; top:555px; left:185px; font-size:20px; font-weight:bold;">
+    CO-SCHOLASTIC AREAS
+</div>
+
+<!-- CO SCHOLASTIC TABLE -->
+<table class="coscholastic">
+
+<tr style="background:#ddd">
+<th>Subject</th>
+<!-- <th>SA1</th> -->
+<th>SA2</th>
+</tr>
+
+
+{% for subject_data in student.subject_list_data %}
+{% if subject_data.subject_part_type_code_name == 'part2a' %}
+
+<tr>
+<td>{{ subject_data.subject__name }}</td>
+<!-- <td>{{ subject_data.grade }}</td> -->
+<td>{{ subject_data.grade }}</td>
+</tr>
+
+{% endif %}
+{% endfor %}
+
+</table>
+
+
+
+<!-- PERSONALITY TITLE -->
+{% if part2b_subjects %}
+<div style="position:absolute; top:555px; right:200px; font-size:20px; font-weight:bold;">
+   PERSONAL TRAITS
+</div>
+
+<table class="personality">
+<tr style="background:#ddd">
+    <th>Subject</th>
+    <th>SA2</th>
+</tr>
+
+{% for subject_data in part2b_subjects %}
+<tr>
+    <td>{{ subject_data.subject__name }}</td>
+    <td>{{ subject_data.grade }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+
+
+
+<div class="remark">
+
+<b>Teacher’s Remarks : PROMOTED</b>
+
+<!-- <br>PROMOTED<br> -->
+
+
+
+</div>
+<br> <br>
+<table class="grade-range">
+
+<tr>
+<th rowspan="2">FA's</th>
+<th>Marks Range</th>
+<th>18-20</th>
+<th>16-17</th>
+<th>14-15</th>
+<th>12-13</th>
+<th>10-11</th>
+<th>8-9</th>
+<th>Below 7</th>
+</tr>
+
+<tr>
+<td>Grade</td>
+<td>A</td>
+<td>A+</td>
+<td>B+</td>
+<td>B</td>
+<td>C+</td>
+<td>C</td>
+<td>D</td>
+</tr>
+
+</table>
+<br><br>
+
+<table class="grade-range" style="bottom:392px;">
+
+<tr>
+<th rowspan="2">SA's</th>
+<th>Marks Range</th>
+<th>72-80</th>
+<th>64-71</th>
+<th>56-63</th>
+<th>48-55</th>
+<th>40-47</th>
+<th>24-39</th>
+<th>Below 23</th>
+</tr>
+
+<tr>
+<td>Grade</td>
+<td>A+</td>
+<td>A</td>
+<td>B+</td>
+<td>B</td>
+<td>C+</td>
+<td>C</td>
+<td>D</td>
+</tr>
+
+</table>
+ 
+<div class="footer-sign">
+    <div>
+        ___________________<br>
+        Class Teacher
+    </div>
+
+    <div>
+        <b>PROMOTED</b>
+        <br>
+        Result
+    </div>
+
+     <div style="text-align:center; padding-right:20px">
+                    <img src="https://production-edubricz.s3.amazonaws.com/18/WhatsApp_Image_2026-03-24_at_5.41.32_PM_T5mSYEc.jpeg"
+                        style="width:100px; height:80px; margin-bottom:5px;" alt="Principal Signature"/><br>
+                    Principal
+</div>
+
+</div>
+
+
+{% if not forloop.last %}
+<div style="page-break-after:always;"></div>
+{% endif %}
+
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .rotate {transform: rotate(90deg);}
+    </style>
+</head>
+<body>
+    {% for count in number_of_copies %}
+    {%if forloop.counter == 1 %}
+    <div class='rotate' style="margin-top: 350px;">
+    {%else%}
+    <div class='rotate' style="margin-top:-85px;">
+    {%endif%}
+        <div style='display:flex;justify-content:center;padding-right:30px;width:500px;'>
+            <div style='text-align:center'>
+                <div style="font-size: 22px;font-weight: bold;">
+                    {{ institute.name }} </br>
+                </div>
+                {% if institute.trust_name %}
+                    <span style='font-size: 13px'>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="line-height: 25px;font-size:14px">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                </div>
+            </div>
+        </div>
+    <div style="text-align: center;width:500px;">RECEIPT</div>
+    <table style="width: 500px">
+        <tr>
+            <td class='noborder bold line-height' style='width:60%;vertical-align:top'>
+                {% if misc_collection.student %}Adm No : {{admission_num|title}} </br>{% endif %}
+                {% if misc_collection.student %}
+                Name : 
+                {% if misc_collection.student.first_name %}{{misc_collection.student.first_name}}{% endif %}
+                {% if misc_collection.student.middle_name %}{{misc_collection.student.middle_name}}{% endif %}
+                {% if misc_collection.student.last_name %}{{misc_collection.student.last_name }}{% endif %}
+                </br>
+                Parent : {%if fee_collection.student_detail.student_parent.parent.father_name %}{{fee_collection.student_detail.student_parent.parent.father_name|upper}}
+                {%else%} {%if fee_collection.student_detail.student_parent.parent.mother_name %} {{fee_collection.student_detail.student_parent.parent.mother_name|upper}} {%endif%}
+                {%endif%}
+                {% else %}
+                Guest:
+                {{ misc_collection.guest_name }}
+                {% endif %}
+                <td class="noborder bold" style='text-align:right'>
+                Rec No: {% if misc_collection.receipt_num %}{{misc_collection.receipt_num}}{% endif %} <br/>
+                Date:  {% if misc_collection.date %}{{misc_collection.date | date:"d-m-Y"}}{% endif %} <br/>
+                {% if misc_collection.student %} Class :
+                {% if misc_collection.student.current_standard.name %}
+                {{misc_collection.student.current_standard.name}}
+                {% endif %}{% endif %}</br>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 500px;min-height:400px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='60%' style="text-align:center">Particulars</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td>{% for fee in payment_details %}
+                {{forloop.counter}}</br>{% endfor %}
+            </td>
+            <td>{% for fee in payment_details %}{{fee.misc.misc_type.name}}</br>{% endfor %}</td>
+            <td style='text-align:right'>{% for fee in payment_details %}
+                {{fee.amount | floatformat:2 }}</br>{% endfor %}</td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="2" style='text-align:right'>TOTAL </td>
+             <td style='text-align:right'> ₹ {{ misc_collection.total_amount  | floatformat:2}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width: 500px" class="noborder" colspan="2">
+    <tr class="noborder">
+        <td class="noborder">
+        ({{amount_in_words|title}} Rupees Only )<br/>
+        {%if misc_collection.mode_of_payment %} {{ misc_collection.mode_of_payment }} {%endif%}
+        {% if misc_collection.ref_number %} (Transaction Id - {{misc_collection.ref_number}}) {% endif %}
+    </td>
+    <tr>
+    </table>
+    <table style="width:500px;margin-top:50px" class="noborder">
+    <td style="text-align:right;width:500px;" class="noborder">Receiver's Signature</td>
+    </table>
+</div>
+{%  if forloop.counter|divisibleby:"2" and not forloop.last%}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

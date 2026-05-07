@@ -1,0 +1,393 @@
+.enquiry-for-application-loading {
+    margin-right: auto !important;
+    margin-left: auto !important;
+    margin-top: 40vh !important;
+    margin-bottom: 40vh !important;
+}
+
+.admission-submission-total-amount {
+    font-size: 22px;
+    font-weight: bold;
+    color: #4680FF;
+    text-align: center;
+    padding: 20px;
+}
+
+.admission-submission-features-height {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.student-profile-position {
+    display: -webkit-box;
+    width: 60%;
+}
+
+.student-profile-name {
+    color: #464D68;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-left: 7px;
+    align-self: center;
+}
+
+.orange-profile-pic {
+    background-color: #ffe9c0 !important;
+    color: orange !important;
+    text-transform: uppercase;
+}
+
+.green-profile-pic {
+    color: green !important;
+    background-color: #6dfb6d !important;
+    text-transform: uppercase;
+}
+
+.individual-profile-pic {
+    width: 110px !important;
+    height: 110px !important;
+    margin-left: 112px;
+    text-transform: uppercase;
+    font-size: 35px !important;
+}
+
+.margin-left-0 {
+    margin-left: 0px !important;
+}
+
+.enquiry-number-application-form {
+    margin: 30px;
+    font-size: 24px;
+}
+
+.enquiry-number-application-form-box {
+    display: flex;
+}
+
+.enquiry-number-close-icon {
+    margin: 37px;
+    color: red;
+    cursor: pointer;
+}
+
+.application-student-list-admitted {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: green;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.application-old-student-list-admitted {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: blue;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.application-student-list-not-admitted {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+    margin-top: 6px;
+    margin-right: 8px;
+    cursor: pointer;
+
+}
+
+.language-list-outer-box {
+    display: flex;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.no-feature-label {
+    font-size: 15px;
+    color: red;
+    margin: 25px 4px;
+}
+
+.language-label-box {
+    width: 30%;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.part-heading {
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 23px !important;
+    width: 50%;
+}
+
+.history-label-box {
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 35px !important;
+    line-height: 20px !important;
+    padding-left: 20px !important;
+    width: 80% !important;
+    line-height: 30px !important;
+    margin: 40px 0px !important;
+}
+
+.divider-history {
+    margin: 40px 0px !important;
+    width: 100%;
+}
+
+.box-padding-0>div {
+    padding: 0px !important;
+}
+
+.submit-login-application-form {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: blue;
+    text-decoration: underline;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+}
+
+.dialog-custom-application-form {
+    .MuiDialog-container {
+        .MuiDialog-paper {
+            max-width: 1000px !important;
+            width: 1000px;
+            height: 100%;
+            max-height: 100%;
+        }
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .dialog-custom-application-form {
+        .MuiDialog-container {
+            .MuiDialog-paper {
+                max-width: 100% !important;
+                width: 100% !important;
+                height: 100%;
+                max-height: 100%;
+            }
+        }
+
+        .MuiDialog-paper {
+            margin: 0px !important;
+        }
+    }
+}
+
+.document_list-uploaded-image {
+    width: 20px;
+    height: 20px;
+    padding-top: 8px;
+    border: 1px solid black;
+}
+
+.add-sibling-table {
+    min-height: 10vh !important;
+    background-color: white;
+    overflow: auto;
+    width: 100% !important;
+}
+
+.add-sibling-table::-webkit-scrollbar {
+    width: 1px;
+    height: 5px;
+}
+
+.add-sibling-table::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(42, 0, 231, 0.3);
+}
+
+.add-sibling-table::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid rgb(126, 87, 235);
+}
+
+.admission-tab-heading {
+    font-weight: 500;
+    font-size: 15px;
+    color: #232323;
+    padding: 0px 20px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.admission-tab-selected-heading {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 0px;
+    color: #1665D8;
+    padding: 0px 20px;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.admission-tab-selected-heading-underline {
+    background-color: #1665D8;
+    height: 7px;
+    border-radius: 10px;
+    margin-top: 18px;
+}
+
+/* Base Container */
+.thankyou-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, #0f172a, #1e293b);
+    padding: 20px;
+    font-family: 'Inter', sans-serif;
+    color: #e2e8f0;
+  }
+  
+  /* Card */
+  .thankyou-card {
+    background-color: #1e293b;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 16px;
+    padding: 40px 24px;
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .thankyou-card:hover {
+    transform: scale(1.03);
+  }
+  
+  /* Icon */
+  .success-icon {
+    color: #22c55e;
+    animation: pulse 1s ease-in-out;
+  }
+  .thankyou-icon {
+    margin-bottom: 24px;
+  }
+  
+  /* Headings */
+  .thankyou-heading {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #4ade80, #14b8a6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+    font-weight: bold;
+  }
+  .thankyou-subheading {
+    font-size: 1.1rem;
+    color: #cbd5e1;
+    margin-bottom: 24px;
+  }
+  
+  /* Application ID */
+  .thankyou-app-id {
+    background-color: #334155;
+    padding: 12px;
+    border-radius: 8px;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+  .app-id-label {
+    font-size: 0.9rem;
+    color: #94a3b8;
+  }
+  .app-id-value {
+    font-size: 1rem;
+    color: #2dd4bf;
+    font-weight: 600;
+  }
+  
+  /* Custom Message */
+  .thankyou-message {
+    margin-bottom: 24px;
+    color: #e2e8f0;
+  }
+  
+  /* Next Steps Section */
+  .thankyou-nextsteps {
+    background-color: rgba(51, 65, 85, 0.5);
+    border: 1px solid #475569;
+    border-radius: 10px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: left;
+  }
+  .nextsteps-heading {
+    font-size: 1.25rem;
+    color: #2dd4bf;
+    margin-bottom: 10px;
+  }
+  .nextsteps-message {
+    white-space: pre-line;
+    color: #e2e8f0;
+  }
+  
+  /* Button */
+  .thankyou-button {
+    margin-top: 16px;
+    padding: 12px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(to right, #14b8a6, #06b6d4);
+    color: white;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+  }
+  .thankyou-button:hover {
+    background: linear-gradient(to right, #0d9488, #0891b2);
+    transform: translateY(-1px);
+  }
+  .arrow-icon {
+    display: inline-block;
+    transition: transform 0.3s;
+  }
+  .thankyou-button:hover .arrow-icon {
+    transform: translateX(4px);
+  }
+  
+  /* Footer */
+  .thankyou-footer {
+    margin-top: 32px;
+    font-size: 0.75rem;
+    color: #64748b;
+  }
+  .thankyou-credit {
+    margin-top: 24px;
+    font-size: 0.75rem;
+    color: #475569;
+  }
+  
+  /* Animations */
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0.9;
+    }
+  }
+  

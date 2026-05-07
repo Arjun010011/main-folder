@@ -1,0 +1,250 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>
+        table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 14px;
+                font-family: 'Calibri';
+            }
+        .center{
+            text-align:center;
+            margin:5px;
+        }
+        .info_table{
+            table-layout: fixed;
+        }
+        .info_table td:nth-child(1){
+            width:4%;
+        }
+        .info_table td:nth-child(2){
+            width:50%;
+        }
+        td {
+            padding:6px;
+            padding-right: 0px;
+        }
+    </style>
+</head>
+<body style="font-family: 'Calibri';">
+    <div class="center" style="text-transform: uppercase;font-size:19px"><b>JNANA JYOTHI SCHOOL</b></div>
+    <div class="center" style="font-size:14px;">CA-23,YELAHANAKA NEWTOWN BANGALORE-560064</div>
+    <div class="center" style="text-transform: uppercase;font-size:19px"><b><u>TRANSFER CERTIFICATE</u></b>   TC.NO:<b>{{tc_num}}</b></div>
+    <table class="info_table" style="width:100%;margin-top: 20px;">
+        <tr>
+            <td>
+                1.
+            </td>
+            <td>
+                Admission no:{{admission_num}}
+            </td>
+            <td>
+                Date of Admission:<b>{{admission_date}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2.
+            </td>
+            <td>
+                No. & Date of Approval of Admission Accorded by The Director of Bangalore University, Bengaluru
+            </td>
+            <td>
+                Order No:<b>{{order_num}}</b><br>
+                Date:{{order_date}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                3.
+            </td>
+            <td>
+                Name of the student (As entered in the Admission register)
+            </td>
+            <td>
+                <b>{{student_full_name|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                4.
+            </td>
+            <td>
+                Sex
+            </td>
+            <td>
+                <b>{{gender|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                5.
+            </td>
+            <td>
+                Name of the Father
+            </td>
+            <td>
+                <b>{{father_name|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                6.
+            </td>
+            <td>
+                Name of the Mother
+            </td>
+            <td>
+                <b>{{mother_name|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                7.
+            </td>
+            <td colspan="2">
+                Nationality:&#160;<b>{{nationality|upper}}&#160;</b>Religion:&#160;<b>{{religion|upper}}</b>&#160;Caste:<b>&#160;{{caste|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                8.
+            </td>
+            <td>
+                Whether the student belongs to schedule caste/Schedule tribe
+            </td>
+            <td><b>
+                ************{{is_sc_st|upper}}************</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                9.
+            </td>
+            <td>
+                Date of Birth in Figures and Words
+            </td>
+            <td><b>{{dob|date:'d-m-Y'}}</br>
+                {{dob_in_words|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                10.
+            </td>
+            <td>
+                Class in which the student was studying at the time of leaving the institution(in Words)
+            </td>
+            <td>
+                <b>{{standard_name|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                11.
+            </td>
+            <td>
+                a)Language offered under PART-I</br>
+                b)Subjects offered under PART-II(Optional)
+            </td>
+            <td>
+                1.<b>{{part1_lan|upper}}</b> 2.<b>{{part2_sub|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                12.
+            </td>
+            <td>
+                Examination Appeared
+            </td>
+            <td>
+                Reg.No :{{reg_num}} Month & Year.{{exam_month_year}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                13.
+            </td>
+            <td>
+                Result in the public Examination</br>
+                a)Whether passed in all Subjects</br>
+                b)if not passed in all subjects mention the subjects in which passed
+            </td>
+            <td>
+                    {{is_passed|upper}}</br></br>
+                    {{passed_not_sub|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                14.
+            </td>
+            <td>
+                Scholarship if any
+            </td>
+            <td>
+                {{is_scholarship|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                15.
+            </td>
+            <td>
+                Last date of student attendence in institution
+            </td>
+            <td><b>
+                {{last_date_attendance}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                16.
+            </td>
+            <td>
+                Whether all balance of fees paid or not
+            </td>
+            <td><b>
+                {{fee_balance|upper}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                17.
+            </td>
+            <td>
+                a)Date of Application</br>
+                b)Date of Issue of Transfer Certificate
+            </td>
+            <td><b>
+                {{appln_date}}</br>
+                {{issue_date}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                18.
+            </td>
+            <td>
+                Character and Conduct of the Student
+            </td>
+            <td><b>*******{{stud_char|upper}}*******</b>
+            </td>
+        </tr>
+    </table>
+    <div style="display:flex;margin-top:25px">
+        <div align="left">Date:{{today}}</div>
+        <div style='margin-left:auto;font-size: 12px;line-height: 1.6;'><b>FOR JNANA JYOTHI SCHOOL </br><center>PRINCIPAL</center></b></div>
+    </div>    
+</body>
+</html>

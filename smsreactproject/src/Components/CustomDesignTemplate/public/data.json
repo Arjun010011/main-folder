@@ -1,0 +1,34 @@
+{
+  "institution": "ABCD",
+  "address": "RAJAJINAGAR INDUSTRIAL AREA, RAJAJINAGAR, BENGALURU - 562159",
+  "logo":"public/image.jpg",
+  "contact": {
+    "phone": "+91999999999",
+    "email": "abcd@gmail.com"
+  },
+  "receipt": {
+    "year": "2022-2023",
+    "invoice_no": "Receipt135",
+    "date": "01-01-2023"
+  },
+  "student": {
+    "name": "ADHVIK",
+    "class": "PRE-KG",
+    "father_name": "SANGAPPA"
+  },
+  "fee_details": [
+    {
+      "sl_no": 1,
+      "particular": "Installment Fees",
+      "amount": 15000
+    },
+    {
+      "sl_no": 2,
+      "particular": "Installment Fees",
+      "amount": 15000
+    }
+  ],
+  "total_amount": 30000,
+  "amount_in_words": "Rupees Thirty Thousand Only",
+  "cashier_signature": "Present"
+}

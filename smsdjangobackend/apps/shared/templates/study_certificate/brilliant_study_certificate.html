@@ -1,0 +1,136 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+     
+        @page { size: A4 }
+        .center{
+            text-align:center;
+        }
+        table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        border: 2px solid black;
+        }
+        th {
+        padding: 5px;
+        border: 2px solid black;  
+        }
+        td {
+        padding: 8px;
+        width: 20px;
+        border: 2px solid black;
+        }
+        .label {
+            font-weight: 600;
+            font-size: 1.2rem;
+
+        }
+        .details {
+            font-size: 1.2rem;
+        }
+        p {
+            font-size: 18px;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .date {
+            text-align: right;
+            margin-right: 100px;
+        }
+
+        .para p{
+         
+          text-align:justify;
+          line-height: 2;
+        }
+        .box {
+            width: 40px;
+            height: 50px;
+            border: 1px solid #242775;
+            padding: 50px;
+            margin-left: 480px;
+        }
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div style='display:flex;place-content:left;justify-content: left;'>
+      <div style="position: relative; height: 130px; width: 100%;padding-top: -60px;margin-top: -60px;">
+        {% if institute.logo.file.url %}
+          <img src={{institute.logo.file.url}} alt="logo"
+          style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 255px; height: 130px;" />
+        {% endif %}
+      </div>     
+    </div>
+    <div class="center" style="font-size:18px;text-decoration: underline;"> | Recognised By Government Of Karnataka |</div>
+    
+    <div class="center" style="font-size:16px;color:rgb(129, 59, 129);font-weight: bold;">558, 5th Cross Rd, Weavers Colony, Gottigere, Bengaluru - 560083</div>
+    <div style="font-size:24px;text-align: center;margin:10px 10px 0px;text-decoration: underline;color: rgb(5, 5, 73)"><b> STUDY CERTIFICATE</b></div>
+    <div>
+    </div>
+    <br>
+    <div style="font-size: 19px;font-weight: bold;">Date :{{today|date:'d/m/Y'}}</div>
+    {%if profile_pic_details %}
+    <div>
+      <img src="{{profile_pic_details}}" style="width:120px;height:120px;margin-left: 500px;">
+  </div>
+  {%else%}
+    <div class="box" style="border:1px black solid">
+  </div>
+{%endif%}
+    <table style="border:1px ;font-size: 16px;">
+      <tr>
+        <td class="label">STS No.</td>
+        <td class="details">{% if stats %}{{stats}}{%endif%}</td>
+      </tr>
+      <tr>
+        <td class="label">Student's Name</td>
+        <td class="details">{{student_full_name|title}}</td>
+      </tr>
+      <tr>
+        <td class="label">Father's Name</td>
+        <td class="details">{{father_name|title}}</td>
+      </tr>
+      <tr>
+        <td class="label">Mother's Name</td>
+        <td class="details"> {{mother_name|title}} </td>
+      </tr>
+      <tr>
+        <td class="label">Date of Birth</td>
+        <td class="details">{{dob_str}}</td>
+      </tr>
+      <tr>
+        <td class="label">Gender</td>
+        <td class="details">{{gender}}</td>
+      </tr>
+      
+      <tr>
+        <td class="label">Caste</td>
+        <td class="details"> {{caste}} </td>
+      </tr>
+      <tr>
+        <td class="label">Class Studying </td>
+        <td class="details">{{standard_name}}</td>
+      </tr>
+      <tr style="height:60px">
+        <td class="label">Address</td>
+        <td class="details">{{address}}</td>
+      </tr>   
+    </table>
+  <p>The Particulars given above are according to the register maintained in the school</p> 
+  <p style="margin-top: 65px;text-align: right;">
+    Signature of the Principal
+  </p>
+</div>
+</body> 
+</html>

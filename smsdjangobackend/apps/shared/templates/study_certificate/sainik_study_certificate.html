@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4; margin: 17px; }
+        body { font-family: 'Times New Roman', Times, serif; }
+
+        .dot-line { border-bottom: 1px dotted black; flex-grow: 1; text-align: center; }
+        .display-flex { display: flex; gap: 5px; font-size: 19px; }
+        .display-flex1{
+            font-size:19px;
+            width:50%;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        td { vertical-align: middle; }
+        .logo { width: 100px; height: 100px; }
+        .school-name { text-align: center; font-size: 21px; font-weight: bold; }
+        .w-100{
+            width: 100%;
+        }
+        .heading{
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+        }
+        .address-heading{
+            font-size: 14px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .address-field {
+            width: 40%; /* Set the width of the address */
+        }
+        .small-address {
+            width: 30%; /* Smaller width for the address */
+        }
+    </style>
+</head>
+<body>
+    <table class="w-100" style="border-collapse: collapse;">
+        <tr>
+            <div>
+                <div style="position:relative">
+                    {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 100px;height:100px;position:absolute;top:1.5%;left:20px;" /> {% endif %}
+                </div>
+                <div class="heading text-center " style="padding:5px;">
+                    {{ institute.name }} </div>
+            </div>
+        </tr>
+        <tr>
+            <div class="address-heading t-center mt-5">
+                {{ institute.address }}{% if institute.city_map %}, {{ institute.city_map }}{% endif %}
+            </div>
+        </tr>
+    </table>
+    <br>
+    <br>
+    <br>
+    <div style="display: flex; justify-content: space-between; font-size: 20px; margin-left:40px;padding-right:30px;">
+        <div>DISE CODE: <span>{{ institute.dise_code }}</span></div>
+        <div>Date: <span>{{ today_date }}</span></div>
+    </div>
+    <br>
+    <div style="text-align: left; font-size: 20px;margin-left:40px;">SATS NUMBER: <span>{{ sts }}</span></div>
+    <br>
+    
+    <br>
+    <h2 style="text-align: center; font-weight: bold; text-decoration: underline;">STUDY CERTIFICATE</h2>
+    <h2 style="text-align: center; font-weight: bold; text-decoration: underline;">TO WHOMSOEVER IT MAY CONCERN</h2>
+
+    <br>
+    <div class="content" style="margin-left:40px;padding-right:30px">
+        <div class="display-flex">
+            <div>This is to confirm that Master / Kumari</div>
+            <div class="dot-line">{{ student_full_name|title }}</div>
+        </div>
+        <br>
+        <div class="display-flex">
+            <div>S/O D/O</div>
+            <div class="dot-line">{{ father_name|title }}</div>
+            <div>is studying in our</div>
+        </div>
+        <br>
+        <div class="display-flex">
+            <div>school in </div>
+            <div class="dot-line">{{ standard_name }}</div>
+            <div>Standard for the Academic year</div>
+        </div>
+        <br>
+        <div class="display-flex">
+            <div class="dot-line">{{ academic_year }}.</div>
+            <div>As per our record his/her Date of Birth is</div>
+        </div>
+        <br>
+        <div class="display-flex">
+            <div class="dot-line">{{dob|date:'d/m/Y'}}</div>
+            <div>and his/her caste is</div>
+            <div class="dot-line">{{caste|title}}</div>
+        </div>
+        <br>
+        <!-- New display-flex for address -->
+        <div class="display-flex1">
+            <div>His / Her address is as under</div>
+            <br>
+
+            <div>{{address}}</div> 
+        </div>
+        <br>
+        <br>
+        <div class="display-flex1">
+            <div>Date:{{date}}</div>
+            <div></div> 
+        </div>
+        <br>
+        <div class="display-flex1">
+            <div>Place:{{place}}</div>
+            <div></div> 
+        </div>
+        <div style="position: absolute; right: 90px; bottom: 240px; border: 2px solid black; width: 120px; height: 150px; text-align: center; display: flex; align-items: center; justify-content: center;">
+            <span style="font-size: 14px; color: gray;">Photo</span>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Letter</title>
+    <style>
+        body {
+            padding: 30px;
+            margin:-50px;
+            border: 2px double #333;
+        }
+
+        .letter-head {
+            text-align: right;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+        .letter-head .row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            margin-bottom: 40px;
+        }
+
+        .letter-head .left,
+        .letter-head .right {
+            width: 48%;
+        }
+
+
+        .letter-title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 30px;
+        }
+
+        .content {
+            font-size: 15px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .section-title {
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-decoration: underline;
+        }
+
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .salary-table th,
+        .salary-table td {
+            border: 1px solid #000;
+            padding: 2px;
+            font-size: 12px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: right;
+            font-size: 16px;
+        }
+
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+        }
+
+        .signature p {
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="letter-head">
+        <div class="row">
+            <div class="left" style="margin-left:-120px">Ref: LRC/APPT.LTTR/52-2024</div>
+            <div class="right">Date: {{ todays_date }}</div>
+        </div>
+    </div>
+    
+
+    <div class="content">
+        <p>To,<br>
+        Ms. {{ staff_full_name }}<br>
+        {{ staff_address }}<br>
+        </p>
+
+        <div class="letter-title">APPOINTMENT LETTER</div>
+
+        <p>Dear Madam,</p>
+
+        <p>With reference to your application and subsequent interview with us, we are pleased to inform you that you have been appointed as <strong>{{position}}</strong> and reporting to the <strong>{{reporting_too}}</strong>, on the following terms and conditions, on contract from the date of joining i.e. <strong>{{ date_joined }}</strong> to <strong>{{ date_left }}</strong>. This appointment can be terminated as and when required without prior notice.</p>
+
+        <div class="section-title">DUTY HOURS</div>
+        <p>You will be required to work for a minimum period of hours from time to time depending upon the exigencies of organization. As and when required by the Management you shall work beyond your normal working hours and on holiday.</p>
+
+        <div class="section-title">EMOLUMENTS</div>
+        <p>You will be paid a monthly emolument of ₹ <strong>{{ gross_salary }}</strong> ({{ gross_salary_in_words }}) per month as per the break up given below:</p>
+
+        <table class="salary-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Earnings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Basic Salary</td><td>{{ basic_salary }}</td></tr>
+                <tr><td>HRA</td><td>{{ hra }}</td></tr>
+                <tr><td>Variable Pay</td><td>{{ variable_pay }}</td></tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th colspan="2">Deductions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Provident Fund</td><td>{{ pf }}</td></tr>
+                <tr><td>ESI</td><td>{{ esi }}</td></tr>
+                <tr><td><strong>Total Deductions</strong></td><td><strong>{{ total_deductions }}</strong></td></tr>
+                <tr><td><strong>Net Salary</strong></td><td><strong>{{ salary }}</strong></td></tr>
+            </tbody>
+        </table>
+
+        <div class="signature">
+            <p>________________________</p>
+            <p><strong>{{ signer_name }}</strong></p>
+            <p><strong>{{ signer_position }}</strong></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+

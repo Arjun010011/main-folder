@@ -1,0 +1,119 @@
+{% load static %}
+{% load transliteration %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>kannada</title>
+<style>
+  body{
+    margin:0px;
+    padding:0px;
+  }
+  .sheet{
+    border: 5px solid black;
+    border-style: double;
+    margin-top:0px;
+    padding:0px;
+  }
+  h1 {
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    font-size: 2em;
+  }
+  .certificate {
+      padding: 24px 24px 10px 24px;
+      margin-top:30px;
+      margin-bottom: 50px;
+      box-sizing: border-box;
+  }
+  .title-box {
+    border: 2px solid #000;
+    display: inline-block;
+    padding: 6px 25px;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+    margin: 0 auto 30px auto;
+    background-color: #fff;
+  }
+  .content {
+    flex: 1;
+    font-size: 18px;
+    line-height: 1.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .line {
+    margin: 16px 0;
+    text-align: justify;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .dotted {
+    text-decoration: dotted;
+    font-weight: bold;
+  }
+  .short {
+    min-width: 80px;
+    max-width: 120px;
+  }
+ 
+ 
+  
+  @media print {
+    body {
+      background: white;
+    }
+    .sheet {
+      margin: 0;
+      page-break-after: always;
+      box-shadow: none;
+    }
+  }
+  @page{
+    size: A4;
+    margin:20px;
+  }
+</style>
+</head>
+<body>
+  <div class="sheet">
+      <div class="certificate">
+        <div class="content">
+          <div style="font-size: 28px;text-align: center;font-weight: bold;">{{school_name|to_kannada}}</div>
+          <div style="font-size: 15px;text-align: center;padding-bottom: 5px;">{{school_address|to_kannada}},{{school_district|to_kannada}}-{{school_pincode}}</div>
+          <div style="text-align: center;">
+            <div class="title-box">ನಡತೆಯ ಪ್ರಮಾಣ ಪತ್ರ</div>
+          </div>
+          <p style="font-size: 18px; line-height: 2.1; text-align: justify;">
+          ಶ್ರೀಮತಿ/ಶ್ರೀ <span class="dotted">{%if father_name%}{{father_name|to_kannada}}{%else%}{{mother_name|to_kannada}}{%endif%}</span> ರವರ
+          ಮಗ/ಮಗಳಾದ ಶ್ರೀಮತಿ/ಶ್ರೀ <span class="dotted">{{student_full_name|to_kannada}}</span> ರವರು <span class="dotted short">{{from_academic_year|stringformat:"s"|slice:":4"}} - {{to_academic_year|stringformat:"s"|slice:"-4:"}}</span> ವರ್ಷಗಳ 
+          ಪರಿಚಯವಿದೆ ಎಂದು ಪ್ರಮಾಣಿಸುತ್ತೇವೆ ಮತ್ತು ನನಗೆ ತಿಳಿದಿರುವಂತೆ {% if student_he_she == "she" %}ಈಕೆ {%else%}ಈತ{%endif%} {%if character%} {{character|to_kannada}}{%else%}ಉತ್ತಮ{%endif%}  ನಡತೆಯುಳ್ಳವರಾಗಿದ್ದಾರೆ ಮತ್ತು ಸರಕಾರಿ ಉದ್ಯೋಗಕ್ಕೆ ಅನರ್ಹರಾಗುವಂತಹ ಯಾವ ಪೂರ್ವೋತ್ತರಗಳೂ ಇಲ್ಲ.
+          ಹಾಗು{% if student_he_she == "she" %} ಶ್ರೀಮತಿ{%else%}  ಶ್ರೀ{%endif%} <span class="dotted">{{student_full_name|to_kannada}}</span> ನನ್ನ ಸಂಬಂಧಿಕರಲ್ಲ.
+          </p>
+        <div class="footer" style="display: flex;">
+          <div class="footer-left" style="width:70%">
+            <div class="footer-line"> 
+              ಸ್ಥಳ: <span class="dotted" style="font-size: 15px;">{{school_address|to_kannada}}</span>
+            </div>
+            <div class="footer-line">
+              ದಿನಾಂಕ: <span class="dotted">{{today_date}}</span>
+            </div>
+          </div>
+          <div class="footer-right">
+            <div class="footer-line">
+              ಸಹಿ: <span class="dotted"></span>
+            </div>
+            <div class="footer-line">
+              ಹುದ್ದೆ: <span class="dotted"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+.maxwidth-100-px {
+    max-width: 100px !important;
+    overflow: hidden;
+}
+
+.add-icon-custom-form {
+    display: none !important;
+    color: #4680FF !important;
+}
+
+.delete-icon-custom-form {
+    display: none !important; 
+    color: red !important;
+}
+
+.edit-icon-custom-form {
+    display: none !important; 
+    color: green !important;
+}
+
+.custom-form-add:hover {
+    cursor: pointer;
+    position: relative;
+    .add-icon-custom-form {
+        display: inline !important;
+    }
+    .delete-icon-custom-form {
+        display: inline !important;
+    }
+    .edit-icon-custom-form {
+        display: inline !important;
+    }
+}
+
+.custom-form-bg-color{
+    background-color:  khaki!important;
+}
+
+.action-new-custom-form-width {
+    .MuiDialog-container {
+        .MuiDialog-paper {
+            width: 1000px !important;
+            max-width: 1000px !important;
+            height: 600px !important;
+        }
+    }
+}

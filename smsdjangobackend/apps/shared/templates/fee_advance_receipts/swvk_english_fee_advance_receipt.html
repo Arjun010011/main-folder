@@ -1,0 +1,127 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee Advance Receipt</title>
+    <style>
+        @page { size: A5 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<div style='border: 1px solid;padding:20px;margin:10px'>
+        <div style='display:flex;width:100%'>
+            <div>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 160px;height: 160px;"/>
+                {% endif %}
+            </div>
+            <div style="text-align: center;margin: auto;">
+                <div style="font-size: 28px;font-weight: bold;">
+                    SWAMY VIVEKANANDA VIDYA KENDRA </br>
+                </div>
+                <div style='font-size: 18px;font-weight: bold;'>(Vishwa Hindu Parishad Sanchalitha)</div>
+                <div style='font-size: 18px;font-weight: bold;'>Sri Ramakrishna Road, Sir M.V. Extension, Hoskote-562114</div>
+            </div>
+        </div>
+        <div style="font-size: 18px;font-weight: bold;text-decoration:underline;text-align: center;margin-top: 10px;">
+                    FEE ADVANCE RECEIPT </br></div>
+    <table class='noborder' style="width: 100%">
+        <tr class='noborder'>
+            <td class='noborder bold line-height' style='width:70%;vertical-align:top'>
+                Rec No:{% if fee_advance_collection.receipt_num %}{{ fee_advance_collection.receipt_num|title }}{% else %}—{% endif %} <br/>
+                Name :
+                {% if fee_advance_collection.student %}
+                {% if fee_advance_collection.student.first_name %}{{ fee_advance_collection.student.first_name }}{% endif %}
+                {% if fee_advance_collection.student.middle_name %}{{ fee_advance_collection.student.middle_name }}{% endif %}
+                {% if fee_advance_collection.student.last_name %}{{ fee_advance_collection.student.last_name }}{% endif %}
+                {% else %}—{% endif %}
+                <br/>
+                Standard:
+                {% if fee_advance_collection.student.current_standard %}{{ fee_advance_collection.student.current_standard.name }}{% else %}—{% endif %}<br/>
+                <td class="noborder">
+                Date:  {% if fee_advance_collection.transaction_date %}{{ fee_advance_collection.transaction_date|date:"d-m-Y" }}{% else %}—{% endif %} <br/>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='40%' style="text-align:center">Particulars</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td>
+                1. <br> 2. <br> 3. <br> 4. <br> 5. <br> 6. <br> 7. <br> 8. <br> 9. <br>
+            </td>
+            <td> Tuition Fee <br> Maintenance Fee <br> Voluntary Contribution <br> Computer Fee <br> Science Forum Activities Fee <br> Tests/Examination Fee <br>
+            Cultural Activities Fee <br> Sports Activities Fee <br> Others </td>
+            <td style='text-align:right'>
+                {{ fee_advance_collection.amount | floatformat }}</br></td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="2" style='text-align:right'>TOTAL </td>
+             <td style='text-align:right'> ₹ {{ fee_advance_collection.amount | floatformat}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%" class="noborder" colspan="2">
+    <tr class="noborder">
+        <td class="noborder">
+        Amount in words:{{ amount_in_words|title }} Only<br/>
+        Mode Of Payment:{% if fee_advance_collection.mode_of_payment %}{{ fee_advance_collection.mode_of_payment }}{% else %}—{% endif %}<br/>
+        {% if fee_advance_collection.payment_ref_num %}
+        UTR No : {{ fee_advance_collection.payment_ref_num }}<br>
+        {% endif %}
+        Receipt Generated at : {{ today }}
+    </td>
+    <tr>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+    <td style="text-align:right;" class="noborder"> H.M. / Cashier</td>
+    </table>
+</div>
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</html>

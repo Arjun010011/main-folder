@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Marks Card</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-container {
+            position: relative;
+            width: 1086px;
+            height: 1536px;
+            background-image: url("https://production-edubricz.s3.amazonaws.com/18/WhatsApp_Image_2025-07-28_at_6.43.32_PM.jpeg");
+            background-size: cover;
+        }
+
+        .backpage-container {
+            position: relative;
+            width: 1086px;
+            height: 1536px;
+            background-image: url("https://production-edubricz.s3.amazonaws.com/18/6.jpg");
+            background-size: cover;
+        }
+
+        .student-details {
+            position: absolute;
+            top: 320px;
+            left: 630px;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 28px;
+            border-radius: 10px;
+            border:1px;
+        }
+
+        .photo {
+            position: absolute;
+            top: 330px;
+            right: 60px;
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            border: 1px solid black;
+        }
+
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .main-table th,
+        .main-table td {
+            border: 1px solid black;
+            padding: 9px;
+            text-align: center;
+        }
+
+        .section-table {
+            position: absolute;
+            width: 470px;
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+
+        .section-table th,
+        .section-table td {
+            border: 1px solid black;
+            padding: 9px;
+        }
+
+        .coscholastic {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .coscholastic th,
+        .coscholastic td {
+            border: 1px solid black;
+            padding: 9px;
+        }
+
+
+        .personality {
+            position: absolute;
+            top: 980px;
+            left: 30px;
+        }
+
+        .descriptive {
+            position: absolute;
+            width: 500px;
+            border-collapse: collapse;
+            font-size: 16px;
+            font-weight: bold;
+            top: 1130px;
+            right: 50px;
+            border: 1px solid black;
+            text-align: center;
+            border-radius: 30px;
+            overflow: hidden;
+        }
+        .descriptive th,
+        .descriptive td {
+            border-left:1px solid black;
+            padding: 3px;
+        }
+
+        .graphs {
+            position: absolute;
+            top: 1080px;
+            right: 50px;
+        }
+
+        .remarks {
+            position: absolute;
+            bottom: 120px;
+            left: 50px;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .signature-line {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 17px;
+        }
+
+        .header-box {
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    {% for student in data.student_list %}
+    <div class="page-container">
+
+        <!-- Student Info -->
+        <div class="student-details">
+            {%if student.student_name|length > 17 %}
+            <div style="color:indigo;margin-top:15px;font-size: 16px;">{{student.student_name}}</div>
+            {%else%}
+            <div style="color:indigo;margin-top:15px;">{{student.student_name}}</div>
+            {%endif%}
+            <div style="margin-top:15px;">Section : {{data.section_name}}</div>
+            <div style="margin-top:15px;">Class : {{data.standard_name}}</div>
+            <div style="margin-top:15px;">Roll No : <span style="font-size: 16px;">{% if student.student_admission_form %}</span>
+                {{student.student_admission_form.admission_num}}
+                {% endif %}</div>
+            <div style="margin-top:15px;">Attendance | No of working days : {%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %}</div>
+            <div style="margin-top:15px;">No of days Present : {%if student.marked_attendance_days %} {{student.marked_attendance_days|floatformat:0}} {%else%} 0 {% endif %}</div>
+            <div style="margin-top:15px;">% of Attendance : {%if student.marked_attendance_days_percentage %} {{student.marked_attendance_days_percentage|floatformat:0}} {%else%} 0 {% endif %}%</div>
+        </div>
+
+        <!-- Student Photo -->
+        {%if student.profile_pic_file %}
+        <img class="photo" src="{{student.profile_pic_file}}" alt="photo">
+        {%endif%}
+
+        <!-- Main Academic Table -->
+        <div style="position: absolute; top: 300px; left: 30px; width: 550px; border-radius: 30px; overflow: hidden; border: 1px solid black;">
+            <table class="main-table">
+            <thead>
+                <tr style="background-color:#CA4F01;">
+                    <th colspan="6" style="text-align: center;color: white;height:13px;font-size: 19px;">{{data.exam_details|upper}}</th>
+                </tr>
+                <tr style="background-color: #ffc107;">
+                    <th colspan="2" style="text-align: left;">SUBJECTS</th>
+                    <th>Internal<br><span style="font-size: 13px;">Assessment</span></th>
+                    <th>External<br><span style="font-size: 13px;">Assessment</span></th>
+		    <th>Total<br><span>{{student.subject_list_data.0.total_max_marks|floatformat:0}}</span></th>
+                    <th>Grade</th>
+                </tr>
+                <tr style="background-color: #ffc107;">
+                    <th colspan="2" style="text-align: left;">SCHOLASTIC</th>
+                    {%for cumulative_type in student.subject_list_data.0.cumulative_mark_data_for_marks_card%}
+                    <th>{{cumulative_type.max_mark|floatformat:0}}</th>
+                    {%endfor%}
+                    <th>80/100</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody style="background-color: #FCEBA5;">
+                {% for subject_data in student.subject_list_data %}
+                {% if subject_data.subject_part_type_code_name == 'part1' %}
+                {%if subject_data.subject__codename == 'english' %}
+                <tr>
+                    {%if subject_data.sequence == 1 %}
+                    <td rowspan='3' style="text-align: left;">English</td>
+                    {%endif%}
+                    <td>{{subject_data.subject_name|cut:"English"|title}}</td>
+                    {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                    <td>{{cumulative_type.mark|floatformat:0}}</td>
+		    {%endfor%}
+                    <td>{%if subject_data.attendance_status == 'Absent' %}
+                        AB
+                        {% else %}
+                        {{subject_data.marks|floatformat:0}}
+                        {%endif%}</td>
+                    <td>{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                    <td>{{subject_data.grade}}</td>
+                </tr>
+                {%else%}
+                <tr>
+                    <td colspan="2" style="text-align: left;">{{subject_data.subject_name|cut:"Writing"}}</td>
+                    {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                    <td>{{cumulative_type.mark|floatformat:0}}</td>
+                    {%endfor%}
+                    <td>{%if subject_data.attendance_status == 'Absent' %}
+                        AB
+                        {% else %}
+                        {{subject_data.marks|floatformat:0}}
+                        {%endif%}</td>
+                    <td>{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                    <td>{{subject_data.grade}}</td>
+                </tr>
+                {% endif %}
+                {%endif%}
+                {% endfor %}
+            </tbody>
+            </table>
+        </div>
+
+        <!-- Co-Scholastic Table -->
+        <div style="position: absolute; top: 640px; right: 45px; width: 435px; border: 1px solid black; border-radius: 30px; overflow: hidden;">
+        <table class="coscholastic">
+            <tr><th colspan="2" style="background-color: #007A41;color: white;height:13px;font-size: 19px;">Co-Scholastic</th><th style="background-color: #007A41;color: white;padding:12px;font-size: 18px;">Grade</th></tr>
+
+            <!-- Part-A -->
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'parta' %}
+            <tr style="background-color: #A1E487;">
+                {% if subject_data.sequence == 1 %}
+                <td rowspan="{{ student.subject_names_part_wise.parta|length }}">Part-A</td>
+                {% endif %}
+                <td>{{ subject_data.subject_name }}</td>
+                <td>{{ subject_data.grade }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Part-B -->
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'partb' %}
+            <tr style="background-color: #A1E487;">
+                {% if subject_data.sequence == 1 %}
+                <td rowspan="{{ student.subject_names_part_wise.partb|length }}">Part-B</td>
+                {% endif %}
+                <td>{{ subject_data.subject_name }}</td>
+                <td>{{ subject_data.grade }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+
+            <!-- Part-C -->
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'partc' %}
+            <tr style="background-color: #A1E487;">
+                {% if subject_data.sequence == 1 %}
+                <td rowspan="{{ student.subject_names_part_wise.partc|length }}">Part-C</td>
+                {% endif %}
+                <td>{{ subject_data.subject_name }}</td>
+                <td>{{ subject_data.grade }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        </div>
+
+        <!-- Personality and Character -->
+        <div class="section-table personality">
+        <table style="width: 100%; border-collapse: collapse; font-size: 16px; font-weight: bold; text-align: left;">
+            <tr style="background-color: #007A41;color: white;height:13px;font-size: 19px;text-align: center;" ><th colspan="2">PERSONALITY AND CHARACTER</th></tr>
+            <tr style="background-color: #E0FFC1;"><th>Element</th><th>Grade</th></tr>
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'char' %}
+            <tr style="background-color: #97E27B">
+                <td>{{subject_data.subject_name}}</td>
+                <td>{{subject_data.grade}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        </div>
+
+        <!-- Descriptive Indicators -->
+        <div class="descriptive">
+        <table style="width: 100%; border-collapse: collapse; font-size: 16px; font-weight: bold; text-align: center;">
+            <tr class="header-box" style="background-color: #B9980B;color: white;padding:15px 0px;font-size: 19px;"><th colspan="3">DESCRIPTIVE INDICATORS</th></tr>
+            <tr><th>Range in %</th><th>Grade</th><th style="text-align: left;">Interpretation</th></tr>
+            <tr style="background-color: #FDDF59;"><td>91-100</td><td>A+</td><td style="text-align: left;">Progress at Peak</td></tr>
+            <tr style="background-color: #FDDF59;"><td>81-90</td><td>A</td><td style="text-align: left;">Smashing Success</td></tr>
+            <tr style="background-color: #FDDF59;"><td>71-80</td><td>B+</td><td style="text-align: left;">Mindful Achiever</td></tr>
+            <tr style="background-color: #FDDF59;"><td>61-70</td><td>B</td><td style="text-align: left;">Merite Conscious</td></tr>
+            <tr style="background-color: #FDDF59;"><td>51-60</td><td>C+</td><td style="text-align: left;">Progressive Performance</td></tr>
+            <tr style="background-color: #FDDF59;"><td>41-50</td><td>C</td><td style="text-align: left;">Inadequate Performance</td></tr>
+            <tr style="background-color: #FDDF59;"><td>33-40</td><td>D</td><td style="text-align: left;">Under Achiever</td></tr>
+            <tr style="background-color: #FDDF59;"><td>32-below</td><td>E</td><td style="text-align: left;">At Risk</td></tr>
+        </table>
+        </div>
+        <div style="position: absolute;bottom: 91px;left:230px;font-weight: bold;font-size: 18px;color:#42586D">{{student.remark_name}}</div>
+
+
+        <!-- Graphs -->
+
+        <!-- Remarks -->
+
+        <!-- Signatures -->
+
+    </div>
+    <div style="page-break-after: always;"></div>
+    <div class="backpage-container">
+        <div style="position: absolute;left:180px;top:100px;">
+            <img src="data:image/png;base64,{{student.part1_graph}}"width="700px", height="450px">
+        </div>
+        <div style="position: absolute;left:180px;top:580px;">
+            <img src="data:image/png;base64,{{student.part2_graph}}" width="700px", height="450px">
+        </div>
+        <div style="position: absolute;left:180px;top:1050px;">
+            <img src="data:image/png;base64,{{student.part3_graph}}" width="700px", height="450px">
+        </div>
+    </div>
+
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- {% load humanize %} -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer Certificate</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: white;
+            font-family: Arial, 'Noto Serif Kannada', 'Tunga', sans-serif;
+        }
+
+
+        @page {
+            size: A4 portrait;
+            margin: 5mm 4mm 5mm 4mm;
+        }
+
+        .a4 {
+            width: 200mm;
+            min-height: 272mm;
+            margin: auto;
+            border: 2px solid #000;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            transform: scale(0.97) translateY(-2mm);
+            transform-origin: top center;
+            padding-bottom: 8mm;
+            padding-top: 4mm;
+        }
+
+
+
+
+        .logo-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.15;
+            width: 100%;
+            text-align: center;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .logo-img img {
+            width: 300px;
+            height: 300px;
+            object-fit: contain;
+        }
+
+
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-top: -2%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: -20px;
+            border: 2px solid black;
+            display: inline-block;
+            position: relative;
+        }
+
+
+        .code-box {
+            font-size: 18px;
+            font-weight: bold;
+            border: 2px solid black;
+            display: inline-block;
+            padding: 5px 8px;
+            position: absolute;
+            top: -30px;
+            right: 0;
+        }
+
+
+        .tc-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: -100px;
+            padding-left: 10px;
+            z-index: 2;
+        }
+
+        .Tc-nu h3 {
+            padding: 11px;
+            padding-right: 20px;
+        }
+
+        .photo-box {
+            width: 100px;
+            height: 125px;
+            border: 1px solid #000;
+            position: relative;
+            left:82%;
+            margin-top: -60px;
+          }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-top: 2%;
+            position: relative;
+            z-index: 2;
+        }
+
+
+        td,
+        th {
+            border: 1px solid black;
+            padding: 5px;
+            vertical-align: top;
+        }
+
+
+        table tr:first-child td,
+        table tr:first-child th {
+            border-top: 2px solid black;
+        }
+
+        table tr:last-child td,
+        table tr:last-child th {
+            border-bottom: 2px solid black;
+        }
+
+
+        .signature {
+            position: absolute;
+            bottom: auto;
+            width: 100%;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: flex-end;
+            font-size: 11px;
+            font-weight: bold;
+            text-align: center;
+            page-break-inside: avoid;
+            z-index: 3;
+        }
+
+
+
+
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 4mm;
+            }
+
+            .a4 {
+                transform: scale(0.96) translateY(-1mm);
+                transform-origin: top center;
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="a4">
+
+        <div class="logo-img">
+            {% if institute.logo %}
+            <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/hombegouda/hombegoudakannadalogo.jpeg"
+                alt="School Logo">
+            {% endif %}
+        </div>
+
+        
+
+        <div class="header">
+            <div>
+                WILSON GARDEN EDUCATION SOCIETY (R)<br>
+                <div style="font-size:26px; font-weight:bold;">ಶ್ರೀಮತಿ ಗಂಗಮ್ಮ ಹೊಂಬೇಗೌಡ ಸಂಯುಕ್ತ  ಪದವಿ ಪೂರ್ವ ಕಾಲೇಜು</div>
+                <div style="font-size:20px; font-weight:bold; margin-top: -5px ;">
+                    Smt. GANGAMMA HOMBEGOWDA COMPOSITE PRE-UNIVERSITY COLLEGE</div>
+                <p style="font-size:16px; font-weight:bold; margin-top: 2px ;">
+                    10th Cross, Hombegowdanagar, Bengaluru - 560027. Ph : 080-22220620
+                </p>
+                <h2 style="font-size:18px; font-weight:bold; margin-top: -8px ;">TRANSFER CERTIFICATE</h2>
+
+                <h2 style="font-size:20px; font-weight:bold; margin-top: -10px ;">ವರ್ಗಾವಣೆ ಪ್ರಮಾಣ ಪತ್ರ</h2>
+                {% if  profile_pic_details %}
+                <div class="photo-box">
+                  <img src="{{ profile_pic_details }}" alt="No Photo" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                {% else %}
+                <div class="photo-box">
+                  <span>No Photo</span>
+                </div>
+                {% endif %}
+            
+                <h3 class="code-box">College Code : AS0215</h3>
+            </div>
+
+            <div class="tc-row">
+                <div class="Tc-nu">
+                    <h3>
+                            
+                        <b>TC No : {% if tc_num %}{{tc_num}}{% else %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{% endif %} / {{student_academic_year}}</b>
+                    </h3>
+                </div>
+
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">1. Admission No and Date : <br>
+                    &nbsp;&nbsp;&nbsp; ಕಾಲೇಜಿನ ಹೆಸರು ಪ್ರವೇಶ ಸಂಖ್ಯೆ ಮತ್ತು ದಿನಾಂಕ :
+                </td>
+                <td style="width:50%;">
+                    <b></b> {{ admission_num }}<br>
+                    <b></b> {{ student_admission_date |date:"d/m/Y" }}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">2. Name of the student in full : <br>
+                    &nbsp;&nbsp;&nbsp; ವಿದ್ಯಾರ್ಥಿಯ ಪೂರ್ಣ ಹೆಸರು :
+                </td>
+                <td style="width:50%;">
+                    <b>{{student_full_name|upper}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black; padding-bottom: 30px;">3. Date of Birth (in figures
+                    and words) : <br>
+                    &nbsp;&nbsp;&nbsp; ಹುಟ್ಟಿದ ದಿನಾಂಕ (ಅಕ್ಷರಗಳಲ್ಲಿ ಮತ್ತು ಅಂಕಿಗಳಲ್ಲಿ)
+                </td>
+                <td style="width:50%;">
+                    <div style="display:flex; gap:2px;">
+                        {% for char in dob|date:"dmY" %}
+                        <div style="
+                         border:1px solid black;
+                         width:20px;
+                         height:24px;
+                         display:flex;
+                         align-items:center;
+                         justify-content:center;
+                         font-weight:bold;
+                         ">
+                            {{ char }}
+                        </div>
+                        {% if forloop.counter == 2 or forloop.counter == 4 %}
+                        <div style="width:5px;"></div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <div style="
+                    margin-top:4px;
+                    font-size:12px;
+                    font-weight:bold;
+                    text-transform:uppercase;
+                    ">
+                        {{ dob_in_words }}
+                    </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">
+                    4. Gender : &nbsp;&nbsp;&nbsp; ಲಿಂಗ
+                </td>
+                <td style="width:50%;">
+                    <label style="margin-right: 30px;">
+                        <span style="
+                        display:inline-block;
+                        width:14px;
+                        height:14px;
+                        border:1px solid black;
+                        text-align:center;
+                        font-weight:bold;
+                        line-height:14px;
+                        vertical-align:middle;
+                        margin-right:5px;
+                        ">
+                            {% if gender|lower == "male" %}✔{% endif %}
+                        </span>
+                        Male
+                    </label>
+
+                    <label>
+                        <span style="
+                          display:inline-block;
+                          width:14px;
+                          height:14px;
+                          border:1px solid black;
+                          text-align:center;
+                          font-weight:bold;
+                          line-height:14px;
+                          vertical-align:middle;
+                          margin-right:5px;
+                          ">
+                            {% if gender|lower == "female" %}✔{% endif %}
+                        </span>
+                        Female
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">5. Nationality : &nbsp;&nbsp;&nbsp; ರಾಷ್ಟ್ರೀಯತೆ
+                </td>
+                <td style="width:50%;">
+                    <b>{{nationality|upper}}&#160;</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">6. Religion : &nbsp;&nbsp;&nbsp; ಧರ್ಮ </td>
+                <td style="width:50%;">
+                    <b>{{religion|upper}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">7. Caste : ಜಾತಿ / Sub Caste : &nbsp;&nbsp;&nbsp;
+                    ಉಪ ಜಾತಿ
+                </td>
+                <td style="width:50%;">
+                    <b>{{caste|upper}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">8. Name of the Father : &nbsp;&nbsp;&nbsp; ತಂದೆಯ
+                    ಹೆಸರು </td>
+                <td style="width:50%;">
+                    <b>{{father_name|upper}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">9. Name of the Mother : &nbsp;&nbsp;&nbsp; ತಾಯಿಯ
+                    ಹೆಸರು </td>
+                <td style="width:50%;">
+                    <b>{{mother_name|upper}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">
+                    10. Standard in which the college student was studying at &nbsp;&nbsp;&nbsp;the time of
+                    leaving the college (in words)
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; ಶಾಲೆಯನ್ನು ಬಿಡುವಾಗ ವಿದ್ಯಾರ್ಥಿಯು ಓದುತ್ತಿದ್ದ ತರಗತಿ (ಅಕ್ಷರಗಳಲ್ಲಿ)
+                </td>
+                <td style="width:50%; font-weight: 800;">
+                    Reg. No. : {{admission_num}}
+                    <br /> <br />
+                    <b>{{standard_name|upper}}</b>
+                    {{standard_leaving}}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">
+                    11. Details of subjects studied in I / II PUC <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; ಪ್ರಥಮ / ದ್ವಿತೀಯ ಪಿಯುಸಿ ತರಗತಿಯಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡಿದ ವಿಷಯಗಳು <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; Part - I Languages Studied <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ಭಾಗ – I ಅಧ್ಯಯನ ಮಾಡಿದ ಭಾಷೆಗಳು <br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp; Part - II Opt. Subjects studied <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ಭಾಗ – II ಅಧ್ಯಯನ ಮಾಡಿದ ಐಚ್ಛಿಕ ವಿಷಯಗಳು
+                </td>
+
+                <td style="width:50%; font-weight: bold;">
+
+                    <br><br><br>
+                    <span style="margin-right: 15px;">
+                        {% if "KANNADA" in part1_lan|upper %}☑{% else %}☐{% endif %} Kannada
+                    </span>
+                    <span style="margin-right: 15px;">
+                        {% if "ENGLISH" in part1_lan|upper %}☑{% else %}☐{% endif %} English
+                    </span>
+                    <span style="margin-right: 15px;">
+                        {% if "HINDI" in part1_lan|upper %}☑{% else %}☐{% endif %} Hindi
+                    </span>
+
+                    <br><br><br>
+                    
+                    {% if "HEPS" in part2_sub|default:""|upper %}
+                        History, Economics, Political Science, Sociology
+                    {% elif "HEBA" in part2_sub|default:""|upper %}
+                        History, Economics, Business Studies, Accountancy
+                    {% elif "CEBA" in part2_sub|default:""|upper %}
+                        Computer Science, Economics, Business Studies, Accountancy
+                    {% elif "HEPS" in student_standard|default:""|upper %}
+                        History, Economics, Political Science, Sociology
+                    {% elif "HEBA" in student_standard|default:""|upper %}
+                        History, Economics, Business Studies, Accountancy
+                    {% elif "CEBA" in student_standard|default:""|upper %}
+                        Computer Science, Economics, Business Studies, Accountancy
+                    {% else %}
+                        {{ part2_sub }}
+                    {% endif %}
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">12. Date of Student's last attendance at College
+                    <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ವಿದ್ಯಾರ್ಥಿಯು ಕಾಲೇಜಿಗೆ ಹಾಜರಾದ ಕೊನೆಯ ದಿನಾಂಕ
+                </td>
+                <td style="width:50%; font-weight: 800;">
+                    <b>
+                        {{last_date_attendance}}</b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">
+                    13. Medium of Instruction <br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ಬೋಧನಾ ಮಾಧ್ಯಮ
+                </td>
+
+                <td style="width:50%; font-weight: 800;">
+                    <span style="margin-right:20px;">
+
+                        {% if medium_of_instruction|upper == "KANNADA" %}☑{% else %}☐{% endif %} Kannada
+                    </span>
+                    <span>
+                        {% if medium_of_instruction|upper == "ENGLISH" %}☑{% else %}☐{% endif %} English
+                    </span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">14. Date on which the application for the Transfer
+                    &nbsp;&nbsp;&nbsp;&nbsp;Certificate was received <br> &nbsp;&nbsp;&nbsp; ವರ್ಗಾವಣೆ ಪ್ರಮಾಣಪತ್ರಕ್ಕಾಗಿ
+                    ಅರ್ಜಿ ಸ್ವೀಕರಿಸಿದ ದಿನಾಂಕ
+                </td>
+                <td style="width:50%;">
+                    <b>
+                        {{ appln_date }}
+                    </b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">15. Date of issue of the Transfer Certificate <br>
+                    &nbsp; &nbsp;&nbsp;&nbsp; ವರ್ಗಾವಣೆ ಪ್ರಮಾಣಪತ್ರ ನೀಡಿದ ದಿನಾಂಕ </td>
+                <td style="width:50%;">
+                    <b> 
+                    {{ issue_date }}
+                    </b>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:50%; border-right: 1px solid black;">16. Character and Conduct <br>
+                    &nbsp; &nbsp;&nbsp;&nbsp; ಶೀಲ ಮತ್ತು ಚಾರಿತ್ರ್ಯ </td>
+                <td style="width:50%;font-weight: bold;font-size: 12px;">
+                   SATISFACTORY
+                </td>
+            </tr>
+        </table>
+
+        <div style="
+         display: flex;
+         flex-direction: column;
+         gap: 1px;
+         padding: 6px;
+         padding-left: 10px;
+         font-weight: bold;
+         font-size: 11px;
+         ">
+            <span>College UDISE No : 29200906747</span>
+            <br />
+            <span>SATS No &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;: {{ sts }}</span>
+        </div>
+
+        <div class="signature">
+            <h3>
+                Signature of the Principal with Seal / ಪ್ರಾಂಶುಪಾಲರ ಸಹಿ ಹಾಗೂ ಮೊಹರು
+            </h3>
+        </div>
+    </div>
+</body>
+</html>

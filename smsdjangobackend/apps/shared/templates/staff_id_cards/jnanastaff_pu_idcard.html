@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    font-family: Raleway;
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+  }
+  .front-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/JNANA_JYOTHI_ID_FNT_staff_1_1_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/JNANA_JYOTHI_ID_BCK_staff_2_3.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  {% for staff in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+   
+   
+    <div style="padding-top: 69px;">
+      <div style="height: 99px; width:96px;right:3px;border:1px solid white;background-color: white;margin:auto;border-radius: 50% 50%;">
+        <img src={{staff.profile_pic_details.file}} style="height: 99px; width: 96px;border:2.5px solid rgb(42, 148, 235);border-radius: 50%;">
+      </div>
+      <div style="color:darkred;text-align: center;font-size: 15px;font-weight: bold;margin-top: 11px;">{{staff.name|upper}}</div>
+      <!-- <div style="color:#000000;text-align: center;font-size: 11.5px;font-weight: bold;margin-top: 2px;">{{student.standard_name}}</div> -->
+    </div> 
+
+    <table width="100%" style=" font-size: 10px; color: #000000;font-weight: bold;margin-left: 5px;margin-right: auto;line-height: 15px;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;margin-top: 5px;">
+      <tr>
+          <td style="font-size: 10px;">Designation</td>
+          <td style="font-weight: bold; font-family: calisto 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+              {% if staff.designation|length > 13 %} font-size: 11px; {% else %} font-size: 13px; {% endif %}">
+              : {{ staff.designation|title }}
+          </td>
+      </tr>
+      <tr>
+          <td style="font-size: 10px;">Department</td>
+          <td style="font-weight: bold; vertical-align: top;
+              {% if staff.previous_job_details.prev_designation|length > 13 %} font-size: 9px; {% else %} font-size: 13px; {% endif %}">
+              : {{ staff.previous_job_details.prev_designation|title }}
+          </td>
+      </tr>
+      <tr>
+        <td style="font-size: 10px;">Blood Group</td>
+        <td style="font-weight: bold;font-size: 12px;">
+            : 
+            {% if staff.previous_job_details.prev_reason_leaving %}
+                {% if "+ve" in staff.previous_job_details.prev_reason_leaving or "-ve" in staff.previous_job_details.prev_reason_leaving %}
+                    {{ staff.previous_job_details.prev_reason_leaving }}
+                {% else %}
+                    {{ staff.previous_job_details.prev_reason_leaving }} +ve
+                {% endif %}
+            {% else %}
+                <!-- No blood group information, so display nothing or a placeholder if needed -->
+            {% endif %}
+        </td>
+    </tr>
+    
+  </table>
+  
+    
+     
+    
+      
+    </table>
+    <div>
+      <img src={{staff.users.barcode_url}} style="height: 36px; width: 122px;margin-top:8px;margin-left: 32px;color: #000000;">
+  </div>
+  <!-- <div>
+    {%if forloop.counter == 1 %}
+    <img src={{staff.users.barcode_url}} style="height: 30px; width: 109px;margin-top:12px;margin-left: 13px;">
+    {%else%}
+    <img src={{staff.users.barcode_url}} style="height: 30px; width: 109px;margin-top:12px;margin-left: 13px;">
+    {%endif%}
+     </div> -->
+    
+
+
+      <!-- <div style="color:#000000;text-align: center;font-size: 9px;font-weight: bold;margin-top: 4px;">Enroll : {{student.admission_num}}</div>
+      <div style="color:#000000;text-align: center;font-size: 9px;font-weight: bold;margin-top: 2px;">2024-25</div>
+      <div style="color:#000000;text-align: center;font-size: 11px;font-weight: bold;margin-top: 2px;">{{student.student_details.blood_group}}</div> -->
+    
+
+
+     
+    </div>
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card -->
+  <div class="page back-side">
+    <div style="text-align: center;">
+      <table style="padding-top: 58px;width:100%">
+        <tr>
+            <td style="font-size: 11px;font-family: 'chrysanthi unicode';text-align: center;color:#000000;font-weight: bold;">
+                Residential Address
+            </td>
+        </tr>
+        <tr>
+          <td style="font-size:10px;color:#000000;text-align: center;font-weight: 400;font-family: Arial, Helvetica, sans-serif;">
+            
+            {% for address in staff.staff_address %}
+            {% if address.address %}{{address.address}} {% endif %}{% endfor %}
+            <!-- {{staff.custom_address_line_one|title}} {{staff.custom_address_line_two|title}} {{staff.custom_city}}-{{staff.custom_pincode}} -->
+          </td>
+        </tr>
+      </table>
+      <div style="font-size: 11px;color:#000000;font-weight: bold;">Mob No :  {{staff.mobile_num|cut:"+91"}}</div>
+    </div>
+    
+  </div>
+  {% endfor %}
+</body>
+</html>
+

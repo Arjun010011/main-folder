@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hall Ticket</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .card {
+            flex: 0 0 50%; /* Each card takes 48% of the width (2 columns) */
+            border: 1px solid black;
+            margin: 5px;
+            padding: 10px;
+            box-sizing: border-box;
+            height: 350px; /* Adjust for rows on A4 page */
+        }
+        .card h1 {
+            font-size: 18px;
+            margin: 5px 0;
+            text-align: center;
+        }
+        .card p {
+            margin: 5px 0;
+        }
+        .signature {
+            margin-top: 30px;
+            text-align: right;
+        }
+        @media print {
+            body {
+                margin: 0;
+            }
+            .container {
+                width: 100%;
+            }
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .boxd {
+        border: 1px solid black;
+        width: 200px;
+        height: 20px;
+        padding:2px;
+        margin:auto;
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% for student in student_list %}
+        <div class="card">
+            <div style="display: flex;">
+                <div>
+                    {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 40px;height:40px;" /> {% endif %}
+                </div>
+                <h1 style="text-align: center;margin-left: 50px; margin-right:30px;">ANJALI CONVENT</h1>
+                <div>
+                    {% if institute.logo.file.url %} <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/anjali-convent/anjaliconentlogo.jpeg" style="width: 40px;height:40px;" /> {% endif %}
+                </div>
+            </div>
+            <p style="text-align: center;font-weight: bold;margin-top: -20px;">&</p>
+            <p style="text-align: center;font-size: 12px;font-weight: bold;">NIGHTINGALE HIGH SCHOOL</p>
+            <p style="text-align: center;font-size: 12px;margin-top: 5px;">Srinivasanagar, S.katte,B-91</p>
+            <p style="text-align: center;font-size: 12px;margin-top: 5px;margin-bottom: 5px;"><u>{{ examDetail.description | title }}</u></p>
+            <p class="boxd" style="text-align: center;margin-left:70px;" ><strong>Admission Ticket</strong></p>
+            <table>
+            <tr style="height:30px;">
+            <td style="font-weight: bold;font-size: 14px;width:50px;">Name</td>
+            <td style="font-weight: bold;font-size: 14px;width:10px;">:</td>
+            <td style="font-weight: bold;font-size: 14px;">{{student.student_data.full_name | title }}</td>
+            </tr>
+            <tr style="height:30px;">
+            <td style="font-weight: bold;font-size: 14px;">Class</td>
+            <td style="font-weight: bold;font-size: 14px;">:</td>
+            <td style="font-weight: bold;font-size: 14px;">{%if student.student_data.standard_section__standard__name == 'Pre-KG' %}Pre-Nursery{%else%}{{ student.student_data.standard_section__standard__name | capfirst }}{%endif%}
+            </tr>
+            <tr style="height:30px;">
+                <td style="font-weight: bold;font-size: 14px;">Sec</td>
+                <td style="font-weight: bold;font-size: 14px;">:</td>
+                <td style="font-weight: bold;font-size: 14px;">{{ student.student_data.standard_section__section__name | capfirst }}</td>
+            </tr>
+
+            </table>
+            <div style="font-weight: bold;font-size: 14px;margin-top: 80px;" class="signature">
+                Signature of the H M
+            </div>
+        </div>
+        {%  if forloop.counter|divisibleby:"6" and not forloop.last %}
+        <div style="page-break-after: always;"></div>
+        </div>
+        <div class="container">
+        {% endif %}
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Canteen Receipt - {{ order.order_number }}</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 320px; margin: 0 auto; padding: 16px; color: #333; font-size: 12px; }
+
+        .header { text-align: center; padding-bottom: 10px; border-bottom: 2px solid #333; }
+        .school-name { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .school-address { font-size: 10px; color: #666; margin-top: 2px; }
+        .receipt-title { font-size: 12px; font-weight: 600; color: #1C52C8; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        .divider { border: none; border-top: 1px dashed #999; margin: 8px 0; }
+
+        .info-row { display: flex; justify-content: space-between; font-size: 11px; margin: 3px 0; }
+        .info-row .label { color: #666; }
+        .info-row .value { font-weight: 600; }
+
+        table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+        th { padding: 5px 4px; text-align: left; font-size: 10px; text-transform: uppercase; color: #666; border-bottom: 2px solid #333; }
+        th.right { text-align: right; }
+        th.center { text-align: center; }
+        td { padding: 5px 4px; font-size: 11px; border-bottom: 1px dashed #ddd; }
+        td.right { text-align: right; }
+        td.center { text-align: center; }
+        .combo-tag { display: inline-block; background: #FFF3E0; color: #E65100; font-size: 9px; padding: 1px 4px; border-radius: 3px; margin-right: 3px; }
+
+        .totals { margin-top: 8px; }
+        .totals .row { display: flex; justify-content: space-between; padding: 2px 0; font-size: 12px; }
+        .totals .discount { color: #d32f2f; }
+        .totals .grand { font-size: 16px; font-weight: 700; border-top: 2px solid #333; padding-top: 6px; margin-top: 4px; color: #1C52C8; }
+
+        .notes { font-size: 10px; color: #666; margin-top: 8px; padding: 6px; background: #f9f9f9; border-radius: 4px; }
+        .footer { text-align: center; margin-top: 14px; padding-top: 10px; border-top: 1px dashed #999; font-size: 10px; color: #888; }
+
+        @media print { body { max-width: 100%; } }
+    </style>
+</head>
+<body>
+    {% for copy in number_of_copies %}
+    <div {% if not forloop.first %}style="page-break-before: always;"{% endif %}>
+
+        <div class="header">
+            <div class="school-name">{{ institute.name }}</div>
+            {% if institute.address %}<div class="school-address">{{ institute.address }}</div>{% endif %}
+            {% if institute.phone %}<div class="school-address">Ph: {{ institute.phone }}</div>{% endif %}
+            <div class="receipt-title">Canteen Receipt</div>
+        </div>
+
+        <hr class="divider">
+
+        <div class="info-row"><span class="label">Order No:</span><span class="value">{{ order.order_number }}</span></div>
+        <div class="info-row"><span class="label">Date:</span><span class="value">{{ order.created_at|date:"d-m-Y h:i A" }}</span></div>
+        <div class="info-row"><span class="label">Payment:</span><span class="value">{{ order.payment_mode_display }}</span></div>
+        {% if order.user_display_name %}
+        <div class="info-row"><span class="label">Customer:</span><span class="value">{{ order.user_display_name }}</span></div>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th class="center">Qty</th>
+                    <th class="right">Price</th>
+                    <th class="right">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>
+                        {% if item.combo_name %}<span class="combo-tag">C</span>{{ item.combo_name }}{% elif item.food_item_name %}{{ item.food_item_name }}{% else %}Item{% endif %}
+                    </td>
+                    <td class="center">{{ item.quantity }}</td>
+                    <td class="right">₹{{ item.unit_price }}</td>
+                    <td class="right">₹{{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <div class="row"><span>Subtotal</span><span>₹{{ order.total_amount }}</span></div>
+            {% if order.discount_amount > 0 %}
+            <div class="row discount"><span>Discount</span><span>-₹{{ order.discount_amount }}</span></div>
+            {% endif %}
+            <div class="row grand"><span>Total</span><span>₹{{ order.net_amount }}</span></div>
+        </div>
+
+        {% if order.notes %}
+        <div class="notes"><strong>Notes:</strong> {{ order.notes }}</div>
+        {% endif %}
+
+        <div class="footer">
+            Thank you for your order!<br>
+            Powered by EduBriz
+        </div>
+
+    </div>
+    {% endfor %}
+</body>
+</html>

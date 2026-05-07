@@ -1,0 +1,327 @@
+.paper-background-study-certificate {
+    width: 100%;
+    border: 1px solid black;
+    height: 995px;
+    padding: 10px;
+}
+
+.paper-background-certificate {
+    width: 100%;
+    background-size: 105%;
+    background-repeat: no-repeat;
+    min-height: 90vh;
+    padding: 30px;
+}
+
+.text-align-center {
+    text-align: center !important;
+}
+
+.highlight-text {
+    font-size: 30px !important;
+    text-align: center;
+    font-weight: 900;
+    padding-top: 10px;
+}
+
+.sub-headings {
+    text-align: center;
+    font-weight: 300;
+    padding-top: 10px;
+}
+
+  .text {
+    font-weight: 300;
+    width: 100% !important
+  }
+
+
+
+.text-margin {
+    margin-top: 50px;
+}
+
+.common-text{
+    word-spacing: 5px;
+    font-weight: 300;
+}
+
+.signature{
+    text-align: end;
+    -webkit-text-stroke: medium;
+    padding-right: 115px;
+    font-weight: 300;
+}
+
+.signature-of{
+    padding-right: 180px;
+    padding-top: 30px;
+    text-align: end;
+    -webkit-text-stroke: medium;
+    font-weight: 300;
+}
+
+.seal {
+    -webkit-text-stroke: medium;
+    padding-top: 50px;
+    font-weight: 300;
+}
+
+.name-text{
+    text-align: end;
+    padding-right: 200px;
+    padding-top: 50px;
+    font-weight: 300;
+}
+
+.footer {
+    text-align: center;
+    font-weight: 300;
+}
+
+.footer-sign {
+    text-align: center;
+    -webkit-text-stroke: medium;
+    padding-top: 50px;
+    margin-top: 35px !important;
+    font-weight: 300;
+}
+
+.text-indent {
+    text-indent: 450px;
+}
+
+.text-font {
+    font-size: 22px !important;
+}
+
+.data {
+    -webkit-text-stroke: medium;
+    border-bottom: 1px dotted black;
+
+}
+
+.table-bordered {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    height: 190px;
+    width: 1790px;
+}
+
+.table-bordered-td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 15px !important;
+    font-weight: bold;
+    font-family: serif;
+}
+
+.table-bordered-td-data {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 15px !important;
+    font-weight: bold;
+    font-family: serif;
+    height: 600px;
+    vertical-align: top;
+    padding-top: 60px;
+}
+
+.paper-background-abstract {
+    padding: 40px !important;
+}
+
+.admission-sub-heading {
+    font-weight: 400;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    font-size: 25px !important;
+}
+
+.small-text {
+    text-align: justify;
+}
+
+.abstract-heading {
+    left: 580px;
+    font-size: 30px !important;
+    font-weight: 900;
+    padding-top: 10px;
+    letter-spacing: 3px;
+    word-spacing: 15px;
+}
+
+
+.kannada-translated {
+    word-spacing: 5px;
+    font-weight: 400;
+    text-align: center;
+    padding: 0px 10px 10px 10px;
+    font-size: 20px !important;
+    letter-spacing: 2px;
+}
+
+.vertical-rotate {
+    transform: rotate(270deg);
+    font-size: 14px !important;
+}
+
+.horizontal-text {
+    padding: 10px;
+    font-size: 14px !important;
+}
+
+.abstract-heading-page-2 {
+    font-size: 30px !important;
+    font-weight: 900;
+    letter-spacing: 3px;
+    word-spacing: 15px;
+    bottom: 20px;
+}
+.table-bordered-th {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    font-size: 15px !important;
+    font-weight: bold;
+    font-family: serif;
+    height: 80px;
+    padding: 10px;
+}
+
+.page-break {
+    page-break-after: always
+}
+
+
+.container {
+    // padding: 3rem 5rem;
+    padding: 0px 140px 100px 140px
+}
+
+.text-center {
+    text-align: center !important;
+}
+
+.mt-2 {
+    margin-top: 2rem !important;
+}
+
+.text-right {
+    text-align: left;
+}
+
+.dotted {
+    border-bottom: 0.7px dotted darkgray;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+.marginLeft {
+    margin-left: 80%;
+    white-space: nowrap;
+}
+
+.marginCenter {
+    margin-left: 15%;
+}
+
+.marginRight {
+    margin-right: 30%;
+    white-space: nowrap;
+}
+
+.w-space {
+    white-space: nowrap;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.mt-4 {
+    margin-top: 4rem
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.t-center {
+    text-align: center;
+    white-space: nowrap;
+}
+
+@media print {
+    .dotted {};
+    .paper-background-abstract {
+        padding: 10px !important;
+    }
+    .table-bordered {
+        width: 1100px !important;
+    }
+    .vertical-rotate {
+        transform: rotate(0deg);
+        font-size: 14px !important;
+    }
+    .table-bordered-td-data {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        font-size: 15px !important;
+        font-weight: bold;
+        font-family: serif;
+        height: 200px;
+        vertical-align: top;
+        padding-top: 60px;
+    }
+
+}
+
+.text-font-data {
+    font-size: 22px !important;
+}
+
+.footer-text{
+    padding-top: 5px !important;
+}
+
+
+.signature-text {
+    text-indent: 25px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+.signature-text-data {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.school-name-indent {
+    font-size: 30px !important;
+    font-weight: 900;
+    text-indent: 20px;
+    padding: 20px;
+}
+
+.small-sub-text{
+    text-align: justify;
+}
+
+.print {
+    height: fit-content;
+    margin-top: 10px !important;
+}
+
+.backbutton {
+    display: flex;
+    justify-Content: flex-end; 
+    margin-bottom: 10px !important
+}
+
+.print-padding {
+    padding-right: 50px !important;
+}

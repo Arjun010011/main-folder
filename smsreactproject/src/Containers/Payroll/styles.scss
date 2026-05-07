@@ -1,0 +1,663 @@
+.salary-heading {
+    color: #1665D8;
+    font-size: 25px;
+    font-weight: bold;
+    background: #ebf5ff;
+    padding: 10px 10px 10px 40px;
+}
+
+.salary-margin {
+    padding: 30px 0 0 30px;
+}
+
+.salary-margin-0 {
+    margin: 0px !important;
+}
+
+.form-border {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    height: -webkit-fill-available;
+    border: 1px dotted rgba(0, 0, 0, 0.2);
+}
+
+.border-position {
+    position: relative;
+}
+
+.salaryplan-table-data-row {
+    background-color: #ffffff !important;
+    height: 58px !important;
+    box-shadow: 10px 5px 20px rgba(0, 0, 0, 0.3), 0px 0px 4px rgba(0, 0, 0, 0.06) !important;
+}
+
+.salaryplan-header-value {
+    font-size: 16px !important;
+    text-align: left !important;
+}
+
+.salaryplan-table-margin {
+    margin: 20px auto 45px 0px !important;
+    max-width: 1300px;
+}
+
+.Salary-component-heading {
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 27px !important;
+    margin-bottom: 10px !important;
+}
+
+.salaryplan-tabletext-align {
+    text-align: left !important;
+    padding: 30px;
+}
+
+.salary-plan-header-label {
+    color: #ffffff !important;
+    font-size: 18px !important;
+    // text-align: center!important;
+}
+
+.salary-plan-header-label-right {
+    color: #ffffff !important;
+    font-size: 18px !important;
+    text-align: right !important;
+}
+
+.salary-plan-table-header {
+    height: 40px !important;
+    box-shadow: 10px 0px 20px rgba(0, 0, 0, 0.3), 0px 0px 4px rgba(0, 0, 0, 0.06) !important;
+    background-color: #1863FE !important;
+}
+
+.salary-plan-table-data-row {
+    background-color: #ffffff !important;
+    height: 40px !important;
+    box-shadow: 10px 5px 20px rgba(0, 0, 0, 0.3), 0px 0px 4px rgba(0, 0, 0, 0.06) !important;
+}
+
+.edit-amount-input-salary-plan {
+    width: 85px !important;
+    text-align: center !important;
+    height: 30px !important;
+    font-size: 17px !important;
+    margin-top: 7px !important;
+}
+
+.edit-rate-input-salary-plan {
+    width: 52px !important;
+    text-align: center !important;
+    height: 25px !important;
+    font-size: 17px !important;
+    margin-top: 7px !important;
+}
+
+.error-text {
+    color: #f44336;
+    margin: 0;
+    font-size: 0.75rem;
+    margin-top: 3px;
+    font-weight: 400;
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+}
+
+.salary-grid-card-label {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+    width: 145px;
+    padding-left: 35px;
+}
+
+.salary-grid-card-value {
+    font-size: 12px;
+    line-height: 16px;
+    color: #000000;
+    width: 145px;
+    word-break: break-word;
+}
+
+.salary-info-inner-box {
+    display: flex;
+    padding: 3px;
+}
+
+.salary-info-outer-box {
+    height: 130px;
+}
+
+.salary-plan-row-margin {
+    border-spacing: 0px !important;
+    border-collapse: separate !important;
+    border: 1px solid #dadabd;
+    width: 550px !important;
+}
+
+.salary-plan-view-sub-heading {
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 33px !important;
+    margin-bottom: 10px !important;
+}
+
+.salary-plan-earning-view-sub-heading {
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 28px !important;
+    // margin-top: 20px!important;
+    margin-bottom: 10px !important;
+}
+
+.salary-plan-deduction-view-sub-heading {
+    color: #4680FF !important;
+    font-weight: 500 !important;
+    font-size: 28px !important;
+    margin-top: 40px !important;
+    margin-bottom: 10px !important;
+
+}
+
+.salary-plan-total-table-data-row {
+    background-color: #e9f4ff !important;
+    height: 40px !important;
+}
+
+
+.salary-plan-header-value {
+    font-size: 16px !important;
+    // font-weight: 400!important;
+    text-align: right !important;
+}
+
+.salary-plan-amount {
+    font-size: 16px !important;
+    text-align: right !important;
+}
+
+.salary-plan-amount-center {
+    font-size: 16px !important;
+    text-align: center !important;
+}
+
+.salary-plan-header-left {
+    font-size: 16px !important;
+    text-align: left !important;
+}
+
+.salary-plan-total-header-value {
+    font-size: 18px !important;
+    font-weight: bolder !important;
+    text-align: center !important;
+}
+
+.salary-profile-plan-total {
+    margin-top: 10px;
+}
+
+.salary-approved-button {
+    color: green !important;
+    justify-content: center !important;
+    font-weight: 700 !important;
+}
+
+.paper-background-payslip {
+    width: 100%;
+    background-size: 105%;
+    background-repeat: no-repeat;
+    margin-top: 40px;
+    border: 1px solid lightblue;
+}
+
+.payslipheading {
+    text-align: center;
+}
+
+.payslipamount {
+    text-align: right;
+    padding-right: 15px;
+}
+
+
+.label-text-align {
+    padding-left: 15px;
+}
+
+.amount-text-align {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 15px;
+}
+
+.table,
+th,
+td {
+    text-align: left;
+}
+
+.th,
+td {
+    padding: 3px;
+    text-align: left;
+}
+
+.button-padding {
+    padding: 10px 30px 30px 30px !important;
+}
+
+.salary-plan-add-details {
+    display: flex !important;
+    margin-left: auto !important;
+    margin-top: 15px !important;
+    background-color: #1665D8 !important;
+    border-radius: 10px !important;
+    color: #FFFFFF !important;
+}
+
+.submit-button-padding {
+    padding-bottom: 80px !important;
+}
+
+.staffname-text-align {
+    text-align: left !important;
+    padding-left: 20px !important;
+}
+
+.staffemail-text-align {
+    text-align: left !important;
+    padding-left: 50px !important;
+}
+
+.salary-paper-plan-total {
+    margin-bottom: 40px !important;
+}
+
+.waring-margin {
+    margin: 20px !important;
+}
+
+.warning-width {
+    width: 100%;
+}
+
+.warning-message-salary {
+    background-color: #fcf2cd !important;
+    border-color: #fceaa1 !important;
+    padding: 16px 2px 16px 5px !important;
+    color: #333 !important;
+    border-top: 1px solid #FFF0B3 !important;
+    border-right: 1px solid #FFF0B3 !important;
+    border-bottom: 1px solid #FFF0B3 !important;
+    border-left: 1px solid #FFF0B3 !important;
+    border-radius: 3px !important;
+    line-height: 20px !important;
+    // margin-left: 20px !important;
+}
+
+.warning-text {
+    color: #f6c342;
+    margin-right: 10px;
+}
+
+.flex-prop {
+    display: flex;
+    flex-flow: wrap;
+}
+
+.name-cloumn-width {
+    width: 150px !important;
+}
+
+.email-cloumn-width {
+    width: 180px !important;
+}
+
+.mobile-cloumn-width {
+    width: 125px !important;
+}
+
+.action-cloumn-width {
+    width: 100px !important;
+}
+
+.status-cloumn-width {
+    width: 140px !important;
+}
+
+.payout-table {
+    border-spacing: 0px !important;
+    border-collapse: separate !important;
+    border: 1px solid #dadabd;
+}
+
+.marign-left-25 {
+    margin-left: 25px !important;
+}
+
+.padding-left-25 {
+    padding-left: 25px !important;
+}
+
+.AddCircleOutlineOutlinedIcon {
+    margin-right: '10px';
+    margin-top: '3px';
+    font-size: '25px';
+}
+
+
+.grid-card-width-300 {
+    width: 300px;
+    margin-right: 40px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+.tabcell-small-size {
+    padding: 16px 6px 16px 6px !important;
+    line-height: 0 !important;
+}
+
+/* ─── AddSalaryPlanFormula Styles ──────────────────────────── */
+
+.salary-body-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* Horizontal Profile Card */
+.salary-profile-horizontal {
+    display: flex;
+    align-items: center;
+    padding: 20px 24px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+    border: 1px solid #e0e4ea;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.salary-profile-h-avatar {
+    flex-shrink: 0;
+}
+
+.salary-profile-h-info {
+    min-width: 140px;
+    margin-right: 24px;
+}
+
+.salary-profile-h-name {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #1a237e;
+    line-height: 1.3 !important;
+}
+
+.salary-profile-h-sub {
+    font-size: 13px !important;
+    color: #5c6bc0;
+    margin-top: 2px !important;
+}
+
+.salary-profile-h-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    flex: 1;
+}
+
+.salary-profile-h-detail-item {
+    min-width: 120px;
+}
+
+.salary-profile-h-label {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #90a4ae;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.salary-profile-h-value {
+    font-size: 14px !important;
+    color: #37474f;
+    margin-top: 2px !important;
+    word-break: break-word;
+}
+
+.salary-profile-h-salary {
+    font-weight: 700 !important;
+    color: #1565c0 !important;
+}
+
+/* Formula Sections (Earnings / Deductions) */
+.salary-formula-section {
+    margin-bottom: 8px;
+}
+
+.salary-formula-section-title {
+    font-size: 18px !important;
+    font-weight: 600 !important;
+    padding: 8px 0 4px;
+}
+
+.salary-formula-earnings-title {
+    color: #1565c0;
+}
+
+.salary-formula-deductions-title {
+    color: #c62828;
+}
+
+.salary-formula-table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+.salary-formula-table-header {
+    background-color: #f5f7fa;
+}
+
+.salary-formula-header-cell {
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    color: #546e7a !important;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    border-bottom: 2px solid #e0e4ea !important;
+    padding: 10px 16px !important;
+}
+
+.salary-formula-data-row {
+    transition: opacity 0.25s ease;
+
+    &:hover {
+        background-color: #f9fbfd;
+    }
+}
+
+.salary-formula-cell {
+    font-size: 14px !important;
+    color: #37474f;
+    padding: 8px 16px !important;
+    border-bottom: 1px solid #f0f0f0 !important;
+}
+
+.salary-formula-total-row {
+    background-color: #e8f0fe !important;
+}
+
+.salary-formula-total-cell {
+    font-size: 15px !important;
+    color: #1a237e !important;
+    padding: 10px 16px !important;
+    border-bottom: none !important;
+}
+
+/* Two-column panels */
+.salary-panels-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 16px;
+
+    @media (max-width: 960px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.salary-panel-card {
+    border: 1px solid #e0e4ea;
+    border-radius: 8px;
+    padding: 16px;
+    background: #fff;
+}
+
+/* Net Pay Summary Card */
+.salary-summary-card {
+    border: 1px solid #e0e4ea;
+    border-radius: 10px;
+    padding: 20px 28px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
+    max-width: 420px;
+    margin-left: auto;
+    margin-bottom: 8px;
+}
+
+.salary-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.salary-summary-label {
+    font-size: 14px !important;
+    color: #546e7a;
+}
+
+.salary-summary-value {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #37474f;
+}
+
+.salary-summary-divider {
+    height: 1px;
+    background: #cfd8dc;
+    margin: 8px 0;
+}
+
+.salary-summary-net {
+    padding-top: 8px;
+}
+
+.salary-summary-net-label {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #1a237e;
+}
+
+.salary-summary-net-value {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    color: #2e7d32;
+}
+
+.salary-summary-negative {
+    color: #c62828 !important;
+}
+
+/* ─── Attendance Bar (Working Days / Present Days) ─────── */
+
+.salary-payment-attendance-bar {
+    display: flex;
+    gap: 24px;
+    padding: 14px 20px;
+    margin-top: 12px;
+    background: #f5f7fa;
+    border-radius: 8px;
+    border: 1px solid #e0e4ea;
+    flex-wrap: wrap;
+}
+
+.salary-payment-attendance-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.salary-payment-att-label {
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #546e7a;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.salary-payment-att-value {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #1a237e;
+    background: #e8eaf6;
+    padding: 2px 12px;
+    border-radius: 6px;
+    min-width: 32px;
+    text-align: center;
+}
+
+.salary-payment-att-lop {
+    .salary-payment-att-value {
+        background: #ffebee;
+    }
+}
+
+/* ─── Override Page Styles ─────────────────────────────── */
+
+.override-section-card {
+    border: 1px solid #e0e4ea;
+    border-radius: 10px;
+    padding: 16px 20px;
+    background: #fff;
+}
+
+.override-section-title {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    color: #1a237e;
+    margin-bottom: 10px !important;
+}
+
+.override-paid-banner {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    background: #fff3e0;
+    border: 1px solid #ffe0b2;
+    border-radius: 8px;
+}
+
+.override-permanent-badge {
+    font-size: 11px !important;
+    height: 22px !important;
+}
+
+.override-permanent-yes {
+    background-color: #e8f5e9 !important;
+    color: #2e7d32 !important;
+    font-weight: 600 !important;
+}
+
+.override-permanent-no {
+    background-color: #fff3e0 !important;
+    color: #e65100 !important;
+    font-weight: 600 !important;
+}
+
+.override-no-data {
+    text-align: center;
+    padding: 32px 16px;
+}

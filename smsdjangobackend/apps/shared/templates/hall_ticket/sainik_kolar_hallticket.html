@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body {
+            line-height: 1.0rem;
+        }
+        .t-center {
+            text-align: center;
+        }
+        .heading {
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .header-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 6px;
+        }
+        .header-block img {
+            width: 70px;
+            height: 60px;
+            margin-right: 15px;
+        }
+        .w-100 {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .text-right {
+            text-align: right;
+        }
+        td, th {
+            padding: 5px;
+            border: 1px solid black;
+        }
+        .th-subject-view, .td-subject-view {
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo {
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4;
+            margin: 1mm;
+        }
+        .fs-bold {
+            font-weight: bold;
+        }
+        .address-heading {
+            font-size: 14px;
+        }
+        @media print {
+            body {
+                width: 635px;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem; height: 495px">
+
+        <!-- Block 1: Logo + School Name -->
+        <div class="header-block">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo" />
+            {% endif %}
+            <div class="heading">{{ institute.name }}</div>
+        </div>
+
+        <!-- Block 2: Hall Ticket Title -->
+        <div class="t-center fs-bold address-heading" style="margin-bottom: 8px;">
+            {{ examDetail.exam_type.name | upper }} HALL TICKET
+        </div>
+
+        <!-- Student Info -->
+        <table class="w-100" style="font-size: 12px; border: 1px solid black;">
+            <tr>
+                <td style="border:none; border-bottom: 1px solid black;">
+                    Name : {{ student.student_data.full_name | title | upper }}
+                </td>
+                <td style="border:none; border-bottom: 1px solid black;"></td>
+                <td style="text-align:right; padding-right:30px; border:none; border-bottom: 1px solid black;">
+                    STD : {{ standard_name_in_roman }}
+                </td>
+            </tr>
+            <tr>
+                <td style="border:none; border-bottom: 1px solid black;">
+                    Roll No :
+                </td>
+                <td style="border:none; border-bottom: 1px solid black;"></td>
+                <td style="border:none; border-bottom: 1px solid black;"></td>
+            </tr>
+        </table>
+
+        <!-- Subject Table -->
+        <table class="w-100" style="font-size: 11px; margin-top: 5px;">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Invigilator's Sign</th>
+            </tr>
+            {% for subject in student.subject_list %}
+            <tr>
+                <td class="td-subject-view">{{ subject.fordate|date:'d-M-Y' }}</td>
+                <td class="td-subject-view">{{ subject.fordate|date:'l' }}</td>
+                <td class="td-subject-view">
+                    {{ subject.subject_name | title }}
+                    {% if subject.subject_part_code == 'part1' %}
+                        {% if 'ORAL' not in subject.subject_name %} Written{% endif %}
+                    {% endif %}
+                </td>
+                <td class="td-subject-view"></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- Signatures -->
+        <table class="w-100" style="margin-top: 5px; border-collapse: collapse;">
+            <tr>
+                <td style="text-align: left; height: 40px; border-bottom: 1px solid black; vertical-align: bottom; padding-bottom: 2px; border-right:none;">
+                    Class Teacher Sign
+                </td>
+                <td style="text-align: right; height: 40px; border-bottom: 1px solid black; border-left:none; vertical-align: bottom; padding-bottom: 2px;">
+                    Head Master Sign
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

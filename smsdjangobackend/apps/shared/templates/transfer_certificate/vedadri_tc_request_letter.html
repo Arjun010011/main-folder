@@ -1,0 +1,271 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate Request Letter</title>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 9mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #000;
+            padding: 40px;
+            height: 270mm;
+            border: 3px solid #000;
+        }
+
+        .container {
+            width: 100%;
+            position: relative;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #000;
+            padding-bottom: 15px;
+        }
+
+        .logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        .school-info {
+            flex-grow: 1;
+        }
+
+        .school-name {
+            font-size: 29px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-align: center;
+            margin-top: -30px;
+        }
+
+
+
+        .date-section {
+            text-align: right;
+            padding-right: 3%;
+            font-size: 21px;
+        }
+
+        .date-section span {
+            font-weight: bold;
+        }
+
+        .address-section {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .to-label {
+            font-weight: bold;
+        }
+
+        .subject-section {
+            margin: 25px 0;
+            font-size: 20px;
+        }
+
+        .subject-section span {
+            font-weight: bold;
+            padding-left: 10%;
+        }
+
+        .salutation {
+            margin-bottom: 20px;
+        }
+
+        .body-content {
+            text-align: justify;
+            line-height: 2;
+            margin-bottom: 20px;
+        }
+
+        .underline-bold {
+            font-weight: bold;  
+            padding: 0 5px;
+        }
+
+        .additional-info {
+            margin: 15px 0;
+            line-height: 2;
+        }
+
+        .label {
+            display: inline-block;
+            width: 120px;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .dise-section {
+            margin: 30px 0 10px;
+        }
+
+        .dise-section span {
+            font-weight: bold;
+        }
+
+        .thanks-section {
+            margin: 25px 0;
+        }
+
+        .signature-section {
+            margin-top: 30px;
+            line-height: 1.4;
+        }
+
+        .signature-name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .right-signature {
+            text-align: right;
+            margin-top: 60px;
+        }
+
+        .blank-line {
+            display: inline-block;
+            border-bottom: 1px solid #000;
+            min-width: 200px;
+            padding: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="header">
+        <div class="logo">
+            {% if institute.logo %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo">
+            {% endif %}
+        </div>
+
+        <div class="school-info">
+            <div class="school-name">{{ school_name }}</div>
+
+
+            {% if institute.address %}
+            <div style="font-size:13px;margin-top:5px;text-align: center;">
+                {{ institute.address }}
+                {% if institute.city %}, {{ institute.city }}{% endif %}
+                {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                {% if institute.tel_num %}
+                        Cell: {{ institute.tel_num }}
+                        {% if institute.tel_num_2 %}, {{ institute.tel_num_2 }}{% endif %}
+                    {% endif %}
+                    &nbsp; email: vedadri2024@gmail.com
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="date-section">
+        <span>Date:</span> {{ today }}
+    </div>
+
+    
+    <div class="address-section">
+        <div class="to-label">To,</div>
+        <div>The Principal / Head Master,</div>
+    </div>
+
+    
+    <div class="subject-section">
+        <span>Subject: Requisition for Transfer Certificate.</span>
+    </div>
+
+   
+    <div class="salutation">
+        Respected Sir/Madam,
+    </div>
+
+   
+    <div class="body-content">
+        <p>
+            With due respect, we would like to inform you that
+            <span class="underline-bold">{{ student_full_name }}</span>
+            {% if student_he_she == "he" %} s/o {% else %} d/o {% endif %}
+            <span class="underline-bold">{{ father_name }}</span>
+            has been admitted to our institution for the academic year
+            <span class="underline-bold">{{ to_academic_year }}</span>.
+            We kindly request you to issue
+            {% if student_he_she == "he" %}his{% else %}her{% endif %}
+            <strong>Transfer Certificate</strong> to facilitate admission formalities.
+        </p>
+    </div>
+
+    <div class="additional-info">
+        <div>
+            <span class="label">Class:</span>
+            <span class="value">
+                {{ standard_name }}
+            </span>
+        </div>
+        <div>
+            <span class="label">Pen No:</span>
+            <span class="value">
+                {{ pen_number }}
+            </span>
+        </div>
+        <div>
+            <span class="label">STS No:</span>
+            <span class="value">
+                {{ sts_number}}
+            </span>
+        </div>
+    </div>
+
+    <!-- DISE -->
+    <div class="dise-section">
+        DISE Code:
+        <span>
+            29280234910
+        </span>
+    </div>
+
+    <!-- Thanks -->
+    <div class="thanks-section">
+        Thanking you!
+    </div>
+
+    <!-- Signature -->
+    <div class="signature-section">
+        <div>Yours sincerely,
+            <p>Deepashree C A</p>
+        </div>
+        <div>(Head Mistress)</div>
+    </div>
+
+
+</div>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        @page {
+            size: A4;
+        }
+        .header {
+            /* display: flex; */
+            border-top: none;
+            line-height: 30px;
+        }
+        .schoolname {
+            font-size: 23px;
+            font-weight: bold;
+        }
+        .school {
+            width: 100%;
+            /* margin-left: 10%; */
+            font-size: 11px;
+            
+        }
+        .title {
+            font-size: 15px;
+            font-weight: bold;
+            padding: 5px 15px;
+            display: block;
+            text-align: center;
+        }
+
+        .no {
+            width: 20%;
+            margin-right: 1%;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        table,
+        tr,
+        td {           
+            border-collapse: collapse;
+            padding: 5px; 
+            padding-left: none;
+            padding-right: none;
+            border-left: none;
+            border-right: none;
+            font-size: 11px;
+
+        }
+        .min-width {
+           min-width: 50%;
+        }
+        .nameofschl {
+            font-size: 10px;
+            text-align: center;
+        }
+        .standwidth {
+            min-width: 50%;
+        }
+        .display-flex {
+            display: flex;
+        }
+
+        .subtitle {
+            font-family: 'Brush Script MT', cursive; 
+            font-size: 12px;
+            font-style: italic;
+            color: #000000; 
+            position: relative;
+            left: 240px; 
+            margin-top: -10px; 
+        }
+        .bold1{
+            font-weight: 900;
+        }
+
+    </style>
+</head>
+<body>
+    <div>
+        
+        <div style="position: absolute; left: -40px; top: 3%; transform: translateY(-50%);">
+              {% if institute.logo.file.url %}
+              <img src="{{ institute.logo.file.url }}" alt="School Logo" style="width: 150px; height: 110px;">
+              {% endif %}
+        </div>
+        <div style="margin-top: -20px;;">
+            <div style="text-align: center; font-size: 24px;font-weight: bolder;padding-left: 80px;">
+                  ASCENT PRE UNIVERSITY COLLEGE
+            </div>
+            <div style="text-align: center; font-size: 13px;padding-left: 60px;">
+              | Recognised by Government Of  Karnataka |
+              <br>
+              | Affiliated Karnataka School Examination And Assessment Board |
+            </div>
+            <div style="text-align: center; font-size: 14px;padding-left: 70px;">
+              #1 & 15, Hesaraghatta Main Road Near 8th Mile, Bengaluru - 560073
+            </div>
+            <!-- <div style="text-align: center; font-size: 14px;">
+                Phone no: +918050495666, +918050496777
+              </div> -->
+        </div>
+                    
+    </div>
+        <div>
+            <div class="title"> TRANSFER CERTIFICATE / ವರ್ಗಾವಣೆ  ಪ್ರಮಾಣ ಪತ್ರ</div><br>
+            <div class="display-flex">
+                <div style="font-size:13px">No&nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{tc_num}}</b></div>
+                 <div style="margin-left: auto;font-size:13px">Admission No /ದಾಖಲಾತಿ  ಸಂಖ್ಯೆ &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{admission_num}}</b></div>
+            </div>
+        </div>
+
+        <table style="width: 100%; font-family: 'Times New Roman', Times, serif; border-collapse: collapse; border: 1px solid rgb(56, 141, 45);">
+            <tr>
+                <td class="min-width" style="border: 1px solid black;"><div>1.Name of the Student : </div><div> ವಿದ್ಯಾರ್ಥಿಯ ಪೂರ್ಣ ಹೆಸರು </div> </td>
+                <td style="border: 1px solid rgb(13, 13, 14);"><b class="bold1">&nbsp;&nbsp;{{student_full_name}}</b></td>
+            </tr>
+            <br>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>2.Place Of Birth ಹುಟ್ಟಿದ ಸ್ಥಳ &nbsp;&nbsp;  : 
+                         <b class="bold1">&nbsp;&nbsp;{{place_of_births}}</b></div>
+                    <div>3.Taluk  ತಾಲ್ಲೂಕು  &nbsp;&nbsp;  : <b class="bold1">&nbsp;&nbsp;{{taluk}}</b></div>
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>4.District ಜಿಲ್ಲೆ   : <b class="bold1">&nbsp;&nbsp;{{district}}</b> </div>
+                    <div>5.State ರಾಜ್ಯ   : <b class="bold1">&nbsp;&nbsp;{{state}}</b></div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>6.Gender ಲಿಂಗ     &nbsp;&nbsp;          : <b class="bold1">&nbsp;&nbsp;{{gender}}</b></div>
+                    <div>7.Nationality ರಾಷ್ಟ್ರೀಯತೆ &nbsp;&nbsp; :<b class="bold1">&nbsp;&nbsp;{{nationality}}</b></div>
+                    <div>8. Caste ಜಾತಿ &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{caste}}</b></div>
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>9.Religion ಧರ್ಮ &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{religion}}</b> </div>
+                    <div>10. Sub Caste ಉಪಜಾತಿ  &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{sub_caste}}</b></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="min-width" style="border: 1px solid black;">11.Mother's Name   ತಾಯಿಯ ಹೆಸರು  &nbsp;&nbsp;: </td>
+                <td style="border: 1px solid black;"> <b class="bold1">&nbsp;&nbsp;{{mother_name}}</b></td>
+            </tr>
+        
+            <tr>
+                <td class="min-width" style="border: 1px solid black;">12.Father's/Guardian's Name  ತಂದೆಯ ಹೆಸರು &nbsp;&nbsp;:</td>
+                <td style="border: 1px solid black;"><b class="bold1">&nbsp;&nbsp;{{father_name}}</b> </td>
+            </tr>
+            <tr>
+                <td class="min-width" style="border: 1px solid black;">
+                    <div>13.Whether the Candidate belongs to Schedule Cast or Schedule Tribe (Yes/No)&nbsp;&nbsp;  : <b class="bold1">&nbsp;&nbsp; {{is_sc_st}}</b> </div>
+                   <div>ವಿದ್ಯಾರ್ಥಿಯು ಪರಿಶಿಷ್ಟ ಜಾತಿ ಅಥವಾ ಪರಿಶಿಷ್ಟ ಪಂಗಡಕ್ಕೆ ಸೇರಿದವರೇ (ಹೌದು/ಇಲ್ಲ)</div>
+                   <div></div>
+                <td style="border: 1px solid black;"><div>14.Whether qualified for promotion to the higher class : </div>
+                   <div>ಮುಂದಿನ ತರಗತಿಗೆ ಬಡ್ತಿ ಪಡೆಯಲು ಅರ್ಹತೆ ಇದೆಯೇ?</div>  
+                   <div>&nbsp;&nbsp; <b class="bold1">&nbsp;&nbsp;{{is_passed}}</b></div>
+                   <div>&nbsp;</div>
+                   <div>&nbsp;</div></td>
+                </td>
+            </tr>
+            <tr>
+                <td class="min-width" style="border: 1px solid black;">
+                    <div>15.Date of birth according to the admission register : </div>
+                    <div>ಹುಟ್ಟಿದ ದಿನಾಂಕ (ಅಕ್ಷರಗಳಲ್ಲಿ ಮತ್ತು ಅಂಕಿಗಳಲ್ಲಿ )</div></td>
+                <td style="border: 1px solid black;"> <b class="bold1">&nbsp;&nbsp;{{dob_str}}</b> <br><b class="bold1">&nbsp;&nbsp;{{dob_str_in_words}}</b></td>
+            </tr>
+            <tr>
+                <td class="min-width" style="border: 1px solid black;"><div>16.Standard in which the student was studying at the time of leaving the College  :  </div>
+                   <div>ಕಾಲೇಜು ಬಿಡುವ ಸಮಯದಲ್ಲಿ ವಿದ್ಯಾರ್ಥಿಯು ಓದುತ್ತಿದ್ದ ತರಗತಿ(ಅಕ್ಷರಗಳಲ್ಲಿ )</div> 
+                </td>
+                <td style="border: 1px solid black;"> <b class="bold1">&nbsp;&nbsp;{{to_standard_name}}</b></td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>17. Details Of Subjects studied in I and II PUC</div>
+                      <div> ಪ್ರಥಮ / ದ್ವಿತೀಯ ಪಿಯುಸಿಯಲ್ಲಿ ಅಧ್ಯಯನ ಮಾಡಿದ ವಿಷಯಗಳ </div> 
+                    <div>Part-I:Language Studied &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{part1_lan}}</b></div>
+                    <div>ಅಧ್ಯಯನ ಮಾಡಿದ ಭಾಷೆಗಳು</div>
+                    <div>Part-II:Opt. Subjects Studied &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{part2_sub}}</b></div>
+                    <div>ಅಧ್ಯಯನ ಮಾಡಿದ ಐಚ್ಛಿಕ ವಿಷಯಗಳು</div>
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>18.Date of Student's last attendence at College  :</div>
+                    <div>ವಿದ್ಯಾರ್ಥಿಯು ಕಾಲೇಜಿಗೆ ಕೊನೆಯ ಬಾರಿಗೆ ಹಾಜರಾದ ದಿನಾಂಕ</div>
+                    <div>&nbsp;<b class="bold1">&nbsp;&nbsp;{{last_date_attendance}}</b></div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                    <div>&nbsp;</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>19.Medium of Instruction &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{medium}}</b> </div>
+                    <div>ಬೋಧನಾ ಮಾಧ್ಯಮ</div>
+                    
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>20.Date on which the application for the Transfer Certificate was received &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{appln_date}}</b><div>
+                        <div> ವರ್ಗಾವಣೆ ಪ್ರಮಾಣಪತ್ರಕ್ಕಾಗಿ ಅರ್ಜಿಯನ್ನು ಸ್ವೀಕರಿಸಿದ ದಿನಾಂಕ :</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>21.Date of Admission or Promotion to that Standard &nbsp;&nbsp; :<b class="bold1">&nbsp;&nbsp;{{date_of_admission_or_promotion}}</b></div>
+                    <div>ತರಗತೆಗೆ ಪ್ರವೇಶ ಪಡೆದ ಅಥವಾ ಪಡೆದ ಬಡ್ತಿ ದಿನಾಂಕ</div>
+                    
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>22.Date of issue of certificate  &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{issue_date}}</b></div>
+                    <div>
+                        ವರ್ಗಾವಣೆ ಪ್ರಮಾಣಪತ್ರ ನೀಡಿದ ದಿನಾಂಕ
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>23.Whether all Balance of fees paid or not &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{fee_balance}}</b></div>
+                    <div> ಬಾಕಿಯಿರುವ ಎಲ್ಲಾ ಶುಲ್ಕಗಳನ್ನು ವಿದ್ಯಾರ್ಥಿಯಿಂದ ಪಡೆಯಲಾಗಿದೆಯೇ ?</div>
+                    
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>24.Number of College days up to the date of leaving &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{no_of_college_days_left}}</b></div>
+                    <div>ಕಾಲೇಜು ಬಿಡುವ ದಿನಾಂಕದವರೆಗಿನ ಕಾಲೇಜು ದಿನಗಳ ಸಂಖ್ಯೆ </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>25.Fee concessions,if any (nature and period to be specified) &nbsp;&nbsp;:  <b class="bold1">&nbsp;&nbsp;{{fee_concession}}</b></div>
+                    <div>ಶುಲ್ಕ ರಿಯಾಯಿತಿಗಳು, ಯಾವುದಾದರೂ ಇದ್ದರೆ (ಸ್ವರೂಪ ಮತ್ತು ಅವಧಿಯನ್ನು ನಿರ್ದಿಷ್ಟಪಡಿಸಬೇಕು)</div>
+                    
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>26.Total number of days the student attended  &nbsp;&nbsp;: <b class="bold1">&nbsp;&nbsp;{{no_of_school_days}} </b></div>
+                    <div>ವಿದ್ಯಾರ್ಥಿಯು ತರಗತಿಗೆ ಹಾಜರಾದ ಒಟ್ಟು ದಿನಗಳ ಸಂಖ್ಯೆ </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="border: 1px solid black;">
+                    <div>27.Scholarship,if any (nature and period to be specified) &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{is_scholarship}}</b></div>
+                    <div>
+                        ವಿದ್ಯಾರ್ಥಿವೇತನ, ಯಾವುದಾದರೂ ಇದ್ದರೆ (ಸ್ವರೂಪ ಮತ್ತು ಅವಧಿಯನ್ನು ನಿರ್ದಿಷ್ಟಪಡಿಸಬೇಕು)
+                    </div>
+                    
+                </td>
+                <td style="border: 1px solid black;">
+                    <div>28.Character and Conduct &nbsp;&nbsp;:<b class="bold1">&nbsp;&nbsp;{{stud_char}}</b> </div>
+                    <div>
+                        ಶೀಲ ಮತ್ತು ಚಾರಿತ್ರ್ಯ 
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div style="font-size:12px">Date ದಿನಾಂಕ &nbsp;&nbsp; : <b class="bold1">&nbsp;&nbsp;{{today}}</b></div>
+        <br>
+        <div style="font-size:12px" >Place ಸ್ಥಳ &nbsp;&nbsp;:  <b class="bold1">&nbsp;&nbsp;Bengaluru</b></div>
+        <div  style="text-align:right;font-size:12px">
+            Signature of the principal/ಪ್ರಾಂಶುಪಾಲರು
+        </div>
+        <div style="text-align:right;margin-right:50px;margin-top:0px;font-size:12px" >
+            With Seal /ಮೊಹರು
+        </div>   
+        
+        
+    </div>
+</body>
+</html>

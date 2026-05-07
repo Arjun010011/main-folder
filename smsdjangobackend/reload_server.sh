@@ -1,0 +1,1 @@
+echo root | sudo -S service edubricz reload

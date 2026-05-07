@@ -1,0 +1,103 @@
+.dropdownpadding{
+    padding-left: 20px;
+}
+
+.card-width {
+  width: 320px;
+  }
+  
+.bullet {
+    display: 'inline-block';
+    margin: '0 2px';
+    transform: 'scale(0.8)';
+  }
+
+.title {
+    font-size: 20;
+    text-align: center;
+    text-transform: capitalize;
+  }
+
+.pos {
+    margin-bottom: 12;
+  }
+
+.cardspacing{
+    padding: 20px;
+    display: flex;
+}
+.margin{
+    margin-top: 35px !important;
+}
+
+.margin-bottom-30{
+  margin-bottom: 30px !important;
+}
+
+.toggle-padding {
+  padding: 0px 20px 20px 0px !important;
+}
+
+.student-profile-pic {
+  width: 70px !important;
+  height: 70px !important;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cloumn-width {
+  width: 50px !important
+}
+
+.button-color {
+  color: blue !important;
+}
+
+.card-alignment {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.warning-message{
+    background-color: #faeaa8;
+    border-color: #FFF0B3;
+    padding: 16px 2px 16px 5px;
+    color: #333;
+    border-top: 1px solid #FFF0B3;
+    border-right: 1px solid #FFF0B3;
+    border-bottom: 1px solid #FFF0B3;
+    border-left: 1px solid #FFF0B3;
+    border-radius: 3px;
+    color: #333;
+    line-height: 20px;
+    margin-left: 20px;
+}
+
+.button-attendance{
+  padding: 0px 15px;
+  height: 30px;
+  margin: 5px 0px!important;
+}
+
+.attendance-dashboard-paper {
+  background: #ffffff !important;
+  box-shadow: 0px 15px 35px rgba(49, 69, 244, 0.1) !important;
+  border-radius: 15px !important;
+  margin: 10px !important;
+  width: 30%;
+  min-width: 250px;
+  padding: 10px 10px;
+}
+
+.custom-button {
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+.custom-button:hover {
+  background-color: #32408f;
+}

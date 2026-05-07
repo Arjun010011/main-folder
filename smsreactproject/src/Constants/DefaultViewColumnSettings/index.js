@@ -1,0 +1,7 @@
+import ENROLLMENT_TABLE_SETTINGS from './Enrollment';
+
+const TABLE_SETTINGS = {
+  ...ENROLLMENT_TABLE_SETTINGS
+}
+
+export default TABLE_SETTINGS;

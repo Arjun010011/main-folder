@@ -1,0 +1,114 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 ;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<div style='border: 1px solid;padding:10px;margin:5px;width:470px;'>      
+            <div style="display:flex;text-align: center;">
+                <div>
+                    {% if institute.logo.file.url %}
+                        <img src={{ institute.logo.file.url }}
+                        style="width: 80px;height: 80px;"/>
+                    {% endif %}
+                </div>
+                <div>
+                {% if institute.trust_name %}
+                <div style='font-size: 17px;'>{{ institute.trust_name }}</div>
+                {% endif %}
+                <div style="font-size: 35px;padding-left:20px;font-weight: bold;">
+                {{institute.name}} </br>
+                </div>
+                <div style="line-height: 1.5em;font-size:17px;">{{institute.address}} </br>Phone : {% if institute.tel_num %}{{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                </div>
+                </div>
+            </div>
+    <table class='noborder' style="width: 470px;font-size: 17px;margin-top:20px;">
+        <tr class='noborder'>
+               <td class="noborder"><b>Name : </b>
+                {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}</td>
+               <td class="noborder" style="text-align: right;"><b>Receipt No : </b>{{fee_collection.receipt_num|title}}</td>
+               </tr>
+            <tr class="noborder">
+                <td class="noborder">
+                <b>Class : </b>
+                {{fee_collection.standard_name}}
+                <td class="noborder" style="text-align: right;">
+                    <b>Date : </b>{{fee_collection.transaction_date}}
+                </td>
+        </tr>
+    </table>
+    <table style="width: 470px;">
+        <thead>
+            <tr>
+                <th width='70%' style="text-align:center">Particulars</th>
+                <th width='30%' style="text-align:center">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fee in fee_collection.payment_detail %}
+        <tr>
+            <td>
+                {{fee.fee_type_name}}
+            </td>
+            <td style="text-align: center;">{{fee.amount_paid| floatformat |intcomma}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <th style="text-align:right">Grand Total</th>
+                <th style="text-align:center">{{ fee_collection.total_amount | floatformat |intcomma}}</th>
+            </tr>
+        </tbody>
+    </table>
+</br>
+    <div style="margin-top:20px;"><b>Fee Total Balance : {{student_fee_summary.balance_till_date| floatformat |intcomma}}/-</div>
+    <table style="width:470px;margin-top:30px" class="noborder">
+    <td style="text-align:right;" class="noborder"> Signature</td>
+    </table>
+</div>
+    {%  if forloop.counter|divisibleby:"3" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</html>

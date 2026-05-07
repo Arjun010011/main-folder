@@ -1,0 +1,125 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <!-- Load Raleway font properly -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <style>
+        @page { size: A4 }
+        body {
+            font-family: 'Verdana', Geneva, Tahoma, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .center {
+            text-align: center;
+            padding: 2px;
+            font-family: 'Raleway', sans-serif;
+        }
+        .space {
+            text-align: justify;
+            line-height: 2.5em;
+            font-style: italic;
+            margin-top: 20px;
+        }
+        .border {
+            min-height: 945px;
+            border: 5px double #ff5100;
+            padding: 20px;
+            margin: -50px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            font-style: italic;
+        }
+        td {
+            padding: 5px 0;
+        }
+        .footer-note {
+            text-align: center;
+            font-style: italic;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+        <div>
+            <div style="justify-content: space-between; ">
+                <div>
+                    <div style="display: flex;"> 
+                        <img src={{institute.logo.file.url}} alt="Institution Logo" style="width: 100px; height: 90px;">
+                        <h1 style="font-size: 15px;padding-left: 12%;font-weight: bold;font-size: 25px;width: 100%;">{{school_name}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div style="font-size: 15px; padding: 3px;">Admission No.: {{admission_num}}</div>
+
+            <div class="center">
+                <img src={{institute.logo.file.url}} alt="Institution Logo" style="width: 450px; height: 167px;">
+            </div>
+
+            <div class="space">
+                &nbsp;&nbsp;This is to certify that {{ student_sri_kum }} {{ student_full_name|title }} {{ student_relate }} {{ father_name|title }}, belongs to {{ address }},
+                {{student_he_she|title}} has studied in {{ school_name }} from {{ from_academic_year }} to {{ to_academic_year }} from {{ from_standard_name }}{{ standard_suffix }} to {{ standard_name }}
+                and passed {{standard_name }} {{ standard_suffix }} in the year {{ to_academic_year }}.
+
+                <!-- {{ student_He_She|title }} has successfully completed {{ standard_name }}{{ standard_suffix }} in the year {{ year }}.
+                {% if has_studied_is_studying %}
+                    {{ student_He_She|title }} {{ has_studied_is_studying }} in our institution during the academic years {{ from_academic_year }} to {{ to_academic_year }}.
+                {% else %}
+                    {{ student_He_She|title }} has studied {{ standard_name }}{{ standard_suffix }} in our institution during the academic years {{ from_academic_year }} to {{ to_academic_year }}.
+                {% endif %} -->
+            </div>
+
+            <table>
+                <tr>
+                    <td>His/Her Date of Birth : {{dob_str}}</td>
+                </tr>
+                <tr>
+                    <td>Record No. & Date : {{recordnum_date}}</td>
+                </tr>
+                <tr>
+                    <td>Date of Leaving School : {{date_leaving_school}}</td>
+                </tr>
+                <tr>
+                    <td>This certificate is issued according to the records of our school.</td>
+                </tr>
+            </table>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 100px; font-style: italic;">
+                <div>Date: {{ today_date }}</div> 
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 27px; font-style: italic;">
+                <div>Place: ......................</div>
+                <div>Signature & Seal of the Headmaster</div>
+            </div>
+
+            <div class="footer-note" style="margin-top: 50px;">
+                Signature of AEO/DDPI with Seal
+            </div>
+        </div>
+
+        <div>
+            <hr style="border-color: #ff5100; margin-top: 40px;">
+            <div class="footer-note">
+                Note: If the candidate studied in more than one school,<br>
+                they must produce a separate certificate from each school.
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

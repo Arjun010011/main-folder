@@ -1,0 +1,173 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Study Certificate</title>
+
+    <style>
+        @page { size: A4 }
+
+        body {
+            margin: 0;
+            font-family: "Times New Roman", serif;
+            color: #000;
+        }
+
+        .border {
+            height: 935px;
+            border: 5px double black;
+            padding: 30px;
+            margin: -15px;
+            position: relative;
+        }
+
+        .header {
+            position: relative;
+            width: 100%;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+        /* Logo on LEFT */
+        .logo {
+            position: absolute;
+            left: 20px;
+            top: 10px;
+        }
+
+        .logo img {
+            width: 90px;
+            height: 90px;
+        }
+
+        /* Center content */
+        .school-details {
+            text-align: center;
+        }
+
+        /* Styling */
+        .trust {
+            font-size: 12px;
+        }
+
+        .schoolname {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .recognisition {
+            font-size: 12px;
+        }
+
+        .address {
+            font-size: 12px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 26px;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-top: 70px;
+        }
+
+        .photo {
+            position: absolute;
+            right: 40px;
+            top: 110px;
+            width: 110px;
+            height: 110px;
+            border: 1px solid black;
+            text-align: center;
+            font-size: 12px;
+            line-height: 130px;
+            border-radius: 15px;
+        }
+
+        .content {
+            margin-top: 40px;
+            font-size: 20px;
+            line-height: 2;
+            text-align: justify;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 190px;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="border">
+
+    <!-- HEADER -->
+    <div class="header">
+        <!-- LEFT: LOGO -->
+        <div class="logo">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}">
+            {% endif %}
+        </div>
+
+        <!-- CENTER: SCHOOL DETAILS -->
+        <div class="school-details">
+            <div class="trust">{{ institute.trust_name|upper }}</div>
+            <div class="schoolname">{{ school_name }}</div>
+            <div class="recognisition">Recognised by Govt. of Karnataka</div>
+            <div class="address">{{ school_address }}</div>
+        </div>
+    </div>
+
+    <!-- SL NO -->
+    <div style="margin-top: 60px;">
+        <b>Sl. No: {{ Sl_no }}</b>
+    </div>
+
+    <!-- PHOTO -->
+    <div class="photo">Photo</div>
+
+    <!-- TITLE -->
+    <div class="title">STUDY CERTIFICATE</div>
+
+    <div class="content">
+
+        This is to confirm that 
+        <b>{{ student_full_name|title }}</b>, 
+
+        {{ student_relate }} 
+        <b>{{ father_name|title }}</b>, 
+
+        is a student of our institution studying in 
+        <b>{{ from_standard_name }}</b> for the academic year 
+        <b>{{ from_academic_year }}</b>.
+
+        {{ student_he_she|title }} belongs to 
+        <b>{{ religion|title }}</b> religion.
+
+        {{ student_her_him|title }} date of birth as per the school records is 
+        <b>{{ dob_str }}</b>.
+
+        {{ student_her_him|title }} address as per our school records is 
+        <b>{{ address }}</b>.
+
+        <div style="margin-top: 6%; font-size: 20px;">The above mentioned details are true and accurate to the best of my knowledge.</div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div><b>Seal</b></div>
+        <div><b>Date:</b> {{ today_date }}</div>
+        <div><b>Principal</b></div>
+    </div>
+
+</div>
+</body>
+</html>

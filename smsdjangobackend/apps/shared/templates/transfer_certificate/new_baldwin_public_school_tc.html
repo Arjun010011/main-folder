@@ -1,0 +1,653 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Transfer Certificate</title>
+
+<style>
+
+        @page{
+            size:A4;
+            margin: 5mm;
+        }
+
+        body{
+            font-family:"Times New Roman", serif;
+            font-size:13px;
+            margin:0;
+            line-height:1.35;
+        }
+
+        /* PAGE */
+
+        .page{
+            position:relative;
+        }
+
+        /* WATERMARK */
+
+        .watermark{
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            opacity:0.04;
+            z-index:-1;
+        }
+
+        .watermark img{
+            width:720px;
+        }
+
+        /* HEADER */
+
+        .header-main{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        .header-main td{
+            vertical-align:middle;
+        }
+
+        /* LOGO */
+
+        .logo-cell{
+            width:12%;
+            text-align:left;
+        }
+
+        .logo{
+            width:75px;
+        }
+
+        /* SCHOOL DETAILS (CENTER) */
+
+        .school-details{
+            text-align:center;
+            width:88%;
+        }
+
+        .school-name{
+            font-size:26px;
+            font-weight:bold;
+            letter-spacing:1px;
+        }
+
+        .school-sub{
+            font-size:15px;
+            margin-top:2px;
+        }
+
+        .school-address{
+            font-size:12px;
+            line-height:1.35;
+            margin-top:2px;
+        }
+
+        /* HEADER LINE */
+
+        .header-line{
+            border-top:1px solid #000;
+            margin-top:6px;
+        }
+
+        /* TITLE */
+
+        .tc-heading{
+            text-align:center;
+            font-size:20px;
+            font-weight:bold;
+            margin-top:12px;
+            margin-bottom:8px;
+        }
+
+        /* TOP DETAILS */
+
+        .top-table{
+            width:100%;
+            margin-top:10px;
+            border-collapse:collapse;
+        }
+
+        .top-table td{
+            padding:4px 6px;
+            font-size:13px;
+        }
+
+        .left-field{
+            width:60%;
+        }
+
+        .right-field{
+            text-align:left;
+            padding-right:10px;
+        }
+
+        .right-label{
+            width:120px;
+        }
+
+        .book-no{
+            text-align:left;
+            padding-right:80px;
+        }
+
+        .book-label{
+            width:85px;
+        }
+
+        /* FIELD */
+
+        .field{
+            display:grid;
+            grid-template-columns:auto 8px 1fr;
+        }
+
+        /* MAIN TABLE */
+
+        .main-table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:10px;
+        }
+
+        .main-table td{
+            padding:4px 3px;
+            vertical-align:top;
+        }
+
+        /* COLUMNS */
+
+        .no{
+            width:4%;
+            vertical-align:top;
+        }
+
+        .label{
+            width:52%;
+            line-height:1.35;
+        }
+
+        .value{
+            width:44%;
+            border-bottom:1px solid #000;
+        }
+
+        /* SUBJECTS */
+
+        .subjects span{
+            display:inline-block;
+            width:120px;
+        }
+
+        /* FOOTER */
+
+        .footer{
+            width:100%;
+            margin-top:45px;
+        }
+
+        .footer td{
+            width:33%;
+            text-align:center;
+            font-size:13px;
+            vertical-align:top;
+        }
+
+        .sign-line{
+            border-top:1px solid #000;
+            width:80%;
+            margin:0 auto 6px auto;
+        }
+
+        .footer-text{
+            line-height:1.35;
+        }
+
+        .no-border{
+            border-bottom:none;
+        }
+
+        .three-col{
+            display:flex;
+            justify-content:space-between;
+            gap:20px;
+        }
+
+        .three-col div{
+            width:33%;
+        }
+
+</style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+    <!-- WATERMARK -->
+    <div class="watermark">
+        {% if institute.logo.file.url %}
+            <img src="{{ institute.logo.file.url }}">
+        {% endif %}
+    </div>
+
+    <!-- HEADER -->
+
+    <table class="header-main">
+
+    <tr>
+
+        <!-- LOGO -->
+        <td class="logo-cell">
+            {% if institute.logo.file.url %}
+            <img src="{{ institute.logo.file.url }}" class="logo">
+            {% endif %}
+        </td>
+
+
+        <!-- SCHOOL DETAILS CENTER -->
+        <td class="school-details">
+
+            <div class="school-name">
+                {{ school_name }}
+            </div>
+
+            <div class="school-sub">
+                {{ affiliation_details }}
+            </div>
+
+            <div class="school-address">
+
+                {% if institute.address %}
+                    {{ institute.address }},
+                {% endif %}
+
+                {% if institute.city %}
+                    {{ institute.city }}
+                {% endif %}
+
+                {% if institute.pincode %}
+                    - {{ institute.pincode }}
+                {% endif %}
+
+                <br>
+
+                {% if institute.tel_num %}
+                    Ph : {{ institute.tel_num }}
+                    {% if institute.tel_num_2 %}
+                        , {{ institute.tel_num_2 }}
+                    {% endif %}
+                {% endif %}
+
+            </div>
+
+        </td>
+
+    </tr>
+
+    </table>
+
+    <div class="header-line"></div>
+
+
+    <!-- TC TITLE -->
+
+    <div class="tc-heading">
+        TRANSFER CERTIFICATE
+    </div>
+
+
+    <!-- TOP DETAILS -->
+
+    <table class="top-table">
+
+        <tr>
+
+            <td style="width:33%;">
+                T.C. No : {{ tc_num }}
+            </td>
+
+            <td style="width:34%; text-align:center;">
+            </td>
+
+            <td style="width:33%; text-align:right; white-space:nowrap;">
+                Dise Code : 29280737404
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td style="width:33%; white-space:nowrap;">
+                SATS No : {{ sts }}
+            </td>
+
+            <td style="width:34%; text-align:center; white-space:nowrap;">
+                Academic Year : {{ student_academic_year }}
+            </td>
+
+            <td style="width:33%; text-align:right; white-space:nowrap;">
+                Admission No : {{ admission_num }}
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <!-- MAIN TABLE -->
+
+    <table class="main-table">
+
+        <tr>
+            <td class="no">1.</td>
+            <td class="label">Name of Pupil</td>
+            <td class="value">{{ student_full_name }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">2.</td>
+            <td class="label">Gender</td>
+            <td class="value">{{ gender }}</td>
+        </tr>
+        
+
+        <tr>
+            <td class="no">3.</td>
+            <td class="label">Mother's Name</td>
+            <td class="value">{{ mother_name }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">4</td>
+            <td class="label">Father's / Guardian's Name</td>
+            <td class="value">
+                {% if father_name %}
+                    {{ father_name }}
+                {% elif guardian_name %}
+                    {{ guardian_name }}
+                {% endif %}
+            </td>
+        </tr>
+
+        <tr>
+            <td class="no">5.</td>
+            <td class="label">
+                Date of Birth according to Admission & Withdrawal Register
+            </td>
+
+            <td class="value">
+
+                <div class="field">
+                    <span>(In figures)</span>
+                    <span>:</span>
+                    <span>{{ dob|date:"d/m/Y" }}</span>
+                </div>
+
+                <div class="field">
+                    <span>(In words)</span>
+                    <span>:</span>
+                    <span>{{ dob_in_words|title }}</span>
+                </div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="no">6.</td>
+
+            <td class="label">
+                Nationality / Religion / Caste
+            </td>
+
+            <td class="value no-border">
+
+                <div class="three-col">
+
+                    <div>
+                        <b>Nationality :</b> {{ nationality }}
+                    </div>
+
+                    <div>
+                        <b>Religion :</b>
+                        {% if religion %}
+                            {{ religion|upper }}
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <b>Caste :</b>
+                        {% if caste %}
+                            {{ caste|upper }}
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="no">7.</td>
+            <td class="label">Whether candidate belongs to SC / ST / OBC</td>
+            <td class="value">{{ is_sc_st }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">8.</td>
+            <td class="label">Date of first admission in school with class</td>
+            <td class="value">{{ student_admission_date }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">9.</td>
+            <td class="label">Class in which the pupil last studied</td>
+
+            <td class="value">
+
+                <div class="field">
+                    <span>(In figures)</span>
+                    <span>:</span>
+                    <span>{{ to_standard_name }}</span>
+                </div>
+
+                <div class="field">
+                    <span>(In words)</span>
+                    <span>:</span>
+                    <span>{{ last_class_words }}</span>
+                </div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="no">10.</td>
+            <td class="label">
+                School / Board Annual Examination last taken with result
+            </td>
+            <td class="value">{{ exam_last_taken }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">11.</td>
+            <td class="label">
+                Whether failed, if so once / twice in the same class
+            </td>
+            <td class="value">{{ failed_once_twice }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">12.</td>
+            <td class="label">Subjects Studied</td>
+
+            <td class="value subjects">
+                <span>1 {{ subject1 }}</span>
+                <span>2 {{ subject2 }}</span><br>
+
+                <span>3 {{ subject3 }}</span>
+                <span>4 {{ subject4 }}</span>
+                <span>5 {{ subject5 }}</span>
+                <span>6 {{ subject6 }}</span>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="no">13.</td>
+            <td class="label">Whether qualified for promotion to the higher class</td>
+
+            <td class="value">
+
+                <div class="field">
+                    <span>If so, to which class (in fig)</span>
+                    <span>:</span>
+                    <span>{{ promoted_class }}</span>
+                </div>
+
+                <div class="field">
+                    <span>(in words)</span>
+                    <span>:</span>
+                    <span>{{ promoted_class_words }}</span>
+                </div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="no">14.</td>
+            <td class="label">
+                Month upto which the pupil has paid school dues
+            </td>
+            <td class="value">{{ fee_paid_month }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">15.</td>
+            <td class="label">Any fee concession availed of. If so, the nature of such concession</td>
+            <td class="value">{{ fee_concession }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">16.</td>
+            <td class="label">
+                Total No. of working days in the academic session
+            </td>
+            <td class="value">{{ no_of_school_days }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">17.</td>
+            <td class="label">
+                Month of Student last attended school
+            </td>
+            <td class="value">{{ no_of_school_days }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">18.</td>
+            <td class="label">
+                Total No. of working days pupil present
+            </td>
+            <td class="value">{{ no_of_days_attended }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">19.</td>
+            <td class="label
+            ">
+                Whether NCC Cadet / Boy Scout / Girl Guide
+            </td>
+            <td class="value">{{ nss_cadetboydetails }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">20.</td>
+            <td class="label">
+                Games played or extra curricular activities in which the pupil usually took part
+            </td>
+            <td class="value">{{ extra_curriculam }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">21.</td>
+            <td class="label">General Conduct</td>
+            <td class="value">{{ general_conduct }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">22.</td>
+            <td class="label">
+                Date of application for TC
+            </td>
+            <td class="value">{{ appln_date }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">23.</td>
+            <td class="label">Date of issue of TC</td>
+            <td class="value">{{ issue_date }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">24.</td>
+            <td class="label">Reasons for leaving the school</td>
+            <td class="value">{{ reasons_for_leaving_school }}</td>
+        </tr>
+
+        <tr>
+            <td class="no">25.</td>
+            <td class="label">Any other remarks</td>
+            <td class="value">{{ any_other_remarks }}</td>
+        </tr>
+
+    </table>
+
+    <!-- FOOTER -->
+
+    <table class="footer">
+
+        <tr>
+
+            <!-- Signature of Class Teacher -->
+            <td>
+                <div class="sign-line"></div>
+
+                <div class="footer-text">
+                    Signature of<br>
+                    Class Teacher<br>
+                </div>
+            </td>
+
+
+            <!-- Verified By -->
+            <td>
+                <div class="sign-line"></div>
+
+                <div class="footer-text">
+                    Verified by<br>
+                    (With Full Name & Designation)
+                </div>
+            </td>
+
+
+            <!-- Signature of Principal -->
+            <td>
+                <div class="sign-line"></div>
+
+                <div class="footer-text">
+                    Signature of Principal<br>
+                    With Date School Seal
+                </div>
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+
+</body>
+</html>

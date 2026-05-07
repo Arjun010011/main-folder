@@ -1,0 +1,136 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fee Receipt</title>
+<style>
+    body {
+        font-family: monospace;
+        font-size: 12px;
+        width: 280px;   /* For 58mm printer */
+        margin: 0;
+        padding: 5px;
+    }
+
+    .center { text-align: center; }
+    .right { text-align: right; }
+    .bold { font-weight: bold; }
+
+    .line {
+        border-top: 1px dashed #000;
+        margin: 5px 0;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .small {
+        font-size: 11px;
+    }
+</style>
+</head>
+
+<body>
+
+{% for count in number_of_copies %}
+
+<!-- HEADER -->
+<div class="center bold">
+    {{ institute.name|upper }}
+</div>
+
+<div class="center small">
+    {{ institute.address }}
+    {% if institute.city %}<br>{{ institute.city }}{% endif %}
+    {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+    {% if institute.tel_num %}<br>Ph: {{ institute.tel_num }}{% endif %}
+</div>
+
+<div class="line"></div>
+
+<div class="center bold">
+{% if forloop.counter|divisibleby:"2" %}
+OFFICE COPY
+{% else %}
+STUDENT COPY
+{% endif %}
+</div>
+
+<div class="line"></div>
+
+<!-- STUDENT DETAILS -->
+<div><b>Name:</b>
+{{ application_receipt.student.first_name|title }}
+{{ application_receipt.student.middle_name|title }}
+{{ application_receipt.student.last_name|title }}
+</div>
+
+<div><b>Class:</b>
+{{ application_receipt.student.current_standard.name }}
+</div>
+
+<div class="line"></div>
+
+<!-- RECEIPT INFO -->
+<div class="row">
+    <span>Receipt No:</span>
+    <span>{{ application_receipt.receipt_num }}</span>
+</div>
+
+<div class="row">
+    <span>Date:</span>
+    <span>{{ application_receipt.transaction_date|date:"d/m/Y" }}</span>
+</div>
+
+<div class="row">
+    <span>Mode:</span>
+    <span>{{ application_receipt.mode_of_payment }}</span>
+</div>
+
+<div class="line"></div>
+
+<!-- FEE DETAILS -->
+<div class="bold center">FEE DETAILS</div>
+<div class="line"></div>
+
+<div class="row">
+    <span>{{ application_receipt.name }}</span>
+    <span>{{ application_receipt.amount_paid|floatformat:0|intcomma }}</span>
+</div>
+
+<div class="line"></div>
+
+<div class="row bold">
+    <span>Total Paid:</span>
+    <span>{{ application_receipt.amount_paid|floatformat:0|intcomma }}</span>
+</div>
+
+<div class="line"></div>
+
+<div class="small">
+<b>Amount in Words:</b><br>
+{{ amount_in_words|title }}
+</div>
+
+<br>
+<div class="center">
+----------------------------
+Authorized Signature
+</div>
+
+<br>
+<div class="center small">
+Thank You!
+</div>
+
+{% if not forloop.last %}
+<div style="page-break-after: always;"></div>
+{% endif %}
+
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    font-family: Raleway;
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+  }
+  .front-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/Jaihind_ID_FNT_2_1.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/Jaihind_ID_BCK_5.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+  .box1 {
+            width: 55px;
+            height: 60px;
+            border: 1.3px solid black;             
+        }
+  .size {
+    font-size: 10px;
+  }
+</style>
+</head>
+<body>
+  {% for student in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+    
+  <div style="padding-top: 63px;">
+    <div style="height: 98px; width:98.5px;right:3px;border-radius: 25% 0%;border:2px solid white;background-color: white;margin:auto;">
+      <img src={{student.profile_pic_details.file}} style="height: 98px; width:97px;border-radius: 25% 0%;border:2px solid white;">
+    </div>
+    <div style="color:#3a0300;text-align: center;font-size: 12px;font-weight: bold;margin-top: 7px;">{{student.name|upper}}</div>
+  </div> 
+    <table width="100%" style="top: 175px; margin-left: 17px; margin-top: 7px; font-size: 10px; color: #000000;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">
+      
+      <tr>
+        <td>DOB</td>
+        <td style="font-weight: bold;">: {{student.dob_changed}}</td>
+      </tr>
+      <tr>
+        <td>Class</td>
+        <td style="font-weight: bold;">: {{student.standard_name_roman}}</td>
+      </tr>
+      <tr>
+        <td>Ad No</td>
+        <td style="font-weight: bold;">: {{student.admission_num}}</td>
+      </tr>
+      <tr>
+        <td>Father</td>
+        <td style="font-weight: bold;">: {%if student.student_parent.parent.father_name %}{{student.student_parent.parent.father_name|upper}}{%endif%}</td>
+      </tr>
+      
+      
+      
+      
+    </table>
+    <!-- <div style="position:absolute;bottom: 5px;margin-left: 15px;">
+      <img src={{student.barcode_url}} style="height: 40px; width: 130px;color:#000000;">
+  </div> -->
+  </div>
+  
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card 
+  
+    <div class="page back-side">
+      <div style="text-align: center;">
+        <table style="padding-top: 115px;width:100%">
+          <tr>
+            <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div>
+            <td style="font-size: 7px;color:#000000;text-align: center;">
+              <!-- {% for address in student.student_address %}
+              {% if address.address %}{{address.address}} {% endif %}{% endfor %} 
+              {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}-{{student.custom_pincode}}
+            </td>
+          </tr>
+        </table>
+        <div style="font-size: 7px;color:#000000;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+      </div> 
+    </div>  -->
+
+    <div class="page back-side">
+        <div style="text-align: center;">
+          <table style="padding-top: 108px;">
+           
+            <tr>
+              <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div> -->
+              <td style="font-size: 8.5px;color:#000000;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;padding-left: 3px;padding-right: 3px;">
+                {% for address in student.student_address %}
+                {% if address.address %}{{address.address}} {% endif %}{% endfor %}
+                <!-- {{student.custom_address_line_one|title}} {{student.custom_city}}-{{student.custom_pincode}} -->
+              </td>
+            </tr>
+          </table>
+          <div style="font-size: 9.5px;color:#000000;font-weight: bold;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+        </div>
+        
+      </div>
+      {% endfor %}
+    </body>
+    </html>
+    
+    
+</html>
+

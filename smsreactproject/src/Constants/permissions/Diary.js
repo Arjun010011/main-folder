@@ -1,0 +1,160 @@
+import React from 'react';
+import { GET_URL, POST_URL, PUT_URL, DEL_URL } from 'Includes/urls';
+import ManageHomeWork from 'Containers/Diary/ManageHomeWork'
+import ViewHomeWork from 'Containers/Diary/ViewHomeWork'
+import HomeWorkList from 'Containers/Diary/HomeWorkList';
+import EvaluateStudentHomeWork from 'Containers/Diary/EvaluateStudentHomeWork';
+
+const Actions = {
+  diary_managehomework: {
+    view: {
+      codenames: [GET_URL.getstandardandsection.basename, GET_URL.diary.basename, GET_URL.staff.basename, GET_URL.subject.basename],
+      action_code: 'visible_diary_managehomework_view',
+      is_superuser_action: false,
+      name: 'Home Work',
+      label: 'Home Work',
+      action: 'sub-menu',
+      url: '/diary/managehomework',
+      component: <HomeWorkList />,
+      permission_needed: true,
+      exclude_roles:[7],
+      associated_urls: [
+        '/diary/managehomework/evaluate/list','/diary/managehomework/evaluate/student',
+        '/diary/managehomework/completed/list','/diary/managehomework/completed/student',
+        '/diary/managehomework/create'
+      ]
+    },
+    create: {
+      codenames: [GET_URL.staff.basename, GET_URL.subject.basename, GET_URL.getenrolledstudents.basename, POST_URL.diary.basename, GET_URL.diarydocument.basename, POST_URL.diarydocument.basename],
+      action_code: 'visible_diary_managehomework_add',
+      is_superuser_action: false,
+      name: 'Create Home Work',
+      label: 'Create Home Work',
+      action: 'action-url',
+      url: '/diary/managehomework/create',
+      component: <HomeWorkList />,
+      permission_needed: true,
+      exclude_roles:[7],
+    },
+    update: {
+      codenames: [GET_URL.staff.basename, GET_URL.subject.basename, GET_URL.getenrolledstudents.basename, PUT_URL.diary.basename, GET_URL.diarydocument.basename, POST_URL.diarydocument.basename],
+      action_code: 'visible_diary_managehomework_change',
+      is_superuser_action: false,
+      name: 'Update Home Work',
+      label: 'Update Home Work',
+      action: 'action',
+      url: '/diary/managehomework/edit',
+      component: <HomeWorkList />,
+      permission_needed: true,
+      exclude_roles:[7],
+    },
+    delete: {
+      codenames: [DEL_URL.diary.basename],
+      action_code: 'visible_diary_managehomework_delete',
+      is_superuser_action: false,
+      name: 'Delete Home Work',
+      label: 'Delete Home Work',
+      action: 'action',
+      permission_needed: true,
+      exclude_roles:[7],
+    },
+    name: 'Home Work Manage',
+    type: 'Home Work',
+  },
+  diary_viewhomework: {
+    view: {
+      codenames: [],
+      action_code: 'visible_viewhomework_view',
+      is_superuser_action: false,
+      name: 'View Home Work',
+      label: 'Home Work',
+      action: 'action-url',
+      url: '/diary/viewhomework',
+      component: <ViewHomeWork />,
+      permission_needed: false,
+      exclude_roles:[7],
+    },
+    name: 'Home Work List',
+    type: 'Home Work',
+  },
+  diary_evaluatestudentshomework: {
+    create: {
+      codenames: [GET_URL.staff.basename, GET_URL.subject.basename, GET_URL.getenrolledstudents.basename, POST_URL.diary.basename, GET_URL.diarydocument.basename, POST_URL.diarydocument.basename],
+      action_code: 'visible_diary_evaluatestudentshomework_add',
+      is_superuser_action: false,
+      name: 'Evaluate Home Work',
+      label: 'Evaluate Home Work',
+      action: 'action',
+      permission_needed: true,
+      exclude_roles:[7],
+    },
+    name: 'Evaluate Student Home Work',
+    type: 'Home Work',
+  },
+  diary_managehomework_evaluate_list: {
+    view: {
+      codenames: [GET_URL.getstandardandsection.basename, GET_URL.diary.basename, GET_URL.staff.basename, GET_URL.subject.basename],
+      action_code: 'visible_diary_managehomework_evaluate_list_view',
+      is_superuser_action: false,
+      name: 'Home Work',
+      label: 'Home Work',
+      action: 'action',
+      url: '/diary/managehomework/evaluate/list',
+      component: <HomeWorkList />,
+      permission_needed: false,
+      exclude_roles:[7],
+    },
+    name: 'Evaluate Student Home Work',
+    type: 'Home Work',
+  },
+  diary_managehomework_evaluate_student: {
+    view: {
+      codenames: [GET_URL.getstandardandsection.basename, GET_URL.diary.basename, GET_URL.staff.basename, GET_URL.subject.basename],
+      action_code: 'visible_diary_managehomework_evaluate_student_view',
+      is_superuser_action: false,
+      name: 'Home Work',
+      label: 'Home Work',
+      action: 'action',
+      url: '/diary/managehomework/evaluate/student',
+      component: <EvaluateStudentHomeWork />,
+      permission_needed: false,
+      exclude_roles:[7],
+    },
+    name: 'Evaluate Student Home Work',
+    type: 'Home Work',
+  },
+  diary_managehomework_completed_list: {
+    view: {
+      codenames: [GET_URL.getstandardandsection.basename, GET_URL.diary.basename, GET_URL.staff.basename, GET_URL.subject.basename],
+      action_code: 'visible_diary_managehomework_completed_list_view',
+      is_superuser_action: false,
+      name: 'Home Work',
+      label: 'Home Work',
+      action: 'action',
+      url: '/diary/managehomework/completed/list',
+      component: <HomeWorkList />,
+      permission_needed: false,
+      exclude_roles:[7],
+    },
+    name: 'Evaluate Complete Home Work',
+    type: 'Home Work',
+  },
+  diary_managehomework_completed_student: {
+    view: {
+      codenames: [GET_URL.getstandardandsection.basename, GET_URL.diary.basename, GET_URL.staff.basename, GET_URL.subject.basename],
+      action_code: 'visible_diary_managehomework_completed_student_view',
+      is_superuser_action: false,
+      name: 'Home Work',
+      label: 'Home Work',
+      action: 'action',
+      url: '/diary/managehomework/completed/student',
+      component: <EvaluateStudentHomeWork />,
+      permission_needed: false,
+      exclude_roles:[7],
+    },
+    name: 'Evaluate Complete Home Work',
+    type: 'Home Work',
+  },
+}
+
+export default Actions

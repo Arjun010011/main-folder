@@ -1,0 +1,57 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        .hzline{
+            border: 1px solid black;
+        }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+        }
+        .border {
+        height:900px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:0px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        position: relative;
+     }
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div class="center" style="text-transform: uppercase;font-size:21px"><b>ANNIE BESANT CONVENT & HIGH SCHOOL®</b></div>
+    <hr class="hzline">
+    <div class="center" style="font-size: 12px;margin:5px">#90/91,12<sup>th</sup>main,Srinivasanagar,Pipeline road,Sunkadakatte,Bengaluru-91</div>
+    <hr class="hzline">
+    <div style="text-align: right;margin: 25px 0px ;right:50px"><b>Date:{{today}}</b></div>
+    <div style="text-align:left;line-height: 1.5em;width:38%">To,</br>The Principal/Head Master, </br>
+    {{previous_school_address}}</div>
+    <div style="font-size:16px;text-align: center;margin:40px 10px 0px;"><b>Subject : Issue of Transfer Certificate.</b></div>
+    <div style="font-size:16px;text-align: left;margin:40px 0px 40px;">Respected Sir/Madam,</div>
+    <p>With Reference to the Above subject, Kindly issue transfer certificate of <b>{{student_full_name|title}} </b> of Class <b>{{standard_name}}{{standard_suffix}}
+    </b>who has been a student of yours esteemed institution.The Transfer certificate is mandatory for completing the admission procedure in our school. Kindly mention the school DISE code SATS No. Permanent Education Number (PEN Number)
+    of the Child.Phone number of the School without Fail. We would be grateful to you if you could oblige and do the needful in this Connection as early as possible.
+    </p>
+    
+    <div style="text-align:left;margin:0px 0px;">Thanking you. </div>
+   
+    <div style="text-align: right;margin:40px 0px 0px;">Yours sincerely, </div>
+   
+    
+</body>
+</html>

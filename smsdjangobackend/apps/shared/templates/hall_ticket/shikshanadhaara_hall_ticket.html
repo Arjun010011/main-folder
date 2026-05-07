@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 0px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4;
+            padding:0;
+            margin:10px; 
+            margin-bottom: none;   
+            margin-top: 20px;     
+        }
+        .fs-20{
+            font-size: 20;
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+   
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="height: 515px;">
+        <table class="w-100" style="border-collapse: collapse; width: 100%;">      
+            <tr style="border:2px solid black">
+              <td>
+                <div style="display: flex; align-items: center;">
+                  {% if institute.logo.file.url %}
+                  <img src="{{institute.logo.file.url}}" style="width: 150px; height: 120px; margin-left:20px;" />
+                  {% endif %}
+                  <div style="text-align: center; flex-grow: 1;padding-left: -40px;;margin-left: -95px;;">
+                    <div style="font-size: 18px; font-weight: bold; line-height: 40px;">
+                      SHIKSHANADHARA VIDYA NIKETAN</br>
+                    </div>
+                    <div style="line-height: 16px; font-size: 13px;">
+                      Vidyanagar, Bengaluru - 77
+                    </div>
+                    <br>
+                    <div class="address-heading t-center fs-bold">
+                      {{ examDetail.exam_type.name | upper }}&nbsp;&nbsp;{{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="address-heading t-center fs-bold" style="margin-left:40px;padding-left: 60px;">                    
+                ADMISSION TICKET 
+              </td>
+            </tr>
+          </table>
+          
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;font-size: 16px;">
+        <tr>
+          <td style="width: 50%;text-align: left;"><strong>Candidate's Name:</strong> {{student.student_data.full_name | title }}</td>
+          <td style="width: 50%; text-align: left;"><strong>Class/Sec:</strong> {{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+        </tr>
+        <tr>
+          <td style="width: 50%;  text-align: left;"><strong>Admission no:</strong> {% if student.admission_num %} {{ student.admission_num }}{% endif %}</td>
+          <td style="width: 50%; text-align: left;"><strong>Register no:</strong> {% if student.student_data.current_reg_num %} {{ student.student_data.current_reg_num }}{% endif %}</td>
+        </tr>
+      </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px;font-size: 16px;line-height: 16px;">
+            <tr>
+                <th class="th-subject-view"> 
+                    Subject</th>
+                <th class="th-subject-view"> 
+                    Date:</th>
+                <th class="th-subject-view"> 
+                        Time:</th>
+                <th class="th-subject-view">  
+                    Invigilator Signature</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;font-size: 14px;">
+                        {{subject.subject_name | title}}</div></td>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} 
+                    </td>  
+                    <td class="td-subject-view">
+                         {{subject.start_time}} - {{subject.end_time}}
+                    </td>      
+                    <td class="td-subject-view">            
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        
+
+        <table class="w-100" style="margin-top:50px;font-size: 16px;">
+            <tr>
+                <th style="text-align: left;">
+                    Canditate Signature 
+                </th>
+                <th style="text-align: right;">
+                    Principal Signature &nbsp; &nbsp; 
+                </th>
+            </tr>
+        </table>
+        <div style="text-align: center;font-size: 16px;">*Wish you very best of luck*</div>
+
+        <hr style="margin-top: 30px;">
+
+    </div>
+    <!-- <hr style="margin-top: -20px;"> -->
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    {% endif %}
+{% endfor %}
+</body>
+</html>

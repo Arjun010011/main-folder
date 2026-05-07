@@ -1,0 +1,381 @@
+@import "./../../styles/helpers.scss";
+
+.diary-circle-icon {
+  background: cornflowerblue;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  padding: 1px 7px;
+}
+.diary-assignment-icon {
+  color: white;
+  margin-top: 7px;
+}
+.text-content {
+  display: flex;
+}
+.evaluate-content {
+  display: flex;
+}
+.button-align {
+  display: contents;
+}
+.marign-h-40 {
+  margin: auto 40px !important;
+}
+.marign-top-text {
+  margin-top: 10px;
+}
+.margin-top-120 {
+  margin-top: 120px !important;
+}
+.margin-bottom-25 {
+  margin-bottom: 25px !important;
+}
+.marign-left-15 {
+  margin-left: 15px;
+}
+.heading-text-content {
+  letter-spacing: 0.01785714em;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  color: #3c4043;
+  margin-bottom: 0.25rem;
+}
+.sub-text-content {
+  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  color: #80868b;
+  margin-bottom: 0.25rem;
+}
+.text-border {
+  border-bottom: 0.0625rem solid #e0e0e0;
+  padding: 20px !important;
+}
+.accordin-hover:hover {
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.302),
+    0 2px 6px 2px rgba(60, 64, 67, 0.149);
+  border-radius: 0.5rem;
+  margin-left: 0;
+  margin-right: 0;
+  overflow: hidden;
+  width: 100%;
+}
+.app-bar-color {
+  background-color: #4680ff;
+  width: 102%;
+}
+.homework-title {
+  width: 100%;
+  margin-top: 40px;
+}
+.date-picker {
+  margin-top: 25px;
+}
+.homework-left-part {
+  display: flex;
+  width: 100%;
+}
+.homework-right-part {
+  width: 100%;
+}
+.homework-design {
+  display: flex;
+}
+.dropdown-alignment {
+  width: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+}
+.text-background {
+  margin-left: 20px;
+  width: 88%;
+}
+.textfield-background {
+  background-color: #f8f9fa !important;
+}
+.dropdown-min-width {
+  min-width: 175px !important;
+}
+.multiselect-dropdown {
+  width: 230px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 35px;
+}
+.textfield-width {
+  width: 255px !important;
+}
+.studentselect {
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0;
+  font-size: 1.2rem;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.00938em;
+  text-align: center;
+}
+.selectstudentpadding {
+  padding-left: 0px !important;
+  padding-top: 20px !important;
+}
+.studentList {
+  margin-left: 20px;
+  font-size: initial;
+}
+.teacherNameWidth {
+  width: 40%!important;
+}
+.editwidth {
+  width: 20%!important;
+  display: flex;
+  justify-content: center;
+}
+.shortHeading {
+  margin-bottom: 20px !important;
+}
+.emptyhomeworkheight {
+  height: 100px !important;
+}
+.homework-actionsicon {
+  width: -webkit-fill-available !important;
+}
+.homeworkcount {
+  width: -webkit-fill-available !important;
+  display: flex;
+}
+.viewhomework-design {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+.standardfeild {
+  margin-top: 45px !important;
+}
+.divwidth {
+  min-width: 150px !important;
+}
+.Listpadding {
+  padding: 0px !important;
+}
+.evaluate-status {
+  font-size: 2.25rem;
+  min-width: 5.9375rem;
+  padding: 0 1rem;
+  margin-top: auto;
+  margin-block: auto;
+}
+.evaluate-status-middle {
+  border-left: 0.0625rem solid #e0e0e0;
+  border-right: 0.0625rem solid #e0e0e0;
+}
+.evaluate-count {
+  letter-spacing: 0.025em !important;
+  font-size: 0.75rem !important;
+}
+.evaluate-button {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.25px !important;
+  color: #1967d2 !important;
+  text-transform: capitalize !important;
+}
+.evaluate-hw-title {
+  margin-top: 65px;
+  display: flex;
+  margin-left: 20px;
+}
+.evaluate-page-width {
+  width: 500px !important;
+  max-width: auto !important;
+  border-right: 1px solid lightgrey;
+}
+.flex-start {
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: center;
+}
+.app-bar {
+  position: relative;
+}
+.diary-title {
+  margin-left: 20px;
+  flex: 1;
+}
+.diary-teacher-name {
+  justify-content: center !important;
+  text-align: flex-start;
+  display: flex;
+}
+.teacher-dialog-seperator {
+  width: 95%;
+  border-color: #ddd;
+  border-top: 1px solid #eee;
+  box-sizing: content-box;
+}
+.diary-due-date-picker {
+  max-width: 253px;
+}
+.diary-section-detail-name {
+  font-size: 17px;
+  flex-basis: "33.33%";
+  flex-shrink: 0;
+}
+.diary-studentlist {
+  width: 100%;
+  min-width: 300px;
+}
+.accept-button {
+  margin: 0 20px !important;
+}
+.eval-due-date {
+  min-width: 140px;
+  margin: auto;
+}
+.altTeachersHeading {
+  display: flex;
+  margin: 20px 50px !important;
+  font-size: initial;
+}
+.evalute-footer-detail {
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+.create-hw-button {
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  height: 42px !important;
+  // line-height: 18px !important;
+  color: #ffffff !important;
+  text-transform: none !important;
+  border-radius: 20px !important;
+  margin: auto;
+  margin-top: 8px !important;
+  background-color: var(--buttonBackground) !important;
+}
+
+@media only screen and (min-width: 980px) {
+  .evalute-footer-detail {
+    width: 50% !important;
+    justify-content: space-around;
+  }
+  .homework-right-part {
+    margin-left: 40px;
+  }
+  .homework-left-part {
+    margin-right: 40px;
+  }
+  .homework-design {
+    padding: auto 40px 40px 40px;
+  }
+  .md-up-ml-15 {
+    margin-left: 15px;
+  }
+  .diary-dropdown-sub,
+  .diary-dropdown-standard {
+    margin-right: 16px;
+  }
+  .create-hw-button {
+    margin-left: auto !important;
+  }
+  .altTeachersHeading {
+    min-width: 400px;
+  }
+}
+@media only screen and (min-width: 1150px) {
+  .diary-paper-container {
+    width: 75%;
+    min-width: 1124px;
+  }
+}
+@media only screen and (max-width: 1150px) {
+  .diary-paper-container {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 980px) {
+  .evaluate-content {
+    flex-direction: column;
+  }
+  .homework-left-part,
+  .dropdown-alignment,
+  .homework-design {
+    flex-direction: column;
+    justify-content: center;
+  }
+  .dropdown-alignment {
+    width: 100%;
+  }
+  .multiselect-dropdown {
+    width: 100%;
+    justify-content: center;
+  }
+  .text-background {
+    width: 80%;
+  }
+  .homework-title {
+    padding: 10px;
+  }
+  .altTeachersHeading {
+    margin: 20px !important;
+  }
+  .viewhomework-design {
+    width: 100%;
+  }
+  .evaluate-page-width {
+    width: 100% !important;
+  }
+  .evaluate-hw-title {
+    margin-top: 10px;
+    align-items: center;
+  }
+  .create-hw-button {
+    margin: auto !important;
+    display: block !important;
+  }
+}
+.diary-evaluate-status-chips-outer-body {
+  overflow-y: auto;
+  width: 100%;
+}
+.diary-evaluate-status-chips-outer-body::-webkit-scrollbar {
+  display: none;
+}
+.diary-blank-page {
+  color: orange;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45vh;
+}
+.skeleton-loader-wave {
+  height: 85px !important;
+  margin-top: -30px !important;
+}
+.selected-student {
+  color: #4680ff!important;
+  background-color: #95b6ff66!important;
+}
+.section-diary-label {
+  color: #333;
+}
+
+.student-hm-ev{
+  width: -webkit-fill-available!important;
+  margin-left: 15px!important;
+  display: flex!important;
+  justify-content: flex-start !important;
+  align-items: center!important;
+  // color: #4680ff!important;
+}
+
+.student-hm-ev:hover{
+  background-color: #fbe2e2;
+}

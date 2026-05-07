@@ -1,0 +1,66 @@
+.payment-grid {
+  min-height: 440px !important;
+}
+
+.min-width-button-label {
+  .MuiButton-root {
+    min-width: inherit;
+  }
+}
+
+.add-icon-payment {
+  width: 36px !important;
+  height: 36px !important;
+  color: blue;
+}
+
+.payment-modal{
+  .MuiDialog-container{
+      .MuiDialog-paper{
+          min-width:1050px!important;
+      }
+  }
+}
+
+.closeButton{
+  position: absolute!important;
+  left: auto!important;
+}
+
+.rightPartGrid {
+  background: #f1f3ff!important;
+}
+
+.amountDetails {
+  font-size: 20px!important;
+  display: flex!important;
+  margin: 10px 5px!important;
+}
+
+.blueText {
+  color: #4680FF!important;
+}
+
+.paymentModeHead {
+  font-family: Roboto!important;
+  font-style: normal!important;
+  font-weight: 500!important;
+  font-size: 20px!important;
+  line-height: 20px!important;
+  letter-spacing: -0.05px!important;
+  margin-top: 10px!important;
+}
+
+.paymentInput {
+  margin: 10px 0!important;
+}
+
+.payNow {
+  font-weight: bold!important;
+  border-radius: 30px!important;
+  padding: 8px 25px!important;
+  color: white!important;
+  margin: auto!important;
+  display: block!important;
+  background:#5187ff!important;
+}

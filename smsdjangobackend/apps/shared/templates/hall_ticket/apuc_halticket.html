@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 5px 5px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+            margin-top:5px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px;position:relative;">
+        <div style="display:flex;">
+            <div>
+                {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 70px;height:70px;" /> {% endif %}
+            </div>
+        <div>
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <!-- <div style="display:flex;"> -->
+                    <!-- <div>
+                        {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 80px;height:80px;" /> {% endif %}
+                    </div> -->
+                    <div class="heading text-center" style="letter-spacing: 1px;">
+                    ASCENT PRE-UNIVERSITY COLLEGE</br>
+                    </div>
+                <!-- </div> -->
+            </tr>
+            <tr>
+                <div class="t-center fs-bold" style="font-size: 13px;">
+                    Hesaraghatta main road, near 8th mile, Bangalore-73, College code - AN0978
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold">
+		ADMISSION TICKET FOR {{ examDetail.exam_type.name }}{%comment%}&nbsp;&nbsp;{{examDetail.academic_year.start_date|date:"Y"}}{%endcomment%}
+                </div>
+            </tr>
+        </table>
+        </div>
+        </div>
+
+        <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px;font-size: 13px;text-align: left;font-weight: bold;">
+        <tr>
+            <td class="th-subject-view" style="width:32%;text-align: left;">REGISTER NO </td>
+            <td class="th-subject-view" style="width:50%;text-align: left;">{% if student.student_data.current_reg_num %} {{ student.student_data.current_reg_num }}{% endif %} / SATS NO: {% if student.student_data.sts %} {{ student.student_data.sts }} {%endif%}</td>
+            <td class="th-subject-view" rowspan="4">
+                {%if student.student_data.profile_pic_details %}
+                <img src="{{student.student_data.profile_pic_details.file}}" style="height: 94px; width: 80px;">
+                {%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td class="th-subject-view" style="text-align: left;">NAME OF THE CANDIDATE </td>
+            <td class="th-subject-view" style="text-align: left;">{{student.student_data.full_name | title | upper }}</td>
+        </tr>
+        <tr>
+            <td class="th-subject-view" style="text-align: left;">NAME OF FATHER</td>
+            <td class="th-subject-view" style="text-align: left;">{% if student.student_data.student_parent.parent.father_name %}  {{ student.student_data.student_parent.parent.father_name |upper }}{% endif %}</td>
+        </tr>
+        <tr>
+            <td class="th-subject-view" style="text-align: left;">CLASS/COMBINATION</td>
+            <td class="th-subject-view" style="text-align: left;">{{ student.student_data.standard_section__standard__name | capfirst }}</td>
+        </tr>
+        </table>
+        <div style="text-align: center;font-size: 13px;"> EXAMINATION CENTER - ASCENT PRE UNIVERSITY COLLEGE (AN0978) </div>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse; border: 1px solid black;margin-top:5px">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Timings</th>
+                <th class="th-subject-view">Invigilator <br/>Signature</th>
+            </tr>
+            {% regroup student.subject_list by fordate as date_group %}
+            {% for day_group in date_group %}
+                {% for subject in day_group.list %}
+                <tr>
+                    {% if forloop.first %}
+                        <td class="td-subject-view" rowspan="{{ day_group.list|length }}">
+                            {{ day_group.grouper|date:"d-m-Y" }}
+                        </td>
+                        <td class="td-subject-view" rowspan="{{ day_group.list|length }}">
+                            {{ day_group.grouper|date:"l" }}
+                        </td>
+                    {% endif %}
+                    <td class="td-subject-view">{{ subject.subject_name|title }}</td>
+                    <td class="td-subject-view">{{ subject.start_time }} - {{ subject.end_time }}</td>
+                    <td class="td-subject-view"></td>
+                </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+        
+        
+       <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-top: 55px; width: 100%;">
+        <div style="text-align: left;">
+            <strong>Signature of the Candidate</strong>
+        </div>
+        <div style="text-align: right; padding-right: 17px;margin-top:-70px;">
+            <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/ascent_pu/apuc_sign.png"
+                style="width: 70px; height: 100px; transform: rotate(90deg);padding-bottom:10px;" alt="Principal Signature" />
+            <div style="padding-top:0px;margin-top:-40px;">Principal</div>
+        </div>
+        </div>
+
+         <hr />
+    </div>
+    {%  if forloop.counter|divisibleby:"1" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <div style="margin-top:35px;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

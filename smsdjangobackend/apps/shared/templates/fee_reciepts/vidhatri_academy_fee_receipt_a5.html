@@ -1,0 +1,199 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Receipt</title>
+
+    <style>
+        @page {
+            margin: 0mm;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box{
+            border: 1px solid #000;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+
+        .noborder{
+            border: 0 !important;
+        }
+
+        .bold{
+            font-weight: bold;
+        }
+
+        .line-height{
+            line-height: 1.5;
+        }
+
+        .page{
+            margin: 20px 10px 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+{% for count in number_of_copies %}
+
+<div class="page" style="width:90%;" >
+
+    <!-- ================= HEADER ================= -->
+    <table>
+        <tr>
+            <td class="noborder">
+                <div style="display:flex; align-items:center;">
+
+                    {% if institute.logo %}
+                        {% if institute.logo.file %}
+                            <div>
+                                <img src="{{ institute.logo.file.url }}"
+                                     style="width:150px; height:150px;" />
+                            </div>
+                        {% endif %}
+                    {% endif %}
+
+                    <div style="text-align:center; width:90%;">
+                        <div style="font-size:26px; font-weight:bold;">
+                            {{ institute.name|upper }}
+                        </div>
+
+                        {% if institute.trust_name %}
+                        <div style="font-size:14px;">
+                            {{ institute.trust_name }}
+                        </div>
+                        {% endif %}
+
+                        <div style="font-size:13px; line-height:20px;">
+                            {{ institute.address }}
+                            {% if institute.city %}, {{ institute.city }}{% endif %}
+                            {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+                        </div>
+
+                        <div style="margin-top:10px;">
+                            <div class="feereceipt-box bold">
+                                FEE RECEIPT
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+        </tr>
+    </table>
+
+
+    <!-- ================= STUDENT DETAILS ================= -->
+    <table>
+        <tr>
+            <td class="noborder bold line-height" style="width:60%; vertical-align:top;">
+                Student Name :
+                {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+
+                <br/>
+
+                Class / Section :
+                {{ fee_collection.standard_name }}
+                {% if fee_collection.enrollment_data.section_name %}
+                    /{{ fee_collection.enrollment_data.section_name }}
+                {% endif %}
+            </td>
+
+            <td class="bold line-height">
+                Date : {{ fee_collection.transaction_date }} <br/>
+                Rec No :
+                {% if fee_collection.receipt_num %}
+                    {{ fee_collection.receipt_num|cut:"receipt00"|upper }}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+
+    <!-- ================= FEE DETAILS ================= -->
+    <table>
+        <thead>
+            <tr>
+                <th style="width:10%">Sl.No</th>
+                <th style="width:50%">Particulars</th>
+                <th style="width:20%">Paid Amount</th>
+                <!-- <th style="width:20%">Balance</th> -->
+            </tr>
+        </thead>
+
+        <tbody>
+                <tr style = "height:400px;">
+                    <td style="vertical-align: top;">{% if fee_collection.vidhatri_academy_fee_receipt_a5 %}
+                        {% for fee in fee_collection.vidhatri_academy_fee_receipt_a5.payment_detail_fee_type %}{{ forloop.counter }}<br>{%endfor%}{%endif%}
+                    </td>
+                    <td style="vertical-align: top;">{% if fee_collection.vidhatri_academy_fee_receipt_a5 %}
+                        {% for fee in fee_collection.vidhatri_academy_fee_receipt_a5.payment_detail_fee_type %}{{ fee.fee_type_name }}<br>{%endfor%}{%endif%}</td>
+                    <td style="text-align:right;vertical-align:top;">
+                        {% if fee_collection.vidhatri_academy_fee_receipt_a5 %}
+                        {% for fee in fee_collection.vidhatri_academy_fee_receipt_a5.payment_detail_fee_type %}{{ fee.amount_paid|floatformat:2|intcomma }}<br>{%endfor%}{%endif%}
+                    </td>
+                    <!-- <td style="text-align:right;">
+                        {{ fee.fee_type_amount_pending_till_date|floatformat:2|intcomma }}
+                    </td> -->
+                </tr>            
+
+            <tr>
+                <td colspan="4" class="bold line-height" style="padding-top: 50px;">
+                    TOTAL PAID AMOUNT :
+                    {{ fee_collection.vidhatri_academy_fee_receipt_a5.total_amount_paid|floatformat:2|intcomma }}/-
+                    ( {{ fee_collection.vidhatri_academy_fee_receipt_a5.amount_in_words|title }} )
+                    <br/>
+                    Mode Of Payment :
+                    {{ fee_collection.mode_of_payment }}
+                    <br>
+                </td>
+            </tr>
+
+        <tr>
+            <td colspan="2" style="padding-top:40px; border-right:0;">
+                *Once paid the amount will not be refunded*
+            </td>
+            <td colspan="2" style="text-align:right; padding-top:40px; border-left:0;">
+                AUTHORISED SIGNATURE
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+    <!-- ================= FOOTER ================= -->
+    <div style="display:flex; margin-top:5px;">
+        <div>Receipt Generated at : {{ today }}</div>
+        <div style="margin-left:auto;">Powered By Edubricz</div>
+    </div>
+
+    {% if not forloop.last %}
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

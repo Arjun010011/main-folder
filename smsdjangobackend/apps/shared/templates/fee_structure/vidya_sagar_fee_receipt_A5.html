@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Structure Receipt (A5)</title>
+    <style>
+        @page {
+            size: A5 portrait;
+            margin: 2mm 3mm;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0mm;
+            margin: 0;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 4px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000000;
+            padding: 3px 6px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .receipt-section {
+            margin-bottom: 10mm;
+            page-break-inside: avoid;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            font-size: 10px;
+        }
+
+        .school-name {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .contact-info {
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            margin-top: 1mm;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div style="
+        position: fixed;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 0.1;
+        z-index: 0;
+        text-align: center;
+    ">
+        <img src="{{ institute.logo.file.url }}" alt="Institute Logo"
+            style="width: 200px; height: 180px; filter: grayscale(100%);" />
+    </div>
+
+    <div class="receipt-section">
+        
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <div>
+                            <img src="{{ institute.logo.file.url }}"
+                                style="width:70px; height:70px; margin-bottom:75px;" />
+                        </div>
+
+                        <div style="text-align:center; flex-grow:1; margin:0 10px;">
+                            <div class="header-title">SHREE MAATHA-PITRU EDUCATIONAL AND CHARITABLE TRUST(R)</div>
+                            <div class="school-name">{{ institute.name }}</div>
+                            <div class="contact-info">
+                                #9/2, 2nd Main Road, Near Kateramma Temple, Sanchar Nagar <br>(Telecom Layout),
+                                Thanisandra, Dr.SRK Nagar Post, Bengaluru-560077<br>
+                                Contact: 7026232462 / 9986716186<br>
+                                <b>NEW ADMISSION - Fee Structure for the Academic Year - {{ academic_year }}</b>
+                            </div>
+                            <div style="margin-top:10px;">
+                                <div class="feereceipt-box" style="font-size:14px;">Class: {{ standard }}</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <img src="https://local-s3-2025.s3.amazonaws.com/190/VSSPHOTO.png"
+                                style="width:70px; height:70px; margin-bottom:75px;" />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Payment Details -->
+        <table style="width:100%; margin-top:5px;">
+            <thead>
+                <tr>
+                    <th>Tuition Fee</th>
+                    <th>Convenience Fee</th>
+                    <th>Activity Fee</th>
+                    <th>Monthly Fee</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ tuition_fee }}/-</td>
+                    <td>{{ convenience_fee }}/-</td>
+                    <td>{{ activity_fee }}/-</td>
+                    <td>{{ monthly_fee }}/-</td>
+                    <td>{{ total_part_1 }}/-</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table style="width:100%; margin-top:8px;">
+            <thead>
+                <tr>
+                    <th>Stationary Fee <br>Text Books, Note Books and all Stationary items</th>
+                    <th>Uniform Fee <br>3 T-Shirt,2 Jeans Shorts, 2 Pair of Socks</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ stationary_fee }}/-</td>
+                    <td>{{ uniform_fee }}/-</td>
+                    <td>{{ total_part_2 }}/-</td>
+                </tr>
+
+                <tr>
+                    <td colspan="2"><b>Total Fee for Academic Year {{ academic_year }}</b></td>
+                    <td><b>{{ academic_year }}</b></td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;"><b>Total Amount: {{ total_amount_part_3 }}/-</b></td>
+                    <td style="text-align:left;"><b>Fee Waived Off: {{ fee_waived_off }}/-</b></td>
+                    <td style="text-align:left;"><b>Total: {{ final_total_part_3 }}/-</b></td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" style="text-align:left;">
+                        <b>Note:</b><br>
+                        <span style="margin-left:20px;">&#10003; Application form amount ₹300/-</span><br>
+                        <span style="margin-left:20px;">&#10003; Exam fee paid separately.</span><br>
+                        <span style="margin-left:20px;">&#10003; Van facilities are available. Charges are separated
+                            from School Fee.</span><br>
+                        <span style="margin-left:20px;">&#10003; Cultural activities charges will be
+                            separate.</span><br>
+                        <span style="margin-left:20px;">&#10003; Nursery classes timings: 9.00 AM - 12.30 PM[10.10 AM
+                            Snacks break]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        
+        <div class="footer">
+            <div>Generated at: {{ today }}</div>
+            <div>Powered by Edubricz</div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11px;
+    color: #000;
+}
+
+.header {
+    text-align: center;
+    line-height: 1.25;
+}
+
+.header .title {
+    font-size: 13.5px;
+    font-weight: bold;
+}
+
+.header .address {
+    font-size: 11px;
+}
+
+.header .report-title {
+    margin-top: 5px;
+    font-size: 12.5px;
+    font-weight: bold;
+}
+
+.header .group-title {
+    font-size: 11.5px;
+    font-weight: bold;
+}
+
+.header .date-range {
+    font-size: 11px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+    table-layout: fixed;
+}
+
+thead {
+    display: table-header-group;
+}
+
+th, td {
+    padding: 2px 4px;
+    vertical-align: top;
+}
+
+th {
+    font-weight: bold;
+}
+
+.header-top th {
+    border-top: 1px solid #000;
+}
+
+.header-bottom th {
+    border-bottom: 1px solid #000;
+}
+
+.left { text-align: left; }
+
+tr {
+    page-break-inside: avoid;
+}
+
+.parent {
+    font-weight: bold;
+}
+
+.parent .particular-cell {
+    padding-left: 22px;
+    position: relative;
+}
+
+.child .particular-cell {
+    padding-left: 40px;
+    position: relative;
+    font-weight: normal;
+}
+
+.particular-no {
+    position: absolute;
+    left: 0;
+    width: 18px;
+    text-align: right;
+}
+
+.amount-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11px;
+}
+
+.amount-table td {
+    padding: 0;
+    border: none;
+}
+
+.amount-val {
+    text-align: right;
+    width: 80%;
+}
+
+.amount-dc {
+    text-align: left;
+    width: 20%;
+}
+
+.total-row td {
+    border-top: 1px solid #000;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="title">
+        {{ institute.name }} {{ report.financial_year }} (STATE) - (from {{ report.fy_start }})
+    </div>
+    <div class="address">
+        {{ institute.address }}<br>
+        {{ institute.district }}<br>
+        Contact : {{ institute.contact }}
+    </div>
+
+    <div class="report-title">{{ report.schedule_title }}</div>
+    <div class="group-title">{{ report.group_title }}</div>
+    <div class="date-range">{{ report.fy_start }} to {{ report.fy_end }}</div>
+</div>
+
+<table>
+<thead>
+<tr class="header-top header-bottom">
+    <th class="left" style="width:60%">Particulars</th>
+    <th style="width:20%">Opening Balance</th>
+    <th style="width:20%">Closing Balance</th>
+</tr>
+</thead>
+
+<tbody>
+
+{% for parent in rows %}
+<tr class="parent">
+    <td class="left particular-cell">
+        <span class="particular-no">{{ forloop.counter|stringformat:"02d" }}.</span>
+        {{ parent.name }}
+    </td>
+    <td>
+        <table class="amount-table">
+            <tr>
+                <td class="amount-val">{{ parent.opening_amount }}</td>
+                <td class="amount-dc">{{ parent.opening_dc }}</td>
+            </tr>
+        </table>
+    </td>
+    <td>
+        <table class="amount-table">
+            <tr>
+                <td class="amount-val">{{ parent.closing_amount }}</td>
+                <td class="amount-dc">{{ parent.closing_dc }}</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+{% if parent.children %}
+{% for child in parent.children %}
+<tr class="child">
+    <td class="left particular-cell">
+        <span class="particular-no">{{ forloop.counter }}.</span>
+        {{ child.name }}
+    </td>
+    <td>
+        <table class="amount-table">
+            <tr>
+                <td class="amount-val">{{ child.opening_amount }}</td>
+                <td class="amount-dc">{{ child.opening_dc }}</td>
+            </tr>
+        </table>
+    </td>
+    <td>
+        <table class="amount-table">
+            <tr>
+                <td class="amount-val">{{ child.closing_amount }}</td>
+                <td class="amount-dc">{{ child.closing_dc }}</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+{% endfor %}
+{% endif %}
+{% endfor %}
+
+<tr class="total-row">
+    <td class="left">Grand Total</td>
+    <td>
+        <table class="amount-table">
+            <tr>
+                <td class="amount-val">{{ grand_total.opening_amount }}</td>
+                <td class="amount-dc">{{ grand_total.opening_dc }}</td>
+            </tr>
+        </table>
+    </td>
+    <td>
+        <table class="amount-table">
+            <tr>
+                <td class="amount-val">{{ grand_total.closing_amount }}</td>
+                <td class="amount-dc">{{ grand_total.closing_dc }}</td>
+            </tr>
+        </table>
+    </td>
+</tr>
+
+</tbody>
+</table>
+
+</body>
+</html>

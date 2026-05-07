@@ -1,0 +1,461 @@
+@import './../../styles/helpers.scss';
+
+.close-input-field {
+    font-size: 45px;
+}
+
+.delete-icon:hover {
+    color: red;
+}
+
+.edit-icon:hover {
+    color: blue;
+}
+
+.submit-fee-types {
+    margin-left: 17px;
+}
+
+.play-fee-icon {
+    margin: 0 10px 0 0;
+    padding-left: 1px;
+}
+
+.name-info {
+    font-weight: bold;
+}
+
+.std-info {
+    background-color: $button-color;
+    padding: 2px 5px;
+    border-radius: 4px;
+    color: white;
+}
+
+.fee-type-inp {
+    div {
+        border-radius: 0 !important;
+    }
+}
+
+.row-with-no-bottom {
+    border-Bottom: "none";
+    color: "#000000";
+    font-family: "Roboto";
+    font-style: "normal";
+    font-weight: "500";
+    font-size: "16px";
+    padding: 15px
+}
+
+.row-data {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    color: "#000000";
+    font-family: "Roboto";
+    font-style: "normal";
+    font-weight: "500";
+    font-size: "16px";
+    padding: 15px;
+}
+
+.deleteIcon {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.action {
+    .deletebutton {
+        // opacity: 0;
+        transition: .3s;
+        margin-top: -4px;
+    }
+}
+
+.action:hover {
+    .deletebutton {
+        // opacity: 1;
+
+        // padding: 0;
+        color: #A5A5A5;
+        // background: none;
+    }
+}
+
+.amount-item {
+    margin: 0 5px;
+}
+
+.academic-std-body {
+    font-family: "Roboto";
+    font-size: 25px;
+}
+
+.descriptive-img {
+    width: 100%;
+}
+
+.add-vehicle-body {
+    margin-top: 3rem !important;
+    padding-right: 1rem;
+    padding-left: 1rem;
+}
+
+.add-vehicle-form {
+    box-shadow: $menu-box-shadow !important;
+    background-color: white !important;
+    padding: 30px;
+}
+
+.add-vehicle-price-form {
+    box-shadow: $menu-box-shadow !important;
+    background-color: white !important;
+    padding: 30px;
+}
+
+.generic-fields-center {
+    display: flex;
+    justify-content: center;
+}
+
+.button-group {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.submit-add-vehicle {
+    margin: 20px 30px 0 0 !important;
+}
+
+.transport-text-field-km {
+    margin: 1rem !important;
+    margin-right: 0rem !important;
+}
+
+.add-new-km-button {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5rem;
+}
+
+.academic-std-head {
+    font-size: 20px;
+    text-align: center;
+    color: #1665D8;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.aca-std-white-background {
+    background-color: #FBFDFD;
+    border: 1px solid rgba(151, 151, 151, 0.5);
+    border-radius: 5px;
+    color: #464D68 !important;
+    font-size: 20px;
+    padding: 5px;
+    margin-left: 10px;
+    width: fit-content;
+}
+
+.grey-text {
+    color: grey;
+}
+
+.showVanListToAssign {
+    font-size: 16px;
+}
+
+.card-vehicle-details {
+    margin: 15px;
+    padding: 10px;
+    align-items: center;
+    padding-left: 20px;
+    box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12) !important;
+
+}
+
+.align-items-center {
+    align-items: center !important;
+}
+
+.fixed-input-text-box {
+    width: 150px
+}
+
+.route-mapping-source-background {
+    border-left: 3px solid rgb(76, 212, 176);
+    border: 1px solid #c1d4de;
+    background: #f4f8f9;
+    padding: 0 4px 1px 5px;
+    border-radius: 2px;
+    border-left: 3px solid;
+    color: #58595a;
+    margin-right: 5px;
+    min-width: 20px;
+    line-height: 20px;
+    font-size: 12px;
+}
+
+.dropable-card {
+    // background-color: #f8f6f6;
+    // padding: 20px 40px;
+    margin-top: 1rem;
+    padding-left: 30px;
+}
+
+.student-route-table-popup {
+    height: 50px;
+    padding: 20px;
+    margin-top: 5rem;
+}
+
+.add-area-button {
+    font-size: 55px !important;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.routeplan-card-bottom {
+    padding-top: 5px;
+    padding-bottom: 0px;
+    display: flex;
+    color: #1665D8;
+}
+
+.custom-toolbar-select {
+    margin-bottom: 8px;
+}
+
+.custom-toolbar-select-feature {
+    margin-bottom: 0.2rem;
+    margin-right: 0.2rem;
+}
+
+.student-list-route-plan {
+    color: #8C8889;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 20px;
+}
+
+.area-cards {
+    padding: 20px;
+    margin: 0px 0px 12px;
+    // box-shadow: rgba(130, 145, 153, 0.5) 0px 1px 1px 0px;
+    box-shadow: rgba(149, 0, 37, 0.09) 0px 8px 24px;
+    background-color: rgb(240, 245, 254);
+    width: 100%;
+}
+
+.area-head-heading {
+    color: #3c2052;
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 15px;
+}
+
+.route-plan-header-background {
+    background-color: '#e8efff';
+}
+
+.map-list-outer-box {
+    height: 70vh;
+    display: grid;
+    border-left: inset;
+    align-content: space-between;
+    margin-left: 10px;
+}
+
+.arrow-right {
+    width: 10px;
+    height: 2px;
+    background-color: #a78e8e;
+}
+
+.MuiTableCell-body {
+    word-break: break-all;
+}
+
+.submit-button {
+    display: flex !important;
+    justify-content: flex-end !important;
+    margin-right: 120px !important;
+}
+
+.updated-priceList {
+    display: flex !important;
+    justify-content: space-between;
+}
+
+.price-data {
+    margin-right: auto !important;
+}
+
+.price-list-heading {
+    font-size: 1.25rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0.0075em;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.error-message {
+    color: #f44336;
+    font-size: .75rem;
+    margin: 3px 0 0;
+    font-weight: 400;
+    line-height: 1.66;
+    letter-spacing: .03333em;
+
+}
+
+.mt-30 {
+    margin-top: 30px !important;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px !important;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px !important;
+}
+
+.row-height {
+    height: 100px !important;
+    width: 300px !important;
+}
+
+.padding-left-100 {
+    padding-left: 100px !important;
+}
+
+.padding-left-28 {
+    padding-left: 28px !important;
+}
+
+.padding-left-50 {
+    padding-left: 50px !important;
+}
+
+.marign-left-150 {
+    margin-left: 150px !important;
+}
+
+.marign-right-30 {
+    margin-right: 30px !important;
+}
+
+.updated-price-alignment {
+    margin-left: 150px !important;
+    margin-right: 150px !important;
+}
+
+.updated-price-heading-alignment {
+    margin-left: 180px !important;
+    margin-right: 170px !important;
+}
+
+.blank-page-width {
+    width: 100% !important;
+}
+
+.priceplan {
+    display: flex;
+}
+
+.multiselect-width {
+    width: 240px !important;
+
+}
+
+.multi-select {
+    --rmsc-h: 53px !important;
+    /* Height */
+    --rmsc-border: #b9b7b7 !important;
+    --rmsc-bg: #f7f9ff !important;
+}
+
+.standard_list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.selectedStandards {
+    margin-right: 10px !important;
+    background-color: #5c5cf5 !important;
+    color: white !important;
+}
+
+.plan-width {
+    width: max-content;
+}
+
+.autocomplete-dropdown-container {
+    position: absolute;
+    background-color: white;
+    z-index: 1300;
+    width: auto;
+    padding: 5px 10px;
+}
+
+.suggestion-item {
+    padding: 20 0px;
+}
+
+.border-color-red {
+    border-color: red;
+}
+
+.selected-student-route {
+    background-color: #7886eb45;
+    font-weight: bold;
+}
+
+.custom-button-approval {
+    text-transform: capitalize !important;
+    background: #007EFF !important;
+    // box-shadow: 0px 8px 16px rgb(0 126 255 / 16%) !important;
+    border-radius: 8px !important;
+    color: #FFFFFF !important;
+    padding: 5px !important;
+    margin-left: 10px !important;
+}
+
+.custom-button-approval:hover {
+    background-color: var(--buttonBackground) !important;
+}
+
+.custom-button:hover {
+    background-color: var(--buttonBackground) !important;
+}
+
+.custom-button {
+    font-weight: 500 !important;
+    font-size: 15px !important;
+    line-height: 18px !important;
+    color: #FFFFFF !important;
+    text-transform: none !important;
+    margin-left: auto !important;
+    background-color: var(--buttonBackground) !important;
+    // @include themify($themes) {
+    //     background-color: themed('buttonBackground') !important;
+    // }
+}
+
+.custom-button:hover{
+    transform: scale(1.05);
+}
+
+.selected-route-area-paper {
+    background: #FFFFFF !important;
+    box-shadow: 0px 15px 35px rgba(49, 69, 244, 0.1) !important;
+    border-radius: 15px !important;
+}

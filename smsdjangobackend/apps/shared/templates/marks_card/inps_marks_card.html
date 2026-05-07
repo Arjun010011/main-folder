@@ -1,0 +1,281 @@
+<html>
+<head>
+    <style>
+        @page {
+            size: A4;
+        }
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            font-size: 20px;
+            color:rgb(5, 61, 216);
+        }
+
+        th,
+        td {
+            padding-top: 6px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+            border:2px solid rgb(5, 61, 216);
+            color:rgb(5, 61, 216);
+        }
+
+        .td-font-size>td {
+            font-size: 13px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center;
+        }
+
+        .border {
+            height: 900px;
+            border: 5px solid rgb(35, 38, 199);
+            padding: 20px;
+            margin: 0px;
+        }
+
+        tr:nth-child(even) {
+            background-color: white;
+        }
+        .grading-info-container {
+            background-color: blueviolet;
+            color: white;
+            padding: 10px 0;
+            margin-top: 10px;
+        }
+        .sign-lines {
+            display: flex;
+            justify-content: space-around;
+            padding-top: 20px;
+            color: white;
+        }
+
+        .sign-line {
+            border-top: 1px solid white;
+            width: 140px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .custom-line {
+            width: 380px; 
+            border: none;
+            border-top: 2px solid rgb(5, 61, 216); 
+            margin-left:0px;
+            color:rgb(5, 61, 216)
+        }
+        .grading-info-container {
+            background-color: rgb(5, 61, 216);
+            color: white;
+            padding: 50px 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+
+        .grading-info-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 18px;
+        }
+
+
+    </style>
+</head>
+<body>
+    {% for student in data.student_list %}
+    <div style="padding:20px;margin:0px 20px 0px 20px;height: 1300px;">
+        <div style='line-height: 1.8;'>
+            {% if student.is_finalized == False %}
+            <div style='color:red'>
+                Marks Is Not Finalized
+            </div>
+            {% endif %}
+            <div style='background-color: white;margin-top:10px;padding-top: 5px;'>
+                <div class='text-align-center' style='font-size:18px;margin-top:5px;position: relative;color:rgb(5, 61, 216)'>
+                    
+                    <b>
+                        <div>{%if institute_data.name|length > 35 %}
+                        <div style="font-size: 22;">{{institute_data.name}}</div>
+                        {% else %}
+                        <div style="font-size: 26;">{{institute_data.name}}</div>
+                        {%endif%} <br />
+                            <div style="font-size: 19;">{{ institute_data.address }}{% if institute_data.city %}, {{ institute_data.city }}{% endif %}
+                            {% if institute_data.pincode %} - {{ institute_data.pincode }}{% endif %} 
+                        </div></br>
+                    </b>
+                    
+                     {% if institute_data.document_details.file %}
+                    <img src={{institute_data.document_details.file}}
+                        style="width: 100px;height: 100px;position: absolute;left:10;top:0" /> {% endif %}</div>
+                </div>
+                <div class='text-align-center font-weight-bold'
+                    style='margin-top:10px;padding-bottom: 10px;margin-top: -40px;font-size:21px;color:rgb(5, 61, 216)'>
+
+                        <br />
+                    {{data.exam_details|upper}} 
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <div >
+            <div style='margin-top: 20px;font-weight: bold ;color:rgb(5, 61, 216);font-size:20px;'>
+                STUDENT NAME : {{student.student_name|upper}} <br />
+            </div>
+            <hr class="custom-line">
+            <br>
+
+            <div style="margin-top: 10px;font-weight: bold;color:rgb(5, 61, 216);font-size:20px;">
+                STANDARD   &emsp;&emsp;    : {{data.standard_name}}  <br />
+            </div>
+            <hr class="custom-line">
+            <br>
+
+        </div>
+        <br>
+        <table class='table-border subject-list' style='width: 100%;border:0px solid rgb(56, 236, 20);'>
+            <tr style='font-weight: bolder white;font-size:20px ;border:0px solid rgb(56, 236, 20);color:rgb(252, 25, 25);background-color:rgb(5, 61, 216)'>
+                <td style="color:white;font-weight: 600;font-size: 20px;">
+                    SUBJECTS
+                </td>
+                {%for cumulative_type in student.cumulative_id_type_mapping%}
+                <!-- <td>{{cumulative_type.col_name|upper}}</td> -->
+                {%endfor%}
+                <td style="color:white;font-weight: 600;font-size: 20px;" > 
+                    ORAL(10)
+                </td>
+                <td style="color:white;font-weight: 600;font-size: 20px;" >
+                            WRITTEN(40)
+                </td>
+                <td style="color:white;font-weight: 600;font-size: 20px;" >
+                    TOTAL
+                </td>
+                <td style="color:white;font-weight: 600;font-size: 20px;">
+                    GRADE
+                </td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'part1' %}
+                <tr class='td-font-size' style="border:0px solid rgb(56, 236, 20);">
+                    <td style='font-size: 20px;'>{{ subject_data.subject_name | upper }}</td>
+                    
+                    {% for cumulative_type in subject_data.cumulative_mark_data_for_marks_card %}
+                    <td style='font-size:20px'>
+                    {% if subject_data.attendance_status == 'Absent' %}
+                        AB
+                    {% else %}
+                        {{ cumulative_type.mark }}
+                    {% endif %}
+                    </td>
+                    {% endfor %}
+                    
+                   <td style="font-size: 20px;">
+                        {% if subject_data.attendance_status == 'Absent' %}
+                            AB
+                        {% else %}
+                            {{ subject_data.marks|floatformat:0 }}
+                        {% endif %}
+                    </td>
+                    
+                    <td style='font-size: 20px;'>
+                        {{ subject_data.total_obtained_marks }}/{{ subject_data.total_max_marks }}
+                    </td>
+                    
+                    <td style='font-size: 20px;'>
+			           {% if subject_data.attendance_status == 'Absent' %}
+                            -
+                        {% else %}
+                            {{ subject_data.grade }}
+                        {% endif %}
+			</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+            <tr  class='td-font-size'>
+                <td style='font-size: 22px;font-weight: bold;' colspan="3">GRAND TOTAL</td>
+                <td style='font-size: 20px'>{{student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0}}</td>
+                <td style='font-size: 20px'>{{student.part_type_data_code_wise.part1.grade}}</td>
+            </tr>
+        </table>  
+        <br/>
+            <table class="coscholastic" 
+       style="width: 100%; border-collapse: collapse; margin-top: 10px; border: 2px solid rgb(5, 61, 216); color: rgb(5, 61, 216); background-color: white;">
+    <tr style="background-color: rgb(5, 61, 216); color: white; font-weight: bold; font-size: 12px;">
+        <th style="border: 2px solid rgb(5, 61, 216);color:white;text-align: center; padding: 4px;">PART B</th>
+        <th style="border: 2px solid rgb(5, 61, 216);color:white;text-align: center; padding: 4px;">GRADE</th>
+    </tr>
+    {% for subject_data in student.subject_list_data %}
+    {% if subject_data.subject_part_type_code_name == 'part2' %}
+    <tr style="background-color: white;">
+        <td style="border: 2px solid rgb(5, 61, 216); text-align: center;padding: 4px; font-size: 11px;">
+            {{ subject_data.subject_name|upper }}
+        </td>
+        <td style="border: 2px solid rgb(5, 61, 216); text-align: center; padding: 4px; font-size: 11px;">
+            {{ subject_data.grade }}
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+
+        
+        
+    </td>
+</tr>     
+<br>
+<br>
+
+        <div class="sign-lines">
+            <div class="sign-line" style="border-top: 1px solid white; color: rgb(5, 61, 216);margin-left:-120px;color:rgb(5, 61, 216);font-size:20px">CLASS TEACHER SIGN</div>
+            <div class="sign-line" style="border-top: 1px solid white; color: rgb(5, 61, 216);font-size:20px">PRINCIPAL SIGN</div>
+            <div class="sign-line" style="border-top: 1px solid white; color: rgb(5, 61, 216);margin-right:-120px;color:rgb(5, 61, 216);font-size:20px">PARENTS'S SIGN </div>
+        </div> 
+        <br>
+        <br>
+        <div class="sign-lines">
+            <div class="sign-line" style="border-top: 2px solid rgb(5, 61, 216); color: black;margin-left:-120px;"></div>
+            <div class="sign-line" style="border-top: 2px solid rgb(5, 61, 216); color: black;"></div>
+            <div class="sign-line" style="border-top: 2px solid rgb(5, 61, 216); color: black;margin-right:-120px;"></div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+     <table class="text-center w-100 table-border " border="1" style="border-collapse: collapse;
+        border: 0.5px solid grey;margin-top:5px;width: 100%;background-color: #D7E7F7;padding-top: 20px;">  
+           <tr>
+                <th class="th-subject-view">Grade INFO </th>
+                <th class="th-subject-view">A+, A</th>
+                <th class="th-subject-view">B+, B</th>
+                <th class="th-subject-view">C+, C</th>
+                 <th class="th-subject-view">D</th>
+            </tr>
+            <tr class="table-border-tr,background-color:  #D7E7F7;color: black;">
+                 <td class="table-border-td"><strong>Description</strong></td>
+                <td class="th-subject-view"><strong>EXCELLENT</strong></td>
+                <th class="th-subject-view">GOOD</th>
+                <th class="th-subject-view">AVERAGE</th>
+                <th class="th-subject-view">BELOW AVERAGE</th>
+            </tr>
+          </table>
+    </div>
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

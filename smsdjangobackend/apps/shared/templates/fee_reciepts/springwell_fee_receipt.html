@@ -1,0 +1,173 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 ;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 2px;
+            text-align: left;
+            font-size:14px;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 0px 50px 50px 50px;
+        }
+        body {
+        font-family: "Courier New", Courier, monospace;
+      }
+    </style>
+</head>
+<body>
+    {% for count in number_of_copies %}
+    {%  if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top: 25px"></div>
+    {% else %}
+    {% endif %}
+        <!-- <div style="font-size: 18px;text-align: center;margin-top: 40px;">SCHOOL FEE RECEIPT </div> -->
+        <div class='page'>
+            <table style="width:100%">
+                <tr>
+                    <td colspan="2" style="padding: 8px;">
+                        <div style='display:flex;justify-content:center;padding-right:0px;'>
+                            <div style='text-align:right;'>
+                                {% if institute.logo.file.url %}
+                                    <img src={{ institute.logo.file.url }}
+                                    style="width: 130px;height: 80px;"/>
+                                {% endif %}
+                            </div>
+                            <div style="margin-left:50px;"></div>
+                            <div style='text-align:center'>
+                                <div style="font-size: 30px;font-weight: bold;">
+                                    SPRINGWELL INTERNATIONAL SCHOOL </br>
+                                </div>
+                                <div style="line-height: 25px;font-size:18px;">
+                                    No 36/2, Madanayakanahalli, Bengaluru 562162<br>
+                                  Phone No : 78928 55061
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <tr>
+                    <td class='noborder bold line-height' style='width:60%;vertical-align:top'> Student Name : 
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        <br/>
+                        Class / Section :
+                        {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}
+                        <br/>
+                        Parent : {%if fee_collection.student_detail.student_parent.parent.father_name %}{{fee_collection.student_detail.student_parent.parent.father_name}}
+            {%else%} {%if fee_collection.student_detail.student_parent.parent.mother_name %} {{fee_collection.student_detail.student_parent.parent.mother_name}} {%endif%}
+            {%endif%}
+                    </td>
+                    <td class='bold line-height'>
+                        Date:  {{fee_collection.transaction_date}} <br/>
+                        Rec No: {{ fee_collection.receipt_num|title }} <br/>
+                        Student ID : {{admission_num|title}}
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 100%">
+                <thead>
+                <tr>
+                    <!-- <th>Sl.No</th> -->
+                    <th>Particulars</th>
+                    <th>Total Fees</th>
+                    <th>Total Received Amount</th>
+                    <th>Paid Amt</th>
+                    <th>Balance</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <!-- {% for fee_summary in student_fee_summary.plans %}
+                  {% if fee_summary.codename == 'annual' %}
+                  <tr>
+                    <td>1</td>
+                    <td>{{ fee_summary.fee_type_name }}</td>
+                    <td>{{ fee_summary.total_amount|floatformat}}</td>
+                    <td>0</td>
+                       <td>{{fee_summary.total_paid_amount|floatformat}}</td>
+                       {% for fees in payment_detail %}
+                       <td>{{fees.amount_paid}}</td>
+                       {% endfor %}    
+                        <td>{{ fee_summary.pending_amount|floatformat }}</td>
+                  {%else%} -->
+                  </tr>
+                    {% for fee in fee_summary.standard_fee %}
+                        <tr style="font-size: 18px;"> 
+                          <!-- <td>{{ forloop.counter }}</td> -->
+                          <td>{{ fee.fee_type_name }}</td>
+                          <td>{{ fee.total_amount|floatformat }}</td>
+                          <td>{{ fee.paid_amount|floatformat }}</td>
+                          <!-- <td>22222</td> -->
+                        {% for fees in fee_collection.payment_detail %}
+                        {%  if  fees.fee_type_name == fee.fee_type_name %}
+                           <td>{{fees.amount_paid|floatformat }}</td>
+
+                           {% endif %}
+                        {% endfor %}
+
+                           <td>{{ fee.pending_amount|floatformat }}</td>
+                        </tr>
+                        {% endfor %}
+                    <!-- {% endif %}
+                  {% endfor %} -->
+                <tr>
+                    <td colspan='7' style='font-weight:bold;line-height:1.5'>
+                        Total Overall Paid Amount: {{student_fee_summary.total_paid_amount|floatformat}} ({{student_fee_summary.total_paid_amount_in_words|title}} Rupees Only) <br/>
+                        Overall Balance : {{student_fee_summary.total_pending_amount | floatformat}}<br/>
+                        Mode Of Payment : {% for mode_of_pay in fee_collection.mode_of_payment_list %}
+                        {{ mode_of_pay.mode_of_payment }}: {{ mode_of_pay.amount|floatformat }}
+                        {% if not forloop.last %}, {% endif %}
+                    {% endfor %} <br/>
+                    </td>
+                </tr>
+                <tr>
+                    <td style='padding-top:50px;vertical-align:bottom;border-right:0px' colspan='3'>
+                    </td>
+                    <td style='text-align:right;vertical-align:bottom;border-left:0px;font-weight: bold;padding-right: 50px;' colspan='4'>
+                        OFFICE SIGNATURE
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            {% if not forloop.last and forloop.counter|divisibleby:"2"%}
+            <div style="page-break-after: always;"></div>
+            {% endif %}
+        </div>
+{% endfor %}
+</body>

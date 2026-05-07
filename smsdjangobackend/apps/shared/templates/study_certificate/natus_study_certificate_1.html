@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>natus-study-certificate_1</title>
+  </head>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+    }
+
+    @page {
+      size: A4;
+      margin: 8mm;
+      border: 3px solid black;
+    }
+
+    body {
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .logo img {
+      width: 100px;
+      height: 90px;
+      object-fit: cover;
+      margin-top: 20px;
+      margin-left: 35px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .schoolname {
+      font-size: 23px;
+      padding-left: 20%;
+      font-weight: bold;
+      width: 100%;
+      text-transform: uppercase;
+      padding-top: 23px;
+    }
+
+    .schooladd {
+      font-size: 16px;
+      text-align: center;
+      font-weight: 900;
+      width: 100%;
+      text-transform: uppercase;
+    }
+
+    .dashed-line {
+      border-bottom: 1px dashed #000;
+      display: inline-block;
+      min-width: 120px;
+      height: 15px;
+      margin-left: 10px;
+      
+    }
+
+    .dotted-line {
+      border-bottom: 2px dotted #000;
+      display: inline-block;
+      min-width: 90px;
+      height: 33px;
+      margin-left: 5px;
+      font-weight:600;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .title {
+            padding-left: 35%;
+            font-weight: bold;
+            font-size: 24px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-decoration: underline;
+            text-underline-offset: 5px;
+            text-transform: uppercase;
+        }
+
+    .page {
+        background-image: url('https://local-s3-2025.s3.amazonaws.com/134/Natus_1Study_certificate.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center top;
+        padding: 0;
+        position: relative;
+    }
+  </style>
+
+  <body>
+    <div class="page">
+   
+    <div
+      style="
+        margin-left: 72%;
+        font-weight: bold;
+        display: inline-block;
+        align-items: center;
+        height: 55px;
+        margin-top:25%;
+      "
+    >
+      Date :
+      <span class="dotted-line">{{today_date}}</span>
+    </div>
+
+
+    
+    <p style="font-size: 18px; line-height: 2.1; text-align: justify; padding-left: 25px; padding-right: 30px;">
+    
+      This is to certify that  
+      {% if student_he_she == "he" %}
+      Sri. <span class="dotted-line" style="min-width: 220px;">{{student_full_name|title}}</span>, Son of Sri <span class="dotted-line">{{father_name|title}}</span>
+      {% else %}
+      Kum. <span class="dotted-line" style="min-width: 220px;">{{student_full_name|title}}</span>, Daughter of Sri <span class="dotted-line" style="min-width: 220px;">{{father_name|title}}</span>,
+      {% endif %}
+      has studied in our institution from <span class="dotted-line">{{from_standard_name}}</span> to <span
+        class="dotted-line">{{to_standard_name}}</span>  during the academic years
+        <span class="dotted-line">{{from_academic_year }}</span> to <span class="dotted-line">{{to_academic_year}}</span>.
+
+        {% if student_he_she == "he" %}
+        His admission number is <span class="dotted-line">{{admission_num}}</span>.
+        {% else %}
+        Her admission number is <span class="dotted-line">{{admission_num}}</span>.
+        {% endif %}
+        {% if student_he_she == "he" %}
+        His Date of Birth is <span class="dotted-line">{{ dob }}</span> as per our school records.
+        {% else %}
+        Her Date of Birth is <span class="dotted-line">{{ dob }}</span> as per our school records.
+        {% endif %}
+
+        The mother tongue of the candidate is <span class="dotted-line">{{mother_tongue}}</span> as per the admission register of
+        our institution. 
+        </p>
+        
+        <div style="text-align: center; margin-top: 3%;">
+            The above details are true and correct to the best of my knowledge.
+
+        </div>
+
+        <div style="font-weight: bold; margin-left: 65%; text-align: center; padding-top: 12%;">Signature of <br> Head of the institution</div>
+          <div style="font-weight: bold;text-align: center; padding-top: 1%; padding-right: 69%;">Institution seal</div>
+
+          <div style="margin-left: 63%;"><span class="dotted-line" style="min-width: 220px; display: inline-block;">{{head_of_institution}}</span></div>
+    
+  
+      <div style="margin-top: 18%;"></div>
+      <span style="padding-left: 35%;  font-size: 18px; font-weight: bold;">COUNTER SIGNED BY ME</span>
+      <span style="padding-left: 19%; font-size: 18px;">Address & Seal of the Block Education officer / DDPI</span>
+
+      </div>
+  </body>
+</html>

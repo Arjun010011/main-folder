@@ -1,0 +1,281 @@
+<html>
+
+<head>
+    <style>
+        @page{
+            size:A4;
+        }
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 18px;
+        }
+
+        th,
+        td {
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+        }
+        
+        .td-font-size>td {
+            font-size: 17px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center
+        }
+
+        .noborder {
+            border: 0px solid black
+        }
+
+        .center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .box {
+                width: 150px;
+                height: 150px;
+                border: 1.5px solid black;
+                border-radius: 8px;
+            }
+    </style>
+    </head>
+{% for student in data.student_list %}
+<body style="border: 1px solid black;margin:0px;height:1230px;">
+    <div>
+            <div style='display:flex;justify-content:center;padding-right:30px;width:100%;font-weight:bold;'>
+                <div style='text-align:right;padding: 10px;'>
+                    {% if institute_data.logo.file.url %}
+                    <img src={{institute_data.logo.file.url}} style="width: 150px;height: 150px;" />
+                    {% endif %}
+                </div>
+                <div>
+                    <div style="font-size: 26px;font-weight: bold;text-align:center">
+                        {{ institute_data.name|upper }} </br>
+                    </div>
+                    <div style="line-height: 25px;font-size:15px;text-align: center;">
+                        {{ institute_data.address|upper }}{% if institute_data.city %}, {{ institute_data.city|upper
+                        }}{% endif %}
+                        {% if institute_data.pincode %} - {{ institute_data.pincode|upper }}{% endif %} </br>
+                        <div style="font-size: 13px;">
+                            {% if institute_data.tel_num %}Ph: {{ institute_data.tel_num|upper }},
+                            {% if institute_data.tel_num_2 %}
+                            , {{ institute_data.tel_num_2|upper }},{% endif %}E-Mail:brainovagroup@gmail.com<br />{%endif %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div>
+            <div style="display:flex">
+            <div>
+            <table style="width: 600px;margin-top: 4px;font-size: 17px;">
+                <tr class='bold line-height' style='vertical-align:top'>
+                    <td colspan=2 style='width:150px;'>Student's Name : {{student.student_name}}</td>
+                </tr>
+                <tr class='bold line-height' style='vertical-align:top'>
+                    <td colspan=2 style='width:150px;'>Father's Name : {% if student.father_name %}{{student.father_name}}{%endif%}</td>
+                </tr>
+                <tr class='noborder bold line-height' style='vertical-align:top'>
+                    <td style='width:15px;'>Class : {{data.standard_name}} - {{data.section_name}}</td>
+                    <td style='width:15px;'>ID : {% if student.student_admission_form %}
+                        {{student.student_admission_form.admission_num}}
+                        {% endif %}</td>
+                </tr>
+            </table>
+            <table style="width: 600px;font-size: 17px;">
+                <tr class='bold line-height' style='vertical-align:top;background-color: gray;'>
+                    <td>SI No.</td>
+                    <td>SCHOLASTIC SUBJECTS-I</td>
+                    <td>Max Mark</td>
+                    <td>Mark Secu.</td>
+                    <td>%</td>
+                    <td>Grade</td>
+                </tr>
+                {% for subject_data in student.subject_list_data %}
+                    {%if subject_data.subject_part_type_code_name ==  'part1'%}
+                        <tr class='td-font-size'>
+                            <td>{{subject_data.sequence}}</td>
+                            <td style="text-align: left;padding-left: 12px;">{{subject_data.subject_name|upper}}</td>
+                            <td>{{subject_data.max_marks}}</td>
+                            <td> {%if subject_data.attendance_status == 'Absent' %}
+                                AB
+                            {% else %}
+                                {{subject_data.marks|floatformat:0}}
+                            {%endif%}
+                            </td>
+                            <td>{{subject_data.percentage|floatformat:0}} <b>%</b></td>
+                            <td style="font-weight: bold;">{{subject_data.grade}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    <tr>
+                        <td colspan="2">GRAND TOTAL</td>
+                        <td>{{student.part_type_data_code_wise.part1.total_marks}}</td>
+                        <td>{{student.part_type_data_code_wise.part1.total_obtained_marks}}</td>
+                        <td>{{student.part_type_data_code_wise.part1.percentage|floatformat:0}} <b>%</b></td>
+                        <td>{{student.part_type_data_code_wise.part1.grade}}</td>
+                    </tr>
+            </table>
+            <table style="width: 600px;text-align: center;">
+                <tr>
+                    <td>TOTAL</td>
+                    <td>{{student.part_type_data_code_wise.part1.total_marks}}</td>
+                    <td>OBTAINED</td>
+                    <td>{{student.part_type_data_code_wise.part1.total_obtained_marks}}</td>
+                    <td>PERCENTAGE</td>
+                    <td>{{student.part_type_data_code_wise.part1.percentage|floatformat:0}} <b>%</b></td>
+                </tr>
+            </table>
+            <table style='width:600px;'>
+                <tr style='font-weight: bold;'>
+                    <td colspan="2">
+                        SCHOLASTIC SUBJECT-II
+                    </td>
+                    <td>
+                        GRADE
+                    </td>
+                </tr>
+                {% for subject_data in student.subject_list_data %}
+                    {%if subject_data.subject_part_type_code_name ==  'part2'%}
+                        <tr>
+                            <td>{{subject_data.sequence}}</td>
+                            <td>{{subject_data.subject_name}}</td>
+                            <td>{{subject_data.grade}}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+            <table style='width:600px;'>
+                <tr style='font-weight: bold;'>
+                    <td colspan="2">
+                        CO-SCHOLASTIC SUBJECT
+                    </td>
+                    <td>
+                        GRADE
+                    </td>
+                </tr>
+                {% for subject_data in student.subject_list_data %}
+                    {%if subject_data.subject_part_type_code_name ==  'part3'%}
+                        <tr>
+                            <td>{{subject_data.sequence}}</td>
+                            <td>{{subject_data.subject_name}}</td>
+                            <td>{{subject_data.grade}}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+            <div>
+                <div class="box" style="margin:auto;margin-top: 40px;"></div>
+                <table width="250px;" style="margin-top:33px;">
+                    <tr>
+                        <td colspan="2">Grading scale for Scholastic</td>
+                    </tr>
+                    {% for grades in data.grade_type_data.4.grade_list %}
+                    <tr>
+                     <td width="10%">{{grades.name}}</td>
+                        <td>{{grades.from_range}}-{{grades.to_range}}</td>
+                    </tr>
+                    {%endfor%}
+                </table>
+                <table width="250px;margin-top:100px;">
+                    <tr>
+                        <td colspan="2">Grading scale for Co-Scholastic</td>
+                    </tr>
+                    <tr>
+                     <td width="10%">A</td>
+                        <td>Outstanding</td>
+                    </tr>
+                    <tr>
+                        <td width="10%">B</td>
+                           <td>Very Good</td>
+                       </tr>
+                       <tr>
+                        <td width="10%">C</td>
+                           <td>Fair</td>
+                       </tr>
+                    
+                </table>
+                <table width="250px;">
+                    <tr>
+                        <td colspan="2">ATTENDANCE</td>
+                    </tr>
+                    <tr>
+                        <td>Working Days</td>
+                        <td>Present Days</td>
+                    </tr>
+                    <tr>
+                        <td>{%if student.marked_attendance_days %} {{student.marked_attendance_days|floatformat:0}} {%else%} 0 {% endif %}</td>
+                        <td>{%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %}</td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            <table width="100%;">
+                <tr>
+                    <td width="25%;">
+                        REMARKS
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            </table>
+            <div style="width: 60%;height:21%;">
+                <canvas id="pie-chart-{{ forloop.counter }}"></canvas>
+            </div>
+        
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+            <script>
+                var config{{ forloop.counter }} = {
+                    type: 'bar',
+                    data: {
+                        labels: [{% for course in student.subject_names_part_wise.part1 %} '{{ course }}', {% endfor %}],
+                        datasets: [{
+                            backgroundColor: 'orange',
+                            data: [{% for number in student.obtained_marks_list_part_wise.part1 %} '{{ number }}', {% endfor %}],
+                            label: 'Marks Obtained'
+                        }],
+                    },
+                    options: {
+                        responsive: true
+                    }
+                };
+        
+                // Get the canvas element for this loop iteration
+                var canvas{{ forloop.counter }} = document.getElementById('pie-chart-{{ forloop.counter }}');
+                var ctx{{ forloop.counter }} = canvas{{ forloop.counter }}.getContext('2d');
+        
+                // Create the chart
+                var myPie{{ forloop.counter }} = new Chart(ctx{{ forloop.counter }}, config{{ forloop.counter }});
+            </script>
+            <hr>
+            <table class='noborder' style="width: 100%;font-size: 17px;margin-top:50px;">
+                <tr class='noborder bold line-height'>
+                    <td class='noborder'>Class Teacher</td>
+                    <td class='noborder' style="text-align: right;">Principal Signature</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+
+</html>

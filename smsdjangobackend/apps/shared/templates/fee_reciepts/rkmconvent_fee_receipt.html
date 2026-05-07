@@ -1,0 +1,206 @@
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        body {
+        padding: 0;
+      }
+      html, body {
+        margin:0;
+        padding:0;
+        }
+     table,
+        th,
+        td {
+            border: 1px solid rgb(0, 0, 0);
+            border-collapse: collapse;
+
+        }
+        th,
+        td {
+            text-align: left;
+            border: none;
+            
+        }
+        .outer-table {
+            width: 100%;
+            border: 1px solid rgb(0, 0, 0);
+            border-collapse: collapse;
+            line-height: 1.5;
+            margin: 0 auto;
+        }
+
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            display: inline-block;
+            
+        }
+        .feereceipt-box {
+            border: 3px solid #000; 
+            display: inline-block;
+            background-color: #333333;
+            color: #fff;
+            
+        }
+        #innertable {
+            border: 1px solid black; 
+        }
+
+        #innertable th, #innertable td {
+            border: 1px solid black; 
+            text-align: left;
+        }  
+    </style>
+</head>
+
+<body >
+<div>
+    {% for count in number_of_copies %}
+    {%  if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top: 25px"></div>
+        <div style="text-align:right;margin-right:10px"> Receipt</div>
+    {% else %}
+        <div style="text-align:right;margin-right:10px">Receipt</div>
+    {% endif %}
+    <div style='height:147mm'>
+        <table style="width: 100%; border: 3px solid black; border-collapse: collapse; position: relative;height: 150px;border-bottom: none;">
+            <tr>
+                <td style="position: relative; width: 20%;">
+                    {% if institute.logo.file.url %}
+                     <img src={{ institute.logo.file.url }}
+                         alt="Institute Logo" 
+                         style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); width: 175px; height: 120px;">
+                    {% endif %}
+                </td>
+                <td style="text-align: center; font-size: 23px; font-weight: bold; text-transform: uppercase; line-height: 1.2; width: 100%;margin-right:420px;padding-right:180px;">
+                    RKM CONVENT SCHOOL
+                    <div style="font-size: 13px; margin-top: 5px;text-transform: none">
+                        | Recognised by Govt. Of Karnataka |                          
+                    </div>
+                    <div style="font-size: 14px; margin-top: 5px; text-transform: none; text-align: center; white-space: nowrap;">
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;207/7 Vidya Lakshmi Campus , Aranakatte , Hiriyur , Chitradurga-577511
+                    </div>
+                    <div style="font-size: 14px; margin-top: 5px; text-transform: none;">
+                        Phone No:+918050908860
+                    </div>
+                </td>
+                <!-- <td style="position: relative; width: 20%;">
+                    <img src='https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/gnanasangama/gnanasangamaswameje.jpg'
+                         alt="photo Logo" 
+                         style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); width: 175px; height: 120px;">
+                  </td> -->
+            </tr>
+            
+            
+        </table>  
+        <div style="padding-left: 10px;border:3px solid black;border-top: none;">
+            <b>Receipt No : </b> {% if fee_collection.receipt_num %}{{fee_collection.receipt_num}}{% endif %} <br/>
+        </div> 
+ 
+        <table class="outer-table"  style="width: 100%; line-height:1.5; border-collapse: collapse;border: 3px solid black;border-top:none;border-bottom: none;">          
+            <tbody>
+                <tr>
+                    <td colspan="2" style="text-align:center; font-size:23px; font-weight:bold; border-bottom: none;border-right:3px black solid;">
+                        <div class="feereceipt-box">Fee Receipt</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="border: none; padding: 10px;font-size: 18px;">
+                        <div>
+                            <b>Student Name :</b> 
+                            {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                            {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                            {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                        </div>
+                        <div>
+                            <b>Standard Name: </b>{{fee_collection.standard_name}}
+                        </div>
+                    </td>
+                    <td  style="border-right: 3px black solid; padding: 10px;font-size: 18px;">
+                        <div>
+                            <b>Date : </b> {{fee_collection.transaction_date}}
+                        </div>
+                        <div>
+                            <b>Adm No :</b> {{fee_collection.student_detail.admission_num}}
+                        </div>
+                    </td>
+                </tr>
+                </table>
+        <table style="width: 100%;border:3px solid black">
+            <thead style="border:3px solid black">
+                <tr style="border:3px solid black">
+                    <th style="border:3px solid black">Sl No</th>
+                    <th  style="border:3px solid black">Particulars</th>
+                    <th style="text-align:right;border:3px solid black">Paid Amount</th>
+                </tr>
+            </thead>
+            <tbody style="border:3px solid black">
+                {% for fee in fee_collection.payment_detail %}
+                <tr style="border:3px solid black">
+                    <th style="border:3px solid black">{{forloop.counter}}</th>
+                    <th style="border:3px solid black" > {{fee.fee_type_name}}</th>
+                    <th style="text-align:right;border:3px solid black">{{fee.amount_paid|floatformat}}</th>
+                </tr>
+                {% endfor %}
+                <tr style="border:3px solid black">
+                    <th></th>
+                    <th>TOTAL PAID AMOUNT :</th>
+                    <th style="text-align:right;border:3px solid black">{{fee_collection.total_amount}}</th>
+
+                </tr>
+            <tr>
+                <th>Mode Of Payment : {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}</th>
+                <th>
+                </th>
+                <th style="text-align:right">Balance , if any : {{student_fee_summary.total_pending_amount}}</th>
+            </tr>
+            {% if fee_collection.mode_of_payment != 'Cash' %}
+
+            <tr>
+                <th>Transaction ID:{{ fee_collection.payment_ref_num }}</th>
+                <th></th>
+                <th></th>
+            </tr>
+            {% endif %}
+
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+            </tr>
+            
+
+            <tr style="padding-top: 30px;margin-top: 30px;">
+                <th style="text-align:left;"> Signature Of Centre Head</th>
+                <th></th>
+                <th style="text-align:right;">Signature Of Student</th>
+            </tr>
+            <tr style="border:3px solid black">
+                <td style='text-align:center' colspan='3'>
+                    * All above mentioned Amount once paid are non refundable in case  whatsoever.*
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style='display:flex; padding:10px 0px 10px 0px'>
+            <div>Receipt Generated at : {{ today }}</div>
+            <div style='margin-left:auto'>Powered By Edubricz</div>
+        </div>
+    </div>
+    {% if not forloop.last and forloop.counter|divisibleby:"2"%}
+    <div style="page-break-after: always;"></div>
+{% endif %}
+{% endfor %}
+        </div>
+
+</body>
+</html>

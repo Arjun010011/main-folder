@@ -17,6 +17,16 @@
 **/.DS_Store
 **/Thumbs.db
 
+# Secrets and Credentials
+**/google_credentials.json
+**/local.py
+**/production.py
+**/*.pem
+**/*.key
+**/*.pub
+secrets.py
+.env*
+
 # Git
 .git
 **/.git/

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hall Ticket</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 10mm;
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .container {
+      width: 100%;
+      border: 5px double black;
+      min-height: 260mm;
+      padding: 10px 20px;
+      box-sizing: border-box;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .logo-box {
+      flex: 0 0 120px;
+      text-align: center;
+    }
+
+    .logo-box img {
+      width: 110px;
+      height: 110px;
+      object-fit: contain;
+    }
+
+    .header {
+      flex: 1;
+      text-align: center;  
+    }
+
+    .school-trust {
+      font-size: 14px;
+      font-weight: bold;
+      padding-right: 80px;
+    }
+
+    .school-name {
+      font-size: 25px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding-right: 80px;
+    }
+
+    .affiliation {
+      font-size: 13px;
+      margin-bottom: 3px;
+      padding-right: 80px;
+    }
+
+    .exam-title {
+      font-size: 20px;
+      font-weight: bold;
+      padding-right: 80px;
+    }
+
+    .academic-year {
+      font-size: 15px;
+      font-weight: bold;
+      margin-top: 3px;
+      padding-right: 80px;
+    }
+
+    .admission-title {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px 0;
+      text-transform: uppercase;
+    }
+
+    .student-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+    }
+
+    .student-info table {
+      border: 2px solid black;
+      border-collapse: collapse;
+      width: 100%;
+      padding: 15px;
+    }
+
+    .student-info th,
+    .student-info td {
+      border: 1px solid black;
+      padding: 6px;
+      text-align: left;
+    }
+
+    .student-info th {
+      width: 40%;
+      text-transform: uppercase;
+    }
+
+    .photo-box {
+      border: 1px solid black;
+      width: 100px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 15px;
+    }
+
+    .photo-box img {
+      width: 90px;
+      height: 110px;
+      object-fit: cover;
+    }
+
+    .exam-table {
+      width: 100%;
+      border: 2px solid black;
+      border-collapse: collapse;
+      margin-bottom: 25px;
+    }
+
+    .exam-table th{
+      border: 1px solid black;
+      padding: 20px;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 20px;
+    }
+
+    .exam-table td {
+      border: 1px solid black;
+      padding: 20px;
+      font-size: 16px;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .signatures {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 70px;
+    }
+
+    .signature-box {
+      text-align: center;
+      font-weight: bold;
+      border-top: 1px solid black;
+      width: 200px;
+      padding-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  {% for student in student_list %}
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header-row">
+      <div class="logo-box">
+        <img src="{{institute.logo.file.url}}" alt="Logo">
+      </div>
+      <div class="header">
+        <div class="school-trust">K P R EDUCATIONAL TRUST&#174;</div>
+        <div class="school-name">{{ institute.name|upper }}</div>
+        <div class="affiliation">{{institute.address}}</div>
+        <div class="exam-title">{{ examDetail.exam_type.name | title }}</div>
+        <div class="academic-year">
+          Academic Year {{ examDetail.academic_year.start_date|date:"Y" }} - {{ examDetail.academic_year.end_date|date:'y' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Admission Title -->
+    <div class="admission-title">Admission Card</div>
+
+    <!-- Student Info -->
+    <div class="student-info">
+      <div style="flex:1;">
+        <table>
+          <tr>
+            <th>Name of the Student</th>
+            <td>{{ student.student_data.full_name|upper }}</td>
+          </tr>
+          <tr>
+            <th>Class</th>
+            <td>{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+          </tr>
+          <tr>
+            <th>Roll Number</th>
+            <td>{% if student.student_data.current_reg_num %}{{ student.student_data.current_reg_num }}{% endif %}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="photo-box">
+        {% if student.student_data.profile_pic_details.file %}
+        <img src="{{ student.student_data.profile_pic_details.file }}" alt="Profile Picture">
+        {% else %}
+        <span>Student Photo</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Exam Schedule -->
+    <table class="exam-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Subject</th>
+          <th>Invigilator</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for subject in student.subject_list %}
+        {% if subject.fordate %}
+        <tr>
+          <td>{{ subject.fordate|date:"d/m/Y" }}</td>
+          <td>{{ subject.subject_name }}</td>
+          <td></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Signature -->
+    <div class="signatures">
+      <div class="signature-box">Principal Signature</div>
+    </div>
+
+  </div>
+
+  {% if forloop.counter|divisibleby:"2" %}
+  <div style="page-break-after: always;"></div>
+  {% else %}
+  <div style="margin-top: 5px;"></div>
+  {% endif %}
+
+  {% endfor %}
+</body>
+</html>

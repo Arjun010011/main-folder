@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>INPS Sport Certificate</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing Script&display=swap">
+
+
+  <style>
+   
+    @page {
+      size: 315mm 210mm; 
+      margin: 0;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Dancing Script';    
+      color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .certificate-container {
+      width: 315mm;
+      height: 210mm; 
+      position: relative;
+      background: url('https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/inps/inpssport.png') no-repeat center center;
+
+      background-size: contain;
+      box-sizing: border-box;
+      text-align: center;
+      border:2px solid rgb(10, 10, 10);
+    }
+    .student-photo {
+        position: absolute;
+        top: 160px; 
+        left: 50px; 
+        width: 120px;
+        height: 170px;
+        object-fit: cover;
+        border: 5px solid #a81010;
+        margin-left:940px;
+        margin-top:160px;
+      }
+      .classlogo {
+        position: absolute;
+        top: 160px; 
+        left: 50px; 
+        width: 140px;
+        height: 130px;
+        object-fit: cover;
+        /* border: 5px solid #a81010; */
+        margin-left:210px;
+        margin-top:-20px;
+      }
+
+
+    .dotted-line2 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 400px; 
+    }
+    .dotted-line1 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 250px; 
+    }
+    .dotted-line3 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 100px; 
+    }
+    .dotted-line4 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 250px; 
+  }
+  .dotted-line5 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 220px; 
+    }
+    .dotted-line6 {
+    border-bottom: 2px dotted black;
+    display: inline-block;
+    width: 220px; 
+  }
+
+  </style>
+</head>
+<body>
+  <div>
+
+  <div class="certificate-container">
+
+    <div style="">
+    <!-- <img class="student-photo" src="{{profile_pic_details}}" alt="Student Photo"> -->
+    <!-- <img class="classlogo" src="https://production-edubricz.s3.amazonaws.com/18/inpslogo.jpeg" alt="logo"> -->
+
+    {% if institute.logo.file.url %}
+    <img class="classlogo" src={{institute.logo.file.url}} alt="logo"> 
+    {% endif %}
+
+    <div style="margin: 200px; margin-top: 100px; font-size: 25px; line-height: 50px; font-weight: 800; border: 2px solid blue; margin-right: 100px; margin-bottom: -50px; padding-bottom: -50px; top: 20px; bottom: 20px; position: relative;margin-left:100px;">
+      <div style="padding-left:120px;padding-top: 35px;font-size: 32px;font-weight: bolder;">
+        INDIAN NATIONAL PU COLLEGE
+        <h1 style="font-size: 45px;font-weight: bolder;">Certificate of Excellence</h1>
+      </div>
+      <div style="text-align: center;">
+        <h2>This is Proudly Presented to</h2>
+        <div style="text-align: justify;">
+          <span class="dotted-line1">{{ student_full_name }}</span>, a student of class 
+          <span class="dotted-line2">{{standard_name | cut:"Standard"}}{{standard_suffix}}</span>, 
+          for achieving <span class="dotted-line3">{{ rank }}</span> place with outstanding performance and dedication in
+          <span class="dotted-line4">{% if competition %}{{competition}}{% endif %}</span> held during the academic year <span class="dotted-line5">{{ academic_year }}</span>.
+          Your exceptional skills, sportsmanship, and determination have brought pride and glory to our institution.
+        </div>
+        <br>
+        
+        <div style="display: flex; justify-content: space-between; margin-left: 20px; margin-right: 20px;">
+          <span>Date:{{event_date}}</span>
+          <span>Signature of Principal</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</body>
+</html>

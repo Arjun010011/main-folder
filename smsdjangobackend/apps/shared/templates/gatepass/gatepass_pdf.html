@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gate Pass - {{ gatepass.gate_pass_number }}</title>
+    <style>
+        /* A5: 148mm x 210mm; content area 118mm x 180mm with 15mm margins */
+        @page {
+            size: A5 portrait;
+            margin: 12mm;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 10pt;
+            width: 124mm;   /* A5 width - 2*12mm */
+            min-height: 186mm;
+            padding: 2mm;
+        }
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 6mm;
+            margin-bottom: 4mm;
+        }
+        .logo { flex-shrink: 0; }
+        .logo img {
+            max-height: 48px;
+            max-width: 80mm;
+            width: auto;
+            height: auto;
+            display: block;
+        }
+        .school-info { text-align: center; }
+        .school-info .name {
+            font-size: 14pt;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 1mm;
+        }
+        .school-info .address { font-size: 8pt; color: #333; }
+        .title {
+            font-size: 12pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 4mm 0;
+        }
+        .qr-section {
+            text-align: center;
+            margin: 3mm 0;
+        }
+        .qr-section img {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            min-height: 56px;
+            object-fit: contain;
+        }
+        .qr-section .pass-num { font-size: 10pt; font-weight: bold; margin-top: 1mm; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 9pt;
+        }
+        td, th {
+            border: 1px solid #333;
+            padding: 2mm 3mm;
+            text-align: left;
+        }
+        th {
+            background: #f0f0f0;
+            font-weight: bold;
+            width: 38%;
+        }
+        .footer {
+            margin-top: 4mm;
+            font-size: 8pt;
+            color: #666;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            {% if institute.logo and institute.logo.file and institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo">
+            {% endif %}
+        </div>
+        <div class="school-info">
+            {% if institute.name %}<span class="name">{{ institute.name }}</span>{% endif %}
+            <span class="address">
+                {% if institute.address %}{{ institute.address }}{% endif %}
+                {% if institute.city %}{% if institute.address %}, {% endif %}{{ institute.city }}{% endif %}
+                {% if institute.pincode %}{% if institute.address or institute.city %} - {% endif %}{{ institute.pincode }}{% endif %}
+            </span>
+        </div>
+    </div>
+    <div class="title">GATE PASS</div>
+    <div class="qr-section">
+        {% if qr_data_url %}
+            <img src="{{ qr_data_url }}" alt="QR Code">
+        {% endif %}
+        <div class="pass-num">{{ gatepass.gate_pass_number }}</div>
+    </div>
+    <table>
+        <tr><th>{% if user_info.user_type == 'student' %}Student Name{% else %}Staff Name{% endif %}</th><td>{{ user_info.full_name }}</td></tr>
+        <tr><th>{% if user_info.user_type == 'student' %}Admission No.{% else %}Employee No.{% endif %}</th><td>{{ user_info.admission_number|default:"-" }}</td></tr>
+        {% if user_info.class_name %}
+        <tr><th>Class</th><td>{{ user_info.class_name }}</td></tr>
+        {% endif %}
+        {% if user_info.section_name %}
+        <tr><th>Section</th><td>{{ user_info.section_name }}</td></tr>
+        {% endif %}
+        <tr><th>Reason</th><td>{{ gatepass.reason }}</td></tr>
+        <tr><th>Going With</th><td>{{ gatepass.get_going_with_display }}</td></tr>
+        {% if gatepass.guardian_name %}
+        <tr><th>Guardian Name</th><td>{{ gatepass.guardian_name }}</td></tr>
+        {% endif %}
+        {% if gatepass.guardian_phone %}
+        <tr><th>Guardian Phone</th><td>{{ gatepass.guardian_phone }}</td></tr>
+        {% endif %}
+        <tr><th>Date</th><td>{{ gatepass.date|date:"d-M-Y" }}</td></tr>
+        {% if gatepass.expected_return_time %}
+        <tr><th>Expected Return</th><td>{{ gatepass.expected_return_time|date:"d-M-Y H:i" }}</td></tr>
+        {% endif %}
+        <tr><th>Status</th><td>{{ gatepass.get_status_display }}</td></tr>
+    </table>
+    <div class="footer">
+        Security: Scan QR or verify Gate Pass Number at exit/return.
+    </div>
+</body>
+</html>

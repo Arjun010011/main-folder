@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Transfer Certificate Request Form</title>
+<style>
+@page { size: A4; margin: 20px;  border:2px solid black;
+}
+
+body {
+  line-height: 1.6;
+  color: #000;
+  margin: 40px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.school-info {
+  text-align: center;
+  flex-grow: 1;
+  margin-left: -60px;
+}
+
+.school-header {
+  font-size: 24px;
+  font-weight: bolder;
+  margin-left: -60px;
+}
+
+.school-address {
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: -60px;
+}
+
+.date {
+  text-align: right;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.body-content {
+  font-size: 18px;
+  max-width: 750px;
+  line-height: 2;
+  text-align: justify;
+
+}
+
+.subject {
+  font-weight: bold;
+  margin: 20px 0 10px;
+  text-decoration: underline;
+}
+
+.blank-line {
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  min-width: 150px;
+  padding: 0 5px;
+}
+
+.signature {
+  margin-top: 60px;
+  font-weight: bold;
+}
+.underline-bold {
+    display: inline-block;
+    border-bottom: 1px solid #000;
+    font-weight: bold;
+    padding: 0 5px;
+    min-width: 100px;
+    text-align: center;
+}
+    body {
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 130px;
+      height: 170px;
+      /* object-fit: cover; */
+      left:-20px;
+      margin-left: -20px;
+    }
+
+    .schoolname {
+      font-size: 19px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .schooladd {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .org-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+    }
+</style>
+</head>
+<body>
+    <div class="header" >
+        <div class="logo">
+          {% if institute.logo.file.url %}
+            <img src="{{ institute.logo.file.url }}" alt="School Logo">
+          {% endif %}
+        </div>
+    
+        <div style="line-height: 25px;padding-left: -50px;margin-left: -50px;">
+          <div class="org-name">Smt Gowramma Educational Trust(R)</div>
+          <div class="schoolname">ಶ್ರೀ ಶಾರದ ವಿದ್ಯಾನಿಕೇತನ ಆಂಗ್ಲ ಪ್ರೌಢಶಾಲೆ</div>
+          <div class="schoolname" style="margin-left: 20px;padding-left: 20px;margin-right: -40px;font-size: 17px;">SRI SHARADA VIDYANIKETANA ENGLISH HIGH SCHOOL</div>
+          <div class="schooladd">
+            (Recognised by Govt. Of Karnataka)<br/>
+            Nagawara - Thanisandra, Bangalore – 560 077<br/>
+            Phone No : 2544 6756 / 2543 2911 <br/>
+          </div>
+        </div>
+    
+        <div style="width: 20px; height: 120px;"></div> 
+      </div>
+
+<div class="date">Date: {{today_date}}</div>
+
+<div class="body-content">
+<p style="font-weight: bolder;">To,</p>
+
+<p style="font-weight: bolder;">
+  The Principal,<br>
+  <span>______________________________</span><br>
+  <span>______________________________</span><br>
+  <span>______________________________</span><br>
+
+ 
+</p>
+<p>Respected Sir/Madam,</p>
+
+<p class="subject" style="text-align: center;">Subject: Request for issue of School Transfer Certificate</p>
+
+<p>
+    {% if student_he_she == "he" %}
+
+    This is to certify that <span class="underline-bold">{{student_full_name}}</span> of <span class="underline-bold">{{from_standard_name}}</span> S/O of <span class="underline-bold">{{father_name}}</span>  had been admitted to
+
+    {% else %}
+
+    This is to certify that <span class="underline-bold">{{student_full_name}}</span> of <span class="underline-bold">{{from_standard_name}}</span> D/O of <span class="underline-bold">{{father_name}}</span>  had been admitted to
+    {% endif %}
+
+    <span class="underline-bold">{{standard_name}}</span>in our School. Kindly issue the Transfer Certificate, STS number, Pen number for admission formalities.
+  </p>
+
+<p>Thanking you,</p>
+
+<p class="signature">Yours faithfully</p>
+
+<p  class="signature" style="text-align:right;">Signature Of Head Master/<br>
+    Head Mistress&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;</p>
+
+</div>
+
+</body>
+</html>

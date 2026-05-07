@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ID Cards A3</title>
+  <style>
+    @page {
+      size: A3;
+      margin: 0mm;
+    }
+    body {
+      margin: 0;
+      font-family: Raleway, sans-serif;
+    }
+    .sheet {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      padding: 0;
+      margin: 0;
+      page-break-after: always;
+      margin-left: 15px;
+      background-color: 'green'
+}
+
+.card-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2mm; /* horizontal spacing between cards */
+  margin-bottom: 4mm; /* vertical spacing between rows */
+}
+
+.card-side {
+  width: 56.4mm;
+  height: 88.5mm;
+  margin-top: 40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-sizing: border-box;
+}
+
+.front-side {
+  background-image: url("https://production-edubricz.s3.amazonaws.com/18/JNANA_JYOTHI_ID_FNT.jpg");
+}
+
+.back-side {
+  background-image: url("https://production-edubricz.s3.amazonaws.com/18/JNANA_JYOTHI_ID_BCK_2.jpg");
+  transform: rotate(180deg);
+}
+
+  </style>
+</head>
+<body>
+
+{% for page in pages %}
+  <div class="sheet">
+    <!-- Row 1: 1-5 Front -->
+    {% for student in page|slice:":5" %}
+      {%if forloop.counter == 2 or forloop.counter == 4 %}
+      <div class="card-side front-side" style="margin-right: 2px;">
+      {%else%}
+      <div class="card-side front-side" style="margin-right: 10px;">
+      {%endif%}
+      <div style="padding-top: 80px;">
+        <div style="height: 98px; width:99px;right:3px;border-radius: 25% 0%;border:1.5px solid rgb(255, 255, 255);background-color: rgb(250, 249, 249);margin:auto;">
+          <img src={{student.profile_pic_details.file}} style="height: 98px; width:97px;border-radius: 25% 0%;border:2px solid rgb(247, 244, 244);">
+        </div>
+        <div style="color:#3a0300;text-align: center;font-size: 12px;font-weight: bold;margin-top: 8px;">{{student.name|upper}}</div>
+      </div> 
+        <table width="100%" style="top: 156px; margin-left: 13px; margin-top: 9.5px; font-size: 9.5px; color: #000000;margin-right: 4px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;">
+         
+          <tr>
+            <td>Date Of Birth</td>
+            <td>: {{student.dob_changed}}</td>
+          </tr>
+          <tr>
+            <td>Class</td>
+            <td>: {{ student.standard_name_roman }}</td>
+          </tr>
+          <tr>
+            <td>Admission No</td>
+            <td>: {{student.admission_num}}</td>
+          </tr>
+         
+          
+        </table>
+        <div style="position:absolute;bottom: 4px;margin-left: 11px;">
+          <img src={{student.barcode_image_url}} style="height: 35px; width: 128px;color:#000000;">
+      </div>
+      </div>
+    {% endfor %}
+
+    <!-- Row 2: 6-10 Front -->
+    {% for student in page|slice:"5:" %}
+    {%if forloop.counter == 2 or forloop.counter == 4 %}
+    <div class="card-side front-side" style="margin-right: 2px;margin-top: 45px;">
+    {%else%}
+    <div class="card-side front-side" style="margin-right: 10px;margin-top: 45px;">
+    {%endif%}
+    <div style="padding-top: 80px;">
+      <div style="height: 98px; width:99px;right:3px;border-radius: 25% 0%;border:1.5px solid rgb(255, 255, 255);background-color: rgb(250, 249, 249);margin:auto;">
+        <img src={{student.profile_pic_details.file}} style="height: 98px; width:97px;border-radius: 25% 0%;border:2px solid rgb(247, 244, 244);">
+      </div>
+      <div style="color:#3a0300;text-align: center;font-size: 12px;font-weight: bold;margin-top: 8px;">{{student.name|upper}}</div>
+    </div> 
+      <table width="100%" style="top: 156px; margin-left: 13px; margin-top: 9.5px; font-size: 9.5px; color: #000000;margin-right: 4px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;">
+       
+        <tr>
+          <td>Date Of Birth</td>
+          <td>: {{student.dob_changed}}</td>
+        </tr>
+        <tr>
+          <td>Class</td>
+          <td>: {{ student.standard_name_roman }}</td>
+        </tr>
+        <tr>
+          <td>Admission No</td>
+          <td>: {{student.admission_num}}</td>
+        </tr>
+       
+        
+      </table>
+      <div style="position:absolute;bottom: 4px;margin-left: 11px;">
+        <img src={{student.barcode_image_url}} style="height: 35px; width: 128px;color:#000000;">
+    </div>
+      </div>
+    {% endfor %}
+
+    <!-- Row 3: 6-10 Back (rotated) -->
+    {% for student in page|slice:"5:" %}
+    {%if forloop.counter == 2 or forloop.counter == 4 %}
+    <div class="card-side back-side" style="margin-top:75px;margin-right: 2px;">
+    {%else%}
+    <div class="card-side back-side" style="margin-top:75px;margin-right: 10px;">
+    {%endif%}
+    <div style="text-align: center;">
+      <table style="padding-top: 110px;">
+       
+        <tr>
+          <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div> -->
+          <td style="font-size: 9px;color:#000000;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;padding-left: 3px;padding-right: 3px;margin:auto;">
+            {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}
+            <!-- {{student.custom_address_line_one|title}} {{student.custom_city}}-{{student.custom_pincode}} -->
+          </td>
+        </tr>
+      </table>
+      <div style="font-size: 9px;color:#000000;font-weight: bold;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+    </div>
+      </div>
+    {% endfor %}
+
+    <!-- Row 4: 1-5 Back (rotated) -->
+    {% for student in page|slice:":5" %}
+    {%if forloop.counter == 2 or forloop.counter == 4 %}
+    <div class="card-side back-side" style="margin-right: 2px;margin-top: 45px;">
+    {%else%}
+    <div class="card-side back-side" style="margin-right: 10px;margin-top: 45px;">
+    {%endif%}
+    <div style="text-align: center;">
+      <table style="padding-top: 110px;">
+       
+        <tr>
+          <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div> -->
+          <td style="font-size: 9px;color:#000000;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;padding-left: 3px;padding-right: 3px;margin:auto;">
+            {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}
+            <!-- {{student.custom_address_line_one|title}} {{student.custom_city}}-{{student.custom_pincode}} -->
+          </td>
+        </tr>
+      </table>
+      <div style="font-size: 9px;color:#000000;font-weight: bold;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+    </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endfor %}
+
+</body>
+</html>

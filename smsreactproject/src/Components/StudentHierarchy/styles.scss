@@ -1,0 +1,66 @@
+.standard-paper{
+    background-color: #f3f3f3!important;
+}
+
+.section-paper{
+    display: block!important;
+}
+
+.student-paper{
+    display: block!important;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.hall-ticket-print-button{
+    background: linear-gradient(180deg, #ff5b5b 0%, #ff5b5b 100%) !important;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25) !important;
+    color: white !important;
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+    margin: 10px 0px!important;
+}
+
+.consolidated-print-button{
+    background: linear-gradient(180deg, #00c130 0%, #07cc00 100%) !important;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25) !important;
+    color: white !important;
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+    margin: 10px 0px!important;
+}
+
+.hall-ticket-download-icon{
+    font-size: 20px!important;
+}
+
+.hall-ticket-print-button-outer-box{
+    text-align: end;
+}
+
+
+.hall-ticket-print-button-student-outer-box{
+    text-align: center;
+    
+}
+    .hall-ticket-print-student{
+    background: linear-gradient(180deg, #ff5b5b 0%, #ff5b5b 100%) !important;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25) !important;
+    color: white !important;
+    text-transform: capitalize !important;
+    font-size: 13px !important;
+    margin: 5px 0px !important;
+    padding: 0px 25px!important;
+}
+
+.hall-ticket-label{
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.circular-hallticket{
+    width: 20px!important;
+    height: 20px!important;
+    color: white!important;
+}

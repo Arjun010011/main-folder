@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Study Certificate</title>
+
+<style>
+/* ================== FORCE PRINT COLORS ================== */
+* {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+}
+
+/* ================== A4 PAGE ================== */
+@page {
+    size: A4 portrait;
+    margin: 0;
+}
+
+/* ================== PRINT ================== */
+@media print {
+    html, body {
+        width: 210mm;
+        height: 297mm;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+    }
+}
+
+/* ================== SCREEN ================== */
+body {
+    margin: 0;
+    background: #e5e5e5;
+    font-family: "Times New Roman", serif;
+}
+
+/* ================== CERTIFICATE ================== */
+.certificate {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    background: #fff;
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* ================== BORDER IMAGE ================== */
+.bg-border {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    z-index: 0;
+}
+
+/* ================== WATERMARK ================== */
+.bg-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 65%;
+    transform: translate(-50%, -50%);
+    opacity: 0.07;
+    z-index: 1;
+}
+
+/* ================== CONTENT ================== */
+.content-wrapper {
+    position: relative;
+    z-index: 2;
+    padding: 40mm 20mm 30mm;
+}
+
+/* ================== HEADER ================== */
+.school-name {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    color: #d35400;
+    text-transform: uppercase;
+    height: 200px;
+}
+
+.location {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+/* ================== BODY CONTENT ================== */
+.content {
+    font-size: 17px;
+    line-height: 2;
+    color: #000;
+    text-align: justify;
+    word-spacing: 6px;
+}
+
+.content p {
+    margin: 14px 0;
+}
+
+/* ================== DOTTED LINE ================== */
+.line {
+    font-style: bold;
+    font-weight: bolder;
+    display: inline-block;
+    min-width: auto;
+    height: 25px;
+    vertical-align: center;
+    margin: 0 6px;
+}
+
+/* ================== FOOTER ================== */
+.footer {
+    position: absolute;
+    bottom: 50mm;
+    left: 20mm;
+    right: 20mm;
+    display: flex;
+    justify-content: space-between;
+    font-size: 17px;
+}
+
+.signature {
+    text-align: right;
+}
+</style>
+</head>
+
+<body>
+
+<div class="certificate">
+
+    <!-- FULL PAGE BORDER -->
+    <img
+        src="https://production-edubricz.s3.ap-south-1.amazonaws.com/studycertificate.jpeg"
+        class="bg-border"
+        alt=""
+    >
+
+    <!-- OPTIONAL WATERMARK -->
+    <!--
+    <img src="watermark.png" class="bg-watermark" alt="">
+    -->
+
+    <div class="content-wrapper">
+
+        <div class="school-name">
+        </div>
+
+        <div class="content">
+
+            <p>
+                This is to certify that Sri / Smt / Kum
+                <span class="line">{{ student_full_name }}</span>
+                S/o / D/o / W/o
+                <span class="line">{{ father_name }}</span>
+                belongs to
+                <span class="line">{{ school_city }}</span>
+                village,
+                <span class="line">{{ school_city }}</span>
+                Taluk,
+                <span class="line">{{ school_district }}</span>
+                District.
+                He / She is studying in
+                <b>{{ school_name }}</b>
+                during the academic year
+                <span class="line">{{ academic_year }}</span>
+                and studying since
+                <span class="line">{{ admission_date }}</span>.
+                Studying in
+                <span class="line">{{ standard_name }}</span>
+                standard.
+                <br>
+            </p>
+            <p>
+                Date of Birth :
+                <span class="line">{{ dob_str }}</span><br>
+                Admission No & Date :
+                <span class="line">{{ admission_num }} / {{ admission_date }}</span><br>
+                This certificate is issued as per the school records.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>
+            Date :
+            <span class="line">{{ today_date }}</span><br><br>
+            Place :
+            <span class="line">{{ school_city }}</span>
+        </div>
+
+        <div class="signature">
+            Signature & Seal of the<br>
+            Head Master / Head Mistress
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

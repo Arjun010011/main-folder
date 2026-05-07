@@ -1,0 +1,202 @@
+/* Combined Asset Dashboard — mirrors main /dashboard style */
+
+.combined-asset-dashboard {
+  padding: 24px 16px;
+}
+
+.combined-asset-dashboard .section-title {
+  font-weight: 700;
+  font-size: 18px;
+  color: #1e293b;
+  margin: 24px 0 12px;
+}
+
+.combined-asset-dashboard .section-title:first-of-type {
+  margin-top: 8px;
+}
+
+/* ── Summary cards row ─────────────────────────────────────── */
+.cad-summary-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.cad-summary-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%) !important;
+  box-shadow: 0px 8px 32px color-mix(in srgb, var(--headingColor) 12%, transparent),
+    0px 2px 8px color-mix(in srgb, var(--headingColor) 8%, transparent) !important;
+  border-radius: 20px !important;
+  margin: 10px !important;
+  flex: 1 1 22%;
+  min-width: 200px;
+  padding: 20px !important;
+  cursor: pointer;
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    background 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid color-mix(in srgb, var(--headingColor) 10%, transparent);
+  position: relative;
+  overflow: hidden;
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.cad-summary-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--headingColor) 0%, var(--buttonBackground1) 50%, var(--selected-menu-item-background) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cad-summary-card:hover {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f4ff 100%) !important;
+  box-shadow: 0px 12px 40px color-mix(in srgb, var(--headingColor) 20%, transparent),
+    0px 4px 12px color-mix(in srgb, var(--headingColor) 15%, transparent) !important;
+  transform: translate3d(0, -4px, 0);
+}
+
+.cad-summary-card:hover::before {
+  opacity: 1;
+}
+
+.cad-card-label {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.cad-card-value {
+  font-size: 26px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--headingColor) 0%, var(--buttonBackground1) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cad-card-value--green {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cad-card-value--red {
+  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cad-card-value--blue {
+  background: linear-gradient(135deg, var(--headingColor) 0%, var(--selected-menu-item-background) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cad-card-icon {
+  opacity: 0.7;
+  color: var(--headingColor);
+}
+
+/* ── Detail tables section ─────────────────────────────────── */
+.cad-detail-paper {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%) !important;
+  box-shadow: 0px 8px 32px color-mix(in srgb, var(--headingColor) 12%, transparent),
+    0px 2px 8px color-mix(in srgb, var(--headingColor) 8%, transparent) !important;
+  border-radius: 20px !important;
+  border: 1px solid color-mix(in srgb, var(--headingColor) 10%, transparent);
+  padding: 20px !important;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cad-detail-paper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--headingColor) 0%, var(--buttonBackground1) 100%);
+  opacity: 0.5;
+}
+
+.cad-detail-paper:hover {
+  box-shadow: 0px 12px 40px color-mix(in srgb, var(--headingColor) 18%, transparent),
+    0px 4px 12px color-mix(in srgb, var(--headingColor) 12%, transparent) !important;
+  transform: translate3d(0, -2px, 0);
+}
+
+.cad-detail-paper .MuiTableHead-root .MuiTableRow-root {
+  background: linear-gradient(135deg,
+      color-mix(in srgb, var(--headingColor) 8%, transparent) 0%,
+      color-mix(in srgb, var(--buttonBackground1) 6%, transparent) 100%);
+}
+
+.cad-detail-paper .MuiTableHead-root .MuiTableCell-root {
+  font-weight: 600;
+  color: #334155;
+  border-bottom: 2px solid color-mix(in srgb, var(--headingColor) 15%, transparent);
+}
+
+.cad-detail-paper .MuiTableBody-root .MuiTableRow-root:hover {
+  background: color-mix(in srgb, var(--headingColor) 4%, transparent);
+}
+
+.cad-detail-title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #1e293b;
+  margin-bottom: 14px;
+}
+
+/* ── Header area ───────────────────────────────────────────── */
+.cad-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.cad-header-title {
+  font-weight: 700;
+  font-size: 24px;
+  color: #1e293b;
+}
+
+.cad-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Loading skeleton ─────────────────────────────────────── */
+.cad-skeleton-card {
+  height: 100px !important;
+  background: linear-gradient(135deg,
+      color-mix(in srgb, var(--headingColor) 8%, transparent) 0%,
+      color-mix(in srgb, var(--buttonBackground1) 8%, transparent) 100%) !important;
+  border-radius: 20px !important;
+  box-shadow: 0px 4px 16px color-mix(in srgb, var(--headingColor) 8%, transparent) !important;
+  margin: 10px;
+  flex: 1 1 22%;
+  min-width: 200px;
+}
+
+.cad-skeleton-table {
+  height: 300px !important;
+  background: linear-gradient(135deg,
+      color-mix(in srgb, var(--headingColor) 8%, transparent) 0%,
+      color-mix(in srgb, var(--buttonBackground1) 8%, transparent) 100%) !important;
+  border-radius: 20px !important;
+  box-shadow: 0px 4px 16px color-mix(in srgb, var(--headingColor) 8%, transparent) !important;
+}

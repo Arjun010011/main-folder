@@ -1,0 +1,165 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        
+        /* .border {
+            height: 935px;
+            border: 5px solid black;
+            border-style: double;
+            padding: 20px;
+            margin:-15px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            position: relative;
+        } */
+        .trust {
+            text-align: center;
+            font-size: 12px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #392b53;
+        }
+        .recognisition {
+            text-align: center;
+            font-size: 12px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #392b53;
+        }
+        .title {
+            margin-left: 25%;
+            font-size: 25px;
+            color: rgb(0, 0, 0);
+            /* border: 1px solid rgb(0, 0, 0); */
+            border-radius: 8px;
+            font-weight: bold;
+            border-width: fit-content;
+        }
+        .content {
+            font-style: italic;
+            color: #392b53;
+            
+            font-family: "Cinzel Decorative", sans-serif;
+        }
+        .dot-line {
+            border-bottom: 1px dotted;
+            flex-grow: 100;
+            text-align: center;
+        }
+        .sign {
+            margin-left: 50%;
+            width: 100%;
+            text-align: center;
+        }
+        .display-flex{
+            display: flex;
+        }
+        .bent-text {
+            display: inline-block;
+            padding: 5px;
+            transform: rotate(-5deg); /* Adjust the angle as needed */
+            transform-origin: left bottom; /* Adjust the origin of rotation */
+        }
+    </style>
+</head>
+<body>
+    <div style="color: #242775" class="border">
+        <div style='display:flex;justify-content:center;'>
+            <div style='text-align:center'>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 100px;height: 100px;"/>
+                {% endif %}
+            </div>
+           
+    </div>
+    <div style='display:flex;justify-content:center;'>
+        <div style='text-align:center'>
+            <!-- <div style="font-size: 15px;padding:3px;">{{ trust_name }}</div> -->
+             <div style="font-size: 15px;padding:3px;color: black;"> DODDANNA VIDYA SAMSTHE</div>
+            <div style="text-transform: uppercase;font-size:28px;color: rgb(0, 0, 0) ;padding:3px;font-family:'Times New Roman', Times, serif;font-weight: bold;"><b>{{ school_name }}</b></div>
+            <!-- <div class="recognisition">(RECOGNISED BY THE GOVT. OF KARNATAKA)</div> -->
+            <div style="font-size: 15px;padding:3px;color: black;">{{school_address}}</div>
+            
+           </div>
+
+    </div>
+    
+    <br>
+    <div class="display-flex">
+       <!-- <div style="font-size: 15px;padding-top:3px; margin-left: auto; margin-right: auto;">Admission Number: <span style="border-bottom: 1px dotted black;">{{admission_num}}</span></div>  -->
+    </div> <br><br>
+   
+        <div class="title" style="display: inline-block; padding: 5px;">STUDY CERTIFICATE</div> <br><br> <br><br>
+
+        <div class="content">
+            <div class="display-flex">
+                <div>
+                   &nbsp; &nbsp; This is to certify that Sri/Smt/Kum
+                </div>
+                <div class="dot-line">
+                    {{student_full_name|title}}
+                </div>
+            </div> <br>
+            <div class="display-flex">
+                <div> {{student_relate}} </div>
+                <div class="dot-line">
+                    {{father_name|upper}}
+                </div>.
+                <!-- <div>was a bonafide</div> -->
+            </div> <br>
+            <!-- <div class="display-flex">
+                <div>He/She has studied in</div>
+                <div class="dot-line">{{village}}</div> <div>Village</div><div class="dot-line">{{taluk}}</div> <div>Taluk</div> <div class="dot-line">{{district}}</div><div>District,</div>
+            </div> <br> -->
+            
+            <div class="display-flex">
+                <div>{{student_he_she|title}} has studied in</div><span class="dot-line">{{school_name}}</span><div> from </div>
+            </div> <br>
+
+            <div class="display-flex">
+                <div class="dot-line">{{ from_academic_year }}</div>
+                <div>to</div><div class="dot-line">{{ to_academic_year }}</div> <div> from</div><div class="dot-line">{{from_standard_name}}{{standard_suffix}}</div><div>standard to</div>
+                <div class="dot-line">{{to_standard_name}}{{standard_suffix}}</div>
+            </div> <br>
+
+            <div class="display-flex">
+                <div>standard and Passed </div> <div class="dot-line">{{to_standard_name}}{{standard_suffix}}</div> <div>Standard in the year</div><div class="dot-line">{{ to_academic_year }}</div>.     
+            </div>
+            <br><br><br><br>
+                
+            <div class="display-flex">
+                <div>His/ Her Date of Birth :-</div> <span class="dot-line">{{dob_str}}</span>
+            </div> <br>
+
+            
+
+            <div class="display-flex">
+                <div>Student Caste :-</div> <span class="dot-line">{{caste|upper}}</span>
+            </div> <br>
+                 
+            <div class="display-flex">
+                <div>Student Adress :-</div> <span class="dot-line"> {{address}}</span>
+            </div> <br>
+            
+           <!-- <div>This Certificate issued according to records of our School.</div> -->
+        </div> <br><br> <br><br><br>
+    
+
+       
+        <div>Date: <span class="dot-line">{{today_date}}</span></div> <br>
+        <div class="display-flex">
+            <div>Place: <span class="dot-line">Bengaluru</span> </div>
+            <div style="margin-left: auto;">PRINCIPAL</div>
+        </div>
+        
+        
+    </div>
+</body>
+</html>

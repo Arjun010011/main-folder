@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.1rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 2px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 18
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+            margin-top:5px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px;position:relative;">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div style="display: flex; padding-bottom: 0px;height: 100px;">
+                    <div style="width:22.5%;">
+                        <img src="{{institute.logo.file.url}}" width="100" height="100" style="width:110px;height: 110px;">
+                    </div>
+                    <div style="padding-top: 7px;">
+                        <div class="heading text-center ">
+                            {{institute.name|upper}}</br>
+                        </div>
+                        <div class="text-center" style="font-size: 15px;font-weight: bold;text-align: center; padding-top:5px;">
+                            {{institute.address}}
+                        </div>
+                        <div class="address-heading t-center fs-bold" style="font-weight: bold;padding-left: 8%; padding-right: 10%;font-size: 18px;">
+                            {{ examDetail.exam_type.name | title }},&nbsp;&nbsp;{{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                        </div>
+                        <div style="font-size: 18px;padding-bottom: 5px;padding-top:5px;"class="t-center fs-20 fs-bold">ADMIT CARD</div>
+                    </div>
+                </div>
+            </tr>
+        </table>
+        <table style="width: 100%;padding-top:15px;">
+                    <tr>
+                        <td style="width:17%">Name </td>
+                        <td style="width:42%">:&nbsp;&nbsp; {{student.student_data.full_name | title }}</td>
+                        <td style="width:17%">Class </td>
+                        <td style="width:42%">:&nbsp;&nbsp;{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td>Admission no</td><td>:&nbsp;&nbsp; {% if student.admission_num %}  {{ student.admission_num }}{% endif %}</td>
+                        <td style="width:17%">Register no</td>
+                        <td style="width:32%">:</td>
+                    </tr>
+        </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view" style="width: 25%;">Timings</th>
+                <th class="th-subject-view">Invigilator </br>Signature</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view">{{subject.fordate|date:'l'}}</td>
+                    <td class="td-subject-view"><div style="width:80%;margin-left: auto;margin-right: auto;">
+                        {{subject.subject_name | title}}</div></td>
+                    <td class="td-subject-view">
+                        {{subject.start_time}} - {{subject.end_time}}
+                    </td>
+                    <td class="td-subject-view">
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <!-- <table style="position:absolute;bottom:65px;right:30px;">
+            <th style="text-align: right;">
+                <img src='https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jnanajyothi_static_images/school_principal_signature.jpeg' style="width: 100px;height: 40px;"/>
+            </th>
+        </table> -->
+        <table class="w-100" style="margin-top: 40px;">
+            <tr>
+                <th style="text-align: left;">
+                    Class Teacher Sign
+                </th>
+                <th style="text-align: right;">
+                    Principal Signature
+                </th>
+            </tr>
+        </table>
+        <hr />
+    </div>
+    {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <div style="margin-top: 35px;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

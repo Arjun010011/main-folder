@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+{% load humanize %}
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PaySlip</title>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 5px;
+          text-align: left;
+        }
+        table{
+            width: 100%;
+        }
+        .d-flex{
+            display: flex;
+        }
+        .text-align-center{
+            text-align: center;
+        }
+        .font-weight-bold{
+            font-weight: bold;
+        }
+        .school-name{
+            font-size: 25px;
+            font-weight: bold;
+            text-decoration: underline;
+            text-align:center
+        }
+        .school-address{
+            text-align: center;
+        }
+        .payslip-section{
+            margin-top: 10px;
+            text-align:center;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+        .payslip-table{
+            margin-top: 20px;
+        }
+        .no-border, no-border>tr>td {
+            border-top: 0px;
+        }
+        .labels{
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <div class="school-name">
+        {% if institute.logo %}
+        <div style="align-items:center">
+            <img src={{ institute.logo.file.url }}
+                style="width: 130px;height:130px;margin-left:auto;margin-right:auto"
+            />
+        </div>
+        {%endif%}
+        {% if institute.name %}{{ institute.name }}{% endif %}
+    </div>
+    <div class="school-address">
+        #38, NEAR HOUSING BOARD COLONY, ATTUR LAYOUT, YELAHANKA, BANGALORE - 64.
+    </div>
+    <div class='payslip-section'>
+        PAY SLIP FOR THE MONTH OF 
+        {% if salary_month %}
+            {{salary_month | date:"M Y"}}
+        {% endif %}
+    </div>
+
+    <table class='payslip-table'>
+        <tr>
+            <td style="width:25%" class="labels">
+                NAME OF EMPLOYEE
+            </td>
+            <td style="width: 25%">
+                {% if staff.first_name %}{{staff.first_name}} {% endif %}
+                {% if staff.middle_name %}{{staff.middle_name}} {% endif %}
+                {% if staff.last_name %}{{staff.last_name}}{% endif %}
+            </td>
+            <td style="width:25%" class="labels">
+                PF A/C NO
+            </td>
+            <td style="width:25%">
+                {{account_detail.pf_num}}
+            </td>
+        </tr>
+        <tr>
+            <td class="labels">
+                PAN.No.
+            </td>
+            <td>
+                {% if account_detail.pan_num %}
+                    {{account_detail.pan_num}}
+                {% endif %}
+            </td>
+            </td>
+            <td class="labels">
+                ESI.No.
+            </td>
+            <td>
+                {% if account_detail.esi_num %}
+                    {{account_detail.esi_num}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="labels">
+                Department
+            </td>
+            <td>
+                CBSE SCHOOL
+            </td>
+            <td class="labels">
+                Birth Date
+            </td>
+            <td>
+                {{staff.dob}}
+            </td>
+        </tr>
+        <tr>
+            <td class="labels">
+                Designation
+            </td>
+            <td>
+                {{group_name}}
+            </td>
+            <td class="labels">
+                Bank
+            </td>
+            <td>
+                {{account_detail.bank_name}}
+            </td>
+        </tr>
+        <tr>
+            <td class="labels">
+                Date of Joining
+            </td>
+            <td>
+                {% if staff.date_joined %}{{staff.date_joined | date:"d/m/Y"}}{% endif %}
+            </td>
+            <td class="labels">
+                Bank A/C. No.
+            </td>
+            <td>
+                {% if account_detail.account_num %}{{account_detail.account_num}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td class="labels">
+                No of Days in a Month
+            </td>
+            <td>
+                {{salary.days}}
+            </td>
+            <td class="labels">
+                No of Present Days
+            </td>
+            <td>
+                {{salary.present_days}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div style="height: 20px">
+                </div>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+    </table>
+
+    {% comment %} Earning Deduction table {% endcomment %}
+    <div class="d-flex">
+        <table style="width:50%;">
+            <tr>
+                <td style="width:25%;font-weight: bold;text-align:center"> EARNINGS </td>
+                <td style="width:25%;font-weight: bold;text-align:center"> AMOUNT </td>
+            </tr>
+            {% for earnings in salary.earnings %}
+                <tr>
+                    <td class="font-weight-bold">{{ earnings.salary_component_name }}</td>
+                    <td class="text-align-center">{{ earnings.amount| floatformat:2}} </div>
+                </tr>
+            {% endfor %}
+        </table>
+        <table style="width: 50%;align-self:flex-start">
+            <tr>
+                <td style="width: 25%;font-weight: bold;text-align:center"> DEDUCTIONS </td>
+                <td style="width: 25%;font-weight: bold;text-align:center;"> AMOUNT </td>
+            </tr>
+            {% for deductions in salary.deductions %}
+                <tr>
+                    <td class="font-weight-bold">{{ deductions.salary_component_name }}</td>
+                    <td class="text-align-center">{{ deductions.amount| floatformat:2}} </div>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <table class='no-border'>
+        <tr>
+            <td style="width:25%"><div style="height: 20px"></div></td>
+            <td style="width:25%"></td>
+            <td style="width:25%"></td>
+            <td style="width:25%"></td>
+        </tr>
+        <tr>
+            <td><b>Gross Earnings</b></td>
+            <td style="text-align: center">{{ salary.gross_earnings | floatformat:2 }}</td>
+            <td><b>Gross Deductions</b></td>
+            <td class='text-align-center'>{{ salary.gross_deductions | floatformat:2}}</td>
+        </tr>
+    </table>
+
+    <div style="margin-top: 10px;font-size:20px;margin-bottom: 10px">
+        <b>Net Amount : {{salary.net_pay| floatformat:2}}</b>
+    </div>
+</div>
+** This is a computer generated payslip and does not require signature and stamp.
+</body>
+</html>

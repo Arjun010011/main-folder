@@ -1,0 +1,119 @@
+<html>
+    <head>
+        <style>
+            .mt-10{
+                margin-top: 10px;
+            }
+            .content-font{
+                font-size:17px;
+                display:flex
+            }
+            .content-font-first-div{
+                width: 200px;
+                font-weight: 500
+            }
+            body{
+                font-family: Cambria, Georgia, serif;
+            }
+        </style>
+    </head>
+    <body>
+        {% for count in number_of_copies %}
+        <div style='border: 2px solid #aaaaaa;padding: 15px; margin-top: 50px;'>
+            <div style='display:flex;justify-content:center;padding-right:30px'>
+                <div style='text-align:center'>
+                    <div style="font-size: 22px;font-weight: bold;">
+                        {{ institute_data.name }} </br>
+                    </div>
+                    {% if institute_data.trust_name %}
+                        <span style='font-size: 13px'>{{ institute_data.trust_name }}</span>
+                    {% endif %}
+                    <div style="line-height: 25px;font-size:14px">
+                        {{ institute_data.address }}{% if institute_data.city %}, {{ institute_data.city }}{% endif %}
+                        {% if institute_data.pincode %} - {{ institute_data.pincode }}</br>{% endif %} 
+                        {% if institute_data.tel_num %}Ph: {{ institute_data.tel_num }}
+                        {% if institute_data.tel_num_2 %}
+                        , {{ institute_data.tel_num_2 }} {% endif %}<br/>{% endif %}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div style='display:flex;justify-content: space-between' class='content-font'>
+                <div>
+                        No : {% if expense_data.receipt_num %} <b>{{expense_data.receipt_num}} </b>{% endif %}</b>
+                    </div>
+                    <div style'text-align:right'>
+                         Date : <b>{{ expense_data.date }} </b>
+                    </div>
+            </div>
+            <hr/>
+            <div class='mt-10 content-font' style='margin-top:10px'>
+                <div class='content-font-first-div'>
+                    Payee To : 
+                </div>
+                <div>
+                    {% if expense_data.payee_name %} <b>{{ expense_data.payee_name }}</b> {% endif %}
+                </div>
+            </div>
+            <div class='mt-10 content-font'>
+                <div class='content-font-first-div'>
+                    Amount: 
+                </div>
+                <div>
+                    {% if expense_data.total_amount %}<b>{{expense_data.total_amount}}</b>{% endif %}
+                </div>
+            </div>
+            <div class='mt-10 content-font'>
+                <div class='content-font-first-div'>
+                    Amount in words : 
+                </div>
+                <div>
+                    <b>{{expense_data.amount_in_words|title}}</b>
+                </div>
+            </div>
+            <div class='mt-10 content-font'>
+                <div class='content-font-first-div'>
+                    Debited For : 
+                </div>
+                <div>
+                    <b>{{expense_data.expense_type_name}}</b>
+                </div>
+            </div>
+            {%if expense_data.gst_number %}
+                <div class='mt-10 content-font'>
+                    <div class='content-font-first-div'>
+                        Gst Number : 
+                    </div>
+                    <div>
+                        {{expense_data.gst_number}}
+                    </div>
+                </div>
+            {%endif%}
+            {% if expense_data.comment %}
+                <div class='mt-10 content-font'>
+                    <div class='content-font-first-div'>
+                        Comment : 
+                    </div>
+                    <div>
+                        <b>{{expense_data.comment}}</b>
+                    </div>
+                </div>
+            {%endif%}
+            {% if expense_data.mode_of_payment %}
+                <div class='mt-10 content-font'>
+                    <div class='content-font-first-div'>
+                        Mode Of Payment : 
+                    </div>
+                    <div>
+                        <b>{{expense_data.mode_of_payment}}{%if expense_data.ref_number %}({{expense_data.ref_number}}){%endif%}<b>
+                    </div>
+                </div>
+            {% endif %}
+            <div style='border: 1px solid black;padding: 5px;padding-bottom: 60px;display:flex;margin-top: 20px'>
+                <div style='font-weight:bold;'>Accountant</div>
+                <div style='margin-left:auto;font-weight:bold;'>Receiver's Signature</div>
+            </div>
+        </div>
+        {% endfor %}
+    </body>
+</html>

@@ -1,0 +1,63 @@
+.start-date-value{
+    color: green;
+    font-size: 17px;
+    font-weight: 700;
+    padding-top: 5px;
+}
+
+.start-date-label{
+    color: green;
+    font-size: 17px;
+    font-weight: 700;
+    padding-left: 23px; 
+    padding-top: 5px;
+}
+
+.end-date-value{
+    color: red;
+    font-size: 17px;
+    font-weight: 700;
+    padding-top: 5px;
+}
+
+.end-date-label{
+    color: red;
+    font-size: 17px;
+    font-weight: 700;
+    padding-left: 23px; 
+    padding-top: 5px;
+}
+
+.edit-start-end-date-box{
+    text-align: end;
+}
+
+.width-97{
+    width:97%!important;
+    margin-top: 1rem!important;
+  }
+
+  .error-content{
+      color: red;
+      font-size: 20px;
+      font-weight: 500;
+      text-align: -webkit-center;
+  }
+
+  .margin-top{
+      margin-top: 3rem!important;
+  }
+
+  .disable-button{
+      opacity: 0.2;
+      cursor: context-menu!important;
+  }
+
+  .hostel-student-label{
+      width: 50%;
+      opacity: 0.7;
+  }
+
+  .hostel-student-value{
+      font-weight: bold;
+  }

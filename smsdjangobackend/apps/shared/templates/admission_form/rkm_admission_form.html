@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>RKM Admission Form</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 297mm;
+      position: relative;
+      font-family: Arial, sans-serif;
+    }
+
+    @page {
+      size: A4;
+      padding: 0px;
+      margin: 0px;
+    }
+
+    .a4-container {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      /* background-image: url("https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/rkm/oxford+front.jpeg"); */
+      background-repeat: no-repeat;
+      background-size: cover;
+      /* Stretch to fit entire A4 */
+      background-position: center;
+      /* Center background */
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .a4-container1 {
+      width: 210mm;
+      height: 297mm;
+      margin: auto;
+      background-image: url("https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/rkm/rkmback.jpeg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      /* make it cover the full page */
+      background-position: center;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .form-table {
+      width: 100%;
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+
+
+
+    .form-table {
+      width: 100%;
+      padding-top: 5px;
+      border: 1px black solid;
+      border-collapse: collapse;
+
+    }
+
+    .th {
+      border: 1px black solid;
+      color: rgb(246, 4, 4);
+      font-size: 12px;
+      font-family: Arial, 'Noto Serif Kannada', serif;
+      /* border-top: none;  */
+      
+    }
+
+    td {
+      padding-top: 4px;
+      padding-bottom: 4.2px;
+    }
+
+    .custom-line {
+      width: 100%;
+      /* Adjust width as needed */
+      height: 1px;
+      /* Adjust thickness as needed */
+      background-color: #0e0909;
+      /* Set desired color */
+      margin: 5px 0;
+      /* Add spacing above and below */
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/rkm/rkmfront.jpeg" alt="Background" class="background-image"> -->
+
+  <div class="a4-container">
+
+    <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/rkm/rkmfront.jpeg"
+      alt="Background" style="position: absolute; top: 0; left: 0; width: 210mm; height: 297mm; z-index: -1;
+    background-size: cover; background-repeat: no-repeat; background-position: center;">
+
+
+    <div style="margin-left:58px;width: 180mm;padding-top:35%;">
+      <div style="padding-left: 30%; color: green;padding-bottom: 52px; font-size: 18px; font-weight: bolder;">( Please
+        Fill in Block Letters )</div>
+      <div style="display: flex; font-weight: bold;">
+        <div style="color: rgb(246, 4, 4);width:65%">SATS No. : {% if sts %}{{sts}}{%endif%}</div>
+        <div style="color: rgb(246, 4, 4);">Admission No / Year : {{admission_num}}</div>
+      </div>
+      <div style="display: flex; font-weight: bold;">
+        <div style="color: rgb(246, 4, 4);width:65%">Register No : {{current_reg_num}}</div> <br>
+       
+      </div>
+      <table class="form-table">
+        <tr>
+          <td class="th" style="width: 61%;">
+            <span style="font-weight: bold; padding-left:10px;">1. Name of the Pupil in full :</span><br> &nbsp;
+            &nbsp;(ವಿದ್ಯಾರ್ಥಿಯ ಪೂರ್ಣ ಹೆಸರು)
+          </td>
+          <td class="th" style="width: 61%;">
+                  {{first_name|upper}} {% if middle_name %}{{middle_name|upper}}{% endif %} {% if last_name %}{{last_name|upper}}{% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td class="th">
+            <span style="font-weight: bold; padding-left:10px; width: 60%;">2. Name of the Father :</span> &nbsp;<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;(ತಂದೆಯ ಹೆಸರು)
+          </td>
+          <td class="th" style="width: 60%;">
+             {% if student_parent.parent.father_name %}{{student_parent.parent.father_name|title}}{%endif%}
+          </td>
+        </tr>
+        <tr>
+          <td class="th">
+            <span style="font-weight: bold; padding-left:10px;width: 60%;"> 3. Name of the Mother
+              :</span><br>&nbsp;&nbsp;&nbsp;&nbsp;(ತಾಯಿಯ ಹೆಸರು)
+          </td>
+          <td class="th" style="width: 60%;">
+             {% if student_parent.parent.mother_name %}{{student_parent.parent.mother_name|title}}{%endif%}
+          </td>
+        </tr>
+        <tr></tr>
+        <td class="th">
+          <span style="font-weight: bold; padding-left:10px; width: 60%;">4. Date of birth (figures and words)
+            : {{dob|date:'d-m-Y'}}-{{dob_in_words|upper}} </span><br>&nbsp;&nbsp;&nbsp;ಹುಟ್ಟಿದ ದಿನಾಂಕ (ಅಂಕೆ ಮತ್ತು ಅಕ್ಷರದಲ್ಲಿ)
+        </td>
+        <td style="width: 60%;  color:rgb(246, 4, 4); ">
+          <table style="border-collapse: collapse; width:60%; ">
+            <tr style="font-size: 12px;font-family: Arial, 'Noto Serif Kannada', serif;padding-left:10px;width: 60%;">
+              <td><b>&nbsp;&nbsp;5. Sex / </b> ಲಿಂಗ :<span style=" font-size: 12px; font-weight: bold;"> 
+                   {% if gender|upper == "BOY" %}
+                        MALE
+                    {% elif gender|upper == "GIRL" %}
+                        FEMALE
+                    {% else %}
+                        {{ gender|upper }}
+                    {% endif %}</span></td>
+            </tr>
+
+            <tr style=" font-size: 12px;font-family: Arial, 'Noto Serif Kannada', serif;padding-left:10px;width: 60%;">
+              <td><b>&nbsp;&nbsp;6. Nationality / </b>ರಾಷ್ಟ್ರೀಯತೆ : {% if student_details.nationality_name %}{{student_details.nationality_name|title}} {%endif%}<span style=" font-size: 12px; font-weight: bold;">
+                  </span></td>
+            </tr>
+          </table>
+
+        </td>
+        </tr>
+
+        <tr></tr>
+        <td class="th" style="padding-left:10px; width: 60%;">
+          <b>7. Religion /</b> ಧರ್ಮ:  {% if student_details.religion_name %}{{student_details.religion_name|title}}{%endif%}
+        </td>
+        <td class="th">
+          <span style="font-weight: bold; padding-left: 8px;width: 60%;">8. Caste/ </span> ಜಾತಿ : {% if student_details.caste_name %}{{student_details.caste_name|title}} {%endif%}
+        </td>
+        </tr>
+        <tr>
+          <td class="th">
+            <span style="font-weight: bold; padding-left: 10px;">9. Category /</span> ವರ್ಗ :
+          </td>
+          <td class="th">
+            <span style="font-weight: bold; padding-left: 5px;">10. Mother Tongue /</span> ಮಾತೃಭಾಷೆ : {% if student_details.mother_tongue %}{{student_details.mother_tongue|title}}{%endif%}
+          </td>
+        </tr>
+
+        <tr></tr>
+        <td class="th">
+          <span style="font-weight: bold; padding-left: 8px;">11.Class in to which admission is Sought : {{current_standard_name}}</span><br>
+          <span style="padding-left: 23px;">ಸೇರ ಬಯಸುವ ತರಗತಿ :</span>
+        </td>
+        <td class="th">
+          <span style="font-weight: bold; padding-left: 5px;">12. Last Class Studied : {{ student_details.previous_school_details.pre_left_standard }}</span> <br> <span
+            style="padding-left: 23px;">ಹಿಂದಿನ ತರಗತಿ :</span>
+        </td>
+        </tr>
+        <tr></tr>
+        <td class="th">
+          <span style="font-weight: bold; padding-left: 8px;">13. Father's Occupation & Qualification : {% if student_parent.parent.f_occupation %}{{student_parent.parent.f_occupation|title}}{%endif%}</span><br> <span
+            style="padding-left: 10px;">ತಂದೆಯ ವಿದ್ಯಾರ್ಹತೆ & ಕಸುಬು :</span>
+        </td>
+        <td class="th">
+          <span style="font-weight: bold; padding-left: 5px;">14. Mother's Occupation & Qualification : {% if student_parent.parent.m_occupation %}{{student_parent.parent.m_occupation|title}}{%endif%}</span> <br>
+          <span style="padding-left: 23px;">ತಾಯಿಯ ವಿದ್ಯಾರ್ಹತೆ & ಕಸುಬು :</span>
+        </td>
+        </tr>
+        <tr></tr>
+        <td class="th">
+          <span style="font-weight:bold; padding-left: 8px;">15. Parent's / Guardian's Address : </span><br> <span
+            style="padding-left: 23px;"> ಪೋಷಕರ ವಿಳಾಸ :</span> <br> <br> <span
+            style="font-weight: bold; padding-left: 23px;">Pincode : {% if student_address.0.pincode %}-{{student_address.0.pincode}}{%endif%}</span>
+        </td>
+
+        <td class="th" style="width: 50%;">
+           {% if student_address.0.address %}{{student_address.0.address}}{%endif%}{% if student_address.0.pincode %}-{{student_address.0.pincode}}{%endif%}
+        </td>
+        </tr>
+        <tr></tr>
+        <td class="th">
+          <span style="font-weight: bold; padding-left: 8px;">16. Mobile No /</span><span
+            style="padding-left: 10px;">ಮೊಬೈಲ್ ಸಂಖ್ಯೆ :</span>
+        </td>
+        <td class="th" style="width: 50%;">
+          <span style="font-weight: bold; padding-left: 8px;">1. {% if student_parent.parent.f_mobile_num %}{{student_parent.parent.f_mobile_num|cut:'+91'}}{%endif%}</span>
+          <span style="font-weight: bold; padding-left: 45%;">2. {% if student_parent.parent.m_mobile_num %}{{student_parent.parent.m_mobile_num|cut:'+91'}}{%endif%}</span>
+        </td>
+        </tr>
+        <tr>
+          <td class="th">
+            <span style="font-weight: bold; padding-left: 8px;">17. Whatsapp No /</span> ವಾಟ್ಸಾಪ್ ಸಂಖ್ಯೆ :
+          </td>
+          <td class="th" style="width: 50%;">
+            <span style="font-weight: bold; padding-left: 8px;">1.{% if student_parent.parent.f_mobile_num %}{{student_parent.parent.f_mobile_num|cut:'+91'}}{%endif%}</span>
+            <span style="font-weight: bold; padding-left: 45%;">2.{% if student_parent.parent.m_mobile_num %}{{student_parent.parent.m_mobile_num|cut:'+91'}}{%endif%}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th">
+            <br>
+            <span style="font-weight: bold; padding-left: 8px;">18. Bhagyalakshmi Bond No.</span>
+            <!-- <span style="font-weight: bold; padding-left: 80px;">Yes / No</span> -->
+            <br>
+            <br>
+          </td>
+          <td class="th" style="width: 50%;">
+             {{custom_form_data.Bhagyalakshmibondno}}
+             
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th">
+            <span style="font-weight: bold; padding-left: 8px;">19. Any Brothers/Sister Studying in the Institution : {% if custom_from_data.AnyBrotherSisterStudyingintheSameinstitution %}{{custom_form_data.AnyBrotherSisterStudyingintheSameinstitution}}{%endif%} 
+            </span> <br>
+            <span style="padding-left: 23px;">ಈ ಶಾಲೆಯಲ್ಲಿ ಅಣ್ಣ / ಅಕ್ಕ ಓದುತಿದ್ದರೆ :</span>
+            <br>
+            <span style="font-weight: bold; padding-left: 75%;"></span>
+          </td>
+          <td class="th">
+            <span style="font-weight:bold; padding-left: 8px;">20. Name & Class : {{custom_form_data.Nameandclass}}</span><br>
+            <span style="font-weight: bold; padding-left: 27px;">ಹೆಸರು ಮತ್ತು ತರಗತಿ</span>
+
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" colspan="100" style="text-align: center; font-weight: bold;">
+            20. Bank Details
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            a) Bank Name & Place :
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            b) Account No :
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            c) IFSC Code :
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            21. Student Aadhar Card No :
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            22. Father's Aadhar Card No :
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            23. Mother's Aadhar Card No :
+          </td>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+
+
+  <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/rkm/rkmback.jpeg" alt="Background"
+    style="position: absolute; top: 0; left: 0; width: 210mm; height: 298mm; z-index: -1; margin-top: 148%;
+      background-size: cover; background-repeat: no-repeat; background-position: center;">
+
+  <div class="a4-container1">
+
+
+
+    <div style="margin-left:58px;width: 180mm;padding-top:8%;">
+      <span style="padding-left: 35%; color: rgb(246, 4, 4); font-weight: bold;">24. Student Basic Information</span>
+
+      <table class="form-table">
+        <tr>
+          <td class="th" style="height:30px; width:60%;">
+            <span style="font-weight: bold; padding-left:10px;">a) Blood Group :</span><br>
+
+          </td>
+          <td class="th" style=" height:30px; width: 60%;">
+            {% if student_details.blood_group %}{{student_details.blood_group|title}}{%endif%}
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">b) Ration Card No :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">c) Student's Caste Certificate RD Number :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">d) Father's Caste Certificate RD Number :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">e) Mother's Caste Certificate RD Number :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold; padding-left: 35%; font-size: 16px; height: 30px;">
+            25. Previous School Details
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">a) School Dise Code :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+         <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">b) PEN Number :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" style="height:30px;width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">c) Previous School Name :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">d) Previous School Address :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">e) Previous TC No & Date :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">f) Previous Medium :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">g) First Language :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">h) Second Language :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+        <tr>
+          <td class="th" style="height:30px; width: 60%;">
+            <span style="font-weight: bold; padding-left:10px;">i) Third Language :</span><br>
+
+          </td>
+          <td class="th" style="width:60%; height:30px;">
+          </td>
+        </tr>
+
+
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold; padding-left: 38%; font-size: 16px; height: 30px;">
+            26 . Van Details
+          </td>
+        </tr>
+        <tr>
+          <td class="th" colspan="100" style="text-align: left;">
+            <span style="display: inline-block; font-weight: bold; width: 49%; padding-left: 8px;">a) Starting Point
+              :</span>
+            <span style="display: inline-block; font-weight: bold; width: 49%;">b) Destination Point :</span>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" colspan="100" style="text-align: left; padding-left: 8px; height: 18px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; width: 60%;">
+              <span>c) Route Van :</span>
+              <span>Van1 :</span>
+              <!-- <span>Van2 :</span>
+              <span>Van3:</span>
+              <span>Van4 :</span>
+              <span>Van5 :</span> -->
+            </div>
+          </td>
+        </tr>
+
+
+        <tr>
+          <td class="th" colspan="100" style="text-align: left; padding-left: 8px; height: auto;">
+            <div style="font-weight: bold; width: 100%;">
+
+              <!-- Heading -->
+              <div style="padding-left: 37%; font-size: 15px; margin-bottom: 5px;">
+                27. ENCLOSURES
+              </div>
+
+              <!-- List Items -->
+              <div style="font-size: 12px; padding-left: 8%; line-height: 1.8;">
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>a)</span>
+                  <span>3 Copies of applicant photo</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>b)</span>
+                  <span>Caste Certificate</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>c)</span>
+                  <span>Income Certificate</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>d)</span>
+                  <span>Birth Certificate</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>e)</span>
+                  <span>Transfer Certificate</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+                <div
+                  style="display: grid; grid-template-columns: 30px 250px 20px auto auto auto; column-gap: 10px; width: 95%;">
+                  <span>f)</span>
+                  <span>Aadhar Card (Student, Father & Mother)</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                  <span>Yes / No</span>
+                  <span>Yes / No</span>
+                </div>
+
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>g)</span>
+                  <span>Bank Pass Book Xerox</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 30px 250px 20px auto; column-gap: 10px; width: 90%;">
+                  <span>h)</span>
+                  <span>Ration Card</span>
+                  <span>:</span>
+                  <span>Yes / No</span>
+                </div>
+
+              </div>
+            </div>
+          </td>
+        </tr>
+
+
+
+
+
+
+        <tr>
+          <td class="th" colspan="100" style=" font-weight: bold;">
+            <span style="padding-left: 37%;">28. For Office use:</span>
+            <br>
+            <span style="padding-left: 8px;">Admission No : {{admission_num}}</span> <br>
+             <!-- <span style="padding-left: 8px;">Register No : {{current_reg_num}}</span> -->
+            <span style="padding-left: 55%;">Date : {{today}}</span>
+          </td>
+        </tr>
+
+
+        <div
+          style="position: absolute; bottom: 70px; left: 0; width: 100%; display: flex; justify-content: space-around; font-weight: bold; font-size: 16px; color: rgb(244, 4, 4); margin-top: 10%;">
+          <div>Signature of the Parents / Guardian</div>
+          <div>Signature of the Head Master</div>
+        </div>
+
+
+
+
+
+
+
+      </table>
+    </div>
+  </div>
+
+
+
+
+</body>
+
+</html>

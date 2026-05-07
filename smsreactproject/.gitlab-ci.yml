@@ -1,0 +1,36 @@
+cache:
+  paths:
+    - node_modules/
+stages:
+  - build
+  - deploy
+  
+build:
+  image: node:14
+  stage: build
+  script:
+    - npm install
+    - CI=false npm run build
+    - apk-get update && apk-get install -y tar 
+    - tar -cvzf build.tar.gz build
+  artifacts:
+    paths:
+      - build.tar.gz
+  only:
+    - auto-staging-deploy
+
+deploy:
+  image: alpine
+  stage: deploy
+  only:
+    - auto-staging-deploy
+  script: 
+    - apk add openssh-client
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan ec2-43-205-73-138.ap-south-1.compute.amazonaws.com >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - scp -o stricthostkeychecking=no -r build.tar.gz ubuntu@ec2-43-205-73-138.ap-south-1.compute.amazonaws.com:/var/www/html/frontend
+    - ssh -o StrictHostKeyChecking=no ubuntu@ec2-43-205-73-138.ap-south-1.compute.amazonaws.com "sudo -S chmod 777 /var/www/html/frontend; cd /var/www/html/frontend; ls -ltra; tar -zxvf build.tar.gz; mv build build_new"

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla Slab">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Aleo:700">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Anek Bangla:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=inter tight:900">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=umberland slab:900">
+
+</head>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    font-family: Raleway;
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+  }
+  .front-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/JNANA_JYOTHI_ID_FNT_2_kirgFK3.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/JNANA_JYOTHI_ID_BCK_3.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://production-edubricz.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  {% for student in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+    <div style="display: flex;padding-top: 10px;">
+      <div style="text-align: center;">
+        <img src="https://staging-s3-23.s3.amazonaws.com/18/PU_Logo_PNG_3.png" style="height: 32px; width: 32px; margin-left: 5px;">
+      </div>
+      <div>
+        <div style="font-size: 6px; font-family: Raleway; letter-spacing: -0.01px; color: #000000;">VEERASHAIVA SREE ESHWARA SEVA SAMITHI [R]</div>
+        <div style="font-size: 14px; font-family: 'umberland slab'; color: #03123b; padding-left: 5px; letter-spacing: 0.7px; font-weight: 200;">JNANA JYOTHI PU COLLEGE</div>
+      </div>
+    </div>
+    <div style="font-size: 9px; color: #000000; font-weight: 600; text-align: center;">STUDENT ID CARD 2024-25</div>
+    <div style="position: absolute; left: 60px; margin-top: 5px;">
+      <div style="height: 85px; width: 80px; right: 3px; border-radius: 25% 0%;  margin: auto;">
+        <img src={{student.profile_pic_details.file}} style="height: 83px; width: 79px; border-radius: 25% 0%; border: 2px solid white;">
+      </div>
+    </div>
+    <div class="username" style="{% if student.name|length > 16 %} font-size: 11px; {% else %} {% endif %}">
+      {{ student.name|upper }}
+    </div>
+    <table width="100%" style="top: 175px; margin-left: 10px; margin-top: 10px; font-size: 11px; color: #000000;font-family: Arial, Helvetica, sans-serif;">
+      <tr>
+        <td style="font-size: 8.5px;">FATHER NAME</td>
+        <td style="font-weight: bold;">:
+          {% if student.student_parent.parent.father_name %}
+            <span style="{% if student.student_parent.parent.father_name|length > 14 %} font-size: 7px; {% else %} font-size: 11px; {% endif %}">
+              {{ student.student_parent.parent.father_name|upper }}
+            </span>
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <td style="font-size: 8.5px;">Date Of Birth</td>
+        <td style="font-weight: bold;">: {{student.dob_changed}}</td>
+      </tr>
+      <tr>
+        <td style="font-size: 8.5px;">Combination</td>
+        <td style="font-weight: bold;">: {{student.standard_name_roman|cut:"II PUC-"}}</td>
+      </tr>
+    </table>
+    <div>
+        {%if forloop.counter == 1 %}
+        <img src={{student.barcode_image_url}} style="height: 36px; width: 120px;margin-top:43px;margin-left: 13px;color: #000000;">
+        {%else%}
+        <img src={{student.barcode_image_url}} style="height: 36px; width: 120px;margin-top:43px;margin-left: 13px;color: #000000;">
+        {%endif%}
+         </div>
+  </div>
+  
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card -->
+  <div class="page back-side">
+    <div style="text-align: center;">
+      <table style="padding-top: 115px;width:100%">
+        <tr>
+          <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div> -->
+          <td style="font-size: 9px;color:#000000;text-align: center;font-family: Arial, Helvetica, sans-serif;font-weight: 500;">
+            <!-- {% for address in student.student_address %}
+            {% if address.address %}{{address.address}} {% endif %}{% endfor %} -->
+            {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}-{{student.custom_pincode}}
+          </td>
+        </tr>
+      </table>
+      <div style="font-size: 9px;color:#000000;font-weight: bold;font-family: Arial, Helvetica, sans-serif;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+    </div>
+    
+  </div>
+  {% endfor %}
+</body>
+</html>
+

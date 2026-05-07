@@ -1,0 +1,121 @@
+/* Full-screen overlay styles */
+.custom-design-template-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f5f5f5;
+    z-index: 9999;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-design-template-header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #2c3e50;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+}
+
+.custom-design-template-header h2 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.custom-design-template-close-btn {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.custom-design-template-close-btn:hover {
+    background-color: #c0392b;
+}
+
+.custom-design-template-close-btn:active {
+    background-color: #a93226;
+}
+
+/* Scoped styles for CustomDesignTemplate component only */
+#fullbody.custom-design-template-wrapper {
+    flex: 1;
+    overflow: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+#fullbody.custom-design-template-wrapper * {
+    box-sizing: border-box;
+}
+
+#fullbody.custom-design-template-wrapper .custom-template-tools {
+    margin-top: 40px;
+    display: flex;
+    gap: 3%;
+}
+
+#fullbody.custom-design-template-wrapper .custom-template-tools :nth-child(1) {
+    margin-left: 20%;
+}
+
+#fullbody.custom-design-template-wrapper .custom-template-tools div {
+    border: 2px solid black;
+    width: 100px;
+    height: 50px;
+    padding: 10px 10px;
+}
+
+@media only screen and (max-width: 768px) {
+  #fullbody.custom-design-template-wrapper select {
+    width: 90%;
+    padding: 8px;
+    height: 20px;
+    font-size: 14px;
+  }
+
+  #fullbody.custom-design-template-wrapper label {   
+    font-size: 14px;
+    text-align: center;
+  }
+
+  #fullbody.custom-design-template-wrapper input[type="color"],
+  #fullbody.custom-design-template-wrapper input[type="file"] {
+    width: 90%;
+    padding: 5px;
+  }
+
+  #fullbody.custom-design-template-wrapper .custom-template-btn {
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
+  #fullbody.custom-design-template-wrapper .custom-template-btn:first-of-type {
+    background-color: purple;
+  }
+
+  #fullbody.custom-design-template-wrapper .custom-template-btn:last-of-type {
+    background-color: red;
+  }
+}

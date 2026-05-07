@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Student Report Card</title>
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+            margin: 20px;
+            font-size: 15px;
+            background-color: #001F3F;
+        }
+
+        .text-center { text-align: center; }
+        .bold { font-weight: bold; }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 2px solid orange;
+            background-color:  #FFD580 ;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .no-border td {
+            border: none;
+            text-align: left;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .header-text {
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .student-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            font-weight: bold;
+            line-height: 1.8;
+        }
+
+        .signature-section {
+            margin-top: 40px;
+        }
+
+        .signature-section td {
+            border: none;
+            font-weight: bold;
+            padding-top: 40px;
+        }
+
+        .marks-warning {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subject-table td, .subject-table th {
+            font-size: 13px;
+             border: 2px solid rgb(0, 102, 219);
+        }
+
+        .page {
+            border: 2px solid rgb(0, 0, 0);
+            padding: 20px;
+            height: 1290px;
+            margin-bottom: 20px;
+            background-color:  #FFD580;
+        }
+
+        /* .part-b td {
+            background-color: #D7E7F7;
+        } */
+
+        @media print {
+            .page {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+
+<body>
+{% for student in data.student_list %}
+<div class="page">
+    {% if not student.is_finalized %}
+    <div class="marks-warning">Marks Is Not Finalized</div>
+    {% endif %}
+
+    <!-- Header -->
+    <div class="header-container" style="color: darkblue;">
+        {% if institute_data.document_details.file %}
+            <img src="{{ institute_data.document_details.file }}" style="width: 100px; height: 100px;" />
+        {% endif %}
+        <div class="header-text">
+            <div style="font-size: 28px; font-weight: bold;">NATIONAL PUBLIC SCHOOL</div>
+            <div style="font-size: 15px;">
+                (Affiliated to CBSE, New Delhi) Affiliation No. 830249<br>
+                Bandappa Garden, JP Park, Bangalore - 560054<br>
+                Tel: 23374802 | Off. No. 7676776937 | Email: nps.principal@gmail.com<br>
+                Website: www.nps-jppark.in
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center bold" style="margin-top: 10px;color: darkblue;">
+        {{ data.exam_details|upper }}<br>
+        <u>REPORT CARD {{ data.academic_year_details.start_date|date:"Y" }} - {{ data.academic_year_details.end_date|date:"y" }}</u>
+    </div>
+
+    <!-- Student Info -->
+    <div class="student-info" style="color: darkblue;font-weight: bold;">
+        <div>
+            STUDENT NAME: {{ student.student_name }}<br>
+            FATHER'S NAME: {{ student.father_name }}<br>
+            MOTHER'S NAME: {{ student.mother_name }}<br>
+            DATE OF BIRTH: {{ student.dob|date:'d-m-Y' }}
+        </div>
+        <div style="text-align: right;">
+            GRADE: {{ data.standard_name }} - {{ data.section_name }}<br>
+            REG NO: {% if student.current_reg_num %}{{ student.current_reg_num }}{% endif %}
+        </div>
+    </div>
+
+    <!-- PART-A: Scholastic -->
+    <div class="text-center bold" style="margin-top: 30px;color: darkblue;font-weight: bold;">PART-A: SCHOLASTIC AREAS MID - TERM (100 MARKS)</div>
+
+    <table class="subject-table">
+        <tr class="bold">
+            <th style="color: darkblue;font-weight: bold;">SUBJECT NAME</th>
+            <th style="color: darkblue;font-weight: bold;">PERIODIC TEST (05)</th>
+            <th style="color: darkblue;font-weight: bold;">MULTIPLE ASSESSMENT (05)</th>
+            <th style="color: darkblue;font-weight: bold;">PORTFOLIO (05)</th>
+            <th style="color: darkblue;font-weight: bold;">SUB ENRICHMENT (05)</th>
+            <th style="color: darkblue;font-weight: bold;">THEORY MARKS (80)</th>
+            <th style="color: darkblue;font-weight: bold;">TOTAL MARKS OBTAINED (100)</th>
+            <th style="color: darkblue;font-weight: bold;">GRADE</th>
+        </tr>
+
+        {% for subject_data in student.subject_list_data %}
+        {% if subject_data.subject_part_type_code_name == 'part1' %}
+        <tr>
+            <td style="color: darkblue;font-weight: bold;">{{ subject_data.subject_name|upper }}</td>
+            {% for cumulative_type in subject_data.cumulative_mark_data_for_marks_card %}
+            <td>{{ cumulative_type.mark|floatformat:0 }}</td>
+            {% endfor %}
+            <td>{%if subject_data.marks %}{{ subject_data.marks|floatformat:0 }}{%else%}0{%endif%}</td>
+            <td>{{ subject_data.total_obtained_marks|floatformat:0 }}</td>
+            <td>{{ subject_data.grade }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+
+        <tr class="bold">
+            <td style="color: darkblue;font-weight: bold;">GRAND TOTAL</td>
+            {% for cumulative_id_type_mapping_total in student.cumulative_id_type_mapping_total %}
+            <td>{{ cumulative_id_type_mapping_total.total_obtained_mark|floatformat:0 }}</td>
+            {% endfor %}
+            <td>{{ student.part_type_data_code_wise.part1.total_written_obtained_marks|floatformat:0 }}</td>
+            <td>{{ student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0 }}</td>
+            <td>{{ student.part_type_data_code_wise.part1.grade }}</td>
+        </tr>
+    </table>
+
+    <!-- PART-B: Co-Scholastic -->
+    <div class="text-center bold" style="margin-top: 30px;color: darkblue;font-weight: bold;">PART-B: VALUE ADDED COURSE & CO-SCHOLASTIC AREAS</div>
+
+    <table class="subject-table part-b">
+        <tr class="bold">
+            <th style="color: darkblue;font-weight: bold;">AREAS</th>
+            <th style="color: darkblue;font-weight: bold;">GRADE</th>
+        </tr>
+
+        {% for subject_data in student.subject_list_data %}
+        {% if subject_data.subject_part_type_code_name == 'part2' %}
+        <tr>
+            <td style="font-size: 15px;color: darkblue;font-weight: bold;">{{ subject_data.subject_name|upper }}</td>
+            <td>{{ subject_data.grade }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+
+    <!-- Marks Summary -->
+    <table class="no-border" style="margin-top: 20px;color: darkblue;font-weight: bold;">
+        <tr>
+            <td class="bold">TOTAL MARKS IN WORDS: {{ student.part_type_data_code_wise.part1.total_obtained_marks_in_word|upper }}</td>
+            <td class="bold">PERCENTAGE: {{ student.part_type_data_code_wise.part1.percentage|floatformat:2 }}%</td>
+        </tr>
+    </table>
+
+    <!-- Signatures -->
+    <div class="signature-section">
+        <table style="width: 100%;">
+            <tr>
+                <td style="text-align: left;">Parent's Signature</td>
+                <td style="text-align: center;">Class Teacher's Signature</td>
+                <td style="text-align: right;">Principal's Signature</td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+{% if not forloop.last %}
+<div style="page-break-after: always;"></div>
+{% endif %}
+{% endfor %}
+</body>
+</html>

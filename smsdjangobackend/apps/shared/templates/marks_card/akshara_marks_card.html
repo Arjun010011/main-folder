@@ -1,0 +1,226 @@
+<html></html>
+
+<head>
+    <style>
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th,
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 25px;
+            padding-right: 25px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 13px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center;
+        }
+
+        .border {
+            height: 900px;
+            border: 2px solid black;
+            padding: 20px;
+            margin: 0px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    {% for student in data.student_list %}
+    <div style="padding:20px;margin:20px 20px 0px 20px;">
+        <div style='line-height: 1.8;'>
+            {% if student.is_finalized == False %}
+            <div style='color:red'>
+                Marks Is Not Finalized
+            </div>
+            {% endif %}
+            <div style='margin-top:3px;padding-top: 3px;'>
+                <div class='text-align-center' style='font-size:18px;margin-top:6px;position: relative;'>
+      
+                        <div style="font-size: 34px;color: rgb(0, 0, 0);">AKSHARA INTERNATIONAL SCHOOL</div>
+                     <div style="font-size: 14px;color: rgb(45, 148, 233);">No,59, AGS LAYOUT BANGLORE-560061 PHONE 9241677616</div>
+                     <div style="font-size: 18px;margin-top: 10px;"> PERFORMANCE OF FINAL SUMMATIVE ASSESSMENT REPORT-2023-24</div>
+                     <div style="font-size: 16px;margin-top: 10px;color: rgb(45, 148, 233);"> PERFORMANCE REPORT BASED ON CCE-</div>
+                    </b> {% if institute_data.document_details.file %}
+                   <img src={{institute_data.document_details.file}}
+                        style="width: 100px;height: 100px;position: absolute;left:3;top:0" /> {% endif %}
+                   
+                </div>
+                <hr style="border: 1px solid red;">
+            </div>
+        
+
+            <table style="width:100%;">
+                <tr>
+                    <!-- ID No -->
+                    <td>
+                        <span style="color: rgb(45, 148, 233);">ID No:</span>
+                        {% if student.student_admission_form %} 
+                            <span style="color: black;font-weight: bold;">
+                                {{ student.student_admission_form.admission_num }}
+                            </span>
+                        {% endif %}
+                    </td>
+                    
+                    <!-- Student Name -->
+                    <td>
+                        <span style="color: rgb(45, 148, 233);">STUDENT NAME:</span>
+                        <span style="color: black;font-weight: bold;">
+                            {{ student.student_name }}
+                        </span>
+                    </td>
+                    
+                    <!-- Standard and Section -->
+                    <td style="font-weight: bold;">
+                        {{ data.standard_name }} - {{ data.section_name }}
+                    </td>
+                </tr>
+            </table>
+            <br>
+         <table class="text-center w-100 margin-top:5px;width: 100%;padding-top: 20px;">
+        <tr >
+                <td>
+                    SUBJECTS
+                </td>
+                {%for cumulative_type in student.cumulative_id_type_mapping%}
+                <td>{{cumulative_type.col_name|upper}}</td>
+                {%endfor%}
+                <!-- <td>
+                    PT1 (10)
+                </td>
+                <td>
+                    NOTE BOOK (5)
+                </td>
+                <td>
+                    SUBJECT ENRICHMENT (5)
+                </td> -->
+                <td>
+                    HALF YEARLY (80)
+                </td>
+                <td>
+                    TERM 1 (100)
+                </td>
+                <td>
+                    GRADE
+                </td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {%if subject_data.subject_part_type_code_name == 'part1'%}
+            <tr class='td-font-size'>
+
+                <td style='font-size: 15px;'>{{subject_data.subject_name|upper}}</td>
+                {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                <td style='text-align:center'>{{cumulative_type.mark}}</td>
+                {%endfor%}
+                <!-- <td>{{subject_data.total_max_marks}}</td> -->
+                 <td>{{subject_data.marks}}</td>
+                <td>{{subject_data.total_obtained_marks}}</td>
+                <td>{{subject_data.grade}}</td>
+                <!-- {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                <td style='text-align:center'>{{cumulative_type.mark}}</td>
+                {%endfor%} -->
+                <!-- <td>{{subject_data.total_obtained_marks}}</td>
+                <td>{{subject_data.total_obtained_marks}}</td>
+                <td>{{subject_data.total_obtained_marks}}</td> -->
+            </tr>
+            {% endif %}
+            {% endfor %}
+            <!-- <tr style='font-weight: bold;' class='td-font-size'>
+                <td style='font-size: 15px'>TOTAL MARKS</td>
+                {%for cumulative_id_type_mapping_total in student.cumulative_id_type_mapping_total%}
+                <td style='text-align:center'>
+                    {{cumulative_id_type_mapping_total.total_obtained_mark}}
+                </td>
+                {%endfor%}
+                <td>{{student.part_type_data_code_wise.part1.total_marks}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_obtained_marks}}</td>
+                <td>{{student.part_type_data_code_wise.part1.grade}}</td>
+            </tr> -->
+        </table>
+        <br>
+        <table style="width:100%;">
+            <tr>
+                <td >
+                    TOTAL </td>
+                <td>
+                    237 </td>
+               
+                
+        </table>
+        <br>
+
+        <table style="width:100%;">
+            <tr>
+                <td>
+                    <span style="color: rgb(45, 148, 233);">ATTENDANCE OUT OF  {%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %} DAYS</span>
+                   
+                        <span style="color: black;">
+                            {{student.marked_attendance_days|floatformat:0}}
+                        </span>
+                   
+                </td>
+                   
+                <td>
+                    <span style="color: rgb(45, 148, 233);">Teachers' Remarks</span>
+                   
+                        <span style="color: black;">
+                            : {%if student.remark_name %}{{student.remark_name}}{% endif %}
+                        </span>
+                   
+                </td>
+            </tr>   
+                
+        </table>
+
+        <hr style="border: 1px solid red;">
+        <div style="text-align: center;">Performance of the child shown in graph</div>
+    
+
+       
+         
+        
+
+       
+        <table style='width:100%;margin-top:60px;border:0px;color: #0B6094;'>
+            <tr>
+                <td style='font-weight: bold; border-top: 1px solid red; padding-top: 10px;'>
+                    Sign Of Class Teacher
+                </td>
+                <td style='font-weight: bold; border-top: 1px solid red; padding-top: 10px;'>
+                    Parent
+                </td>
+                <td style='font-weight: bold;text-align: right; border-top: 1px solid red; padding-top: 10px;'>
+                    Principal
+                </td>
+            </tr>
+        </table>
+       
+    </div>
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>

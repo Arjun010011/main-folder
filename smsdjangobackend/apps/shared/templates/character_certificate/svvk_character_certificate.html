@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Character Certificate</title>
+
+<style>
+    @page{
+        size: A4 landscape;
+        margin: 0;
+    }
+
+    body{
+        margin:0;
+        padding: 0;
+        font-family:"Times New Roman", serif;
+        background:#eaeaea;
+    }
+
+    /* MOVE BG IMAGE HERE */
+    .certificate{
+        width:1120px;
+        height:760px;
+        justify-content: center;
+        text-align: center;
+        margin:20px auto;
+        padding:45px 70px;
+        box-sizing:border-box;
+        position:relative;
+
+        background-image: url('https://production-edubricz.s3.ap-south-1.amazonaws.com/charactercertificate.jpeg');
+        background-size: cover;          /* ✅ REQUIRED */
+        background-repeat: no-repeat;    /* ✅ REQUIRED */
+        background-position: center;     /* ✅ REQUIRED */
+    }
+
+    /* PRINT FIX */
+    @media print{
+        body{
+            background:none;
+            -webkit-print-color-adjust: exact;  /* ✅ Chrome */
+            print-color-adjust: exact;           /* ✅ Firefox */
+        }
+
+        .certificate{
+            margin:0;
+        }
+    }
+
+
+/* HEADER */
+.header{
+    text-align:center;
+    height: 200px;
+}
+
+.school-name{
+    font-size:28px;
+    font-weight:bold;
+    color:#2c3e50;
+    text-transform:uppercase;
+}
+
+.location{
+    font-size:18px;
+    font-weight:bold;
+    color:#d35400;
+    margin-top:4px;
+}
+
+/* TITLE */
+.title-box{
+    text-align:center;
+    margin:28px 0 35px;
+}
+
+.title{
+    display:inline-block;
+    padding:10px 40px;
+    font-size:24px;
+    font-weight:bold;
+    color:#d35400;
+    letter-spacing:1px;
+}
+
+/* CONTENT */
+.content{
+    font-size:18px;
+    line-height:2.2;
+}
+
+.row{
+}
+
+.value{
+    display:inline-block;
+    min-width:auto;
+    font-style: bold;
+    font-weight: bolder;
+    text-align:center;
+    font-weight:bold;
+}
+
+.value-sm{
+    min-width:160px;
+}
+
+/* FOOTER */
+.footer{
+    position:absolute;
+    bottom:100px;
+    left:70px;
+    right:70px;
+    display:flex;
+    justify-content:space-between;
+    font-size:18px;
+}
+
+.right{
+    text-align:right;
+}
+
+@media print{
+    body{background:none;}
+    .certificate{margin:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="certificate">
+
+    <!-- HEADER -->
+    <div class="header">
+    </div>
+
+    <!-- TITLE -->
+    <div class="title-box">
+        <div class="title"></div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <div class="row">
+            This is to certify that Sri / Kum
+            <span class="value">{{ student_full_name }}</span>
+            is the {{ student_son_daughter|lower }} of Sri / Smt
+            <span class="value">{{ father_name }}</span>.
+            {{ student_he_she|capfirst }} was a student of
+            <span class="value">{{ school_name }}</span>
+            during the academic year from
+            <span class="value-sm">{{ from_academic_year }}</span>
+            to
+            <span class="value-sm">{{ to_academic_year }}</span>,
+            from
+            <span class="value-sm">{{ from_standard_name }}</span>
+            to
+            <span class="value-sm">{{ to_standard_name }}</span>.
+            {{ student_he_she|capfirst }} character and conduct were
+            <span class="value">GOOD</span>
+            during {{ student_her_him }} stay in this institution.
+        </div>
+        <div class="row">
+            Admission No & Date :
+            <span class="value">
+                {{ admission_num }} / {{ admission_date }}
+            </span>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div>
+            Date :
+            <span class="value-sm">{{ today_date }}</span><br><br>
+            Place :
+            <span class="value-sm">{{ school_city }}</span>
+        </div>
+
+        <div class="right">
+            Signature & Seal of<br>
+            Head Master / Principal
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

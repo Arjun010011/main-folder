@@ -1,0 +1,184 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Certificate</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      font-family: 'Times New Roman', Times, serif;
+    }
+    @page {
+      size: A4;
+      margin: 22px;
+      border: 2px solid black;
+    }
+
+    body {
+      line-height: 1.8;
+      font-size: 18px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      width: 110px;
+      height: 140px;
+      /* object-fit: cover; */
+      left:0px;
+      margin-left: 10px;
+    }
+
+    .schoolname {
+      font-size: 21px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .schooladd {
+      font-size: 14px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .org-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 15px;
+    }
+     .address {
+      text-align: center;
+      font-weight: bold;
+      font-size: 21px;
+    }
+
+
+    .title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 24px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      text-decoration: underline;
+    }
+
+    .photo-box {
+      width: 120px;
+      height: 150px;
+      border: 1px solid #000;
+      margin: 10px auto 30px auto;
+      margin-left: 530px;
+      padding-top: -80px;
+      margin-top: -80px;
+
+    }
+
+    .content {
+      text-align: justify;
+      line-height: 40px;
+      font-size: 21px;
+      padding: 0 30px;
+    }
+
+    .placeholder {
+      border-bottom: 1px dotted #000;
+      display: inline-block;
+      min-width: 150px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .signature {
+      margin-top: 60px;
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .principal {
+      text-align: right;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header" style="padding-top: 20px;">
+    <div class="logo">
+      {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" alt="School Logo">
+      {% endif %}
+    </div>
+
+    <div style="line-height: 25px;padding-left: -50px;margin-left: -50px;">
+      <div class="org-name">Smt Gowramma Educational Trust(R)</div>
+      <div class="schoolname">ಶ್ರೀ ಶಾರದ ವಿದ್ಯಾನಿಕೇತನ ಆಂಗ್ಲ ಪ್ರೌಢಶಾಲೆ</div>
+      <div class="schoolname" style="margin-left: 20px;padding-left: 20px;">SRI SHARADA VIDYANIKETANA ENGLISH HIGH SCHOOL</div>
+      <div class="schooladd">
+        (Recognised by Govt. Of Karnataka)<br/>
+        Nagawara - Thanisandra, Bangalore – 560 077 , Phone No : 2544 6756 / 2543 2911 <br/>
+      </div>
+    </div>
+
+    <div style="width: 20px; height: 70px;"></div> 
+  </div>
+
+<br/>
+<br/>
+  <div class="title">STUDY CERTIFICATE</div>
+  <br>
+   <div style="display: flex; justify-content: space-between; padding: 0 40px; margin-bottom: 10px;">
+  <div>DATE: <span class="placeholder">{{ today_date }}</span> <br>
+    REF: <span class="placeholder">{{ svn_no }}</span>
+<!-- </div>
+  <div>DATE: <span class="placeholder">{{ today_date }}</span></div>
+</div> -->
+
+   {% if profile_pic_details %}
+    <div class="photo-box">
+      <img src="{{ profile_pic_details }}" alt="Student Photo" style="width: 100%; height: 100%; object-fit: cover;">
+    </div>
+  {% endif %} 
+
+  <div class="content">
+    This is to certify that 
+    {% if student_he_she == "he" %}
+      Master. <span class="placeholder">{{ student_full_name|title }}</span>, of std. <span class='placeholder' >{{to_standard_name }}</span> 
+       S/O <span class="placeholder">{{ father_name|title }}</span>
+    {% else %}
+      Miss. <span class="placeholder">{{ student_full_name|title }}</span>, of std. <span class='placeholder' >{{to_standard_name }}</span> 
+       D/O <span class="placeholder">{{ father_name|title }}</span>
+    {% endif %}
+    is a bonafide student of our institution.{{student_her_him|title}} Date of Birth is <span class='placeholder' >{{ dob_str }}</span> and {{student_he_she}} belongs to <span class='placeholder' >{{caste|title}}</span> as per the Admission register of our institution.
+    
+  </div>
+  <br>
+  <div class="address">
+    {{address}}
+  </div>
+  <hr>
+
+  <br>
+  <br>
+  <br>
+
+
+<div style="display: flex; justify-content: flex-end; font-size: 21px; padding: 0 50px; margin-top: 40px;">
+  <div style="text-align: center;">
+    Seal & Signature of the Head Master/<br>
+    Head of the Institution
+    
+  </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,222 @@
+{% load transliteration %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hallticket</title>
+  <style>
+      body {
+          line-height: 0.8rem;
+          font-family: Arial, sans-serif;
+      }
+      .t-center { text-align: center; }
+      .t-left { text-align: left; }
+      .t-right { text-align: right; }
+      .heading {
+          font-size: 21px;
+          font-weight: bold;
+          margin-left:40px;
+          {% comment %} text-align: center; {% endcomment %}
+      }
+      .w-100 { width: 100%; }
+      td { padding: 2px; vertical-align: top; }
+      .th-subject-view, .td-subject-view {
+          text-align: center;
+          border: 1px solid black;
+          padding: 5px;
+      }
+
+      .photo-box {
+        width: 100px;
+        height: 125px;
+        border: 1px solid #000;
+        position: relative;
+        left:27%;
+        margin-top: -10px;
+      }
+      @page {
+          size: A4;
+          margin: 5mm;
+      }
+      .fs-20 { font-size: 20px; }
+      .fs-bold { font-weight: bold; }
+      .address-heading { font-size: 16px; }
+      hr { border: 0; border-top: 1px solid #000; margin: 10px 0; }
+      {% comment %} .hallticket {
+          height: 48%;       /* roughly half page */
+          margin-bottom: 1%; /* spacing between two cards */
+          border-bottom: 1px dashed black; /* cut line */
+      } {% endcomment %}
+  </style>
+</head>
+<body>
+{% for student in student_list %}
+<div class="hallticket">
+
+            
+        <table style="width:100%; border-collapse: collapse; margin-bottom: 2px;">
+            <tr>
+                
+                <td style="width:10%; text-align:left; vertical-align:top;">
+                    {% if institute.logo.file.url %}
+                    <img src="{{ institute.logo.file.url }}" style="width:100px; height:100px;">
+                    {% endif %}
+                </td>
+
+                
+                <td style="width:70%; text-align:center; vertical-align:top;">
+                    <div style="font-weight:bold; font-size:14px;padding-left: 10%;">
+                        DEPARTMENT OF SCHOOL EDUCATION (PRE-UNIVERSITY)
+                    </div>
+
+                    <div style="font-size:13px; margin-top:5px;padding-left: 7%;">
+                        BANGALORE SOUTH DISTRICT
+                    </div>
+
+                    <div style="margin-top:10px; font-size:18px;font-weight: bold;padding-left: 8%;">
+                        <span style="
+                            border-bottom: 2px solid black;
+                            padding-bottom: 3px;
+                        ">
+                            {{ standard_name }} - {{ examDetail.exam_type.name }}
+                        </span>
+                    </div>
+
+
+                    <div style="margin-top:18px; font-size:15px;font-weight: bold;padding-left: 9%;">
+                        <span>
+                            ADMISSION TICKET FOR {{ standard_name|upper }}
+                        </span>
+                    </div>
+                </td>
+                
+                <td style="width:20%; text-align:right; vertical-align:top;">
+                    {% if student.student_data.profile_pic_details %}
+                        <div class="photo-box">
+                            <img src="{{ student.student_data.profile_pic_details.file }}"
+                                 alt="Student Photo"
+                                 style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                    {% else %}
+                        <div class="photo-box">
+                            <span>No Photo</span>
+                        </div>
+                    {% endif %}
+                </td>
+                
+                    
+               
+            </tr>
+       </table>
+
+        <table class="w-100" style="border-collapse:collapse;">
+          <tr>
+              <td style="width:15%;">Student No</td>
+              <td style="width:35%;">: {{ admission_num }}</td>
+              <td style="width:15%;">Register No</td>
+              <td style="width:35%;">:
+                  {% if student.student_data.current_reg_num %}
+                      {{ student.student_data.current_reg_num }}
+                  {% endif %}
+              </td>
+          </tr>
+
+        
+          <tr>
+              <td style="width:23%; font-weight:bold; padding-right:18px;">
+                  Candidate Name
+              </td>
+              <td colspan="3" style="width:85%;font-weight: bold;text-transform: uppercase;">
+                  : {{ student.student_data.full_name|title }}
+              </td>
+          </tr>
+
+          <tr>
+              <td style="width:15%;">Father's Name</td>
+              <td style="width:35%;text-transform: uppercase;">:
+                  {{ student.student_data.student_parent.parent.father_name }}
+              </td>
+              <td style="width:15%;">&nbsp;</td>
+              <td style="width:35%;">&nbsp;</td>
+          </tr>
+
+    
+        
+          <tr>
+              <td style="width:15%;">College Name</td>
+              <td colspan="3" style="width:100%;font-weight: bold;font-size: 13px;text-transform: uppercase;">:
+                  AS0215 - SMT GANGAMMA HOMBEGOWDA COMPOSITE PRE-UNIVERSITY COLLEGE, &nbsp;&nbsp;WILSON GARDEN
+              </td>
+          </tr>
+
+      </table>
+
+
+  
+      <table class="text-center w-100" style="border-collapse: collapse; margin-top: 10px;">
+        <thead>
+            <tr>
+                <th class="th-subject-view" rowspan="2">Subject Code / Name</th>
+                <th class="th-subject-view" colspan="2">Examination</th>
+                <th class="th-subject-view" rowspan="2">
+                    Invigilator <br/> Signature
+                </th>
+            </tr>
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Timings</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for subject in student.subject_list %}
+            <tr>
+                <td class="td-subject-view" style="text-align:center;">
+                    
+                    <span>
+                        {{ subject.subject_name|title }}
+                    </span>
+                </td>
+
+                <td class="td-subject-view">
+                    {{ subject.fordate|date:"d-m-Y" }}
+                </td>
+
+                <td class="td-subject-view">
+                    {{ subject.start_time }} - {{ subject.end_time }}
+                </td>
+
+                <td class="td-subject-view"></td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    <div style="margin-top: 3px;">
+       <span style="padding-left: 81%;">Gender : {{ student.student_data.gender }}</span>
+    </div>
+
+
+      <!-- Signatures -->
+      <table class="w-100" style="margin-top: 35px;">
+        <tr>
+          <td class="t-left">Signature of the Candidate</td>
+          <td class="t-right">Signature of the Principal & Seal</td>
+        </tr>
+      </table>
+
+</div>
+
+  {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else%}
+    <hr/>
+    <div style="margin-top:75px;"></div>
+  {% endif %}
+
+{% endfor %}
+</body>
+</html>

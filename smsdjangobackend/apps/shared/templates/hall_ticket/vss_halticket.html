@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: left;
+            border: 1px solid black;
+            font-size: 10px;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="
+    height: 510px;
+    border: 2px solid black;
+    margin: 5px 5px 35px 5px;  /* bottom space added */
+    padding: 4px;
+    ">
+        <table style="width:100%;font-weight: bold;">
+            <tr>
+                <td>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        {% if institute.logo %}
+                            <div style="margin-right: 5px;">
+                                <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/vidyasagarinternational/Logo_Vidyasagar+International+School-1.png" style="width: 80px; height: 80px;" />
+                            </div>
+                        {% endif %}
+
+                        <div style="text-align: center; flex-grow: 1; margin: 0 15px;">
+                            <div style="font-size: 20px; font-weight: bold;">
+                                VIDYA SAGAR GROUP OF INSTITUTIONS
+                            </div>
+                            <div style="font-size: 11px;">
+                                #9/2, 2nd Main Road, Near Kateramma Temple, Sanchar Nagar (Telecom Layout),<br/>
+                                Thanisandra, Dr.SRK Nagar Post, Bengaluru-560077
+                            </div>
+                            <div style="margin-top: 2px; ">
+                                <div class="feereceipt-box" style="font-size: 13px;">{{ examDetail.exam_type.name | upper }} - {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}</div>
+                            </div>
+                            <div style="margin-top: 2px; ">
+                                <div class="feereceipt-box" style="font-size: 13px;">HALL TICKET</div>
+                            </div>
+                        </div>
+                        {% if institute.logo %}
+                            <div style="margin-right: 5px;">
+                                <img src="{{ institute.logo.file.url }}" style="width: 80px; height: 80px;" />
+                            </div>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+                    <tr>
+                        <td style="width:50px;">Name </td>
+                        <td style="width:400px;">:&nbsp;&nbsp; {{student.student_data.full_name | title }}</td>
+                        <td style="text-align:left;width:50px;">Class </td>
+                        <td>:{{ student.student_data.standard_section__standard__name | cut:"Standard"| capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+                    </tr>
+                    <tr>
+                        <td >Roll No </td><td>:&nbsp;&nbsp; {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}</td>
+                        <td></td>
+                    </tr>
+        </table>
+      <table class="text-center w-100" border="1"
+       style="border-collapse: collapse; border: 1px solid black; margin-top:5px; padding:0px;">
+
+    {% for subject in student.session_wise %}
+        {% if forloop.counter == 1 %}
+        <tr>
+            <th class="th-subject-view" rowspan="2">Date</th>
+            <th class="th-subject-view" rowspan="2">Day</th>
+            <th class="th-subject-view" rowspan="2">Time</th>
+            <th class="th-subject-view" rowspan="2">Subject 1</th>
+            <th class="th-subject-view" rowspan="2">Subject 2</th>
+            <th class="th-subject-view" colspan="2">Invigilator's Sign</th>
+        </tr>
+        <tr>
+            <th class="th-subject-view"></th>
+            <th class="th-subject-view"></th>
+        </tr>
+        {% endif %}
+    {% endfor %}
+
+    {% for subject in student.session_wise %}
+    <tr>
+        <td class="td-subject-view">
+            {{ subject.fordate|date:'d-m-Y' }}
+        </td>
+
+        <td class="td-subject-view">
+            {{ subject.fordate|date:'l' }}
+        </td>
+
+        <td class="td-subject-view">
+            {{ subject.session0start_time }} - {{ subject.session0end_time }}
+        </td>
+
+        {% if subject.session1 %}
+            <td class="td-subject-view">
+                {{ subject.session0|lower|capfirst }}
+            </td>
+            <td class="td-subject-view">
+                {{ subject.session1|lower|capfirst }}
+            </td>
+            <td class="td-subject-view"></td>
+            <td class="td-subject-view"></td>
+        {% else %}
+            <td colspan="2" class="td-subject-view">
+                {{ subject.session0|lower|capfirst }}
+            </td>
+            <td colspan="2" class="td-subject-view"></td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+
+</table>
+
+        <table class="w-100" style="margin-top: 60px;">
+            <tr>
+                <th style="text-align: right;padding-right:30px;">
+                    Sign of Principal
+                </th>
+            </tr>
+        </table>
+    </div>
+    <!-- {%  if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %} -->
+    {%  if forloop.counter|divisibleby:"1" %}
+    <!-- <div style="margin-top:35px;"></div> -->
+    <div style="page-break-after: always;"></div>
+    {%endif%}
+    {% endfor %}
+</body>
+</html>

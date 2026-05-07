@@ -1,0 +1,79 @@
+ .partial {
+    background-color: #9966ff ;
+    color: white; 
+    border-radius: 50% ;
+    padding: 3px;
+  }
+  
+  .full-absent {
+    background-color: #e6005c ;
+    color: white;
+    padding: 3px;
+    border-radius: 50% ;
+
+  }
+  .full-present {
+    background-color: #b3f075 ;
+    color: white;
+    padding: 3px;
+    border-radius: 50% ;
+  }
+  
+  .unmarked {
+    background-color: white ; 
+    color: black;
+    padding: px;
+  }
+  
+  .calendar-container {
+    width: 100%;
+    max-width: 500px; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  .react-calendar {
+    width: 100% ; 
+    max-width: 500px; 
+    font-size: 17px; 
+  }
+  .legend-box {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+  .attendance-summary-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 8px;
+  }
+  
+  .attendance-summary {
+    flex: 1;
+    padding-left: 10px;
+  }
+  
+  .attendance-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .attendance-legend p {
+    margin: 0; 
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+  }
+  .holiday {
+    background-color: #4da6ff ; 
+    color: white;
+    border-radius: 50%;
+    padding: 3px;
+  }
+  
+  

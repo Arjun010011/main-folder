@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page {
+            size: A5;
+            margin: 2mm;
+            margin-top: none;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+
+        .noborder {
+            border: 0px solid;
+        }
+
+        .bold {
+            font-weight: bold
+        }
+
+        .line-height {
+            line-height: 1.5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: -5px;
+            left: 70px;
+            height: 90px;
+        }
+
+        .school-info {
+            margin-left: 120px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .school-name {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .school-subtitle {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            font-size: 14px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+{% for count in number_of_copies %}
+{%  if forloop.counter|divisibleby:"2" %}
+    <div style="margin-top: 5px"></div>
+    <div style="text-align:right;margin-right:5px">Office Copy</div>
+{% else %}
+    <div style="text-align:right;margin-right:5px">Student Copy</div>
+{% endif %}<div style='border: 1px solid;padding:20px;margin:10px'>
+    <div style='display:flex;width:100%;position:relative'>
+        <div class="logo-container">
+            {% if institute.logo.file.url %}
+            <img src={{  institute.logo.file.url }} style="width: 190px;height: 150px;" />
+            {% endif %}
+        </div>
+
+        <div class="school-info">
+            <div style='font-size: 18px;margin-left: 150px;text-align: center;'>Sri Lakshmivenkateshwara Education Trust.
+            </div>
+            <div style="font-size: 28px;font-weight: bolder;left:500px;margin-left: 150px;text-align: center;">
+                SLV INTERNATIONAL SCHOOL
+            </div>
+            <!-- <div style='font-size: 18px;font-weight: bold;margin-left: 140px;'>(Approved By Govt. of Karnataka)</div> -->
+
+            <div style="font-size: 15px; margin-left: 140px;">
+                Sy.No-24, Channarayapattana Road, Vijayapura<br>
+                Devanahalli Tq, Bangalore Rural Dst-562135.<br/>
+                <span style="font-weight: bold;font-size: 15px;">Phone No:</span> 6364614657/6364614660<br/>
+                <span style=" font-weight: bold;font-size: 15px;">email:</span> slvschooloffice@gmail.com
+            </div>
+            
+        </div>
+    </div>
+
+    <div style="font-size: 18px;font-weight: bold;text-decoration:underline;margin-top:15px;text-align: center;">
+        RECEIPT </br>
+    </div>
+    <br>
+
+    <table class='noborder' style="width: 100%">
+        <tr class='noborder'>
+            <td class='noborder bold line-height' style='width:70%;vertical-align:top'>
+                Rec No: {{ fee_collection.receipt_num|title }} <br />
+                Name :
+                {% if fee_collection.student_detail.first_name %}{{ fee_collection.student_detail.first_name }}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{ fee_collection.student_detail.middle_name }}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{ fee_collection.student_detail.last_name }}{% endif %}
+                <br />
+                Standard:
+                {{ fee_collection.standard_name }}
+                <br>
+                Parent : {% if fee_collection.student_detail.student_parent.parent.father_name %}{{ fee_collection.student_detail.student_parent.parent.father_name|upper }}
+                {% else %} {% if fee_collection.student_detail.student_parent.parent.mother_name %} {{ fee_collection.student_detail.student_parent.parent.mother_name|upper }} {% endif %}
+                {% endif %}
+            </td>
+            <td class="noborder" style="font-weight: bold;">
+                Date: {{ fee_collection.transaction_date }} <br />
+                Sec: {{ fee_collection.enrollment_data.section_name }}<br />
+            </td>
+        </tr>
+    </table>
+
+    <!-- Receipt Body and Footer -->
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='40%' style="text-align:center">Particulars</th>
+                <th width='30%' style="text-align:center">Terms</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+            <tr>
+                <td>{% for fee in fee_collection.payment_detail %}
+                    {{ forloop.counter }}</br>{% endfor %}
+                </td>
+                <td>{% for fee in fee_collection.payment_detail %}
+                    {% if fee.fee_type_name == 'New Admission' or fee.fee_type_name == 'Re Admission' %}
+                    Tuition Fee
+                    {% else %}
+                    {{ fee.fee_type_name }}
+                    {% endif %}
+                    </br>{% endfor %}</td>
+                <td>{% for fee in fee_collection.payment_detail %}{{ fee.fee_payment_terms }}</br>{% endfor %}
+                <td style='text-align:right'>{% for fee in fee_collection.payment_detail %}
+                    {{ fee.amount_paid|floatformat }}</br>{% endfor %}</td>
+            </tr>
+            <tr style='height:30px'>
+                <td colspan="3" style='text-align:right'>TOTAL </td>
+                <td style='text-align:right'> ₹ {{ fee_collection.total_amount | floatformat  }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table style="width: 100%" class="noborder" colspan="2">
+        <tr class="noborder">
+            <td class="noborder">
+                Discount : {{student_fee_summary.total_concession_adjustment | floatformat }}/- <br />
+                Amount in words: {{ amount_in_words|title }} Only<br />
+                Total Pending Amount: {{ student_fee_summary.total_pending_amount|floatformat }}<br />
+                <div>Mode of Payment : {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}</div>
+                {%if fee_collection.payment_ref_num %}
+                <div>Transaction ID :  ({{fee_collection.payment_ref_num}})  </div> {% endif %}
+                Receipt Generated at : {{ today }}
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:100%;margin-top:30px" class="noborder">
+        <td style="text-align:right;" class="noborder"> Authorized Signatory</td>
+    </table>
+</div>
+
+{% if not forloop.last and forloop.counter|divisibleby:"2"%}
+<div style="page-break-after: always;"></div>
+{% endif %}
+{% endfor %}
+
+</html>

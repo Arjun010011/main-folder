@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fee Advance Receipt</title>
+    <style>
+        @page { size: A4 }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box {
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div>
+    {% for count in number_of_copies %}
+    {% if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top: 25px"></div>
+        <div style="text-align:right;margin-right:10px">Student Copy</div>
+    {% else %}
+        <div style="text-align:right;margin-right:10px">Office Copy</div>
+    {% endif %}
+    <div style='height:147mm;padding-top: 20px'>
+        <table style="width:100%;">
+            <tr>
+                {% if institute.logo %}
+                <td style="text-align:center;width: 100px;">
+                    <img src="{{ institute.logo.file.url }}" style="width: 100px;height: auto;"/>
+                </td>
+                <td style="text-align:center;padding: 8px;">
+                {% else %}
+                <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                    {% if institute.trust_name %}
+                    <span>{{ institute.trust_name }}</span>
+                    {% endif %}
+                    <div style="font-size: 20px;font-weight: bold;">
+                        {{ institute.name }}
+                    </div>
+                    <div style="line-height: 25px;">
+                        {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                        {% if institute.pincode %} - {{ institute.pincode }}{% endif %}<br/>
+                        {% if institute.tel_num %}Ph: {{ institute.tel_num }}{% if institute.tel_num_2 %}, {{ institute.tel_num_2 }}{% endif %}{% endif %}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:center;">
+                    <div class="feereceipt-box">FEE ADVANCE RECEIPT</div>
+                </td>
+            </tr>
+        </table>
+        <br/>
+        <h3><u><center>Student Details</center></u></h3>
+        <table style="width: 100%;">
+            <tbody>
+            <tr>
+                <td><b>Name:</b>
+                    {% if fee_advance_collection.student %}
+                    {{ fee_advance_collection.student.first_name }}
+                    {{ fee_advance_collection.student.middle_name|default:"" }}
+                    {{ fee_advance_collection.student.last_name }}
+                    {% else %} - {% endif %}
+                </td>
+                <td><b>Receipt No:</b> {% if fee_advance_collection.receipt_num %}{{ fee_advance_collection.receipt_num }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td><b>Reg No:</b> {% if fee_advance_collection.student %}{{ fee_advance_collection.student.current_reg_num|default:"-" }}{% else %} - {% endif %}</td>
+                <td><b>Date:</b> {% if fee_advance_collection.transaction_date %}{{ fee_advance_collection.transaction_date|date:"d/m/Y" }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td><b>Standard:</b> {% if fee_advance_collection.student.current_standard %}{{ fee_advance_collection.student.current_standard.name }}{% else %} - {% endif %}</td>
+                <td><b>Academic Year:</b> {% if fee_advance_collection.academic_year %}{{ fee_advance_collection.academic_year.start_date.year }}-{{ fee_advance_collection.academic_year.end_date.year }}{% else %} - {% endif %}</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3><u><center>Fee Advance Details</center></u></h3>
+        <table style="width: 100%;">
+            <thead>
+            <tr>
+                <th style="width: 50%;">Particulars</th>
+                <th style="text-align:right;width: 50%;">Amount (Rs.)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{% if fee_advance_collection.fee_advance_type %}{{ fee_advance_collection.fee_advance_type.name }}{% else %}Fee Advance{% endif %}</td>
+                <td style="text-align:right;">{{ fee_advance_collection.amount|floatformat:2 }}</td>
+            </tr>
+            <tr>
+                <th>TOTAL AMOUNT:</th>
+                <th style="text-align:right;">{{ fee_advance_collection.amount|floatformat:2 }}</th>
+            </tr>
+            </tbody>
+        </table>
+        <p><b>Amount in words:</b> {{ amount_in_words }}</p>
+        <h3><u><center>Transaction Details</center></u></h3>
+        <table style="width: 100%;">
+            <tr>
+                <td>Mode of Payment:</td>
+                <td>{% if fee_advance_collection.mode_of_payment %}{{ fee_advance_collection.mode_of_payment }}{% else %} - {% endif %}</td>
+            </tr>
+            <tr>
+                <td>Payment Ref No:</td>
+                <td>{% if fee_advance_collection.payment_ref_num %}{{ fee_advance_collection.payment_ref_num }}{% else %} - {% endif %}</td>
+            </tr>
+            {% if fee_advance_collection.payment_note %}
+            <tr>
+                <td>Note:</td>
+                <td>{{ fee_advance_collection.payment_note }}</td>
+            </tr>
+            {% endif %}
+        </table>
+        <br/>
+        <center>Note: This is a system generated receipt.</center>
+        <hr style="color:black"/>
+        <p align="left">Receipt Generated at: {{ today }}</p>
+        <p align="right">Powered By Edubricz</p>
+    </div>
+    {% if not forloop.last and forloop.counter|divisibleby:"2" %}
+        <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</div>
+</body>
+</html>

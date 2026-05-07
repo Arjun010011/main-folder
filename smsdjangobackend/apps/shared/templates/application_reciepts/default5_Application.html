@@ -1,0 +1,211 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+      }
+      table,
+      tr {
+        border: 1px solid black;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px transparent; /* Add borders to all table cells */
+      }
+      .address {
+        margin-left: 10px;
+        margin-top: 80px;
+      }
+      .minwd {
+        min-width: 35%;
+      }
+      .minwd2 {
+        min-width: 35%;
+      }
+      .minwd3 {
+        min-width: 70%;
+      }
+      .minwd4 {
+        min-width: 50%;
+      }
+      .vertical-line {
+        border-left: 5px solid red; 
+        height: 170px; 
+        margin-left: 10%;
+      }
+    </style>
+  </head>
+<body>
+    <div style="display: flex; font-family: Arial, Helvetica, sans-serif;">
+        <div>
+            {% if institute.logo.file.url %}
+                <img src={{institute.logo.file.url}} style="height: 100px; width: 300px;"/>
+            {% endif %}
+        </div>
+
+        <div class="address">
+            {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+            {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+        </div>
+    </div>
+    
+
+    <div style="border: 1px solid black; border-bottom: 0px; display: flex; justify-content: space-between; font-family: Arial, Helvetica, sans-serif;">
+        <div> Fee receipt</div>
+        <div> Receipt No.: {% if application_receipt.receipt_num %}{{application_receipt.receipt_num}}{% endif %}</div>
+        <div style="text-align: right;">Date: {% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d/m/Y"}}
+            {% endif %} </div>
+    </div>
+
+    <div style="border: 1px solid black; display: flex; border-bottom: 0px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="width: 60%;">
+            <div style="display: flex;">
+                <div class="minwd"> Student Name </div>
+                <div>
+                    {% if application_receipt.student.first_name %}{{application_receipt.student.first_name}}
+                    {% endif %}{% if application_receipt.student.middle_name %}
+                    {{application_receipt.student.middle_name}}{% endif %}{% if application_receipt.student.last_name%}
+                    {{application_receipt.student.last_name }}{% endif %}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Batch </div>
+                <div>
+                    {% if application_receipt.student.current_standard.name %}
+                        {{application_receipt.student.current_standard.name}}{% endif %}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Father's/ Guardian's <br> Name</div>
+                <div>
+                    {{father_name|upper}}
+                </div>
+            </div>
+            <!--
+            <div style="display: flex;">
+                <div class="minwd"> Finance Fee Collection </div>
+                <div>
+                     {{fee_collection.fee_payment_terms}}
+                </div>
+            </div>
+            -->
+        </div>
+
+        <div style="width: 40%;">
+            <div style="display: flex;">
+                <div class="minwd2"> Course </div>
+                <div>
+                    {% if application_receipt.student.current_standard.name %}
+                    {{application_receipt.student.current_standard.name}}{% endif %}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd2"> Application No. </div>
+                <div>
+                    {% if application_receipt.student.application_num %}
+                    {{application_receipt.student.application_num}}{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid black; border-bottom: 0px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="display: flex;">
+            <div style="font-weight: bold;">Particulars</div>
+            <div style="font-weight: bold; margin-left: 77%;">Amount(₹)</div>
+        </div>
+        <div style="display: flex;">
+            <div>{{ application_receipt.name }}</div>
+            <div style="margin-left: 78.5%;">{{ application_receipt.amount_paid  | floatformat:2}}</div>
+        </div>
+    </div>
+    
+   
+
+    <div style="border: 1px solid black; display: flex; border-bottom: 0px; line-height: 10px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="width: 60%;">
+            <div style="display: flex;">
+                <div class="minwd"> Payment mode </div>
+                <div>
+                    {% if application_receipt.mode_of_payment %}
+                    {{application_receipt.mode_of_payment}} {% endif %}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                {% if application_receipt.mode_of_payment != 'Cash' %}
+                <div class="minwd"> Transaction ID </div> {% endif %}
+                <div>
+                    {{payment_ref_num}}
+                </div>
+            </div>
+    
+    
+        </div>
+
+        <div style="width: 40%;">
+            
+
+            <div style="display: flex;">
+                <div class="minwd3"> Total amount paid </div>
+                <div>
+                    {{ application_receipt.amount_paid  | floatformat:2}}
+                </div>
+            </div>
+    
+          
+        </div>
+    </div>
+
+    <div style="border: 1px solid black; line-height: 10px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="display: flex;">
+            <div style="min-width: 60%;"><b>Amount in Words</b> : {{ amount_in_words|title }}</div>
+            <div style="font-weight: bold; " >Amount Paid </div>
+            <div style="margin-left: 15%;">
+                {{ application_receipt.amount_paid  | floatformat:2}}
+            </div>
+        </div>
+        <!--
+        <div style="display: flex;">
+            <div style="font-weight: bold; margin-left: 0.5%">Payment for invoice</div>
+            <div>: #</div>
+        </div>
+        -->
+    </div> <br><br>
+
+    <div style="color: grey; font-family: Arial, Helvetica, sans-serif;">Please make your payment before the due date to avoid late fees. You can payusing any of the following methods:</div>
+    <div style="display: flex;">
+        <div style="font-family: Arial, Helvetica, sans-serif;">
+            <div style="font-weight: bold; text-align: center; font-size: 20px;">Online Transfer</div>
+            <div><img src="https://edubricz-production.s3.ap-south-1.amazonaws.com/companies-images/jaihind/qr_code_for_payment_1.jpeg"/ style="height: 200px; width: 200px; margin-left: 5%;"></div>
+            <div style="font-size: 10px; font-weight: bold; text-align: center;">QR Code</div>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <div style="margin-left: 5%; font-family: Arial, Helvetica, sans-serif;">
+            <div style="font-size: 20px;"><b>Bank Transfer</b></div>
+            <div>Account Holder: <b>JAIHIND INTERNATIONAL SCHOOL</b></div>
+            <div>Account Number: <b>50200092090811</b></div>
+            <div>IFSC: <b>HDFC0008165</b></div>
+            <div>Branch: <b>DEVARACHIKKANAHALLI</b></div>
+            <div>Account Type: <b>CURRENT</b></div>
+        </div>
+    </div>
+</body>
+</html>

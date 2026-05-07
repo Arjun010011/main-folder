@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 25px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 2px;
+        }
+        .th-subject-view{
+           padding: 5px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                        {% if institute.document_details %} <img src={{institute.document_details.file }} style="width: 80px;height:80px;position:absolute;top:1.5%;left:-1%" /> {% endif %}
+                    </div>
+                    <div class="heading text-center ">
+                        {{ institute.name }} </br>
+                    </div>
+                </div>
+            </tr>
+            <tr>
+                <div class="t-center mt-5" style="font-size: 12px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                </div>
+            </tr>
+            <tr>
+                <div class="address-heading t-center fs-bold">
+                    {{ examDetail.exam_type.name | title }}, {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <div class="address-heading t-center fs-20 fs-bold">Portions Copy</div>
+                </td>
+            </tr>
+        </table>
+        <table style="width: 100%;margin-top:20px">
+                    <tr>
+                        <td>Class:{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+                    </tr>
+        </table>
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:20px">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Portions</th>
+            </tr>
+                <tr>
+                    <td class="td-subject-view">
+                        16/10/2023 <br/>
+                    </td>
+                    <td class="td-subject-view">Monday</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        English</div></td>
+                    <td class="td-subject-view" style="font-size: 12px;">
+                        *Vowels and Consonents</br>
+                        *Words with Vowel</br>
+                            a,e,i,o,u
+                        *Phoneme addition</br>
+                        *Read and Match
+                </tr>
+                <tr>
+                    <td class="td-subject-view">
+                        17/10/2023 <br/>
+                    </td>
+                    <td class="td-subject-view">Tuesday</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        Hindi</div></td>
+                    <td class="td-subject-view" style="font-size: 12px;">
+                        *अ to ऋ what comes before,after,inbetween</br>
+                        *Fill in the blanks
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-subject-view">
+                        18/10/2023 <br/>
+                    </td>
+                    <td class="td-subject-view">Wednesday</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        Maths</div></td>
+                    <td class="td-subject-view" style="font-size: 12px;">
+                        *Number 1 to 100
+                        *Missing number</br>
+                        *Object Counting</br>
+                        *Numbers name one-1 to twenty-20</br>
+                        *Biggest and Smallest</br>
+                        *Shapes</br>
+                        *Logical skills</br>
+                        *Count and write</br>
+                        *Count and write the number of shapes</br>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td-subject-view">
+                        19/10/2023 <br/>
+                    </td>
+                    <td class="td-subject-view">Thursday</td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        Kannada</div></td>
+                    <td class="td-subject-view"style="font-size: 12px;">
+                        *ಅ to ಞ</br>
+                        *Fill in the blanks</br>
+                        *ಸ್ವರಗಳು and ವ್ಯಂಜನಗಳು</br>
+                        *After,inbetween,Before</br>
+                        *Match the following
+                    </td>
+                </tr>
+                <tr>
+                        <td class="td-subject-view">
+                            20/10/2023 <br/>
+                        </td>
+                        <td class="td-subject-view">Friday</td>
+                        <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                            General Knowledge</div></td>
+                        <td class="td-subject-view"style="font-size: 12px;">
+                            *Parts of my body</br>
+                            *Good Food and Good health</br>
+                            *Fruits and vegetables</br>
+                            *Activities with my friends at school</br>
+                            *Birds</br>
+                            *Who am i</br>
+                            *Observing and tasting
+                        </td>
+                </tr>
+                <tr>
+                            <td class="td-subject-view">
+                                21/10/2023 <br/>
+                            </td>
+                            <td class="td-subject-view">Saturday</td>
+                            <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                                Drawing/Story</div></td>
+                            <td class="td-subject-view"style="font-size: 12px;">
+                                *Pg no
+                            </td>
+                </tr>
+        </table>
+    </div>
+    <div style="page-break-after: always;"></div>
+    {% endfor %}
+</body>
+</html>

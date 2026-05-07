@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="kn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Application for Transfer Certificate</title>
+
+    <style>
+        @page {
+            size: A4;
+        }
+
+        body {
+            font-family: "Times New Roman", serif;
+            font-size: 12px;
+            color: #000;
+            line-height: 1.3;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .title-kn {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .title-en {
+            font-weight: bold;
+            font-size: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        .row {
+            margin-top: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+        }
+
+        td {
+            border: 1px solid #000;
+            padding: 3px 5px;
+            vertical-align: top;
+        }
+
+        .col-left {
+            width: 55%;
+        }
+
+        .col-right {
+            width: 45%;
+            font-weight: bold;
+        }
+
+        .kn {
+            font-size: 12px;
+        }
+
+        .en {
+            font-size: 11px;
+        }
+
+        .signature {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature div {
+            width: 45%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="center">
+        <div class="title-kn">ವರ್ಗಾವಣೆಯ ನಿರ್ಣಯ ಪತ್ರ ಪಡೆಯುವ ಅರ್ಜಿ</div>
+        <div class="title-en">APPLICATION FOR TRANSFER CERTIFICATE</div>
+    </div>
+
+    <div class="row">
+        <span class="kn">ಮುಖ್ಯೋಪಾಧ್ಯಾಯ / ಪ್ರಾಚಾರ್ಯ/ರಿಗೆ</span>
+        <b> {{ principal_name|default:"-" }} </b>
+        <span class="kn">ಪ್ರೌಢಶಾಲೆ/ಕಾಲೇಜು</span>
+        <b>{{ school_name|default:"-" }}</b>
+    </div>
+
+    <div class="row">
+        <span class="en">To</span><br>
+        <span class="en">The Head Master / Principal</span>
+        <b> {{ principal_name|default:"-" }} </b>
+        <span class="en">High School/College</span>
+        <b>{{ school_name|default:"-" }}</b>
+    </div>
+
+    <div class="row">
+        <span class="kn">ಸ್ವಾಮಿ,</span><br>
+        <div style="margin-top: 5px;">
+            <span class="kn">ಈ ಕೆಳಕಂಡ ನನ್ನ ವಿವರದೊಡನೆ ವರ್ಗಾವಣೆ ಪತ್ರ ಕೊಡಬೇಕಾಗಿ ನಾನು ಪ್ರಾರ್ಥಿಸಿಕೊಳ್ಳುತ್ತೇನೆ.</span><br>
+        </div>
+        <span class="en">Sir,</span><br>
+        <div style="margin-top: 5px;">
+            <span class="en">I request you kindly to issue me T.C. I have furnished below the details for issuing the
+                Transfer Certificate.</span>
+        </div>
+    </div>
+
+    <table>
+        <tr>
+            <td class="col-left">
+                <b>1.</b> <span class="kn">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಹೆಸರು ಮತ್ತು ವಿಳಾಸ</span><br>
+                <span class="en">Name and Address of the pupil</span>
+            </td>
+            <td class="col-right">
+                <b>{{ student_full_name|default:"-" }}</b><br>
+                <b>{{ address|default:"-" }}</b>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>2.</b> <span class="kn">ತಂದೆಯ ಹೆಸರು</span><br>
+                <span class="en">Name of the Father</span>
+            </td>
+            <td><b>{{ father_name|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>3.</b> <span class="kn">ಹುಟ್ಟಿದ ದಿನಾಂಕ</span><br>
+                <span class="en">Date of Birth</span>
+            </td>
+            <td><b>{{ dob|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>4.</b> <span class="kn">ಶಾಲೆಗೆ ಸೇರಿದ ದಿನಾಂಕ</span><br>
+                <span class="en">Year when joined the school</span>
+            </td>
+            <td><b>{{ school_join_year|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>5.</b> <span class="kn">ವಿದ್ಯಾರ್ಥಿ/ವಿದ್ಯಾರ್ಥಿನಿಯನ್ನು ಯಾವ ತರಗತಿಗೆ ಸೇರಿಸಿದ್ದು</span><br>
+                <span class="en">Class to which he/she was admitted</span>
+            </td>
+            <td><b>{{ admitted_class|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>6.</b> <span class="kn">ಶಿಕ್ಷಣದ ಮಾಧ್ಯಮ</span><br>
+                <span class="en">Medium of Instruction</span>
+            </td>
+            <td><b>{{ medium_of_instruction|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>7.</b> <span class="kn">ರಿಯಾಯಿತಿ ಹೊಂದಿದ ವಿವರ (ಸ್ಕಾಲರ್ಷಿಪ್/ಪ್ರೀಷಿಪ್)</span><br>
+                <span class="en">Concession awarded (Scholarship or Freeship)</span>
+            </td>
+            <td><b>{{ concession_awarded|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>8.</b> <span class="kn">ಐಚ್ಛಿಕ ಪಾಠಗಳು</span><br>
+                <span class="en">Optional Subjects</span>
+            </td>
+            <td><b>{{ optional_subjects|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>9.</b> <span class="kn">ಶಾಲೆಗೆ/ಕಾಲೇಜಿಗೆ ಹಿಂದಿನ ಬಾಕಿ ಕೊಡಬೇಕಾಗಿದೆಯೇ ? ಅದರ ಸಂಬಂಧಪಟ್ಟ ಉಪಾಧ್ಯಾಯರಿಂದ
+                    ವಿವರ</span><br>
+                <span class="en">Dues if any to the School/College Recorded by the concerned Teachers</span>
+            </td>
+            <td><b>{{ dues_details|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>10.</b> <span class="kn">ವರ್ಗಾವಣೆ ನಿರ್ಣಯ ಪತ್ರ ತೆಗೆದುಕೊಳ್ಳಲು ಕಾರಣ</span><br>
+                <span class="en">Reasons to obtain T.C.</span>
+            </td>
+            <td><b>{{ reason_for_tc|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>11.</b> <span class="kn">ಶಾಲೆ ಬಿಡುವಾಗ ಯಾವ ತರಗತಿಯಲ್ಲಿ ಓದುತ್ತಿದ್ದುದು</span><br>
+                <span class="en">Class in which he/she was studying when he/she left the school</span>
+            </td>
+            <td><b>{{ class_studying|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>12.</b> <span class="kn">ಪರೀಕ್ಷೆಯಲ್ಲಿ ತೇರ್ಗಡೆಯಾಗಿದೆಯೇ ? ತೇರ್ಗಡೆಯಾದ ವರ್ಷ</span><br>
+                <span class="en">
+                    Whether he/she has pass in the Examination<br>
+                    Reg. No: <b>{{ reg_num|default:"-" }}</b>
+                </span>
+            </td>
+            <td>
+                <b>{{ is_passed|default:"-" }}</b>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>13.</b> <span class="kn">ಅರ್ಜಿ ಸಲ್ಲಿಸಿರುವುದು ಮೂಲ ಪ್ರತಿಗಾಗಿಯೇ ಅಥವಾ ನಕಲು ಪ್ರತಿಗಾಗಿಯೇ</span><br>
+                <span class="en">Applying for original or Duplicate Copy</span>
+            </td>
+            <td><b>{{ original_or_duplicate|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>14.</b> <span class="kn">ಅರ್ಜಿ ಸಲ್ಲಿಸಿದ ತಾರೀಖು</span><br>
+                <span class="en">Date of Submitting the Application</span>
+            </td>
+            <td><b>{{ appln_date|default:"-" }}</b></td>
+        </tr>
+
+        <tr>
+            <td>
+                <b>15.</b> <span class="kn">ವರ್ಗಾವಣೆ ನಿರ್ಣಯ ಪತ್ರ ಕೊಟ್ಟ ತಾರೀಖು</span><br>
+                <span class="en">Date of issuing the Transfer Certificate</span>
+            </td>
+            <td><b>{{ issue_date|default:"-" }}</b></td>
+        </tr>
+    </table>
+
+    <div class="signature">
+        <div>
+            <span class="kn">ನಿಮ್ಮ ವಿಧೇಯ ವಿದ್ಯಾರ್ಥಿ/ನಿ</span><br>
+            <span class="en">Your Obedient Student</span>
+        </div>
+
+        <div>
+            <span class="kn">ತಂದೆ/ಪೋಷಕರ ಸಹಿ</span><br>
+            <span class="en">Signature of the Father or Guardian</span>
+        </div>
+    </div>
+
+</body>
+
+</html>

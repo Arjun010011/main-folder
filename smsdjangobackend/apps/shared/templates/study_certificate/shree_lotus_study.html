@@ -1,0 +1,149 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4;margin:20px; }
+        body {
+            font-size: 16px;
+            color: #000;
+        }
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .school-logo img {
+            width: 100px;
+            height: 100px;
+        }
+        .school-info {
+            flex: 1;
+            text-align: center;
+            line-height: 25px;
+        }
+        .school-name {
+            font-size: 22px;
+            font-weight: bolder;
+            color: #1d1d1d;
+        }
+        .school-address {
+            font-size: 16px;
+        }
+        .student-photo img {
+            width: 120px;
+            height: 140px;
+            object-fit: cover;
+            border: 1px solid #000;
+        }
+        .certificate-title {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #0a4fa2;
+            padding: 5px 15px;
+            margin: 15px auto;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .content {
+            margin-top: 30px;
+            line-height: 45px;
+            font-size: 16px;
+        }
+        .underline {
+            display: inline-block;
+            border-bottom: 2px dotted #000;
+            min-width: 150px;
+            font-weight: bolder;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            line-height: 30px;
+        }
+        .note {
+            margin-top: 40px;
+            font-size: 14px;
+            text-align: center;
+            border-top: 1px dashed #888;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-row">
+        <div class="school-logo">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo">
+            {% endif %}
+        </div>
+
+        <div class="school-info">
+            <div style="font-size: 14px;"> Divya Jyothi Vidya Samstha(R) </div>
+            <div class="school-name" style="color:red">ಶ್ರೀ ಲೋಟಸ್ ಪಬ್ಲಿಕ್ ಪ್ರೌಢ ಶಾಲೆ</div>
+            <div class="school-name">SHREE LOTUS PUBLIC HIGH SCHOOL</div>
+            <div class="school-address">
+                Thavarekere, Hosakote Taluk, Bangalore Rural District
+            </div>
+        </div>
+
+        <div class="student-photo">
+            {% if profile_pic_details %}
+                <img src="{{ profile_pic_details }}" alt="Student Photo">
+            {% endif %}
+        </div>
+    </div>
+
+    <div style="text-align: center;">
+        <div class="certificate-title">STUDY CERTIFICATE</div>
+    </div>
+    
+    <div class="content">
+        Admission No: <span class="underline">{{ admission_num }}</span><br>
+
+        This is to Certify that Sri/Smt/Kum. <span class="underline">{{ student_full_name }}</span>
+
+        S/o / D/o / W/o <span class="underline">{{ father_name }}</span> belongs to<span class="underline">{{ village }}</span> Village <span class="underline">{{ taluk }}</span>Taluk
+
+        <span class="underline">{{ district }}</span> District. He / She has studied in Shree Lotus Public High School
+
+        from <span class="underline">{{ from_academic_year }}</span> to <span class="underline">{{ to_academic_year }}</span>
+
+        from <span class="underline">{{ from_standard_name }}</span> standard to <span class="underline">{{ to_standard_name }}</span> standard and passed <span class="underline">{{ to_standard_name }}</span>
+
+        Standard in the Year: <span class="underline">{{ to_academic_year }}</span><br><br>
+
+        His / Her Date of Birth: <span class="underline">{{ dob_str }}</span><br>
+        His / Her Record No. & Date: <span class="underline">{{ recordnum_date }}</span><br>
+        Date of leaving School / College: <span class="underline">{{ date_leaving_school }}</span><br><br>
+
+        This Certificate is issued according to records of our School / College.
+    </div>
+
+    <div class="footer">
+        <div>
+            Date: <span class="underline">{{ today_date }}</span><br>
+            Place: <span class="underline">Thavarekere</span>
+        </div>
+        <div style="text-align: right;">
+            Signature & Seal of the<br>
+            Head Master / Principal
+        </div>
+    </div>
+    <br>
+
+    <div class="note">
+        NOTE: IF THE CANDIDATE STUDIED IN MORE THAN ONE SCHOOL / COLLEGE,<br>
+        THEY HAVE TO PRODUCE SEPARATE CERTIFICATE
+    </div>
+
+</body>
+</html>

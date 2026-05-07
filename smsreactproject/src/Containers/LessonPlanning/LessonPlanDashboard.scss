@@ -1,0 +1,99 @@
+.lp-dashboard-container {
+  padding: 24px;
+  
+  .summary-card {
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    border: none;
+    height: 100%;
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px -10px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-content {
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    &.completed {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border: 1px solid #bbf7d0;
+      .icon-box { background: #22c55e; color: white; }
+      .value { color: #166534; }
+    }
+    
+    &.allocated {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 1px solid #bfdbfe;
+      .icon-box { background: #3b82f6; color: white; }
+      .value { color: #1e40af; }
+    }
+    
+    &.pending {
+      background: linear-gradient(135deg, #fffaf5 0%, #fff7ed 100%);
+      border: 1px solid #ffedd5;
+      .icon-box { background: #f97316; color: white; }
+      .value { color: #9a3412; }
+    }
+    
+    &.today {
+      background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+      border: 1px solid #e9d5ff;
+      .icon-box { background: #a855f7; color: white; }
+      .value { color: #6b21a8; }
+    }
+
+    .icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .label {
+      font-size: 0.875rem;
+      color: #64748b;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+  }
+
+  .chart-paper {
+    border-radius: 16px;
+    padding: 24px;
+    height: 100%;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  .table-container {
+    margin-top: 32px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+    .MuiTableHead-root {
+      background-color: #f8fafc;
+      .MuiTableCell-head {
+        font-weight: 700;
+        color: #475569;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+}

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Transfer Certificate</title>
+    <style>
+        * {
+            padding: 0px;
+            margin: 0px;
+        }
+        @page {
+            size: A4;
+        }
+        .header {
+            display: flex;
+            border-top: none;
+            line-height: 30px;
+        }
+        .schoolname {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .school {
+            width: 100%;
+            margin-left: 5%;
+            font-size: 13px;
+            
+        }
+        .title {
+            font-size: 15px;
+            font-weight: bold;
+            text-align: center;   
+        }
+        .no {
+            width: 20%;
+            margin-right: 1%;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        /* .dotline {
+            border-bottom: 1px dotted black;
+            width: 70%;
+            margin-left: 70%;
+        } */
+        table,
+        tr,
+        td {
+            
+            border-collapse: collapse;
+            padding: 5px;
+            border-left: none;
+            border-right: none;
+            font-size: 11px;
+            /* font-weight: bold; */
+        }
+        .min-width {
+           min-width: 50%;
+        }
+        .nameofschl {
+            font-size: 10px;
+            text-align: center;
+        }
+        .standwidth {
+            min-width: 50%;
+        }
+        .display-flex {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="header">
+            <div class="logo">
+                {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="School Logo" style="width: 100px; height: 100px;">
+                {% endif %}
+            </div>
+
+            <div class="school">
+                <!-- <div>{% if institute.trust_name %}{{institute.trust_name}}{%endif%}</div> -->
+                <div class="schoolname">
+                    {{school_name}}
+                </div>
+               
+                <div>{{school_address}},  {{school_city}} - {{school_pincode}}</div>
+                <div style="display: flex;">
+                    <div>jaihindschool.org |</div>
+                    <div> | {{school_tel_num}} | </div>
+                    <div> | jaihindinternationalschool@gmail.com</div>
+                </div> 
+              
+            </div>
+        </div> <hr> <br>
+
+        <div>
+            <div class="title">SCHOOL RELIEVING CERTIFICATE</div><br>
+            <div class="display-flex">
+                <div>Certificate No. </div><div style="">{{tc_num}}</div>
+                <div style="margin-left: auto;">Date of Issue: {{today}}</div>
+            </div>
+        </div><hr><br>
+        
+        
+        
+
+        <table style="width: 100%;font-family: 'Times New Roman', Times, serif;">
+            <tr>
+                <td class="min-width">Name of the Student</td>
+                <td>: {{student_full_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Mother's Name</td>
+                <td>: {{mother_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Father's/Guardian's Name</td>
+                <td>: {{father_name}}</td>
+            </tr>
+            <tr>
+                <td class="min-width">Nationality</td>
+                <td>: {{nationality}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Whether the Candidate belongs to Schedule Cast or Schedule Tribe or OBC</td>
+                <td>: {{is_sc_st}} </td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Date of first admission in the school</td>
+                <td>: {{date_of_admission_or_promotion}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Date of birth according to the admission register</td>
+                <td>: {{dob|date:"d-m-Y"}} {{dob_in_words|title}}</td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Place of birth</td>
+                <td>: {{place_of_birth}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Class in which last studied</td>
+                <td>: {{to_standard_name}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">School/Board Annual examination last taken with result</td>
+                <td>: {{exam_last_taken}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Whether qualified for promotion to the higher class</td>
+                <td colspan="2">: {{is_qualified}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Month up to which the student has paid the fees</td>
+                <td>: {{months_student_paid_fees}} </td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Any fee concession availed of, if so, the nature of concession</td>
+                <td>: {{fee_concession}} </td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Total number of working days</td>
+                <td>: {{no_of_school_days}}</td>
+            </tr>
+
+            <tr>
+                <td class="min-width">Total number of working days student present in the school</td>
+                <td>: {{no_of_days_attended}}</td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Whether NCC Cadet/Boy Scout/Girl Guide</td>
+                <td>: {{ncc_cadet}} </td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Games played or extra curricular activities in which the student participated</td>
+                <td>: {{extra_curriculam}} </td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">General conduct</td>
+                <td>: {{general_conduct}} </td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Date of application for certificate</td>
+                <td>: {{appln_date}}</td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Date of issue of certificate</td>
+                <td>: {{issue_date}}</td> 
+            </tr>
+
+
+            <tr>
+                <td class="min-width">Reason for leaving the school</td>
+                <td>: {{reason_for_leaving}} </td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Any other remarks</td>
+                <td>: {{any_other_remarks}} </td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">Character and Conduct</td>
+                <td>: {{stud_char}}</td> 
+            </tr>
+
+            <tr>
+                <td class="min-width">STS Number</td>
+                <td>: {%if sts %}{{sts}}{%endif%}</td> 
+            </tr>
+        </table> 
+    </div>
+</body>
+</html>
+
+
+
+
+
+

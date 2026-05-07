@@ -1,0 +1,147 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+        .page{
+            margin: 30px 10px 0px 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    {% for count in number_of_copies %}
+            <div class='page'>
+                <table style="width:100%;border-collapse: collapse;">
+                    <tr>
+                        <td colspan="2" style="padding: 8px;">
+                            <div style='display:flex;justify-content:center;padding-right:30px'>
+                                <div style='text-align:left;'>
+                                    {% if institute.logo.file.url %}
+                                        <img src={{ institute.logo.file.url }}
+                                        style="width: 80px;height: 45px;"/>
+                                    {% endif %}
+                                </div>
+                                <div style='text-align:center;padding-left:50px;'>
+                                    <div style="font-size: 19px;font-weight: bold;">
+                                        {{ institute.name }} Affilated to CBSE-831242  </br>
+                                    </div>
+                                    <div style="line-height: 25px;font-size:18px;padding-top:5px;">
+                                        {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                                        {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table style="width: 100%;border-collapse: collapse">
+                    <tr style="height:32px;">
+                        <td class='noborder' style='vertical-align:top;width:40%;'> {{today_date_time|date:'d-M-Y h:i A'}}</td>
+                        <td class='noborder bold' style='font-size: 12px;'>
+                            Fee Receipt {{fee_collection.academic_year.start_date|date:"Y"}} -  {{fee_collection.academic_year.end_date|date:"Y"}}
+                        </td>
+                        <td class='noborder'> INVOICE# {% if fee_collection.receipt_num %}{{fee_collection.receipt_num}}{% endif %}</td>
+                    </tr>
+                </table>
+                <table style="width: 100%;border-collapse: collapse;font-size: 12px;">
+                    <tr>
+                        <td class='noborder bold line-height' style='width:60%;vertical-align:top'> Student Name : 
+                            <b>{% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                            {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                            {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}</b>
+                            <br/>
+                            Standard & Section :
+                            <b>{{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}-{{fee_collection.enrollment_data.section_name}}{%endif%}</b>
+                            <br/>
+                            Address:{% if fee_collection.student_address.0.address %}{{fee_collection.student_address.0.address}}{%endif%}
+                        </td>
+                        <td class='bold line-height'>
+                            Father Name:  {{fee_collection.student_detail.student_parent.parent.father_name}} <br/>
+                            Payment Mode: {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %} <br/>
+                            Mobile : {{fee_collection.student_detail.mobile_num}}
+                        </td>
+                    </tr>
+                </table>
+                <table style="width:100%;border-collapse: collapse">
+                    <thead>
+                    <tr style="height: 32px;">
+                        <th style="width:10%;">Sl.No</th>
+                        <th>Particulars</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for payment_data in fee_collection.payment_detail_fee_type %}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{payment_data.fee_type_name}}</td>
+                            <td>{{payment_data.amount_paid|floatformat|intcomma}}
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan='2' style='font-weight:bold;line-height:1.5;height: 28px;'>
+                            Amount Paid <br/>
+                        </td>
+                        <td style='font-weight:bold;line-height:1.5'>
+                            {{fee_collection.total_amount | floatformat |intcomma}}/-<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan='2' style='font-weight:bold;line-height:1.5;height: 28px;'>
+                            Total Adjusted Amount <br/>
+                        </td>
+                        <td style='font-weight:bold;line-height:1.5'>
+                            {{student_fee_summary.total_concession_adjustment | floatformat |intcomma}}/-<br/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='vertical-align:bottom;border-right:0px;color:gray;text-align: center;height: 28px;' colspan='3'>
+                            The fee once paid will not be refunded for any reason.</br>
+                            This is a computer-geneated document.No signature is required.
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                {% if not forloop.last %}
+                    <div style="page-break-after: always;"></div>
+                {% endif %}
+            </div>
+        {% endfor %}
+</body>
+</html>

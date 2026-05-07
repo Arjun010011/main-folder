@@ -1,0 +1,173 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+        margin:0px;
+      }
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        border-bottom: 0px;
+      }
+      table {
+        width: 100%;
+      }
+      .schldetail {
+        display: flex;
+        height: 120px;
+      }
+      .logo {
+        display: flex;
+        padding-left: 8%;
+        position: absolute;
+        margin-bottom: 5%;
+      }
+      .schoolname {
+        text-align: center;
+        font-size: 25px;
+      }
+      .address {
+        text-align: center;
+        width: 70%;
+        line-height: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .table3 {
+        border-bottom: 1px solid black !important;
+      }
+      .authsign {
+        height: 50px;
+        padding-left: 10px;
+        margin-top: auto;
+        vertical-align: bottom;
+      }
+      .container {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+      .noborder-left{
+        border-left:0px solid black
+      }
+      .noborder-right{
+        border-right:0px solid black
+      }
+      .noborder{
+        border:0px solid black
+      }
+    </style>
+  </head>
+<body>
+{% for count in number_of_copies %}
+    <div class="container">
+        <table>
+          <tr>
+            <td colspan="2" style="padding: 8px;">
+                <div style='display:flex;justify-content:center;padding-right:30px'>
+                    <div style='text-align:left;'>
+                            <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/vmps/god+photo"
+                            style="width: 100px;height: 100px;"/>
+                    </div>
+                    <div style='text-align:center;padding-left:50px;'>
+                        <div style="font-size: 32px;font-weight: bold;">
+                            MANJUNATHA ENTERPRISES </br>
+                        </div>
+                        <div style="line-height: 25px;font-size:18px;padding-top:5px;">
+                          Peenya 2nd Stage, Bangalore - 91
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="2" class="noborder-right">
+                    <div>Receipt No :
+                        {% if fee_collection.receipt_num %}{{fee_collection.receipt_num|title}}{% endif %}
+                      </div>
+                    <div>Student Name :
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                    </div>
+                </td>
+                <td colspan="1" class="noborder-left" style="text-align:right;vertical-align: top;padding-right:30px;">
+                  <div>
+                    Class :
+                    {{fee_collection.standard_name}}
+                  </div>
+                    <div>Date :
+                        {{fee_collection.transaction_date}}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:160px;">Sl.No</td>
+
+                <td style="width:300px;">Particulars</td>
+
+                <td style="text-align: center;">Amount</td>
+            </tr>
+            <tr style="font-weight: lighter;">
+                <td>{%for payment in fee_collection.vidyamandir_book_fee_receipt.payment_detail_fee_type %}
+                  {%if payment.fee_type_alias_name %}
+                    {% ifchanged payment.fee_type_alias_name %}
+                    {{forloop.counter}}<br>
+                    {% endifchanged %}
+                  {%else%}
+                  {{forloop.counter}}<br>
+                  {%endif%}
+                  {%endfor%}
+                </br>
+                </td>
+                <td>
+                  {% for payment in fee_collection.vidyamandir_book_fee_receipt.payment_detail_fee_type %}
+                  {%if payment.fee_type_alias_name %}
+                    {% ifchanged payment.fee_type_alias_name %}
+                      {{ payment.fee_type_alias_name }}<br>
+                    {% endifchanged %}
+                  {%else%}
+                  {{ payment.fee_type_name }}<br>
+                  {%endif%}
+                  {% endfor %}
+                </td>
+                </br>
+                </td>
+                <td style="text-align: center;">{{fee_collection.vidyamandir_book_fee_receipt.total_amount_paid|floatformat|intcomma}}</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right;">Grand Total</td>
+                <td style="text-align: center;font-weight: lighter;">{{fee_collection.vidyamandir_book_fee_receipt.total_amount_paid|floatformat|intcomma}}</td>
+            </tr>
+        </table>
+        <table class="table3">
+            <tr class="noborder">
+                <td colspan="2" class="noborder" style="text-align: right;font-weight: lighter;">For <b>MANJUNATHA ENTERPRISES</b></td>
+            </tr>
+            <tr class="noborder">
+                <td class="authsign noborder" style="padding-right: 20px;font-weight: lighter;">E & OE</td>
+                <td class="authsign noborder" style="text-align: right;padding-right: 80px;font-weight: lighter;">Signature</td>
+            </tr>
+        </table>
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+    </div>
+{%endfor%}
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.6rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 0px;
+        }
+        .th-subject-view{
+           padding: 0px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+            height: 100%;
+            margin: 30px;
+            padding-top: 15px;
+            border: 5px solid black; 
+            box-sizing: border-box;
+            line-height:1.8; 
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        body{
+            font-size: 12px;
+        }
+
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 0rem;height: 515px">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                        {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 100px;height:100px;position:absolute;margin-top: -14px;" /> {% endif %}
+                    </div>
+                    <div class="heading text-center " style="padding:10px;">
+                        {{ institute.name|upper }},{{institute.city |upper}}</br>
+                    </div>
+                    <div style="position:relative"></div>
+                     <img src=https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/saraswthi_vidyamandir/saraswathi-cbse-logo.png style="width: 150px;height:120px;position:absolute;margin-left:550px;margin-top:-60px;" />
+                    </div>
+                </div>
+            </tr>
+            <!-- <tr>
+                <div class="address-heading t-center mt-5">
+                    {{ institute.address }}{%if institute.city %}, {{ institute.city }}{% endif %}{%if institute.pincode %}-{{institute.pincode}}{%endif%}
+                </div>
+            </tr> -->
+            <tr>
+                <div class="address-heading t-center fs-bold">
+                    {{ examDetail.exam_type.name | upper }}, {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                </div>
+            </tr>
+            <tr>
+                <td>
+                    <div class="address-heading t-center fs-20 fs-bold">{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}  </div>
+                </td>
+            </tr>
+        </table>
+
+        <table style="width: 100%;">
+                    <tr>
+                        <td style="text-align: left;" >School code : 46875</td>
+                        <td style="text-align:right;">CBSE AFFILIATION NO</td>
+                        <td >: 831242</td>
+                    </tr>
+                  
+        </table>
+
+         <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;text-align: left; margin-bottom: -5px;font-size:12px;">
+                    <tr>
+                        <th  style="text-align: left;">Student Name:&nbsp;&nbsp; {{student.student_data.full_name | title }}</td>
+                        <!-- <td class="td-subject-view" style="width:20%;text-align: left;">Class/Section:&nbsp;&nbsp;{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td> -->
+                        <th style="text-align: right;">Roll No </td><td>:&nbsp;&nbsp; {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}</td>
+                    </tr>
+        </table>
+
+
+
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;margin-top:5px ; font-size:12px;">
+           
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Timings</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">R S Sign</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view" style="font-size: 13px;">
+                        {{subject.fordate|date:'d-M-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view" style="font-size: 13px;">
+                        {{ subject.start_time }} - {{ subject.end_time }}
+                    </td>
+                    <td class="td-subject-view">{{subject.fordate|date:'l'}}</td>
+                    {% if student.student_data.standard_section__standard__name == "LKG" and subject.subject_name == "ENGLISH ORAL & ENGLISH" %}
+                        <td class="td-subject-view"><div style="width:90%;font-size:7px;padding:0px;">
+                            {% if subject.subject_name == 'English Grammar' %}
+                                E.G
+                            {% else %}
+                                {{subject.subject_name | upper}}</div></td>
+                            {% endif %}
+                    {% elif student.student_data.standard_section__standard__name == "LKG" and subject.subject_name == "MATHEMATICS & PHONICPRACTICE" %}
+                    <td class="td-subject-view"><div style="width:90%;font-size:7px;padding:0px;">
+                        {% if subject.subject_name == 'English Grammar' %}
+                            E.G
+                        {% else %}
+                            {{subject.subject_name | upper}}</div></td>
+                        {% endif %}
+                    {% elif student.student_data.standard_section__standard__name == "LKG" and subject.subject_name|length >= 28 %}
+                    <td class="td-subject-view"><div style="width:90%;font-size:6px;padding:0px;">
+                        {% if subject.subject_name == 'English Grammar' %}
+                            E.G
+                        {% else %}
+                            {{subject.subject_name | upper}}</div></td>
+                        {% endif %}
+                    {% elif student.student_data.standard_section__standard__name == "LKG" %}
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;font-size:11px;">
+                        {% if subject.subject_name == 'English Grammar' %}
+                            E.G
+                        {% else %}
+                            {{subject.subject_name | upper}}</div></td>
+                        {% endif %}
+                    {% else %}
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;font:9px;">
+                        {% if subject.subject_name == 'English Grammar' %}
+                            E.G
+                        {% else %}
+                            {{subject.subject_name | upper}}</div></td>
+                        {% endif %}
+                    {%endif%}
+                    <td class="td-subject-view">
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <p style="margin:-4px;margin-top: 4px;margin-left:1px; font-size:12px;">
+            {% if student.student_data.standard_section__standard__name == "Pre-KG" %}
+            Note:-
+            i) Result is on March 22nd at 10:30am
+            ii) School reopens on May 19th 2025
+            iii) Please pay school fees before May
+            {% elif student.student_data.standard_section__standard__name == "LKG" %}
+            Note:-
+            i) Result is on March 22nd at 10:30am
+            ii) School reopens on May 19th 2025
+            iii) Please pay school fees before May
+            {% elif student.student_data.standard_section__standard__name == "UKG" %}
+            Note:-
+            i) Result is on March 22nd at 10:30am
+            ii) Graduation day is on March 22nd
+            iii) School reopens on May 19th 2025
+            iv) Please pay school fees before May
+            {% elif student.student_data.standard_section__standard__name == "Grade 1" %}
+                Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 15th May 2025. Please try to pay school fees before May.
+            {% elif student.student_data.standard_section__standard__name == "Grade 2" %}
+                Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 12th May 2025. Please try to pay school fees before May.
+            {% elif student.student_data.standard_section__standard__name == "Grade 3" %}
+                Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 15th May 2025. Please try to pay school fees before May.
+            {% elif student.student_data.standard_section__standard__name == "Grade 4" %}
+                Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 15th May 2025. Please try to pay school fees before May.
+            {% elif student.student_data.standard_section__standard__name == "Grade 5" %}
+            Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 15th May 2025. Please try to pay school fees before May.
+            {% elif student.student_data.standard_section__standard__name == "Grade 6" %}
+            Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 12th May 2025. Please try to pay school fees before May.
+            {% elif student.student_data.standard_section__standard__name == "Grade 7" %}
+            Result is on : 25th March 2025 at 10:00 am to 12:00 pm Academic session starts from 12th May 2025. Please try to pay school fees before May.
+            {% else %}
+                  ...
+            {% endif %}
+        </p>
+
+
+        <div class="display-flex;position:relative;padding-bottom:15px;">
+            <div style="position:absolute;margin-top: 30px;">
+                <b>CLASS TEACHER'S SIGN</b>
+            </div>
+            <div style="position:absolute;right:15px;">
+                <img src="https://production-edubricz.s3.amazonaws.com/18/Screenshot_from_2025-01-29_15-17-01.png" style="width: 150px;height:30px;"/><br/>
+                <b>PRINCIPAL SIGN</b>
+            </div>
+        </div>
+    </div>
+    {% if not forloop.last and forloop.counter|divisibleby:"2"%}
+        <div style="page-break-after: always;"></div>
+    {%else%}
+    <div style="margin-top: 30px;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

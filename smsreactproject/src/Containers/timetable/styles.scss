@@ -1,0 +1,489 @@
+@import "./../../styles/helpers.scss";
+
+/* Professional theme overrides for Auto Generate Timetable */
+.auto-generate-timetable-container {
+  background: #f5f7fb;
+  padding: 8px;
+}
+
+.auto-generate-timetable-container .MuiPaper-root.p-20px {
+  border: 1px solid #e6eaf2;
+  box-shadow: 0 8px 24px rgba(14, 30, 62, 0.06), 0 2px 8px rgba(14, 30, 62, 0.04);
+  border-radius: 12px;
+}
+
+.auto-generate-timetable-container .MuiTypography-h5 {
+  color: #20304a;
+  letter-spacing: 0.2px;
+}
+
+.auto-generate-timetable-container .MuiButton-root {
+  text-transform: none;
+  font-weight: 600;
+}
+
+.auto-generate-timetable-container .MuiButton-containedPrimary {
+  background: linear-gradient(135deg, #234aa5 0%, #1c7ed6 100%);
+}
+
+.auto-generate-timetable-container .MuiButton-outlinedPrimary {
+  border-color: #1c7ed6;
+  color: #1c7ed6;
+}
+
+/* Timetable table visuals */
+.auto-generate-timetable-container table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.auto-generate-timetable-container thead th {
+  background: #eff3fb !important;
+  color: #2b3a55;
+  border-color: #e6eaf2 !important;
+}
+
+.auto-generate-timetable-container tbody td,
+.auto-generate-timetable-container tbody th {
+  border-color: #edf0f5 !important;
+}
+
+.auto-generate-timetable-container tbody tr:nth-child(odd) td:first-child {
+  background: #ffffff !important;
+}
+.auto-generate-timetable-container tbody tr:nth-child(even) td:first-child {
+  background: #fafbfe !important;
+}
+
+.auto-generate-timetable-container .timetable-summary-chip {
+  background: #f0f4ff;
+  color: #2448a0;
+  border: 1px solid #dfe7ff;
+}
+
+.auto-generate-timetable-container .unassigned-cell {
+  color: #8a94a6;
+}
+
+.enrollment-row-total-section {
+  margin-left: auto;
+  font-weight: bold;
+  color: $panel-row-total;
+  font-size: 1.875rem;
+}
+.pannel-details {
+  width: 100%;
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  padding-bottom: 10px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.panel-details-row {
+  display: flex;
+  flex-flow: wrap;
+  // justify-content: space-evenly;
+  width: 100%;
+}
+.card-box {
+  margin: 0 20px;
+  width: 290px;
+}
+.enrollment-section-card {
+  background: $card-bg-color;
+  box-shadow: $card-box-shadow;
+  border-radius: 20px;
+  position: relative;
+  min-height: 41vh;
+}
+.enrollment-section-card-head {
+  border-radius: 22px 22px 0 0;
+  background: $button-color;
+  color: white;
+  padding: 15px;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 22px;
+}
+.custom-card-header {
+  font-weight: 900;
+  font-size: 1.6rem;
+}
+
+.custom-card-body-data-no-bottom-line {
+  // background: #e2e9f1;
+}
+
+.alignEnd {
+  align-self: flex-end;
+  margin-top: 0.5rem;
+}
+
+.action {
+  .deletebutton {
+    // opacity: 4;
+    transition: 0.3s;
+    margin-top: -4px;
+    .delete-enroll-icon {
+      color: #e3e4e6;
+    }
+  }
+}
+.delete-icon {
+  padding: 0 !important;
+}
+// .action:hover {
+//     .deletebutton{
+//         opacity: 1;
+//         .delete-enroll-icon{
+//             // color: red;
+//         }
+//     }
+// }
+.card-data-body {
+  height: 254px;
+  overflow-y: auto;
+  padding-top: 0px !important;
+}
+.action-box {
+  display: flex;
+  background: #fefefe;
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.110823);
+  border-radius: 30px;
+  padding: 10px 20px;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
+}
+.edit-icon {
+  padding: 3px 1px;
+}
+.action-fab {
+  color: #a5a5a5;
+}
+.action-fab:hover {
+  background: #f3f3f3;
+}
+.dropdown-outer-box {
+  display: flex;
+  // justify-content: space-between;
+}
+.enroll-dropdown-item {
+  margin: 20px 20px 20px 0;
+}
+.tab-row {
+  display: flex;
+  margin: 20px 0;
+}
+.enrolling-students-block {
+  background: #f7f9ff;
+  margin-left: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.enroll-block-item {
+  margin: auto;
+  text-align: center;
+  padding-top: 20px !important;
+  padding-bottom: 10px !important;
+}
+.enrolling-student-bock {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 370px;
+  // line-height: 20px;
+  margin: 15px auto 0 auto;
+  border-bottom: 1px solid gray;
+}
+.enrolling-student {
+  color: gray;
+}
+.close-enrolling-student {
+  margin-right: 10px;
+  color: red;
+}
+
+.disable-icon-period {
+  color: red;
+  cursor: pointer;
+}
+
+.enable-icon-period {
+  color: green;
+  cursor: pointer;
+}
+
+.create-period-plan {
+  border: 1px solid #c3c3c3;
+  padding: 0px 5px;
+  .dropdown-container {
+    height: 58px;
+    background-color: transparent;
+  }
+  .dropdown-container {
+    .dropdown-heading {
+      height: -webkit-fill-available;
+    }
+    .dropdown-heading {
+      .dropdown-heading-value {
+        font-size: 18px;
+      }
+    }
+    .dropdown-content {
+      z-index: 2000 !important;
+      background-color: white;
+      font-size: 16px;
+      padding: 5px;
+    }
+  }
+}
+
+.preview-period-plan-standard-name {
+  font-size: 22px;
+  text-transform: capitalize;
+  font-weight: 500;
+  margin-top: 34px !important;
+}
+
+.create-time-table-cell {
+  width: 160px;
+  height: 65px;
+  padding: 0px !important;
+  border: 1px solid rgba(224, 224, 224, 1) !important;
+  cursor: pointer;
+}
+
+.create-time-table-cell:hover {
+  background-color: honeydew;
+  font-weight: 500 !important;
+}
+
+.time-table-timing-box {
+  font-size: 13px;
+}
+
+.create-time-table-time-check {
+  justify-content: space-between;
+  padding: 0px 5px;
+  display: flex;
+}
+
+.create-time-table-subject-label {
+  padding: 0px 5px;
+}
+
+.inidividual-period-view {
+  padding: 0px 5px;
+  font-size: 13px;
+}
+
+.create-time-table-staff-label {
+  padding: 0px 5px;
+}
+
+.selected-time-period {
+  background-color: honeydew;
+  font-weight: bolder !important;
+}
+
+.timetable-checkbox-style {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.create-time-table-cell-heading {
+  min-width: 200px;
+  height: 65px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 0px !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+}
+
+.create-time-table-cell-not-enable {
+  min-width: 200px;
+  height: 65px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 0px !important;
+  font-weight: 500 !important;
+}
+
+.create-time-table-cell-heading:hover {
+  background-color: honeydew;
+  font-weight: 500 !important;
+}
+
+.add-period-time-table-cell {
+  width: 120px;
+  max-height: 77px;
+  padding: 0px !important;
+  border: 1px solid rgba(224, 224, 224, 1) !important;
+  cursor: pointer;
+}
+.inidividual-period-time-table-cell {
+  width: 140px;
+  height: 50px;
+  padding: 0px !important;
+  border: 1px solid rgba(224, 224, 224, 1) !important;
+  cursor: pointer;
+}
+
+.inidividual-period-time-table-cell-heading {
+  min-width: 140px;
+  max-width: 150px;
+  height: 50px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 10px !important;
+  font-weight: 500 !important;
+}
+
+.add-period-time-table-cell:hover {
+  background-color: honeydew;
+  font-weight: 500 !important;
+}
+
+.add-period-time-table-cell-heading {
+  min-width: 120px;
+  max-width: 150px;
+  height: 50px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 10px !important;
+  font-weight: 500 !important;
+}
+
+.add-period-time-table-side-heading {
+  min-width: 200px;
+  height: 50px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 10px !important;
+  font-weight: 500 !important;
+}
+
+.add-period-time-table-side-heading-hover {
+  min-width: 200px;
+  height: 50px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 10px !important;
+  font-weight: 500 !important;
+  cursor: pointer;
+}
+
+.add-period-time-table-side-heading-hover:hover {
+  background-color: honeydew;
+  font-weight: 500 !important;
+}
+
+.add-period-time-table-time-check {
+  justify-content: space-between;
+  padding: 0px 10px;
+  display: flex;
+}
+
+.selected-break-time {
+  background-color: #e4ffe8 !important;
+  opacity: 0.7;
+}
+
+.time-table-info-icon {
+  width: 20px !important;
+  height: 20px !important;
+  color: red;
+}
+
+.time-table-info {
+  width: 20px !important;
+  height: 20px !important;
+  cursor: pointer;
+}
+
+.staff-view-time-table-cell {
+  width: 186px;
+  height: 65px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 10px !important;
+  font-weight: 500 !important;
+}
+
+.delete-staff-subject {
+  text-transform: capitalize !important;
+  border: 2px solid #e92020 !important;
+  box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16) !important;
+  border-radius: 8px !important;
+  padding: 1px !important;
+  margin-left: 10px !important;
+  width: 175px !important;
+  color: #e92020 !important;
+  background-color: white !important;
+}
+
+.staff-request-change-cell {
+  width: 100px;
+  height: 65px;
+  border: 1px solid #e0e0e0 !important;
+  padding: 0px 5px !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+
+.staff-request-change-cell:hover {
+  background-color: honeydew;
+  font-weight: bolder !important;
+  cursor: pointer;
+}
+
+.staff-request-change-timing-box {
+  font-size: 11px !important;
+}
+
+.staff-request-toggle-outer-div {
+  border: 1px solid #4b74ff;
+  box-sizing: border-box;
+  border-radius: 50px !important;
+  width: 307px;
+}
+
+.alt-teacher-label {
+  color: #4b74ff;
+}
+
+.selected-tc-list {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 370px;
+  margin: 0px auto 0 auto;
+  align-items: flex-end;
+}
+
+@media print {
+  @page {
+    size: 15mm 10mm;
+  }
+  html,
+  body {
+    height: 100%; /* Use 100% here to support printing more than a single page*/
+    width: 100%; /* Use 100% here to support printing more than a single page*/
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible;
+  }
+}
+
+// .time-table-container {
+//   @media print {
+//     transform: scale(0.9);
+//     transform-origin: 0% 0% 0px;
+//     overflow: visible;
+//   }
+// }
+
+// @media print {
+//   #scrollableDiv {
+//     width: 50%;
+//     height: 50% !important;
+//     overflow: visible;
+//   }
+// }

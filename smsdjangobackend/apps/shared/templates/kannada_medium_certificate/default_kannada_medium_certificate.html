@@ -1,0 +1,181 @@
+{% load static %}
+{% load transliteration %}
+<!DOCTYPE html>
+<html lang="kn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ಕನ್ನಡ ಮಾಧ್ಯಮದಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡಿದ ಅಭ್ಯರ್ಥಿಗಳ ಪ್ರಮಾಣ ಪತ್ರ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Kannada:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, 'Noto Serif Kannada', 'Tunga', sans-serif;
+            background: #f5f5f5;
+            border: 5px solid black;
+            border-style: double;
+        }
+
+
+        @page {
+            size: A5;
+            margin: 4mm;
+        }
+
+        .a5 {
+            width: 148mm;
+            height: 210mm;
+            margin: auto;
+            padding: 4mm 6mm;
+            box-sizing: border-box;
+            background: #fff;
+            position: relative;
+
+        }
+
+        .gov-info {
+            font-weight: bold;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-top: -10px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+            border: 5px solid black;
+            border-radius: 10px;
+            margin-left:7%;
+            margin-right: 7%;
+        }
+
+        .header h3 {
+            font-size: 23px;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 8px;
+            /* border: 2px solid #000; */
+            display: inline-block;
+            padding: 2px 4px;
+            border-radius: 6px;
+            background-color: white;
+            -webkit-print-color-adjust: exact !important;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+            /* soft shadow for contrast */
+            print-color-adjust: exact !important;
+        }
+
+        .para {
+            font-size: 13px;
+            line-height: 2.9;
+            text-align: justify;
+            margin: 36px 14px;
+        }
+
+        .line {
+            display: inline-block;
+            min-width: 145px;
+            padding: 0 3px;
+        }
+
+        .signature {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+        }
+
+        .signature div {
+            text-align: center;
+            width: 45%;
+        }
+
+        .seal {
+            border: 1.5px solid #000;
+            height: 60px;
+            width: 100px;
+            margin: 0 auto;
+            margin-top: 6px;
+        }
+
+        .note {
+            font-size: 11px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+            }
+
+            .a5 {
+                border: 2px solid #000;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="a4">
+
+        <div class="gov-info">
+            <div style="font-size: 12px;">
+                ಸರ್ಕಾರದ ಅಧಿಸೂಚನೆ ಸಂಖ್ಯೆ : ಡಿಪಿಎಆರ್ 71 ಎಸ್.ಆರ್.ಆರ್ 2001 ದಿನಾಂಕ 24-10-2002<br>
+                ಮತ್ತು ಸರ್ಕಾರದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 97 ಸನೆನಿ 2002 ದಿನಾಂಕ : 22-11-2002<br>
+                ಮತ್ತು ಸರ್ಕಾರದ ಆದೇಶ ಸಂಖ್ಯೆ : ಸಿಆಸುಇ 53 ಸನೆನಿ 2007 ದಿನಾಂಕ : 04-01-2008
+            </div>
+        </div>
+
+        <div class="header">
+            <span>ಕನ್ನಡ ಮಾಧ್ಯಮದಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡಿದ ಅಭ್ಯರ್ಥಿ ಪ್ರಮಾಣ ಪತ್ರ</span>
+        </div>
+
+       <p class="para">
+         &nbsp;&nbsp;ಶ್ರೀ / ಶ್ರೀಮತಿ <strong>{% if father_name %}{{ father_name|to_kannada }}{% else %}{{ mother_name|to_kannada }}{% endif %}</strong> ರವರ 
+        {{ student_son_daughter|to_kannada }} {%if student_identify %}{{student_identify|to_kannada}}{%else%} ಶ್ರೀ / ಶ್ರೀಮತಿ / ಕುಮಾರಿ{%endif%} <strong>{{ student_full_name|to_kannada }}</strong>,<strong>{{ address|to_kannada }}</strong> ಗ್ರಾಮದಲ್ಲಿ ವಾಸವಗಿರುವ ಇವರು. 
+        <strong>{{ from_standard_name|to_kannada }}</strong> ತರಗತಿಯಿಂದ <strong>{{ to_standard_name|to_kannada }}</strong> ತರಗತಿಯವರೆಗೆ 
+        <strong>{{ from_academic_year }} </strong>ಶೈಕ್ಷಣಿಕ ವರ್ಷದಿಂದ <strong>{{ to_academic_year }}</strong> ಶೈಕ್ಷಣಿಕ ವರ್ಷದವರೆಗೆ 
+        <strong>{{ school_name|to_kannada }} </strong>ಶಾಲೆಯಲ್ಲಿ ಕನ್ನಡ ಮಾಧ್ಯಮದಲ್ಲಿ ವ್ಯಾಸಂಗ ಮಾಡಿರುತ್ತಾರೆಂದು ಪ್ರಮಾಣೀಕರಿಸಲಾಗಿದೆ.
+        </p>
+
+
+
+        <div style="line-height:1.5; font-size: 13px;margin-left:20px;padding-bottom: 60px;">
+            ದಾಖಲಾತಿ ಸಂಖ್ಯೆ : <span class="line" style="min-width: 36%;">{{admission_num}}</span><br>
+            ದಾಖಲಾತಿ ದಿನಾಂಕ : <span class="line"  style="min-width: 34%;">{{admission_date}}</span><br>
+            ಶಾಲೆ ಬಿಟ್ಟ ದಿನಾಂಕ : <span class="line"  style="min-width: 34%;">{{left_date}}</span><br>
+            <!-- ದಿನಾಂಕ : <span class="line" contenteditable style="min-width: 44%;"></span><br>
+            ಸ್ಥಳ : <span class="line" contenteditable style="min-width: 47%;"></span> -->
+        </div>
+        <div class="para" style="text-align: start; line-height: 1.4; margin-top: 100px;">
+            <span style="display: block; font-weight: bold; padding-left: 65px;">(ಸಹಿ)</span>
+            <span style="display: block; font-size: 15px; font-weight: bold;padding-left: 28px;">ಕ್ಷೇತ್ರ
+                ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳು</span>
+
+            <div class="para" style="text-align: end; line-height: 1.4; margin-top: -40px;">
+                <span style="display: block; font-weight: bold; padding-right: 50px;">(ಸಹಿ)</span>
+                <span style="display: block; font-size: 15px; font-weight: bold;padding-left: 28px;">ಶಾಲಾ
+                    ಮುಖ್ಯೋಪಾಧ್ಯಾಯರು</span>
+            </div>
+        </div>
+
+
+
+
+    </div>
+</body>
+
+</html>

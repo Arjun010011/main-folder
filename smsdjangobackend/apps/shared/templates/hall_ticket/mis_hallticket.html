@@ -1,0 +1,152 @@
+{% load transliteration %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hallticket</title>
+  <style>
+      body {
+          line-height: 0.8rem;
+          font-family: Arial, sans-serif;
+      }
+      .t-center { text-align: center; }
+      .t-left { text-align: left; }
+      .t-right { text-align: right; }
+      .heading {
+          font-size: 18px;
+          font-weight: bold;
+          text-align: center;
+          margin-top: 5px;
+          {% comment %} text-align: center; {% endcomment %}
+      }
+      .w-100 { width: 100%; }
+      td { padding: 2px; vertical-align: top; }
+      .th-subject-view, .td-subject-view {
+          text-align: center;
+          border: 1px solid black;
+          padding: 5px;
+      }
+      @page {
+          size: A4;
+          margin: 5mm;
+      }
+      .fs-20 { font-size: 20px; }
+      .fs-bold { font-weight: bold; }
+      .address-heading { font-size: 16px; }
+      hr { border: 0; border-top: 1px solid #000; margin: 10px 0; }
+      {% comment %} .hallticket {
+          height: 48%;       /* roughly half page */
+          margin-bottom: 1%; /* spacing between two cards */
+          border-bottom: 1px dashed black; /* cut line */
+      } {% endcomment %}
+  </style>
+</head>
+<body>
+{% for student in student_list %}
+  <div class="hallticket">
+
+      <!-- Header -->
+      <table class="w-100" style="border-collapse: collapse; margin-bottom: 2px;">
+        <tr>
+          <!-- Logo Left -->
+          <td style="width: 10%; text-align: left;">
+            {% if institute.logo.file.url %}
+              <img src={{institute.logo.file.url}} style="width: 100px; height: 100px;margin-top: 4px;"/>
+            {% endif %}
+          </td>
+
+          <!-- School Name + Address Center -->
+          <td style="width: 100%;">
+            <div style="font-weight: bold; padding-left: 145px; font-size: 14px;">Sri Venkateshwara Educational Trust (R.)</div>
+            <div class="heading" style="width:100%;">MANASA INSTITUTE OF SCIENCE AND MANAGEMENT STUDIES</div>
+            <div style="line-height: 17px; font-size: 12px; margin-top: 5px;padding-left:45px;">
+              <span style="padding-left: 40px;font-style: italic;">(Approved by the Govt. of Karnataka, Affilliated to Bengaluru North University)</span><br/>
+              <span style="padding-left: 70px;font-weight: bold;">Hosur Main Road, Malur-563130, Kolar Dist. Karnataka.</span> <br/>
+              <span style="padding-left: 100px;">Tele : 08151-292678, M : 97310 03191</span> <br/>
+              <span style="padding-left: 25px;">www.manasainstitution.org &nbsp;&nbsp; E-mail: manasadegreecollege6134@gmail.com</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <!-- Exam Heading -->
+      <div class="address-heading t-center fs-bold" style="margin-top: -20px;">
+          {{ examDetail.exam_type.name | title }}
+      </div>
+      <div class="t-center fs-bold" style="margin-top: 10px; font-size: 18px;">
+          ADMIT CARD : {{ examDetail.academic_year.start_date|date:"Y" }} - {{ examDetail.academic_year.end_date|date:'y' }}
+      </div>
+
+      <!-- Student Details -->
+      <table class="w-100"><br/>
+        <tr>
+          <td style="width:17%">Class</td>
+          <td style="width:42%">:&nbsp;&nbsp; {{ student.student_data.standard_section__standard__name |to_standard_display| capfirst }} - '{{ student.student_data.standard_section__section__name | capfirst }}'</td>
+          <td style="width:17%">Name</td>
+          <td style="width:42%">:&nbsp;&nbsp; {{ student.student_data.full_name | title }}</td>
+        </tr>
+        <tr>
+          
+          <td >Roll No </td><td>:&nbsp;&nbsp; {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}</td>
+          <td style="text-align:left">Timings </td><td>:&nbsp;{{ start_time|time:"h:i A" }} - {{ end_time|time:"h:i A" }}
+          </td>
+        </tr>
+        
+      </table>
+
+      <!-- Subjects Table -->
+      <table class="text-center w-100"  style="border-collapse: collapse; margin-top: 10px;">
+        <tr>
+          <th class="th-subject-view">Date</th>
+          <th class="th-subject-view">Day</th>
+          <th class="th-subject-view">Subject</th>
+          <th class="th-subject-view">Invigilator <br/> Signature</th>
+        </tr>
+        {% for subject in student.subject_list %}
+        {% if subject.fordate %}
+        <tr>
+          <td class="td-subject-view">{{ subject.fordate|date:'d-m-Y' }}</td>
+          <td class="td-subject-view">{{ subject.fordate|date:'l' }}</td>
+          <td class="td-subject-view">{{ subject.subject_name | title }}</td>
+          <td class="td-subject-view"></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </table>
+
+      <!-- Signatures -->
+      <table class="w-100" style="margin-top: 35px;">
+        <tr>
+          <td class="t-right">Principal's Signature</td>
+        </tr>
+      </table>
+
+      <!-- Instructions -->
+      {% comment %} <table class="w-100" style="margin-top: 10px;">
+        <tr>
+          <td class="t-left fs-bold">Important Instructions:-</td>
+        </tr>
+        <tr>
+          <td style="line-height: 1rem; font-size: 12px;">
+            • It is compulsory to bring the hall ticket for the Test/Exam.<br/>
+            • The Students are advised to bring their own Pen, Pencil, Eraser etc.<br/>
+            <div style="text-align: center; font-size: 15px; margin-top: 5px;">
+              *Wish you a best of luck*
+            </div>
+          </td>
+        </tr>
+      </table> {% endcomment %}
+
+  </div>
+
+  {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else%}
+    <hr/>
+    <div style="margin-top:75px;"></div>
+  {% endif %}
+
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+.label{
+    color: #6f6b6b;
+    font-weight: 500!important;
+    font-size: 0.8rem!important;
+}
+
+.helperText{
+    color: #ada8a8;
+    padding:0px 15px;
+}
+
+.helperText-red{
+    color: red;
+    padding:0px 15px;
+    font-size:13px;
+}
+
+.text-field{
+    width: 90%;
+    height: 50px;
+    font: inherit;
+    border: none;
+    border: solid 1px #ccc;
+    border-radius:4px;
+    padding:0px 10px;
+}
+
+.text-field:focus{
+    outline: none!important;
+    border: solid 1px #3f51b5;
+}
+
+.border-red{
+    border-color:red;
+}
+
+.border-red:focus{
+    border-color:red;
+}
+
+.text-red{
+    color:red!important;
+}
+
+.text-red:focus{
+    color:red;
+}
+
+.text-green{
+    color:green!important;
+}
+

@@ -1,0 +1,122 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>PaySlip</title>
+    <style>
+        table, th, td {
+          border: 1px solid black;
+          border-collapse: collapse;
+        }
+        th, td {
+          padding: 5px;
+          text-align: left;
+        }
+    </style>
+</head>
+<body>
+<div id="like_button_container"></div>
+
+Print for you
+<table style="width:100%">
+    <tr bgcolor="#55B6E7">
+        <th colspan="4"><font>{% if institute.name %}{{ institute.name }}{% endif %}</font></th>
+    </tr>
+    <tr>
+        <th colspan="4" style="text-align:center">Payslip For FEB 2026
+        </th>
+    </tr>
+
+    <tr bgcolor="#C9D7DE">
+        <th>Personnel No.</th>
+        <td></td>
+        <th>Name</th>
+        <td>
+            POORNIMA G
+        </td>
+    </tr>
+    <tr bgcolor="#C9D7DE">
+        <th>Bank</th>
+        <td>Jnanajyothi Souharda Sahakari</td>
+        <th>Bank A/c No.</th>
+        <td>054000000018</td>
+    </tr>
+    <tr bgcolor="#C9D7DE">
+        <th>DOJ</th>
+        <td></td>
+        <th>LOP Days</th>
+        <td>0</td>
+    </tr>
+    <tr bgcolor="#C9D7DE">
+        <th>Location</th>
+        <td>{% if institute.city %}{{ institute.city }}{% endif %}</td>
+        <th>Worked Days</th>
+        <td>28</td>
+    </tr>
+    <tr bgcolor="#C9D7DE">
+        <th>PF No.</th>
+        <td></td>
+        <th></th>
+        <td></td>
+    </tr>
+</table>
+<br/>
+<table style="width:100%">
+    <tr>
+        <th>Earnings</th>
+        <th>Amount in Rs.</th>
+        <th>Deductions</th>
+        <th>Amount in Rs.</th>
+    </tr>
+    <tr bgcolor="#CBE7F5">
+        <td colspan="1">
+            
+            BA<br/>
+            DA<br/>
+            HRA<br/>
+            OTHER ALLOWANCES
+            
+        </td>
+        <td style="text-align:right">
+            7500<br/>
+            7500<br/>
+            9030<br/>
+            6070
+
+        </td>
+        <td colspan="1">
+            
+            PF<br/>
+            ESIC<br/>
+            PT<br/>
+            
+        </td>
+        <td style="text-align:right">
+            
+            1800<br/>
+            0<br/>
+            300<br/>
+            
+        </td>
+    </tr>
+    <tr bgcolor="#CBE7F5">
+        {% comment %} <td>GROSS EARNINGS</td> {% endcomment %}
+        <td> CTS </td>
+        <td style="text-align:right">2100</td>
+        <td>GROSS DEDUCTIONS</td>
+        <td style="text-align:right">30100</td>
+    </tr>
+    <tr bgcolor="#CBE7F5">
+        <th colspan="2" style="text-align:right">NET PAY</th>
+        <th colspan="2">28000</th>
+
+    </tr>
+</table>
+<br/>
+** This is a computer generated payslip and does not require signature and stamp.
+</body>
+</html>

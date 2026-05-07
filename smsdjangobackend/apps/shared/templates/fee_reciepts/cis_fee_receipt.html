@@ -1,0 +1,221 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fee Receipt</title>
+  <style>
+    * {
+      padding: 2px;
+      margin: 0;
+    }
+    /* @page {
+      size: A5;
+    } */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 0px 10px 10px 30px;
+      border: none;
+    }
+    .minwd2 {
+      min-width: 35%;
+    }
+    .signature-section {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 45px;
+    }
+    .signature-box {
+      text-align: center;
+      width: 200px;
+      border-top: 1px solid black;
+      padding-top: 5px;
+    }
+    .receipt-copy {
+      height: 147mm;
+      padding-top: 10px;
+    }
+    .copy-label {
+      text-align: right;
+      margin-right: 10px;
+    }
+    .page-break {
+      page-break-after: always;
+    }
+  </style>
+</head>
+<body style='padding-right:2px'>
+  <div>
+    {% for count in number_of_copies %}
+        {% if forloop.counter|divisibleby:"2" %}
+        <div style="margin-top: 25px;"></div>
+        <div style="text-align:right; margin-right:10px;">Student Copy</div>
+        {% else %}
+        <div style="text-align:right; margin-right:10px;">Office Copy</div>
+        {% endif %}
+      
+      <div class="receipt-copy">
+        <table>
+          <tr>
+            <td colspan="2">
+              <div style="display:flex;justify-content:center;">
+                {% if institute.logo.file.url %}
+                <div style="margin-right: 10px;">
+                  <img src="{{ institute.logo.file.url }}" style="width: 150px; height: 150px;" />
+                </div>
+                {% endif %}
+                <div style="text-align:center;">
+                  <div style="font-size: 26px; font-weight: bold;">
+                    CHRIST INTERNATIONAL SCHOOL
+                  </div>
+                  <div style="font-size: 14px; line-height: 25px;">
+                    AFFILIATED TO CBSE, NEW DELHI <br>
+                    AFFILIATION NO: 831217 <br>
+                    Halehalli, KR Puram, Bangalore - 560036 <br>
+                    Ph no: +91 91086 33304, +91 91483 63304
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <table >
+            <tr >
+                <td style="border-top: 1px solid black; width: 100%;padding: -5px;"></td>
+
+            </tr>
+
+        </table>
+
+        <div style="font-family: Arial, Helvetica, sans-serif;">
+          <div style="text-align: right;">Invoice ID: {{ fee_collection.receipt_num }}</div>
+        </div>
+
+        <div style="font-family: Arial, Helvetica, sans-serif; text-align: center; font-weight: bold;">
+          Fee Summary
+        </div>
+
+        <div style="display: flex; font-family: Arial, Helvetica, sans-serif;">
+          <div style="width: 50%;">
+            <div style="display: flex;">
+              <div class="minwd2">Admission No.:</div>
+              <div>{{ admission_num }}</div>
+            </div>
+            <div style="display: flex;">
+              <div class="minwd2">Class/Section:</div>
+              <div>{{ fee_collection.enrollment_data.standard_name }} - {{ fee_collection.enrollment_data.section_name }}</div>
+            </div>
+            <div style="display: flex;">
+              <div class="minwd2">Date:</div>
+              <div>{{ fee_collection.transaction_date }}</div>
+            </div>
+            <div style="display: flex;">
+              <div class="minwd2">Payment Mode:</div>
+              <div>
+                {% for mode_of_pay in fee_collection.mode_of_payment_list %}
+                  {{ mode_of_pay.mode_of_payment }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div style="width: 50%;">
+            <div style="display: flex;">
+              <div class="minwd2">Student Name:</div>
+              <div>
+                {{ fee_collection.student_detail.first_name|default:''|upper }}
+                {{ fee_collection.student_detail.middle_name|default:''|upper }}
+                {{ fee_collection.student_detail.last_name|default:''|upper }}
+              </div>
+            </div>
+            {% if fee_collection.mode_of_payment != 'Cash' %}
+            <div style="display: flex;">
+              <div class="minwd2">Transaction ID:</div>
+              <div>{{ fee_collection.payment_ref_num }}</div>
+            </div>
+            {% endif %}
+            <div style="display: flex;">
+              <div class="minwd2">Received By:</div>
+              <div>{{ fee_collection.collected_by|title }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align: left; font-weight: bold; margin-top: 2px;">
+          Fees Summary
+        </div>
+
+        <table style="border: 1px solid black;">
+          <thead>
+            <tr>
+              <th style="text-align: left; padding-left: 20px; border: 1px solid black;">Fee Type</th>
+              <th style="text-align: left; border: 1px solid black;">Paid (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for fee in fee_collection.payment_detail %}
+            <tr>
+              <td style="padding-left: 20px; border: 1px solid black;">
+                {{ forloop.counter }}.
+                {% if fee.fee_type_codename == "admission" %}
+                  Admission Fee
+                {% elif fee.fee_type_codename == "newadmission" %}
+                  New Admission Fee
+                {% elif fee.fee_type_codename == "term1" %}
+                  Term 1
+                {% elif fee.fee_type_codename == "term2" %}
+                  Term 2
+                {% elif fee.fee_type_codename == "term3" %}
+                  Term 3
+                {% else %}
+                  {{ fee.fee_type_codename }}
+                {% endif %}
+              </td>
+              <td style="border: 1px solid black;">
+                {{ fee.amount_paid|floatformat:2|intcomma }}
+              </td>
+            </tr>
+            {% endfor %}
+            <tr>
+              <th style="text-align: right; padding-right: 20px; border: 1px solid black;" colspan="1">Grand Total</th>
+              <th style="text-align: left; padding-right: 40px; border: 1px solid black;">
+                {{ fee_collection.total_amount|floatformat:2|intcomma }}
+              </th>
+            </tr>
+          </tbody>
+        </table>
+        <div style="text-align: left; font-weight: bold;">
+          * Fees once paid will not be refunded *
+        </div>
+
+        <div style="text-align: right; font-size: 14px;margin-top: -15px; ">
+          Receipt Generated at : {{ today }}
+        </div>
+
+        <!-- School Stamp & Principal's Signature Section -->
+        <div class="signature-section">
+          <div>
+            <div class="signature-box">
+              Seal & Signature
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {%  if forloop.counter|divisibleby:"2" and not forloop.last %}
+            <div style="page-break-after: always;"></div>
+            {%else%}
+            <div style="margin:50px;">
+            {% endif %}
+        </div>
+    {%endfor%}
+  </div>
+</body>
+</html>

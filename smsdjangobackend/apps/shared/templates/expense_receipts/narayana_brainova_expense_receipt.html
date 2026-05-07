@@ -1,0 +1,126 @@
+<html>
+    <head>
+        <style>
+            .mt-10{
+                margin-top: 20px;
+            }
+            .content-font{
+                font-size:18px;
+                display:flex;
+                font-weight:bold
+            }
+            .content-font-first-div{
+                width: 160px;
+            }
+            body{
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-weight: bold;
+            }
+            .block {
+                width: 200px;
+                height: 20px;
+                padding: 10px;
+                border: 2px solid black;
+                text-align: center;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body>
+        {% for count in number_of_copies %}
+        <div style='border: 2px solid #aaaaaa;'>
+            <div style='display:flex;justify-content:center;padding-right:30px'>
+                <div style='text-align:right;padding:5px;padding-right:15px;'>
+                    {% if institute_data.logo.file.url %}
+                    <img src={{institute_data.logo.file.url}}
+                    style="width: 150px;height: 150px;"/>
+                    {% endif %}
+                </div>
+                <div>
+                <div style="text-align: right;padding:3px;font-size: 15px;">EXCELLENCE IS OUR ATTITUDE</div>
+                    <div style="font-size: 35px;font-weight: bold;text-align:center">
+                        {{ institute_data.name|upper }} </br>
+                    </div>
+                    <div style="text-align: right;font-size: 15px;">UNDER THE MANAGEMENT OF THE BRAINOVA GROUP</div>
+                    <div style="line-height: 25px;font-size:15px;text-align: center;">
+                        {{ institute_data.address|upper }}{% if institute_data.city %}, {{ institute_data.city|upper }}{% endif %}
+                        {% if institute_data.pincode %} - {{ institute_data.pincode|upper }}{% endif %} </br>
+                        {% if institute_data.tel_num %}Ph: {{ institute_data.tel_num|upper }},
+                        {% if institute_data.tel_num_2 %}
+                        , {{ institute_data.tel_num_2|upper }},{% endif %}E-Mail:brainovagroup@gmail.com<br/>{% endif %}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div style="font-size: 20px;text-align: center;" class="block">Expense Voucher</div>
+            <table class='mt-10 content-font' style='margin-top:10px;padding:20px'>
+                <td style='width:150px'>
+                    Voucher No : 
+                </td>
+                <td style='width:500px;text-align: left;'>
+                    Receipt30
+                </td>
+                <td style='width:100px'>
+                    Date : 
+                </td>
+                <td style='text-align: left;'>
+                    {{ expense_data.date }}
+                </td>
+            </table>
+            <table class='mt-10 content-font' style='padding-left: 150px;'>
+                <td style='width:170px'>
+                    Expense Name : 
+                </td>
+                <td style='width:200px;text-align: left;'>
+                    {{expense_data.expense_type_name|title}}
+                </td>
+                <td style='width:120px;'>
+                    Sub Label : 
+                </td>
+                <td style='text-align: left;'>
+                    {{expense_data.expense_type_name|title}}
+                </td>
+            </table>
+            <div class='mt-10 content-font' style='padding-left:150px;'>
+                <div class='content-font-first-div'>
+                    Amount 
+                </div>
+                <div>
+                    :&nbsp;&nbsp;{{expense_data.total_amount}}
+                </div>
+            </div>
+            <div class='mt-10 content-font' style='padding-left:150px;'>
+                <div class='content-font-first-div'>
+                    Amt In Words
+                </div>
+                <div>
+                    :&nbsp;&nbsp;{{expense_data.amount_in_words|title}}
+                </div>
+            </div>
+            <div class='mt-10 content-font' style='padding-left:150px'>
+                <div class='content-font-first-div'>
+                    Paid to 
+                </div>
+                <div>
+                    :&nbsp;&nbsp;{% if expense_data.payee_name %}{{ expense_data.payee_name|upper }}{% endif %}
+                </div>
+            </div>
+            {% if expense_data.comment %}
+                <div class='mt-10 content-font' style='padding-left:150px;'>
+                    <div class='content-font-first-div'>
+                        Description 
+                    </div>
+                    <div>
+                        : {{expense_data.comment|upper}}
+                    </div>
+                </div>
+            {%endif%}
+            <div style='padding-top: 50px;padding-bottom: 20px;display:flex;margin-top: 20px;padding-left: 40px;padding-right: 40px;font-size:18px;'>
+                <div style='font-weight:bold;'>Accountant</div>
+                <div style='margin-left:auto;font-weight:bold;'>Receiver's Sign</div>
+            </div>
+        </div>
+        <div style='text-align: right;'>{{today}}</div>
+        {% endfor %}
+    </body>
+</html>

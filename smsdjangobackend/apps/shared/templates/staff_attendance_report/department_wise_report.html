@@ -1,0 +1,143 @@
+<html>
+{% load humanize %}
+{% load transliteration %}
+<head>
+    <style>
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 12px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center
+        }
+        .noborder{
+            border:0px solid black
+        }
+        .page-container {
+            width: 100%;
+            min-height: 1px;
+            display: block;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            position: relative;
+        }
+        .dept-header {
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            background-color: #f0f0f0;
+            border: 1px solid black;
+            margin-bottom: 0;
+        }
+        table {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+    </style>
+</head>
+
+<body>
+    {%for dept in departments %}
+    <div style="transform: rotate(90deg);margin-top:20px;{% if dept.staff|length > 10 %}page-break-after: always;{% endif %}">
+        <div>
+            <div class="dept-header">Department: {{dept.department_name}}</div>
+            <table width="100%" style="border:0px;">
+                <tr>
+                    <td style="width:50px;">{{dept.staff.0.day_list.0.date_obj|date:'M-Y'}}</br> Name</td>
+                    {%for days in dept.staff.0.day_list %}
+                    <td style="max-width:35px;">{{days.date_obj|date:'d'}}</td>
+                    {%endfor%}
+                </tr>
+                {%for staff_days in dept.staff %}
+                {% if forloop.counter <= 10 %}
+                <tr style="font-size: 13px;">
+                    <td style="width:50px;"><b>{{staff_days.staff_name}}</b></br>Summary</br>(TU:{{staff_days.total_unmarked}},TP:{{staff_days.total_present}},TC:{{staff_days.total_checkinmarked}},
+                    THD:{{staff_days.total_halfday}},TL:{{staff_days.total_late}})</td>
+                    {%for days in staff_days.day_list %}
+                    <td style="max-width:32px;">{{days.in_time}}<br>{{days.out_time}}</td>
+                    {%endfor%}
+                </tr>
+                {%endif%}
+                {%endfor%}
+                {%if dept.staff|length < 10 %}
+                    {% with " " as dummy_string %}
+                    {% for i in dummy_string|center:dept.number_of_empty_spaces %}
+                    <tr style="font-size: 13px;border:0px;">
+                        <td style="width:50px;height: 90px;border:0px;"></td>
+                    </tr>
+                    {%endfor%}
+                    {%endwith%}
+                    {%endif%}
+            </table>
+        </div>
+    </div>
+    {%for numbers,numbers_ten in dept.number_of_tens_plus_ten.items %}
+    {%if dept.staff|length > numbers %}
+    <div style="page-break-before: always;"></div>
+    <div style="transform: rotate(90deg);margin-top:20px;">
+        <div>
+            <div class="dept-header">Department: {{dept.department_name}} (cont.)</div>
+            <table width="100%" style="border:0px;">
+                <tr>
+                    <td style="width:50px;">{{dept.staff.0.day_list.0.date_obj|date:'M-Y'}}</br> Name</td>
+                    {%for days in dept.staff.0.day_list %}
+                    <td style="max-width:35px;">{{days.date_obj|date:'d'}}</td>
+                    {%endfor%}
+                </tr>
+                {%for staff_days in dept.staff %}
+                {%if forloop.counter > numbers and forloop.counter <= numbers_ten %}
+                <tr style="font-size: 13px;">
+                    <td style="width:50px;"><b>{{staff_days.staff_name}}</b></br>Summary</br>(TU:{{staff_days.total_unmarked}},TP:{{staff_days.total_present}},TC:{{staff_days.total_checkinmarked}},
+                    THD:{{staff_days.total_halfday}},TL:{{staff_days.total_late}})</td>
+                    {%for days in staff_days.day_list %}
+                    <td style="max-width:32px;">{{days.in_time}}<br>{{days.out_time}}</td>
+                    {%endfor%}
+                </tr>
+                {%endif%}
+                {%endfor%}
+                {% with empty_count=dept.empty_spaces_per_page|get_item:numbers %}
+                    {% if empty_count > 0 %}
+                        {% with " " as dummy_string %}
+                            {% for i in dummy_string|center:empty_count %}
+                                <tr style="font-size:13px;border:0px;">
+                                    <td style="width:50px;height:90px;border:0px;"></td>
+                                </tr>
+                            {% endfor %}
+                        {% endwith %}
+                    {% endif %}
+                {% endwith %}
+            </table>
+        </div>
+    </div>
+    {% if not forloop.last %}<div style="page-break-after: always;"></div>{% endif %}
+    {%endif%}
+    {%endfor%}
+    {% if not forloop.last %}<div style="page-break-after: always;"></div>{% endif %}
+    {%endfor%}
+</body>
+</html>

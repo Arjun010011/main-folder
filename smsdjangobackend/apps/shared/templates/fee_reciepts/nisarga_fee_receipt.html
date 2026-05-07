@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2mm;
+            margin-top: none;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+
+        .noborder {
+            border: 0px solid;
+        }
+
+        .bold {
+            font-weight: bold
+        }
+
+        .line-height {
+            line-height: 1.5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: -5px;
+            left: 30px;
+            height: 90px;
+        }
+
+        .school-info {
+            margin-left: 120px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .school-name {
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .school-subtitle {
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .contact-info {
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .fixed-layout {
+    table-layout: fixed;
+    width: 100%;
+}
+.fixed-layout td {
+    vertical-align: top;
+}
+
+    </style>
+</head>
+
+{% for count in number_of_copies %}
+{%  if forloop.counter|divisibleby:"2" %}
+    <div style="margin-top: 5px"></div>
+    <div style="text-align:right;margin-right:5px">Office Copy</div>
+{% else %}
+    <div style="text-align:right;margin-right:5px">Student Copy</div>
+{% endif %}<div style='border: 1px solid;padding:20px;margin:10px'>
+    <div style='display:flex;width:100%;position:relative'>
+        <div class="logo-container">
+            {% if institute.logo.file.url %}
+            <img src={{  institute.logo.file.url }} style="width: 190px;height: 150px;" />
+            {% endif %}
+        </div>
+
+        <div class="school-info">
+           
+            <div style="font-size: 26px;font-weight: bolder;left:400px;margin-left: 100px;text-align: center;">
+                NISARGA VIDYANIKETHANA HIGH SCHOOL
+            </div>
+            <!-- <div style='font-size: 18px;font-weight: bold;margin-left: 140px;'>(Approved By Govt. of Karnataka)</div> -->
+
+            <div style="font-size: 15px; margin-left: 120px;">
+                Gangamma Temple Road ,Thyamagondlu, Nelamangala Block, Bengaluru -562132.<br/>
+                <span style="font-weight: bold;font-size: 15px;">Phone No:</span> 9945603261/9880706291<br/>
+            </div>
+            
+        </div>
+    </div>
+
+    <div style="font-size: 20px;font-weight: bolder;text-decoration:underline;margin-top:35px;text-align: center;">
+        FEE RECEIPT </br>
+    </div>
+    <br>
+
+    <table class='noborder fixed-layout' style="width: 100%; margin-bottom:2px;line-height: 10px;">
+        <tr class='noborder'>
+            <td class='noborder' width="style:90%"><b>Name:</b>
+                {% if fee_collection.student_detail.first_name %}{{ fee_collection.student_detail.first_name }}{% endif %}
+                {% if fee_collection.student_detail.middle_name %} {{ fee_collection.student_detail.middle_name }}{% endif %}
+                {% if fee_collection.student_detail.last_name %} {{ fee_collection.student_detail.last_name }}{% endif %}
+            </td>
+            <td class='noborder' width="style:10%"><b>Father Name:</b>
+                {% if fee_collection.student_detail.student_parent.parent.father_name %}
+                    {{ fee_collection.student_detail.student_parent.parent.father_name|upper }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr class='noborder'>
+            <td class='noborder' width="style:90%"><b>Admission No:</b> {{ fee_collection.student_detail.admission_number }}</td>
+            <td class='noborder' width="style:10%"><b>Mother Name:</b>
+                {% if fee_collection.student_detail.student_parent.parent.mother_name %}
+                    {{ fee_collection.student_detail.student_parent.parent.mother_name|upper }}
+                {% endif %}
+            </td>
+        </tr>
+        <tr class='noborder'>
+            <td class='noborder' width="style:90%"><b>Class:</b> {{ fee_collection.standard_name }} - {{ fee_collection.enrollment_data.section_name }}</td>
+            <td class='noborder'><b>Date:</b> {{ fee_collection.transaction_date }}</td>
+        </tr>
+        <tr class='noborder'>
+            <td class='noborder' width="style:90%"><b>Academic Year:</b> {{ fee_collection.academic_year.start_date|date:"Y" }} - {{ fee_collection.academic_year.end_date|date:"Y" }}</td>
+            <td class='noborder' width="style:10%"><b>Receipt No:</b> {{ fee_collection.receipt_num|title }}</td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px;">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='40%' style="text-align:center">Particulars</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style="vertical-align: top;">
+            {% for fee in fee_collection.payment_detail %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ fee.fee_type_name }}</td>
+                <td style="text-align: right;">{{ fee.amount_paid|floatformat }}</td>
+            </tr>
+            {% endfor %}
+            <tr style='height:30px'>
+                <td colspan="2" style='text-align:right'>TOTAL</td>
+                <td style='text-align:right'>₹ {{ fee_collection.total_amount|floatformat }}</td>
+            </tr>
+        </tbody>
+        
+    </table>
+
+    <table style="width: 100%" class="noborder" colspan="2">
+        <tr class="noborder">
+            <td class="noborder">
+                Amount in words: {{ amount_in_words|title }} Only<br />
+                Payment Mode :{% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}<br>
+                Total Pending Amount: {{ student_fee_summary.total_pending_amount|floatformat }}<br>
+                {% if fee_collection.mode_of_payment != 'Cash' %}
+            Transaction ID: {{fee_collection.payment_ref_num}}
+            {% endif %}
+                
+            </td>
+        </tr>
+    </table>
+
+    <table style="width:100%;" class="noborder">
+        <td style="text-align:right;" class="noborder"> Authorized Signatory</td>
+    </table>
+    <table style="width:100%;margin-top:2px" class="noborder">
+        <td style="text-align:left;" class="noborder">Thank You For Your Payment</td>
+    </table>
+</div>
+<div style="text-align: center;">This is a system generated receipt</div>
+
+{% if not forloop.last and forloop.counter|divisibleby:"2"%}
+<div style="page-break-after: always;"></div>
+{% endif %}
+{% endfor %}
+
+</html>

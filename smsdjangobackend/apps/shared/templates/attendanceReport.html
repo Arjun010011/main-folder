@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Attendance Report</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="width:100%">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <img src={{ institute.logo.file.url }} style="width: 100px;height: -webkit-fill-available;"/>
+            </td>
+            <td style="text-align:center;padding: 8px;">
+                {% else %}
+            <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px;font-weight: bold;">
+                    {{ institute.name }}</br>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    Student Attendance Report
+                </div>
+            </td>
+        </tr>
+    </table>
+    </br>
+    <h3><u>
+        <center>Student Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align:center;width:10%;">
+                <h3>Name: {% if attendance.0.student.first_name %}{{attendance.0.student.first_name}}
+                    {% endif %}{% if attendance.0.student.middle_name %}
+                    {{attendance.0.student.middle_name}}{% endif %}{% if attendance.0.student.last_name%}
+                    {{attendance.0.student.last_name }}{% endif %}
+                </h3>
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Standard : {% if attendance.0.standard_section.standard.name %}
+                {{attendance.0.standard_section.standard.name}}{% endif %}
+            </td>
+            <td>Section : {% if attendance.0.standard_section.section.name %}
+                {{attendance.0.standard_section.section.name}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Date : {% if from_date %}{{from_date | date:"d/m/Y"}}
+                {% if to_date %}- {{to_date | date:"d/m/Y"}} {% endif %}{% endif %}
+            </td>
+            <td>Roll No : {% if attendance.0.student.current_reg_num %}
+                {{attendance.0.student.current_reg_num}}{% endif %}</td>
+        </tr>
+
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Report</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th style="width: 40%;">Date</th>
+            <th style="width: 30%;">Session</th>
+            <th style="width: 30%;">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in attendance %}
+        <tr>
+            <td>{{ row.for_date }}</td>
+            <td>{{ row.session }}</td>
+            <td>{{ row.status.capitalize }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <hr style="color:black">
+    <p align="left">Report Generated at : {{ today }}</p>
+    <p align="right">Powered By Edubricz</p>
+
+</div>
+</body>
+</html>

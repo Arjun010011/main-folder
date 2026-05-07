@@ -1,0 +1,21 @@
+@import './../../styles/helpers.scss';
+
+.add-inp-button{
+    height: 57px!important;
+    color: white!important;
+    margin: 15px 0 10px -3px!important;
+    font-weight: bold!important;
+    border-radius: 0 15px 15px 0!important;
+    padding: 5px 14px!important;
+    background: $button-color!important;
+}
+
+.delete-inp-button {
+    margin: 15px 0 10px -3px!important;
+    color: white!important;
+    font-weight: bold!important;
+    border-radius: 0 15px 15px 0!important;
+    height: 57px!important;
+    padding: 5px 10px 5px 10px!important;
+    background: $button-color!important;
+}

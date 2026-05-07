@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Certificate</title>
+    <style>
+        @page {
+            margin: 20px;
+        }
+        body {
+            font-size: 14px;
+            background-image: url('https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jnanajyothi_static_images/jnanajyothimarkscardbackground.jpeg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .header {
+            text-align: center;
+            font-weight: bold;
+        }
+        .sub-header {
+            font-weight: normal;
+        }
+        .certificate-title {
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .photo-box {
+            width: 100px;
+            height: 120px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 120px;
+            margin-top: -80px;
+            font-size: 12px;
+            margin-left: 0px;
+        }
+        .content {
+            margin-top: 20px;
+            line-height: 2;
+        }
+        .underline {
+            display: inline-block;
+            border-bottom: 1px dotted #000;
+            min-width: 100px;
+            height: 1em;
+            vertical-align: bottom;
+        }
+        .signature-section {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div style="margin: 30px;">
+    <div style="text-align: right; margin-top: 340px;">Date: {{ today_date }}</div>
+
+    <div class="certificate-title" style="margin-top: 30px; font-size: 18px;">STUDY CERTIFICATE</div>
+
+    {% comment %} <div class="photo-box" style="margin-top: 15px;">Photo</div> {% endcomment %}
+
+    <div class="content" style="text-align: justify; word-spacing: 3px; font-size: 16px; text-indent: 4em; line-height: 2; margin-top: 50px;">
+        This is to Certify that <b>{{ student_identify|title }} {{ student_full_name|title }} {{ student_relate }} {{ father_name|title }}</b>
+        Studying in the <b>{{ from_standard_name }}</b> to <b>{{ to_standard_name }}</b> in our institution from <b>{{ from_academic_year }}</b> to <b>{{ to_academic_year }}</b>. 
+        The Mother Tongue of the candidate is <b>{{ mother_tongue }}</b> as per the Admission Register of the Institution. <br/>
+        The above details are true and correct to the best of my knowledge.
+    </div>
+    <br/>
+    <br/>
+    <br/>
+<div class="student-photo" style="position: relative; height: 150px;">
+    <img src="{{profile_pic_details}}" alt="Student Photo" 
+         style="width: 120px; height: 120px; border: 1px solid #000;" />
+  </div>
+
+<div class="signature-section">
+    <div style="display: flex; justify-content: flex-end; margin-top: -120px;">
+        <div style="text-align: center;">
+            <div style="font-weight: bold;">Principal</div>
+            <div style="font-weight: bold;">Dr. Vijaykumar P C</div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,236 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th,
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 13px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center;
+        }
+
+        .border {
+            height: 900px;
+            border: 2px solid black;
+            padding: 20px;
+            margin: 0px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    {% for student in data.student_list %}
+    <div style="border:1px solid black;padding:20px;margin:20px 20px 0px 20px;height: 1300px;">
+        <div style='line-height: 1.8;'>
+            {% if student.is_finalized == False %}
+            <div style='color:red'>
+                Marks Is Not Finalized
+            </div>
+            {% endif %}
+            <div style='background-color: #DBECF8;color: #0B6094;margin-top:10px;padding-top: 10px;'>
+                <div class='text-align-center' style='font-size:18px;margin-top:10px;position: relative;'>
+                    <b>
+                        <div>{%if institute_data.name|length > 35 %}
+                        <div style="font-size: 20;">{{institute_data.name}}</div>
+                        {% else %}
+                        <div style="font-size: 25;">{{institute_data.name}}</div>
+                        {%endif%}
+                        <div style="padding-left:100px; padding-right: 40px;">{{ institute_data.address }}{% if institute_data.city %}, {{ institute_data.city }}{% endif %}
+                            {% if institute_data.pincode %} - {{ institute_data.pincode }}{% endif %}</div>
+                    </b> {% if institute_data.document_details.file %}
+                    <img src={{institute_data.document_details.file}}
+                        style="width: 100px;height: 100px;position: absolute;left:10;top:0" /> {% endif %}</div>
+                </div>
+                <div class='text-align-center font-weight-bold'
+                    style='padding-bottom: 20px;'>
+                    <u>STATEMENT OF MARKS {{data.academic_year_details.start_date|date:"Y"}} -
+                        {{data.academic_year_details.end_date|date:"y"}}</u><br />
+                    {{data.exam_details|upper}} <br />
+                </div>
+            </div>
+            <div style='color: #78AAC9'>
+                This is to certify that the candidate mentioned below has scored {{data.exam_code_name}} marks, with the
+                following details
+            </div>
+        </div>
+        <div style="color: #0B6094;">
+            <div style='margin-top: 20px;font-weight: bold'>
+                STUDENT NAME : {{student.student_name}} <br />
+            </div>
+            <div style="margin-top: 10px;font-weight: bold">
+                STANDARD AND SECTION : {{data.standard_name}} - {{data.section_name}} <br />
+            </div>
+            <div style="margin-top: 10px;font-weight: bold">
+                ATTENDANCE : {%if student.marked_attendance_days %} {{student.marked_attendance_days|floatformat:0}}
+                {%else%} 0 {% endif %}/
+                {%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %}
+                <br />
+            </div>
+            <div class='text-align-center'
+                style='padding-top: 20px;padding-bottom: 40px;margin-top:20px;color: #78AAC9'>
+                <b>Part-A (SCHOLASTIC)</b> <br />
+            </div>
+        </div>
+        <table class='table-border subject-list' style='width: 100%;margin-top: 20px;'>
+            <tr style='font-weight: bold;' class='td-font-size'>
+                <td style="width:20%;">Subjects</td>
+                <td>Max. Marks</td>
+                <td>Pass Marks</td>
+                <td>Marks Obtained</td>
+                <td>Percentage</td>
+                <td>Grade</td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'part1' %}
+                <tr class='td-font-size'>
+                    <td>{{subject_data.subject_name|capfirst}}</td>
+                    <td>{{subject_data.total_max_marks}}</td>
+                     <td>
+                        {{subject_data.total_min_marks}}
+                    </td>
+                    <td>{%if subject_data.attendance_status == 'Absent' %}
+                        AB
+                    {% else %}{{subject_data.total_obtained_marks}}{%endif%}</td>
+                    <td>{%if subject_data.attendance_status == 'Absent' %}
+                        AB
+                    {% else %}{{subject_data.percentage|floatformat:2}}{%endif%}</td>
+                    <td>{%if subject_data.attendance_status == 'Absent' %}
+                        AB
+                    {% else %}{{subject_data.grade}}{%endif%}</td>
+                </tr>
+            {%endif%}
+            {% endfor %}
+            <tr style='font-weight: bold' class='td-font-size'>
+                <td style='font-size: 13px;'>TOTAL </td>
+                <td>{{student.part_type_data_code_wise.part1.total_marks}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_min_marks}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_obtained_marks}}</td>
+                <td>{{student.part_type_data_code_wise.part1.percentage|floatformat:2}}</td>
+                <td>{{student.part_type_data_code_wise.part1.grade}}</td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'part2' %}
+                <tr class='td-font-size'>
+                    <td>{{subject_data.subject_name|capfirst}}</td>
+                    <td></td>
+                    <td>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>{%if subject_data.attendance_status == 'Absent' %}
+                        AB
+                    {% else %}{{subject_data.grade}}{%endif%}</td>
+                </tr>
+            {%endif%}
+            {% endfor %}
+        </table>
+        <table style='width:100%;margin-top:50px;border:0px;color: #0B6094'>
+            <tr>
+                <td style='border: 0px solid black;font-weight: bold'>
+                    TOTAL MARKS IN WORDS : {{student.part_type_data_code_wise.part1.total_obtained_marks_in_word|upper}}
+                </td>
+                <td style='border: 0px solid black;font-weight: bold'>
+                    PERCENTAGE : {{student.part_type_data_code_wise.part1.percentage|floatformat:2}}%
+                </td>
+            </tr>
+        </table>
+        {% for subject_data in student.subject_list_data %}
+        {%if subject_data.subject_part_type_code_name == 'part2'%}
+        {%if subject_data.sequence == 1 %}
+        <div style='font-weight: bold;margin-top: 50px;text-align: center;margin-bottom: 40px;color: #78AAC9'>
+            PART-B(CO-SCHOLASTIC)
+        </div>
+        <table style='width:100%;box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);'>
+            <tr style='font-weight: bold;background-color: #649BBB;color: white;font-size:15px'>
+                <td>
+                    SL NO
+                </td>
+                <td>
+                    SUBJECT
+                </td>
+                <td>
+                    GRADE
+                </td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {%if subject_data.subject_part_type_code_name == 'part2'%}
+            <tr>
+                <td>{{subject_data.sequence}}</td>
+                <td style='font-size: 15px;'>{{subject_data.subject_name|upper}}</td>
+                <td>{{subject_data.grade}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        {%endif%}
+        {%endif%}
+        {%endfor%}
+        <div style='padding-top: 5px;margin-top:20px;color: #78AAC9'>
+            <b>REMARKS : {%if student.remark_name %}{{student.remark_name}}{% endif %}</b> <br />
+        </div>
+        {% if student.subject_list_data|length > 6 %}
+        <table style='width:100%;margin-top:50px;border:0px;color: #0B6094;'>
+            <tr>
+                <td style='font-weight: bold;'>
+                    CLASS TEACHER SIGN
+                </td>
+                <td style='font-weight: bold;'>
+                    PRINCIPAL SIGN
+                </td>
+                <td style='font-weight: bold;text-align: right;'>
+                    PARENT'S SIGN
+                </td>
+            </tr>
+        </table>
+        {%else%}
+        <table style='width:100%;margin-top:150px;border:0px;color: #0B6094;'>
+            <tr>
+                <td style='font-weight: bold;'>
+                    CLASS TEACHER SIGN
+                </td>
+                <td style='font-weight: bold;'>
+                    PRINCIPAL SIGN
+                </td>
+                <td style='font-weight: bold;text-align: right;'>
+                    PARENT'S SIGN
+                </td>
+            </tr>
+        </table>
+        {%endif%}
+    </div>
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>

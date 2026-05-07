@@ -1,0 +1,374 @@
+<html>
+    <head>
+        <style>
+            html{
+                background-color: #555;
+            }
+            body {
+                background-color: #555; /* Dark grey background for the page margins */
+                margin: 0px;
+                padding: 0px;
+            }
+            @page{
+                size: A4;
+                padding:0px;
+                margin:0
+            }
+            .text-align-center{
+                text-align: center
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 18px;
+            }
+            th,
+            td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                text-align: left;
+            }
+            .td-font-size{
+                font-size: 15px;
+            }
+            .font-weight-bold{
+                font-weight: bold;
+            }
+            .subject-list>tbody>tr>td{
+                text-align: center
+            }
+            .noborder{
+                border: 0px;
+            }
+        </style>
+    </head>
+    <body>
+        {% for student in data.student_list %}
+        <div style="border:1px solid black;padding:20px;margin:20px 20px 0px 20px;height: 1340px;background-color: #ddd;">
+            <div style="line-height: 1.8;">
+                {% if student.is_finalized == False %}
+                    <div style="color: red;  margin-bottom:5px;">
+                        Marks Is Not Finalized
+                    </div>
+                {% endif %}
+
+                <div style="display: flex; align-items: center; justify-content: space-between; text-align: center;">                    
+                    <div>
+                            <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/vidyasagarinternational/Logo_Vidyasagar+International+School-1.png" 
+                                style="width: 130px; height: 130px;" />
+                        </div>
+                    <div class="text-align-center" style="margin: auto; color: red;">
+                        <div style="font-size: 30px; font-weight: bold; text-align: center;">
+                            VIDYA SAGAR INTERNATIONAL SCHOOL
+                        </div>
+                        <div style="font-size: 18px; text-align: center;">
+                            Dr.S.R.K. NAGAR POST, P&T LAYOUT, THANISANDRA BANGALORE
+                        </div>
+                    </div>
+
+                        
+                        <div class="font-weight-bold text-align-center">
+                        {% if institute_data.document_details.file %}
+                            <img src="{{ institute_data.document_details.file }}" 
+                                style="width: 150px; height: 130px; padding-right: 10px;" />
+                        {% endif %}
+                    </div>
+                    
+                </div>
+
+                <div class='text-align-center font-weight-bold' style="color: white;background-color: purple;font-size: 18px;width:300px;margin: auto;">
+                    PROGRESS REPORT
+                </div>
+            </div>
+            <div>
+                <div style="margin-top: 10px;font-weight: bold;font-size: 18px;">
+                    <u>ADMISSION DETAILS:</u>
+                </div>
+                <table style='width: 100%;' class="noborder td-padding-size">
+                    <tr class='noborder' style="padding:6px;">
+                        <td style="font-weight: bold;width:200px;padding:6px;" class="noborder">
+                            Admission No.
+                        </td>
+                        <td style="width:20px;padding:6px;" class="noborder">:</td>
+                        <td class="noborder" style="text-align: left;padding:6px;"> {% if student.student_admission_form %} 
+                            {{student.student_admission_form.admission_num|upper}}
+                        {% endif %}</td>
+                        <td style="font-weight: bold;width:200px;padding:6px;" class="noborder">
+                            Pupil
+                        </td>
+                        <td style="width:20px;padding:6px;" class="noborder">:</td>
+                        <td class="noborder" style="font-weight: bold;padding:6px;">
+                            {{student.student_name|upper}}
+                        </td>
+                    </tr>
+                    <tr class='noborder' style="padding:6px;">
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            DOB
+                        </td>
+                        <td style="padding:6px;" class="noborder">:</td>
+                        <td style="padding:6px;" class="noborder"> {{student.dob|date:"d/m/Y"}}</td>
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Father
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">
+                            {{student.father_name|upper}}
+                        </td>
+                    </tr>
+                    <tr class='noborder' style="padding:6px;">
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Class
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">{{data.standard_name|upper}}</td>
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Mother
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">{{student.mother_name|upper}}
+                            
+                        </td>
+                    </tr>
+                    <tr class='noborder' style="padding:6px;">
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Medium
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">ENGLISH</td>
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Caste
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">{%if student.caste_name %}{{student.caste_name|upper}}{%endif%}
+                            
+                        </td>
+                    </tr>
+                    <tr class='noborder' style="padding:6px;">
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Section
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">{{data.section_name}}</td>
+                        <td style="font-weight: bold;padding:6px;" class="noborder">
+                            Academic Year
+                        </td>
+                        <td class="noborder" style="padding:6px;">:</td>
+                        <td class="noborder" style="padding:6px;">{{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"y"}}
+                            
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <table class='table-border subject-list' style='width: 100%;'>
+                    <tr style='font-weight: bold' class='td-font-size'>
+                        <td rowspan="2" style="color: red;" width="240px;">
+                            SUBJECTS
+                        </td>
+                        <td colspan="{{ student.cumulative_id_type_mapping|length|add:4 }}" style="background-color: white;">
+                            {{data.exam_details|upper}}
+                        </td>
+                        <td style="color:red" width="200px;">
+                            GRADE
+                        </td>
+                    </tr>
+                    <tr style='font-weight: bold' class='td-font-size'>
+                        {%for cumulative_type in student.cumulative_id_type_mapping%}
+                            <td style="background-color: white;">{{cumulative_type.col_name|upper}}<br> 
+                                {%for subject_data in student.subject_list_data %}
+                                {%if subject_data.subject_part_type_code_name == 'part1' %}
+                                {%if subject_data.sequence == 1 %}
+                                {%for type_name in subject_data.cumulative_marks_data %}
+                                {%for cum in type_name.cumulative_data_mapping %}
+                                {% if cumulative_type.col_name == cum.cumulative_type_name %}
+                                {{type_name.exam_cumulative__max_marks|floatformat:0}}
+                                {%endif%}
+                                {%endfor%}
+                                {%endfor%}
+                                {%endif%}
+                                {%endif%}
+                            {%endfor%}</td>
+                        {%endfor%}
+                        <td style="background-color: white;">
+                            Writing<br> {%for subject_data in student.subject_list_data %}{%if subject_data.subject_part_type_code_name ==  'part1'%}
+                            {%if subject_data.sequence == 1 %} {{subject_data.max_marks|floatformat:0}}{%endif%}{%endif%}{%endfor%}
+                        </td>
+                        <td style="background-color: white;">
+                            Total<br>{%for subject_data in student.subject_list_data %}{%if subject_data.subject_part_type_code_name ==  'part1'%}
+                            {%if subject_data.sequence == 1 %} {{subject_data.total_max_marks|floatformat:0}}{%endif%}{%endif%}{%endfor%}
+                        </td>
+                        <td style="background-color: white;">
+                            %
+                        </td>
+                        <td style="background-color: white;">
+                            Grade
+                        </td>
+                        <td style="color:red">PART - A</td>
+                    </tr>
+                    {% for subject_data in student.subject_list_data %}
+                        {%if subject_data.subject_part_type_code_name ==  'part1'%}
+                            <tr class='td-font-size'>
+                                <td>{{subject_data.subject_name|capfirst}}</td>
+                                {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                                    <td style='text-align:center;background-color:white;'>{{cumulative_type.mark|floatformat:0}}</td>
+                                {%endfor%}
+                                <td style="background-color: white;"> {%if subject_data.attendance_status == 'Absent' %}
+                                    AB
+                                {% else %}
+                                    {{subject_data.marks|floatformat:0}}
+                                {%endif%}
+                                </td>
+                                <td style="background-color: white;">{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                                <td style="background-color: white;">{{subject_data.percentage|floatformat:2}}</td>
+                                <td style="background-color: white;">{{subject_data.grade}}</td>
+                                {%if forloop.counter == 1 %}
+                                <td rowspan="{{student.subject_list_data_part1|length|add:1}}">
+                                    <table style="border:0px;width:100%">
+                                    {%for grade in data.grade_plan_data_for_total %}
+                                    <tr style="border:0px;"><td style="border:0px;">
+                                    {{grade.name}}
+                                    </td>
+                                    <td style="border:0px;">
+                                        {{grade.from_to_range}}
+                                    </td>
+                                    <td style="border:0px;">%</td>
+                                    </tr>
+                                    {%endfor%}
+                                    </table>
+                                </td>
+                                {%endif%}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                        <tr style='font-weight: bold' class='td-font-size'>
+                            <td style='font-size: 13px'>TOTAL</td>
+                            {%for cumulative_id_type_mapping_total in student.cumulative_id_type_mapping_total%}
+                                    <td style='text-align:center;background-color: white;'> 
+                                    </td>
+                            {%endfor%}
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;">{{student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0}}</td>
+                            <td style="background-color: white;"></td>
+                            <td style="background-color: white;"></td>
+                        </tr>
+                        <tr style='font-weight: bold;'>
+                            <td width="200px;">
+                            
+                            </td>
+                            <td colspan="{{ student.cumulative_id_type_mapping|length|add:4 }}" style="color: red;background-color: white;">
+                                PART - B
+                            </td>
+                            <td style="color: red;" width="'200px;">
+                                PART-B
+                            </td>
+                        </tr>
+                        {% for subject_data in student.subject_list_data %}
+                            {%if subject_data.subject_part_type_code_name ==  'part2'%}
+                                <tr>
+                                    <td>{{subject_data.sequence}}</td>
+                                    <td colspan="{{ student.cumulative_id_type_mapping|length|add:4 }}" style="background-color: white;">{{subject_data.subject_name}}</td>
+                                    {% if subject_data.sequence == 1 %}
+                                    <td rowspan="{{student.subject_list_data_part2|length}}">
+                                        <table style="border:0px;width:100%">
+                                            <tr style="border:0px;"><td style="border:0px;">
+                                            A
+                                            </td>
+                                            <td style="border:0px;">
+                                                100-75
+                                            </td>
+                                            <td style="border:0px;">%</td>
+                                            </tr>
+                                            <tr style="border:0px;"><td style="border:0px;">
+                                                B
+                                                </td>
+                                                <td style="border:0px;">
+                                                    74-50
+                                                </td>
+                                                <td style="border:0px;">%</td>
+                                                </tr>
+                                                <tr style="border:0px;"><td style="border:0px;">
+                                                    A
+                                                    </td>
+                                                    <td style="border:0px;">
+                                                        49-0
+                                                    </td>
+                                                    <td style="border:0px;">%</td>
+                                                    </tr>
+        
+                                        </table>
+                                    </td>
+                                    {%endif%}
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                </table>
+                <!-- <table style='width:100%'>
+                    <tr style='font-weight: bold;'>
+                        <td width="150px;">
+                        
+                        </td>
+                        <td style="color: red;">
+                            PART - B
+                        </td>
+                        <td style="color: red;" width="'200px;">
+                            PART-B
+                        </td>
+                    </tr>
+                    {% for subject_data in student.subject_list_data %}
+                        {%if subject_data.subject_part_type_code_name ==  'part2'%}
+                            <tr>
+                                <td>{{subject_data.sequence}}</td>
+                                <td>{{subject_data.subject_name}}</td>
+                                {% if subject_data.sequence == 1 %}
+                                <td rowspan="{{subject_list_data_part2|length}}">
+                                </td>
+                                {%endif%}
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table> -->
+            <br/>
+            <table style='width:100%'>
+                <tr style='font-weight: bold;'>
+                    <td width=200px;>
+                        No. of Working Days
+                    </td>
+                    <td width='220px;' style="background-color: white;">
+                        {%if data.max_no_of_days_attendance %} {{data.max_no_of_days_attendance|floatformat:0}} {% endif %}
+                    </td>
+                    <td rowspan="2" width="420px;">
+                        <div style="text-align: center;color: red;">RESULT </div>
+                        <div style="text-align: center;">{%if student.remark_name %}{{student.remark_name}}{%endif%}</div>
+                    </td>
+                </tr>
+                <tr style='font-weight: bold;'>
+                    <td>No. of Days Attended</td>
+                    <td style="background-color: white;"> {%if student.marked_attendance_days %} {{student.marked_attendance_days|floatformat:0}} {%else%} 0 {% endif %} </td>
+                </tr>
+            </table>
+            <div class="noborder" style="margin-top:90px;font-weight: bold;">
+                <table width=100% style="border:0px solid black;margin-top:-20px;" class="noborder">
+                    <tr class="noborder">
+                        <td class="noborder" style="font-weight: bold;">
+                            Parent's Signature
+                        </td>
+                        <td style="text-align: center;margin-top:-100px;font-weight: bold;" class="noborder">
+                            <div>Class Teacher's</div>
+                        </td>
+                        <td style="text-align: right;font-weight: bold;" class="noborder">
+                            Head Mistress
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            </div>
+            </div>
+        {% if not forloop.last %}
+            <div style="page-break-after: always;"></div>
+            {% endif %}
+        {% endfor %}
+    </body>
+</html>

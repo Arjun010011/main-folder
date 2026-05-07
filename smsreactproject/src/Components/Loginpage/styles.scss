@@ -1,0 +1,132 @@
+.login-page-background {
+    background: #E5E5E5;
+    align-items: center !important;
+    height: 100vh;
+    display: flex;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+.login-reverse-direction {
+    flex-direction: row-reverse;
+}
+
+.forgot-password {
+    padding: 6px 7px;
+    border-radius: 3px;
+    font-size: 13.5px;
+    color: white;
+    box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.20);
+    cursor: pointer;
+}
+
+.forgot-password:hover {
+    transform: scale(1.05);
+}
+
+@media only screen and (max-width: 980px) {
+    .login-page-background {
+        background-image: none !important;
+        display: none !important;
+    }
+}
+
+.thead-adjustment>th {
+    padding: 10px;
+    border: 1px solid gainsboro;
+    background-color: #f8f8ff;
+}
+
+.tbody-adjustment>td {
+    padding: 10px; 
+    border: 1px solid gainsboro;
+    border-style: dotted;
+}
+
+.row-text-bold>td {
+    font-weight: bold;
+}
+
+.school_logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 200px;
+    position: absolute;
+    top: 25px;
+    left: 20px;
+    font-size: 31px;
+    text-align: center;
+    color: #0035d6;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    
+}
+.school_logo img{
+    max-width: 200px;
+}
+
+.login_left {
+    padding: 5px;
+    text-align: center;
+}
+
+.login_button {
+    width: 100%;
+    padding: 5px;
+}
+.login_right img{
+    width: 300px;
+}
+.edubricz_logo img {
+    width: 100px;
+    margin-left: 60px;
+}
+
+.login_td span {
+    margin-left: 30px;
+}
+
+.username {
+    width: 100%;
+}
+
+.button button {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+@media screen and (max-width:900px) {
+    .login_container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    .login_container {
+        margin-top: 120px;
+        width: 70%;
+        padding: 1%;
+    }
+
+    .login_right {
+        display: none;
+    }
+
+    .school_logo img {
+        width: 150px;
+        height: 130px;
+    }
+
+    .school_logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        left: 40%;
+        top: 25px;
+        width: 80px;
+        height: 80px;
+    }
+}

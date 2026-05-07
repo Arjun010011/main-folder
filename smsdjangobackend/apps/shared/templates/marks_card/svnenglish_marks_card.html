@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        * {
+            font-family: "Times New Roman", Times, serif;
+        }
+        .text-align-center {
+            text-align: center;
+        }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .header-container2 {
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        .school-logo {
+            width: 130px;
+            height: 140px;
+            padding-left: 50px;
+            margin-top: 5px;
+        }
+
+        .school-details {
+            text-align: right;
+            flex: 1;
+            padding-left: -200px;
+            margin-left: -50px;
+        }
+
+        .school-name {
+            font-size: 40px;
+            letter-spacing: 1.2px;
+            font-stretch: ultra-expanded;
+            font-weight: bolder;
+            text-align: center;
+            color: #800040;
+        }
+
+        .school-address {
+            font-size: 19px;
+            text-align: center;
+            font-weight: bold;
+
+        }
+        .school-address1 {
+            font-size: 17px;
+            text-align: center;
+            font-weight: bold;
+
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 16px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    {% for student in data.student_list %}
+    <div style="border:1px solid black;margin:20px 20px 0px 20px;height: 1360px;">
+        <div class='header-container'>
+            {% if institute_data.document_details.file %}
+            <img src={{institute_data.document_details.file}} class='school-logo' />
+            {% endif %}
+            <div class='school-details'>
+                <div class="school-name">SVN ENGLISH HIGH SCHOOL</div>
+                <div class="school-address">NAGAVARA & THANISANDRA , BENGALURU-560077</div>
+                <div class="school-address1">{{data.exam_details|upper}}&nbsp;&nbsp;&nbsp;
+
+                    <!-- &nbsp;{{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"y"}}  -->
+
+                </div>
+            </div>
+        </div>
+
+        <div class="header-container2">
+
+            {% if student.is_finalized == False %}
+            <div style='color:red; text-align: center;'>Marks Is Not Finalized</div>
+            {% endif %}
+
+            <div class='text-align-center font-weight-bold;color: #800040;'>
+                <u style="color: #800040;font-weight: bold;font-size: 23px;"> PROGRESS REPORT</u>
+            </div>
+
+            <table
+                style="width: 900px; margin: 20px;margin: auto;margin-top: 20px;margin-bottom: 20px;border-collapse: collapse;">
+                <tr>
+                    <td style="font-weight: bold;">
+                        Name
+                    </td>
+                    <td style="font-weight: bold;">
+                        {{student.student_name}}
+                    </td>
+                    <td rowspan="2" style="font-weight: bold;">
+                        ATTENDANCE
+                    </td>
+                    <td rowspan="2" style="font-weight: bold;width:10%">
+                        {% if student.marked_attendance_days %}
+                        {{ student.marked_attendance_days|floatformat:0 }}
+                        {% else %}
+                        0
+                        {% endif %}
+                        /
+                        {% if data.max_no_of_days_attendance %}
+                        {{ data.max_no_of_days_attendance|floatformat:0 }}
+                        {% endif %}
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-weight: bold;">
+                        Class/Section
+                    </td>
+                    <td style="font-weight: bold;">
+                        {{data.standard_name}} - {{data.section_name}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <table class='table-border subject-list' style='width: 900px;margin:auto;'>
+            <tr>
+                <td colspan="7" style="text-align: center; font-weight: bold;background-color: #90EE90;">
+                    Part-A
+                </td>
+            </tr>
+            <tr style='font-weight: bold;background-color:#F59BC1  ;' class='td-font-size'>
+                <td style="background-color: #bd0652ff;font-weight:bold;color:white;">Subjects</td>
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>Max. Marks</td>
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>Min. Marks</td>
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>Obt. Marks</td>
+                {%if student.cumulative_id_type_mapping %}
+                {%for cumulative_type in student.cumulative_id_type_mapping%}
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>{{cumulative_type.col_name}}</td>
+                {%endfor%}
+                {%else%}
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>Internal</td>
+                {%endif%}
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>Total Marks</td>
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>Grade</td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {%if subject_data.subject_part_type_code_name == 'part1'%}
+            <tr class='td-font-size'>
+                <td>{{subject_data.subject_name|capfirst}}</td>
+                <td>{{subject_data.total_max_marks|floatformat:0}}</td>
+                <td>{{subject_data.total_min_marks|floatformat:0}}</td>
+                <td>
+                    {%if subject_data.attendance_status == 'Absent' %}
+                    AB
+                    {% else %}
+                    {{subject_data.marks|floatformat:0}}
+                    {%endif%}
+                </td>
+                {%if subject_data.cumulative_mark_data_for_marks_card %}
+                {%for cumulative_type in subject_data.cumulative_mark_data_for_marks_card%}
+                <td style='text-align:center'>{%if cumulative_type.max_mark %}{{cumulative_type.mark|floatformat:0}}{%else%}-{%endif%}</td>
+                {%endfor%}
+                {%else%}
+                <td style='text-align:center'>-</td>
+                {%endif%}
+                <td>{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                <td>{{subject_data.grade}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+            <tr style='font-weight: bold' class='td-font-size'>
+                <td style='font-size: 15px;background-color:#90EE90'>TOTAL </td>
+                <td>{{student.part_type_data_code_wise.part1.total_marks|floatformat:0}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_min_marks|floatformat:0}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_written_obtained_marks|floatformat:0}}</td>
+                {%if student.cumulative_id_type_mapping_total %}
+                {%for cumulative_id_type_mapping_total in student.cumulative_id_type_mapping_total%}
+                <td style='text-align:center'>
+                    {{cumulative_id_type_mapping_total.total_obtained_mark|floatformat:0}}
+                </td>
+                {%endfor%}
+                {%else%}
+                <td style='text-align:center'>-</td>
+                {%endif%}
+                <td>{{student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0}}</td>
+                <td>{{student.part_type_data_code_wise.part1.grade}}</td>
+            </tr>
+        </table>
+
+        <table style='width:60%;margin-top:10px;margin-left: 150px;margin-top: 30px;text-align: center;'>
+            <tr>
+                <td style='font-weight: bold;text-align: center;'>
+                    PERCENTAGE
+                </td>
+                <td style='font-weight: bold;text-align: center;'>
+                    {{student.part_type_data_code_wise.part1.percentage|floatformat:2}}%
+                </td>
+                <td style='font-weight: bold;text-align: center;'>
+                    GRADE
+                </td>
+                <td style='font-weight: bold;text-align: center;'>
+                    {{student.part_type_data_code_wise.part1.grade}}
+                </td>
+            </tr>
+        </table>
+
+        <table style='width:50%;text-align: center;margin-left: 200px;margin-top: 30px;'>
+            <tr>
+                <td colspan="3" style="text-align: center; font-weight: bold;background-color: #90EE90;">
+                    PART-B
+                </td>
+            </tr>
+            <tr style='font-weight: bold;background-color:#F59BC1 ;'>
+                <!-- <td>SL NO</td> -->
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>SUBJECT</td>
+                <td style='background-color: #bd0652ff;font-weight:bold;color:white'>GRADE</td>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {% if subject_data.subject_part_type_code_name == 'part2' %}
+            <tr>
+                <!-- <td>{{subject_data.sequence}}</td> -->
+                <td style='font-size: 15px;'>{{subject_data.subject_name}}</td>
+		<td style='font-size: 15px;'>{% if subject_data.attendance_status == 'Absent' %}
+                                            AB
+					    {% else %}{{subject_data.grade}}{%endif%}
+		</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </table>
+        <br>
+        <br>
+        <div style="width:900px;margin: auto;font-weight: bold;margin-top:-10px;">
+            Remarks:_____________________________________________________________________________________________________
+        </div>
+
+        <div style="width:900px;margin: auto;margin-top: 30px;">
+            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <tr>
+                    <td style="height: 40px; border: 1px solid black;"></td>
+                    <td style="height: 40px; border: 1px solid black;"></td>
+                    <td style="height: 40apucpx; border: 1px solid black;"></td>
+                    <td style="height: 40px; border: 1px solid black;"></td>
+                </tr>
+                <tr style="font-size: 17px;text-align: center;">
+                    <td style="text-align: center;">Signature of Class Teacher</td>
+                    <td style="text-align: center;">Signature of H.M</td>
+                    <td style="text-align: center;">Signature of Principal</td>
+                    <td style="text-align: center;">Signature of Parent</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% if not forloop.last %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+    {% endfor %}
+</body>
+
+</html>

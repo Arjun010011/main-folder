@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 7%;
+            padding-right: 7%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 100%;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 1px;
+        }
+        .th-subject-view{
+           padding: 3px 0px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 15px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 0rem;height: 360px">
+        
+
+
+        <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;">
+         <tr>
+            <td>
+                {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 60px;height:60px;padding-left: 30px;" /> {% endif %}
+            </td>
+            <td class="heading text-center " style="padding-top: 10px;width: 100%;">
+                HOLY MOTHER CONVENT AND HIGH SCHOOL <br>
+                (NAVODAYA PUBLIC SCHOOL)  
+                <div class="t-center mt-5" style="font-size: 10.7px;width: 100%;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %} -
+                    {{ institute.pincode}}
+                </div>
+            </td>
+        </tr>
+        
+
+        </table>    
+
+
+        <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;text-align: center;">
+         <tr>
+            <th>
+                 {{ examDetail.exam_type.name | upper }}
+            </th>
+        </tr>
+        <tr>
+            <th >
+                ADMISSION TICKET
+            </th>
+        </tr>
+
+        </table>    
+        <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;text-align: left;">
+                    <tr>
+                        <td class="td-subject-view" style="width:30%;text-align: left;">Student Name:&nbsp;&nbsp; {{student.student_data.full_name | title }}</td>
+                        <td class="td-subject-view" style="width:20%;text-align: left;">Class/Sec:&nbsp;&nbsp;{{ student.student_data.standard_section__standard__name | capfirst }} - {{ student.student_data.standard_section__section__name | capfirst }}</td>
+                        <td class="td-subject-view" style="width:17%;text-align: left;">Reg No&nbsp;&nbsp;:</td>
+                    </tr>
+        </table>
+
+        <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;text-align: center;">
+        <tr>
+            <th>
+                ORAL EXAMINATION
+            </th>
+        </tr>
+
+        </table>    
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black; font-size: 14px;">
+    <tr>
+        <th class="th-subject-view"> Date</th>
+        <th class="th-subject-view"> Day</th>
+        <th class="th-subject-view">Subject</th>
+        <th class="th-subject-view">Sign of Invigilator</th>
+    </tr>
+    {% for subject in student.subject_list %}
+        {% if 'ORAL' in subject.subject_name %}
+        <tr>
+            <td class="td-subject-view">
+                {{ subject.fordate|date:'d-m-Y' }} <br/>
+            </td>
+            <td class="td-subject-view">{{ subject.fordate|date:'l' }}</td>
+            <td class="td-subject-view">
+                <div style="width:90%; margin-left: auto; margin-right: auto;">
+                    {{ subject.subject_name|title }}
+                </div>
+            </td>
+            <td class="td-subject-view">
+                
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+        <br>
+        
+        <table class="w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black;text-align: center;">
+        <tr>
+            <th>
+                WRITTEN EXAMINATION
+            </th>
+        </tr>
+
+        </table>    
+        <table class="text-center w-100" border="1" style="border-collapse: collapse;
+        border: 1px solid black; font-size: 14px;">
+    <tr>
+        <th class="th-subject-view"> Date</th>
+        <th class="th-subject-view"> Day</th>
+        <th class="th-subject-view">Subject</th>
+        <!-- <th class="th-subject-view">Timings</th> -->
+        <th class="th-subject-view">Sign of Invigilator</th>
+    </tr>
+    {% for subject in student.subject_list %}
+        {% if 'ORAL' not in subject.subject_name %}
+        <tr>
+            <td class="td-subject-view">
+                {{ subject.fordate|date:'d-m-Y' }} <br/>
+            </td>
+            <td class="td-subject-view">{{ subject.fordate|date:'l' }}</td>
+            <td class="td-subject-view">
+                <div style="width:90%; margin-left: auto; margin-right: auto;">
+                    {{ subject.subject_name|title }}
+                </div>
+            </td>
+            <!-- <td class="td-subject-view">
+                {{ subject.start_time }} - {{ subject.end_time }}
+            </td> -->
+            <td class="td-subject-view">
+               
+            </td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+</table>
+
+      
+        <table class="w-100" style="margin-top: 25px;">
+            <tr>
+                <th style="text-align: left;">
+                    SIGN OF CLASS TEACHER
+                </th>
+                <th style="text-align: right;">
+                    SIGN OF PRINCIPAL
+                </th>
+            </tr>
+        </table>
+        <hr>
+    </div>
+    {%  if forloop.counter|divisibleby:"1" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <div style="margin-top: 0px;"></div>
+    {% endif %}
+{% endfor %}
+</body>
+</html>

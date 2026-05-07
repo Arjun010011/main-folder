@@ -1,0 +1,219 @@
+<html>
+    <head>
+        <style>
+            @page{
+                size:A5;
+            }
+            .text-align-center{
+                text-align: center
+            }
+            table{
+                border-radius: 10px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 15px;
+            }
+            th {
+                text-align: center;
+            }
+            td{
+                padding: 8px 5px;
+                {% comment %} text-align: center; {% endcomment %}
+            }
+            .td-font-size>td{
+                font-size: 13px;
+            }
+            .font-weight-bold{
+                font-weight: bold;
+            }
+            .subject-list>tbody>tr>td{
+                text-align: center
+            }
+            .noborder > table tr td{
+                border: 0px solid black;
+                font-size: large;
+                padding:6px;
+            }
+            .box {
+                width: 100px;
+                height: 100px;
+                border: 1.5px solid black;
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        {% for student in data.student_list %}
+        <div style="border:1px solid black;border-radius:10px; padding:20px;">
+            <!-- Header Section -->
+            <div class="noborder">
+            <table width="100%" style="border:0px solid black;padding:0px;margin-top:-15px;">
+                <tr>
+                    <td style="text-align:right;vertical-align:top;">
+                        {% if institute_data.document_details.file %}
+                            <img src={{institute_data.document_details.file}}
+                            style="width: 100px;height: 100px;"/>
+                        {% endif %}
+                    </td>
+                    <td class='text-align-center' style="vertical-align: top;">
+                        <b>
+                            <div style="font-size:17px;text-align: center;">{% if institute_data.trust_name %}
+                                <span>{{ institute_data.trust_name }}</span>
+                                {% endif %}
+                            </div>
+                            <div style="font-size:30px;font-weight: bold;text-align:center;">
+                                {{institute_data.name|upper}}
+                            </div>
+                        </b>
+                        <div class="center" style="font-size: 15px;">(Recognised by the Government of Karnataka)</div>
+                        <div class="center" style="font-size: 15px;">SUNKESHWARAHAL, DEVADURGA TQ, RAICHUR DST 584126</div>
+                        <div class="center" style="font-size: 15px;font-weight: bold;">Phone No: 9480796071 </div>
+                    </td>
+                    <td style="text-align:right;">
+                        {% if student.profile_pic_file %}
+                        <img src={{student.profile_pic_file}}
+                        style="width: 98px;height: 98px;border-radius:8px;"/>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            </div>
+            <br/>
+            <br/>
+
+            <!-- Student details -->
+            <div class="noborder">
+            <table width="100%" style="margin-top:-10px;border:0px solid black;font-weight: bold;">
+                <tr>
+                    <td width="60%">
+                        STUDENT NAME : {{student.student_name|upper}}
+                    </td>
+                    <td>
+                        CLASS & SEC : {{data.standard_name}} - {{data.section_name}}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        FATHER NAME : {{student.father_name}}
+                    </td>
+                </tr>
+            </table>
+            </div>
+
+            <!-- Exam heading -->
+            <div class='text-align-center font-weight-bold' style="font-size:21px;margin-top: 8px;">
+                {{data.exam_details|upper}} ({{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"Y"}})
+            </div>
+
+            <!-- Marks table -->
+            <!-- Marks table -->
+            <table class='subject-list' style='width:100%;border-radius:10px;margin-top:8px;'>
+                <!-- First row of headers -->
+                <tr style='font-weight:bold;' class='td-font-size'>
+                    <th width=30% rowspan="2" style="padding-left:20px;text-align:left;">SUBJECTS</th>
+                    {% if student.subject_list_data.0.cumulative_mark_data_for_marks_card %}
+                        <th colspan="2">ACTIVITY</th>
+                    {% endif %}
+                    <th colspan="2">WRITTEN</th>
+                    <th rowspan="2">TOTAL</th>
+                    <th rowspan="2">GRADE</th>
+                    <th rowspan="2">PERCENTAGE</th>
+                </tr>
+
+                <!-- Second row of headers -->
+                <tr style='font-weight:bold;' class='td-font-size'>
+                    {% if student.subject_list_data.0.cumulative_mark_data_for_marks_card %}
+                        <th>MAX. MARKS</th>
+                        <th>MARKS OBTAINED</th>
+                    {% endif %}
+                    <th>MAX. MARKS</th>
+                    <th>MARKS OBTAINED</th>
+                </tr>
+
+                <!-- Subject rows -->
+                {% for subject_data in student.subject_list_data %}
+                    {% if subject_data.subject_part_type_code_name == 'part1' %}
+                        <tr class='td-font-size'>
+                            <td style="text-align:left;padding-left:12px;">{{subject_data.subject_name|upper}}</td>
+
+                            {% for cumulative_type in subject_data.cumulative_mark_data_for_marks_card %}
+                                <td>{{cumulative_type.max_mark|floatformat:0}}</td>
+                                <td>{{cumulative_type.mark|floatformat:0}}</td>
+                            {% endfor %}
+
+                            <td>{{subject_data.max_marks|floatformat:0}}</td>
+                            <td>
+                                {% if subject_data.attendance_status == 'Absent' %}
+                                    AB
+                                {% else %}
+                                    {{subject_data.marks|floatformat:0}}
+                                {% endif %}
+                            </td>
+                            <td style="font-weight:bold;">{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                            <td style="font-weight:bold;">{{subject_data.grade}}</td>
+                            <td>{{subject_data.percentage|floatformat:0}} <b>%</b></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+
+                <!-- Grand total -->
+                
+                <tr style='font-weight:bold;' class='td-font-size'>
+                    <td style='font-size:13px'>GRAND TOTAL</td>
+
+                    <!-- Activity Total (if you want, else leave blank) -->
+                    {% if student.subject_list_data.0.cumulative_mark_data_for_marks_card %}
+                        <td></td>
+                        <td></td>
+                    {% endif %}
+
+                    <!-- Written Total -->
+                    <td>{{ student.total_marks|floatformat:0 }}</td>
+                    <td>{{ student.obtained_marks|floatformat:0 }}</td>
+
+                    <!-- Overall Total -->
+                    <td>{{ student.part_type_data_code_wise.part1.total_obtained_marks|floatformat:0 }}</td>
+                    <td>{{ student.part_type_data_code_wise.part1.grade }}</td>
+                    <td>{{ student.part_type_data_code_wise.part1.percentage|floatformat:0 }} <b>%</b></td>
+                </tr>
+
+
+            </table>
+
+
+            <!-- Remarks -->
+            
+            <table style='width:100%;margin-top:10px;border:0px;'>
+                <tr>
+                    <td style='border:0px;font-weight:bold;text-align:left;padding-left:5px;'>
+                        REMARKS : {{student.remark_name}}
+                    </td>
+                </tr>
+            </table>
+
+
+            <!-- Signatures -->
+            <div class="noborder" style="margin-top:20px;">
+                <table width=100% style="border:0px solid black">
+                    <tr>
+                        <td>Signature of the <br> Class Teacher</td>
+                        <td style="text-align:center;position:relative">
+                            <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/ssemsraichur/IMG_20250816_123417__1_-removebg-preview.png" 
+                            style="width:153px;height:100px;position:absolute;top:-60px;left:70px"/>
+                            Signature of the <br> Principal
+                        </td>
+                        <td style="text-align:right;">Signature of the <br> Parent/Guardian</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        {% if not forloop.last %}
+            <div style="page-break-after:always;"></div>
+        {% endif %}
+        {% endfor %}
+    </body>
+</html>

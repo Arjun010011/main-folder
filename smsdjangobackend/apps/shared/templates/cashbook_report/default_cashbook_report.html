@@ -1,0 +1,103 @@
+<html>
+{% load humanize %}
+<head>
+    <style>
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 12px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center
+        }
+        .noborder{
+            border:0px solid black
+        }
+    </style>
+</head>
+
+<body>
+    <div style="border:1px solid black;padding:20px;margin:20px 20px 0px 20px;">
+        <table class='noborder' style="width:100%;border-collapse: collapse;">
+            <tr class="noborder">
+                <td class='noborder' colspan="2" style="padding: 8px;">
+                    <div style='display:flex;justify-content:center;padding-right:30px'>
+                        <div style='text-align:left;'>
+                            {% if institute.logo.file.url %}
+                            <img src={{ institute.logo.file.url }} style="width: 80px;height: 80px;" />
+                            {% endif %}
+                        </div>
+                        <div style='text-align:center;padding-left:50px;'>
+                            <div style="font-size: 21px;font-weight: bold;">
+                                {{ institute.name }} </br>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </table>
+            <hr>
+            <table class='noborder' style="font-size: 17px;width:100%"> 
+                <tr class='noborder'>
+                    <td class='noborder' style="text-align: right;width:60%;font-size:large">Fee Paid Report</td>
+                    <td class='noborder'style="text-align:right;">{{from_date|date:'d-M-Y'}} to {{to_date|date:'d-M-Y'}}</td>
+                </tr>
+            </table>
+            <hr>
+            <table width="100%">
+                <tr>
+                    <td>S.No</td>
+                    <td>Date</td>
+                    <td>Receipt#</td>
+                    <td>Student Name</td>
+                    <td>Group</td>
+                    <td>Discount</td>
+                    <td>Paid</td>
+                    <td>Mode</td>
+                    <td>Comments</td>
+                    <td>Billed By</td>
+                </tr>
+                {%for data in receipt_wise%}
+                <tr style="font-size: 13px;">
+                    <td>{{forloop.counter}}</td>
+                    <td>{{data.date}}</td>
+                    <td>{{data.receipt_num}}</td>
+                    <td>{{data.full_name}}</td>
+                    <td>{{data.standard_name}}{% if section_name %} /{{section_name}} {%endif%}</td>
+                    <td>{{data.total_discount}}</td>
+                    <td>{{data.total_amount}}</td>
+                    <td>{{data.mode_of_payment}}</td>
+                    <td>{%if data.discount_reason %} {{data.discount_reason}}<br/> {%endif%}{{data.ref_number}}</td>
+                    <td>{{data.collected_user_full_name}}</td>
+                </tr>
+                {%endfor%}
+                <tr>
+                    <td colspan="6" style="text-align:right">Total&nbsp;</td>
+                    <td colspan="5"> {{summary.total_paid_amount| floatformat:0 | intcomma}}</td>
+                </tr>
+            </table>
+</body>
+</html>

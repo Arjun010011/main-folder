@@ -1,0 +1,131 @@
+@import './../../styles/helpers.scss';
+
+.custom-card-body {
+  width: 320px !important;
+  height: 500px !important;
+  // position: relative!important;
+  box-shadow: 0px 15px 35px rgba(49, 69, 244, 0.1), 0px 4px 16px rgba(0, 0, 0, 0.25) !important;
+  border-radius: 20px !important;
+  background-color: #f7f9fe !important;
+  margin: 15px !important;
+  position: relative;
+}
+
+.header {
+  font-weight: bold;
+  font-size: 22px;
+  padding-top: 20px;
+  text-transform: capitalize;
+}
+
+.card-col-error {
+  height: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.sub-header {
+  font-size: 22px;
+  padding-top: 5px;
+  text-transform: capitalize;
+}
+
+.row-header {
+  color: white;
+  padding: 10px;
+  font-size: 20px;
+  background: #4986FF;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.row-data {
+  color: black;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  display: flex;
+}
+
+.width-45 {
+  width: 45%;
+  text-align: center;
+}
+
+.width-10 {
+  width: 10%;
+}
+
+.fix-card-height-with-action {
+  height: 280px;
+  overflow: auto;
+  padding-bottom: 60px;
+}
+
+.fix-card-height-without-action {
+  height: 320px;
+  overflow: auto;
+}
+
+.outer-icon {
+  color: white !important;
+  background: #DEDEDF !important;
+  box-shadow: none !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  min-width: 40px !important;
+}
+
+.outer-icon:hover {
+  background: #bfbfbf !important;
+}
+
+.outer-icon-position {
+  position: absolute;
+  bottom: 85px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.icon {
+  color: #A5A5A5 !important;
+  cursor: pointer !important;
+  font-size: 25px !important;
+}
+
+.action-outer-section {
+  position: absolute;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.action-section {
+  background: #FEFEFE;
+  box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.110823);
+  border-radius: 30px;
+  width: 71%;
+  padding: 10px;
+}
+
+.row-data-opacity {
+  opacity: 30%;
+}
+
+.margin-bottom {
+  margin-bottom: 3px !important;
+}
+
+@media only screen and (max-width: 980px) {
+  .custom-card-body {
+    margin: 6px !important;
+    width: 290px !important;
+  }
+}

@@ -1,0 +1,134 @@
+<html>
+    <head>
+        <style>
+            .text-align-center{
+                text-align: center
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 15px;
+            }
+            th,
+            td {
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-left: 5px;
+                padding-right: 5px;
+                text-align: left;
+            }
+            .td-font-size>td{
+                font-size: 13px;
+            }
+            .font-weight-bold{
+                font-weight: bold;
+            }
+            .subject-list>tbody>tr>td{
+                text-align: center
+            }
+        </style>
+    </head>
+    <body>
+        {% for student in data.student_list %}
+        <div style="border:1px solid black;padding:20px;margin:20px 20px 0px 20px;height: 1290px;">
+            <div style='line-height: 1.8'>
+                {% if student.is_finalized == False %}
+                    <div style='color:red'>
+                        Marks Is Not Finalized
+                    </div>
+                {% endif %}
+                <div class='text-align-center'>
+                    <b>
+                        <div style="font-size:30px;font-weight: bold;">JNANA JYOTHI SCHOOL </div>
+                        <div style="font-size:18px">YELAHANKA NEW TOWN, BENGALURU-560064</div>
+                    </b>
+                </div>
+                <div class='font-weight-bold text-align-center'>
+                    {% if institute_data.document_details.file %}
+                        <img src={{ institute_data.document_details.file }}
+                        style="width: 100px;height: 100px;padding-right:"/>
+                    {% endif %}
+                </div>
+                <div class='text-align-center font-weight-bold'>
+                    {{data.exam_details|upper}} <br/>
+                    <u>STATEMENT OF Grade {{data.academic_year_details.start_date|date:"Y"}} - {{data.academic_year_details.end_date|date:"y"}}</u>
+                </div>
+        
+                <div style='margin-top: 20px'>
+                    This is to certify that the candidate mentioned below has scored {{data.exam_code_name}} grade, with the following details
+                </div>
+            </div>
+            <div>
+                <div style='margin-top: 20px;font-weight: bold'>
+                    STUDENT NAME : {{student.student_name}} <br/>
+                </div>
+                <div style="margin-top: 10px;font-weight: bold">
+                    ADMISSION NUMBER : {% if student.student_admission_form %} 
+                        {{student.student_admission_form.admission_num}}
+                    {% endif %}
+                </div>
+                <div style="margin-top: 10px;font-weight: bold">
+                    STANDARD AND SECTION : {{data.standard_name}} - {{data.section_name}} <br/>
+                </div>
+                <div class='text-align-center' style='padding-top: 20px;padding-bottom: 20px;margin-top:20px'>
+                    <b>Part-A (SCHOLASTIC)</b> <br />
+                </div>
+                <table class='table-border subject-list' style='width: 100%;'>
+                    <tr style='font-weight: bold' class='td-font-size'>
+                        <td>
+                            SUBJECTS
+                        </td>
+                        <td>
+                            GRADE
+                        </td>
+                    </tr>
+                    {% for subject_data in student.subject_list_data %}
+                        {%if subject_data.subject_part_type_code_name ==  'part1'%}
+                            <tr class='td-font-size'>
+                                <td>{{subject_data.subject_name|capfirst}}</td>
+                                <td>{{subject_data.grade}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                        <tr style='font-weight: bold' class='td-font-size'>
+                            <td style='font-size: 13px'>TOTAL Grade</td>
+                            <td>A
+                            </td>
+                        </tr>
+                </table>
+                <div style='font-weight: bold;margin-top: 50px;text-align: center;margin-bottom: 40px'>
+                    PART-B(CO-SCHOLASTIC)
+                </div>
+                <table style='width:100%'>
+                    <tr style='font-weight: bold;'>
+                        <td>
+                            SL NO
+                        </td>
+                        <td>
+                            SUBJECT
+                        </td>
+                        <td>
+                            GRADE
+                        </td>
+                    </tr>
+                    {% for subject_data in student.subject_list_data %}
+                        {%if subject_data.subject_part_type_code_name ==  'part2'%}
+                            <tr>
+                                <td>{{subject_data.sequence}}</td>
+                                <td>{{subject_data.subject_name}}</td>
+                                <td>{{subject_data.grade}}</td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div style='margin:20px'> This marks sheet is auto-generated hence seal and signature is not required</div>
+        {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+        {% endfor %}
+    </body>
+</html>

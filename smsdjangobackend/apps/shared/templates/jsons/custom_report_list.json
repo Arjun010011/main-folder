@@ -1,0 +1,963 @@
+[
+    {
+        "reportcategory": [
+            {
+                "name": "finance",
+                "alias": "Finance",
+                "is_active": 1,
+                "reportsubcategory": [
+                    {
+                        "name": "pending_report",
+                        "alias": "Pending Report",
+                        "is_active": 1,
+                        "report": [
+                            {
+                                "report_name": "pending_report",
+                                "report_description": "Fee pending report",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "pending_report",
+                                "transaction_id": "0",
+                                "email_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you.<br/> Edubricz",
+                                "push_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "sms_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_term_name",
+                                        "filter_alias": "Term Name",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 2,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_reason",
+                                        "column_alias": "Concession Reason",
+                                        "formate_type": "str",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_term_total_amount",
+                                        "column_alias": "Fee Term  Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_term_paid_amount",
+                                        "column_alias": "Fee Term Paid Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_term_pending_amount",
+                                        "column_alias": "Fee Term Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "report_name": "fee_type_wise_pending_report",
+                                "report_description": "Fee Type pending report",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "fee_type_wise_pending_report",
+                                "transaction_id": "1",
+                                "email_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you.<br/> Edubricz",
+                                "push_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "sms_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_reason",
+                                        "column_alias": "Concession Reason",
+                                        "formate_type": "str",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_total_amount",
+                                        "column_alias": "Fee Type  Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_paid_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_pending_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "report_name": "fee_type_wise_pending_report_class_wise",
+                                "report_description": "Fee Type pending report Class Wise",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "fee_type_wise_pending_report_class_wise",
+                                "transaction_id": "5",
+                                "email_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you.<br/> Edubricz",
+                                "push_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "sms_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_reason",
+                                        "column_alias": "Concession Reason",
+                                        "formate_type": "str",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_total_amount",
+                                        "column_alias": "Fee Type  Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_paid_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_pending_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            },
+                            {
+                                "report_name": "zero_amount_paid",
+                                "report_description": "Amount Paid is Zero",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "zero_amount_paid",
+                                "transaction_id": "5",
+                                "email_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you.<br/> Edubricz",
+                                "push_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "sms_template": "We are relaying this message as a reminder of an unpaid fee of {name}, {pending_term} and we are yet to process your payment. Please settle your account as soon as possible. Thank you. Edubricz",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_reason",
+                                        "column_alias": "Concession Reason",
+                                        "formate_type": "str",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_total_amount",
+                                        "column_alias": "Fee Type  Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_paid_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_pending_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "full_fee_paid_report",
+                        "alias": "Fee Payment Complition Report",
+                        "is_active": 1,
+                        "report": [
+                            {
+                                "report_name": "full_fee_paid_report",
+                                "report_description": "Fee Completion report",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "full_fee_paid_report",
+                                "transaction_id": "2",
+                                "email_template": "",
+                                "push_template": "",
+                                "sms_template": "",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_term_name",
+                                        "filter_alias": "Term Name",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 2,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_reason",
+                                        "column_alias": "Concession Reason",
+                                        "formate_type": "str",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "fee_report",
+                        "alias": "Fee Collection report",
+                        "is_active": 1,
+                        "report": [
+                            {
+                                "report_name": "fee_report",
+                                "report_description": "Fee report",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "fee_report",
+                                "transaction_id": "4",
+                                "email_template": "",
+                                "push_template": "",
+                                "sms_template": "",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_term_name",
+                                        "filter_alias": "Term Name",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 2,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_reason",
+                                        "column_alias": "Concession Reason",
+                                        "formate_type": "str",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_total_amount",
+                                        "column_alias": "Fee Type  Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "fee_type_paid_amount",
+                                        "column_alias": "Fee Type Pending Amount",
+                                        "formate_type": "flag",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "mobile_num",
+                                        "column_alias": "Mobile Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "father_name",
+                                        "column_alias": "Father Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "f_mobile_num",
+                                        "column_alias": "Father Mobile Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "mother_name",
+                                        "column_alias": "Mother Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "m_mobile_num",
+                                        "column_alias": "Mother Mobile Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "group_wise_pending_report",
+                        "alias": "Sundry Debtors report",
+                        "is_active": 1,
+                        "report": [
+                            {
+                                "report_name": "group_wise_pending_report",
+                                "report_description": "sundry debtors report",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "group_wise_pending_report",
+                                "transaction_id": "4",
+                                "email_template": "",
+                                "push_template": "",
+                                "sms_template": "",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_term_name",
+                                        "filter_alias": "Term Name",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 2,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "fee_report_custom_division",
+                        "alias": "Fee report custom division",
+                        "is_active": 1,
+                        "report": [
+                            {
+                                "report_name": "fee_report_custom_division",
+                                "report_description": "Fee report custom division",
+                                "is_active": 1,
+                                "process_hook": "custom_report",
+                                "process_function": "pending_term_wise",
+                                "code_name": "fee_report_custom_division",
+                                "transaction_id": "9",
+                                "email_template": "",
+                                "push_template": "",
+                                "sms_template": "",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "academic_year",
+                                        "filter_alias": "Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "standard",
+                                        "filter_alias": "Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_type",
+                                        "filter_alias": "Fee Type",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "fee_term_name",
+                                        "filter_alias": "Term Name",
+                                        "is_mandatory": 0,
+                                        "filter_data_type": 2,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "admission_num",
+                                        "column_alias": "Admission Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "sts_num",
+                                        "column_alias": "Sts Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "mobile_num",
+                                        "column_alias": "Mobile Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name":"student_group",
+                                        "column_alias": "Student Group",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "total_amount",
+                                        "column_alias": "Total Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "paid_amount",
+                                        "column_alias": "Paid Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "concession_amount",
+                                        "column_alias": "Concession Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "pending_amount",
+                                        "column_alias": "Pending Amount",
+                                        "formate_type": "float",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "govt_fee_custom",
+                                        "column_alias": "Govt Fee",
+                                        "formate_type": "custom",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "literary_fee_custom",
+                                        "column_alias": "Literary Fee",
+                                        "formate_type": "custom",
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "column_name": "tution_fee_custom",
+                                        "column_alias": "Tuition Fee",
+                                        "formate_type": "custom",
+                                        "is_default_selected": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                ]
+            },
+            {
+                "name": "student_details_report",
+                "alias": "Student Details Report",
+                "is_active": 1,
+                "reportsubcategory": [
+                    {
+                        "name": "promoted_students_list",
+                        "alias": "Promoted Students List",
+                        "is_active": 1,
+                        "report": [
+                            {
+                                "report_name": "promoted_students_list",
+                                "report_description": "Promoted Students List",
+                                "is_active": 1,
+                                "process_hook": "custom_report_student_details",
+                                "process_function": "promoted_students_list",
+                                "code_name": "promoted_students_list",
+                                "transaction_id": "3",
+                                "email_template": "",
+                                "push_template": "",
+                                "sms_template": "",
+                                "supported_doc_formate": "1,2",
+                                "report_filter": [
+                                    {
+                                        "filter_name": "from_academic_year",
+                                        "filter_alias": "From Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "from_standard",
+                                        "filter_alias": "From Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "to_academic_year",
+                                        "filter_alias": "To Academic Year",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    },
+                                    {
+                                        "filter_name": "to_standard",
+                                        "filter_alias": "To Standard Name",
+                                        "is_mandatory": 1,
+                                        "filter_data_type": 1,
+                                        "is_default_selected": 0
+                                    }
+                                ],
+                                "report_column": [
+                                    {
+                                        "column_name": "sl_no",
+                                        "column_alias": "SI No",
+                                        "formate_type": "int",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "name",
+                                        "column_alias": "Student Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "to_standard_name",
+                                        "column_alias": "Standard Name",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    },
+                                    {
+                                        "column_name": "admission_num",
+                                        "column_alias": "Admission Number",
+                                        "formate_type": "str",
+                                        "is_default_selected": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

@@ -1,0 +1,100 @@
+<html>
+{% load humanize %}
+<head>
+    <style>
+        .text-align-center {
+            text-align: center
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 12px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center
+        }
+        .noborder{
+            border:0px solid black
+        }
+    </style>
+</head>
+
+<body>
+    <div style="border:1px solid black;padding:20px;margin:20px 20px 0px 20px;">
+        <table class='noborder' style="width:100%;border-collapse: collapse;">
+            <tr class="noborder">
+                <td class='noborder' colspan="2" style="padding: 8px;">
+                    <div style='display:flex;justify-content:center;padding-right:30px'>
+                        <div style='text-align:left;'>
+                            {% if institute.logo.file.url %}
+                            <img src={{ institute.logo.file.url }} style="width: 80px;height: 80px;" />
+                            {% endif %}
+                        </div>
+                        <div style='text-align:center;padding-left:50px;'>
+                            <div style="font-size: 21px;font-weight: bold;">
+                                {{ institute.name }} </br>
+                            </div>
+                            <div style="line-height: 25px;">
+                                {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                                {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                                {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                                {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </table>
+            <hr>
+            <div style="text-align: center;">Staff Wise Report</div>
+            <hr>
+            <div style="text-align: center;">Attendance Date {{for_data|date:"d-m-Y"}}</div>
+            <hr>
+            <table width="100%">
+                <tr>
+                    <td>S.No</td>
+                    <td>Staff Name</td>
+                    <td>Staff UID</td>
+                    <td>Standard/Batch</td>
+                    <td>Practical/Theory</td>
+                    <td>Period/Session</td>
+                    <td>Subject</td>
+                </tr>
+                {%for row_data in data%}
+                    <tr style="font-size: 13px;">
+                        <td>{{forloop.counter}}</td>
+                        <td>{{row_data.staff_full_name|title}}</td>
+                        <td></td>
+                        <td>{{row_data.standard_section__standard__name|title}}</td>
+                        <td>THEORY</td>
+                        <td>{%if row_data.period_day_mapping__period__name %} 
+                            {{row_data.period_day_mapping__period__name|title}} 
+                            {%else%} 
+                            {{row_data.from_time|time:"h:i A"}}-{{row_data.to_time|time:"h:i A"}}
+                            {%endif%}</td>
+                        <td>{{row_data.subject__name|title}}</td>
+                        </tr>
+                {%endfor%}
+            </table>
+</body>
+</html>

@@ -1,0 +1,154 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lugrasimo">
+    <style>
+        @page {
+            size: A4;
+            margin: 0px;
+        }
+
+        .center {
+            text-align: left;
+            margin: 2px;
+            display: flex;
+        }
+
+        p {
+            text-align: justify;
+            line-height: 4.0em;
+            word-spacing: 10px;
+            font-weight: normal;
+        }
+
+        .border {
+            height: 1000px;
+            border: 8px double black;
+            padding: 20px;
+            margin: 30px;
+            position: relative;
+        }
+
+        .box {
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: bold;
+            font-size: 30px;
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            text-align: center;
+            margin: 20px auto;
+            text-transform: uppercase;
+            width: 60%;
+            border: 2px solid black;
+        }
+
+        .font {
+            font-family: 'Lugrasimo', sans-serif;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: auto;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="border">
+
+        <div class="center" style="font-size: 16px; margin-top: 4px; display: flex;">
+            <img src={{institute.logo.file.url}} alt="Institution Logo" style="width: 100px; height: 90px;">
+            <h1 style="font-size: 15px;padding-left: 11%;font-weight: bold;font-size: 25px;width: 100%;"><b>SIR C V RAMAN PUBLIC SCHOOL</b></h1>
+        </div>
+
+        <div>
+            <div>
+                <div style="font-weight: bold; margin-top: 2px; padding-left: 70%;width: 100%;">
+                    Admission No: {{ admission_num }}
+                </div>
+            </div>
+
+    
+        </div>
+
+<div style="text-align: center; margin: 10px 0;">
+    <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/cvraman/STUDY+CERTIFICATE.png" alt="Study Certificate" style="width: 60%; height:150px;width:500px;" />
+</div>
+
+<!-- Student image or box -->
+<div style="text-align: right; margin-bottom: 20px; margin-right: 50px;">
+    {% if profile_pic_details %}
+        <img src="{{ profile_pic_details }}" class="profile-pic" />
+    {% else %}
+        <div style="width: 120px; height: 140px; border: 1px solid #000; display: inline-block;"></div>
+    {% endif %}
+</div>
+        <div class="font"style='font-style:italic;'>
+            <p>
+                This is to certify that 
+                <span style="font-weight: bold; ">
+                    {{ student_identify|title }}</span>
+                    <span style="font-weight: bold; ">
+                        {{ student_full_name|title }}</span>
+                <span style="font-weight: bold; ">
+                    {{ student_relate }}</span>
+                <span style="font-weight: bold; "> {{ father_name|title }}</span> 
+                belong to
+                <span style="font-weight: bold;"> {{ village|title }}</span>
+                 Village, <span style="font-weight: bold;">
+                {{ taluk|title }}</span> Taluk, <span style="font-weight: bold;">{{ district|title }}</span>. He/She studied in 
+                <span style="font-weight: bold;">{{ school_name|title }}</span>
+                from <span style="font-weight: bold;">{{ from_standard_name|title }}</span>
+                to <span style="font-weight: bold;">{{ to_standard_name|title }}</span>
+                 and passed
+                <span style="font-weight: bold;">{{ standard_name|title }}</span> in the year <span style="font-weight: bold;">{{ academic_year|title }}</span>.
+            </p>
+
+            <div style="margin-left: 40px; font-weight: bold; margin-top: 13px;color:red">
+                His/Her Date of Birth: {{ dob_str }}
+            </div>
+            <div style="margin-left: 40px; font-weight: bold; margin-top: 13px;color:red">
+                His/Her Record No. & Date: {{ admission_num }}
+            </div>
+            <div style="margin-left: 40px; font-weight: bold; margin-top: 13px;color:red">
+                Date of Leaving School: {{ leave_date }}
+            </div>
+            <div style="margin-left: 40px; font-weight: bold; margin-top: 13px;color:red">
+                This Certificate is issued according to the records of our school.
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div style="position: absolute; bottom: 30px; width: 95%; font-style: italic;">
+    <table style="width: 100%; font-weight: bold;">
+        <tr>
+            <td>Date: {{ today_date }}</td>
+            <td></td> <!-- empty cell to align properly -->
+        </tr>
+        <tr>
+            <td>Place: Tavarekere</td>
+            <td style="text-align: right;">Signature and Seal of the Head Master</td>
+        </tr>
+    </table>
+
+    <div style="text-align: center; margin-top: 110px; font-weight: bold; font-style: italic;">
+        Signature of AEO/D.D.P.I with Seal
+    </div>
+    <div style="border-top: 1px solid black; margin-top: 10px;"></div>
+    <div style="text-align: center; font-size: 12px; font-style: italic;">
+        Note: If the candidate studied in more than one school, they must produce a separate certificate.
+    </div>
+</div>
+
+    </div>
+
+</body>
+
+</html>

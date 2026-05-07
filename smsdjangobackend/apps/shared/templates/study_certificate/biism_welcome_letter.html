@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Letter</title>
+    <style>
+        @page{
+            margin:30px;
+        }
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0px;
+            color: #000;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 5px solid red;
+            padding-bottom: 10px;
+        }
+        .header img {
+            width: 80px;
+            float: left;
+        }
+        .header h1 {
+            font-size: 25px;
+            color: red;
+            margin: 0;
+        }
+        .header p {
+            font-size: 20px;
+            margin: 2px 0;
+        }
+        .header-sub {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .date {
+            text-align: right;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .title {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 3px;
+            text-decoration: underline;
+        }
+        .content {
+            margin-top: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .content p {
+            text-align: justify;
+        }
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            margin-top: 15px;
+            border-top: 3px solid red;
+            padding-top: 7px;
+        }
+        .contact {
+            margin-top: 3px;
+        }
+        .watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.08;
+            z-index: 0;
+            width: 400px;
+            height: auto;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% if institute.logo.file.url %}
+      <img src="{{ institute.logo.file.url }}" alt="Watermark Logo" class="watermark" />
+    {% endif %}
+
+    <div class="header">
+        <img src="{{ institute.logo.file.url }}" alt="School Logo">
+        <div>
+            <p style="font-size: 16px;">Shree Shivanandi Education and Welfare Trust®</p>
+            <div class="header-sub">ಭಾರತ್ ಇನ್ಸಿಟ್ಯೂಟ್ ಆಫ್ ಇನ್ಡಸ್ಟ್ರಿಯಲ್ ಸಾಫ್ಟಿ ಮ್ಯಾನೇಜ್ಮೆಂಟ್</div>
+            <h1>Bharath Institute of Industrial Safety Management</h1>
+            <p>(Affiliated to Visvesvaraya Technological University, Govt. of Karnataka)</p>
+        </div>
+    </div>
+
+    <div class="date">
+        Date: {{today_date}}
+    </div>
+
+    <div class="title">WELCOME LETTER</div>
+
+    <div class="content">
+        <p>To,<br>
+        {{student_full_name|title}}<br>
+        Dear Student,</p>
+
+        <p>Greetings and a warm welcome to the Bharath Institute of Industrial Safety Management.</p>
+
+        <p>On behalf of the entire faculty, staff, and management we take great pleasure in congratulating you on securing admission to one of India’s premier institutions dedicated to industrial safety, occupational health, and environmental management. You have taken a crucial step toward a career that is not only professionally rewarding but also vital to national and global industry standards.</p>
+
+        <p>At Bharath Institute, our vision goes beyond textbooks and classrooms. We are committed to developing safety professionals who will uphold the highest standards of ethical responsibility, technical expertise, and leadership in the field of industrial safety. With growing awareness and regulations in the safety domain, your role in the industry will be both impactful and indispensable.</p>
+
+        <p>Our comprehensive curriculum, experienced faculty, hands-on training modules, and industry collaborations will provide you with the knowledge and skills needed to thrive in sectors such as manufacturing, construction, logistics, oil & gas, and more. You will also have opportunities to attend seminars, workshops, and certification programs that will enrich your professional journey.</p>
+
+        <p>As you embark on this transformative path, I encourage you remain curious, proactive, and disciplined. Take full advantage of the resources and mentoring available here. Remember, your time at Bharath Institute is not just about earning a qualification; it’s about becoming a change maker in the safety ecosystem.</p>
+
+        <p>Once again, welcome to the Bharath family. We are excited to support your ambitions and watch you grow into a capable and confident safety professional.</p>
+
+        <p>Wishing you a successful and enriching academic journey.</p>
+    </div>
+
+    <div class="signature-section">
+        <div>Chairman</div>
+        <div>General Secretary</div>
+        <div>Principal</div>
+    </div>
+
+    <div class="footer">
+        <p>#125/1A, Shivanandi Arcade, Brahmadevaragutte, Behind Shivanandi layout bus stop, Kodigehalli, Bengaluru - 560091</p>
+        <p class="contact">
+            Mob: 9986106969, 9108459108, 9606218409 |
+            <a href="http://www.biism.ind.in">www.biism.ind.in</a> |
+            biism.blr@gmail.com
+        </p>
+        <div style="background-color: red; text-align: center; padding: 2px 0; margin-top: -10px;">
+            <div style="color: white; font-weight: bold; font-size: 18px;">BIISM</div>
+        </div>
+        
+    </div>
+
+</body>
+</html>

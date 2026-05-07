@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000000;
+            padding: 5px 7px;
+            display: inline-block;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body style="padding-right:10px">
+    <div>
+        {% for count in number_of_copies %}
+            {% if forloop.counter|divisibleby:"2" %}
+                <div style="margin-top: 25px;"></div>
+                <div style="text-align:right; margin-right:10px;">Student Copy</div>
+            {% else %}
+                <div style="text-align:right; margin-right:10px;">Office Copy</div>
+            {% endif %}
+
+            <div style="height:147mm; padding-top: 12px;">
+                <!-- Header Section -->
+                <table style="width:100%;">
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center;">
+                                {% if institute.logo %}
+                                    <div style="margin-left: 20px;">
+                                        <img src="{{ institute.logo.file.url }}" style="width: 190px; height: 240px;" />
+                                    </div>
+                                {% endif %}
+                            
+                                <div style="text-align: center; padding-top: 10px; margin-left: -1px; width: 100%;">
+                                    {% if institute.trust_name %}
+                                        <div>{{ institute.trust_name }}</div>
+                                    {% endif %}
+                                    <div style="font-size: 27px; font-weight: bold;">
+                                        {{ institute.name|upper }}
+                                    </div>
+                                    <div style="line-height: 20px;">
+                                        {{ institute.address }}
+                                        <!-- {% if institute.city %}, {{ institute.city }}{% endif %}
+                                        {% if institute.pincode %} - {{ institute.pincode }}{% endif %} -->
+                                        <br>
+                                    </div>
+                                    <div style="margin-top: 90px; padding-right: 200px;">
+                                        <div class="feereceipt-box" style="font-size: 22px;">FEE RECEIPT</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Student Info Section -->
+                <table style="width: 100%; line-height: 1.5;">
+                    <tr>
+                        <td>
+                            <div>
+                                <b>Student Name:</b> 
+                                {% if application_receipt.student.first_name %}
+                                    {{application_receipt.student.first_name}}
+                                {% endif %}
+                                {% if application_receipt.student.middle_name %}
+                                    {{application_receipt.student.middle_name}}
+                                {% endif %}
+                                {% if application_receipt.student.last_name %}
+                                    {{application_receipt.student.last_name}}
+                                {% endif %}
+                            </div>
+                            <div>
+                                <b>Class / Section:</b>{% if application_receipt.student.current_standard.name %}
+                                {{application_receipt.student.current_standard.name}}{% endif %}
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <b>Date:</b> {% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d-m-Y"}}
+                                {% endif %}<br/>
+                                <b>Receipt No:</b> {% if application_receipt.receipt_num %}{{application_receipt.receipt_num|cut:"appln_recipt"|title}}{% endif %}<br/>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <!-- Payment Details Section -->
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Particulars</th>
+                            <th>Amount</th>
+                            <th>Paid Amount</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                       
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>Application Fees</td>
+                            <td>300 </td>
+                            <td>{{ application_receipt.amount_paid}}</td>
+                            
+                        </tr>
+                       
+                        <tr>
+                            <td colspan="5" style="font-weight:bold; line-height:1.5;">
+                                TOTAL PAID AMOUNT: {{ application_receipt.amount_paid }}/- 
+                                ({{ amount_in_words|title }})<br/>
+                                Mode of Payment: {% if application_receipt.mode_of_payment %}
+                                {{application_receipt.mode_of_payment}}{% endif %} {% if application_receipt.payment_ref_num %}{{application_receipt.payment_ref_num}}{% endif %}<br/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="text-align:right; padding-top:50px;padding-right: 58px;">
+                                Cashier Sign
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" style="text-align:center;">
+                                *** Fees once paid will not be refunded ***
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Footer -->
+                <div style="display: flex; padding: 10px 0;">
+                    <div>Receipt Generated at: {{ today }}</div>
+                    <div style="margin-left: auto;">Powered by Edubricz</div>
+                </div>
+            </div>
+
+            {%  if forloop.counter|divisibleby:"2" and not forloop.last %}
+            <div style="page-break-after: always;"></div>
+            {%else%}
+            <div style="margin:160px;">
+            {% endif %}
+        </div>
+    {%endfor%}
+    </body>
+    </html>

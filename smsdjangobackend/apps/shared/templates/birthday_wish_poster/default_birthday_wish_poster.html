@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Birthday Wish Poster</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: 54mm 85mm;
+      margin: 0;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      color: #0A0A0A;
+      font-family: Raleway;
+    }
+    .card-container {
+      width: 54mm;
+      min-height: 85mm;
+      height: 85mm;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+    }
+    .card-container .poster-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+      display: block;
+    }
+    .card-container .card-content {
+      position: relative;
+      z-index: 1;
+    }
+    .name-large {
+      font-size: 12px;
+    }
+    .name-small {
+      font-size: 10px;
+    }
+    .name-verysmall {
+      font-size: 9px;
+    }
+    .parent-large {
+      font-size: 8px;
+    }
+    .parent-small {
+      font-size: 7px;
+    }
+    .birthday-title {
+      font-family: 'Great Vibes', cursive;
+      font-size: 22px;
+      font-weight: 400;
+      color: #8B4513;
+      text-align: center;
+      letter-spacing: 0.5px;
+      margin-top: 6px;
+      text-transform: none;
+      line-height: 1.2;
+    }
+    .birthday-wish {
+      font-size: 7px;
+      color: #5c3d2e;
+      text-align: center;
+      line-height: 1.4;
+      margin-top: 6px;
+      padding: 0 4px;
+      font-style: italic;
+    }
+    .birthday-from {
+      font-size: 6px;
+      color: #8B4513;
+      text-align: center;
+      margin-top: 4px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card-container">
+    <img class="poster-bg" src="https://staging-s3-25.s3.amazonaws.com/1/birthdayposter.jpg" alt="" />
+
+    <div class="card-content">
+      <div class="birthday-title">Happy Birthday</div>
+
+      <div style="margin-top: 12px;">
+        <div style="height: 75px; width: 69px; right: 3px; border-radius: 25% 0%; border: 2px solid white; background-color: white; margin: auto;">
+          <img src="{{ profile_pic_details.file }}" style="height: 73px; width: 67px; border-radius: 25% 0%; border: 2px solid white;">
+        </div>
+      </div>
+
+      <div style="color: #E79597; text-align: center; font-weight: bold; margin-top: 8px;"
+           class="{% if student.name|length > 26 %}name-verysmall{% elif student.name|length > 20 %}name-small{% else %}name-large{% endif %}">
+        {{name|upper }}
+      </div>
+
+      <div class="birthday-wish">
+        Wishing you a day filled with joy, laughter and wonderful moments. May this year bring you success and happiness!
+      </div>
+      <div class="birthday-from">— With best wishes</div>
+    </div>
+
+    <div style="page-break-after: always;"></div>
+  </div>
+</body>
+</html>

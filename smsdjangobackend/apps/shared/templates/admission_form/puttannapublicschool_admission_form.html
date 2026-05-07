@@ -1,0 +1,253 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admission Form</title>
+    <style>
+        @page { size: A4 }
+        table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-size: 16px;
+            }
+        .center{
+            text-align:center;
+            margin:5px;
+        }
+        .info_table{
+            table-layout: fixed;
+        }
+        .info_table td:nth-child(1){
+            width:50%;
+        }
+        .info_table td:nth-child(2){
+            width:50%;
+            font-weight: bold;
+            font-family:'Times New Roman', Times, serif
+        }
+        td {
+            padding:4px;
+            padding-right: 0px;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        
+    </style>
+</head>
+<body style="font-family: 'Calibri';">
+    <table style="width:100%;table-layout: fixed;">
+        <tr style="text-align: center;">
+            <td style="width:30%">
+                {% if institute.logo %}
+                <img src={{institute.logo.file.url}}
+                style="width: 100px;height: 100px;padding-right:"/>
+                {% endif %}
+            </td>
+            <td style="width:70%;font-family:'Times New Roman', Times, serif;font-weight:bold;">
+                {{institute.name|upper}}</br>
+                {{institute.address}}
+            </td>
+        </tr>
+    </table>
+    <table class="info_table" style="width:100%;">
+        <tr>
+            <td>
+                Admission No
+            </td>
+            <td>
+            {{admission_num}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Admission Date
+            </td>
+            <td>
+                {{admission_date|date:'d/m/Y'}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Student Name
+            </td>
+            <td>
+                {{first_name|upper}} {% if middle_name %}{{middle_name|upper}}{%endif%} {% if last_name %}{{last_name|upper}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Father's Name
+            </td>
+            <td>
+                {% if student_parent.parent.father_name %}{{student_parent.parent.father_name|upper}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mother's Name
+            </td>
+            <td>
+                {% if student_parent.parent.mother_name %}{{student_parent.parent.mother_name|upper}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Gender
+            </td>
+            <td>
+                {{gender|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mobile 1
+            </td>
+            <td>
+                {{mobile_num}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mobile 2
+            </td>
+            <td>
+                {% if student_parent.parent.m_mobile_num %}{{student_parent.parent.m_mobile_num}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Date of Birth
+            </td>
+            <td>
+                {{dob|date:'d/m/Y'}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Address
+            </td>
+            <td>
+                {% if student_address.0.address %}{{student_address.0.address}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Academic Year
+            </td>
+            <td>
+                {{student_details.entry_academic_year_value}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Class
+            </td>
+            <td>
+                {{current_standard_name|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Section
+            </td>
+            <td>
+                {{enrollment_data.section_name|upper}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Joining For
+            </td>
+            <td>
+                {% if student_group_name %}{{student_group_name|upper}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Religion
+            </td>
+            <td>
+                {% if student_details.religion_name %}{{student_details.religion_name|upper}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Caste
+            </td>
+            <td>
+                {% if student_details.caste_name %}{{student_details.caste_name|upper}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Category
+            </td>
+            <td>
+                {% if student_details.category_name %}{{student_details.category_name|upper}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Mother Tongue
+            </td>
+            <td>
+                {% if student_details.mother_tongue %}{{student_details.mother_tongue|upper}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Sibings
+            </td>
+            <td>
+                {%for sibling in sibling_data %}
+                {% if sibling.student__first_name != first_name %}
+                {% if sibling.student__first_name %}{{sibling.student__first_name|upper}}{%endif%}
+                {% if sibling.standard_name %}({{sibling.standard_name|upper}})</br>{%endif%}{%endif%}
+                {% endfor %}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Adhar No
+            </td>
+            <td>
+                {% if student_details.aadhar_num %} {{student_details.aadhar_num}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Adhar No of Father
+            </td>
+            <td>
+                {% if student_parent.parent.f_aadhar %}{{student_parent.parent.f_aadhar}}{%endif%}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Admission Type
+            </td>
+            <td>
+                {{admission_type|upper}}
+            </td>
+        </tr>
+    </table>
+    <table style="width:100%;table-layout: fixed;">
+        <tr style="height: 80px;">
+            <td class='noborder' style="width:50%;line-height: 1.6;">
+                Date:{{today}}</br>
+                Place:
+            </td>
+            <td class='noborder' style="width:50%;vertical-align: bottom; text-align: center;">
+                Parents Signature
+            </td>
+        </tr>
+    </table>   
+</body>
+</html>

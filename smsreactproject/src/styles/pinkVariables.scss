@@ -1,0 +1,105 @@
+$themes: (
+  light: (
+    paperBgImage: url("./images/backgroundSchoolView.png"),
+    headingColor: #4680FF,
+    buttonBackground: #0043a3,
+    infoKeyHead: #1665D8,
+    backgroundColor: white,
+    textColor: #408bbd,
+    buttonTextColor: #408bbd,
+    buttonTextTransform: none,
+    buttonTextHoverColor: #61b0e7,
+    buttonColor: #fff,
+    buttonBorder: 2px solid #408bbd,
+  ),
+  dark: (
+    paperBgImage: url(""),
+    headingColor: #222,
+    buttonBackground: #333,
+    infoKeyHead: #333,
+    backgroundColor: #222,
+    textColor: #ddd,
+    buttonTextColor: #aaa,
+    buttonTextTransform: uppercase,
+    buttonTextHoverColor: #ddd,
+    buttonColor: #333,
+    buttonBorder: 1px solid #333,
+  ),
+  blue: (
+    paperBgImage: url("./images/backgroundSchoolView.png"),
+    // headingColor: #4680FF,
+    headingColor: #a500fb,
+    buttonBackground: #a500fb,
+    infoKeyHead: #1665D8,
+    backgroundColor: white,
+    textColor: #a500fb,
+    buttonTextColor: #408bbd,
+    buttonTextTransform: none,
+    buttonTextHoverColor: #61b0e7,
+    buttonColor: #fff,
+    buttonBorder: 2px solid #408bbd,
+  ),
+);
+
+
+$primary-color: #1758D2;
+$secondary-body-color1: #F1F3FF;
+$secondary-body-color2: #F7F9FE;
+$primary-font-color: #4986FF;
+// $table-header-background:#1863FE;
+$table-header-background:#a500fb;
+$table-footer-background:#e6ecfd;
+$bg-image: "./images/backgroundSchoolView.png";
+
+$bg-card-image: "./images/card.png";
+
+$profile-bg-card-image: "./images/profile_background.png";
+
+$pannel-bg-color: #F4F7FA;
+$panel-row-total: rgba(0, 0, 0, 0.54);
+$card-box-shadow: 0px 15px 35px rgba(49, 69, 244, 0.1), 0px 4px 16px rgba(0, 0, 0, 0.25);
+$card-bg-color: #F7F9FE;
+$card-border-radius: 20px;
+$section-detail-text-color: #1665D8;
+$section-detail-text-font-size: 22px;
+
+$menu-box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.25);
+$menu-border-radius: 12px;
+// $selected-menu-item-background: #4680FF;
+// $selected-menu-item-background: #a500fb;
+$unselected-menu-item-background: rgba(0, 126, 255, 0.05);
+
+$primary-text-color: #1665D8;
+$border-right-code: #E4E7EB;
+
+
+//button props
+
+$button-color: #5187ff;//add and view button top right
+$button-gradiant: linear-gradient(29.97deg, #1C52C8 4%, #0070FF 78%, #0070FF 79.78%);
+$button-font-family: Roboto;
+
+$add-button-background: linear-gradient(90deg, #1982D5 0%, #4380FD 100%);
+$add-button-border: 1px solid #4B74FF;
+$add-button-shadow:0px 4px 4px rgba(0, 0, 0, 0.25);
+
+$apply-all-button-background: #5187ff;
+$apply-all-button-color: white;
+
+$submit-button-background: linear-gradient(180deg, #99d156 0%, #5e9824 100%);
+//forms skeleton
+
+$skeleton-bg-color:#dddffc;
+
+:export{
+    tableHeaderBackground:$table-header-background;
+    tableFooterBackground:$table-footer-background;
+}
+
+:root {
+  --selected-menu-item-background: #a500fb;
+  --headingColor: #a500fb;
+  --buttonBackground: #a500fb;
+  --buttonBackground1: #a500fb;
+  --table-header-background:#a500fb;
+}

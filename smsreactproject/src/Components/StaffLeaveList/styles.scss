@@ -1,0 +1,28 @@
+@import "styles/helpers.scss";
+
+.whoIsLeaveHeading {
+  display: flex;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.75);
+}
+.LeaveTodayPaper {
+  padding: 20px;
+  margin-top: 5px;
+  background: #ffffff;
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15)!important;
+  border-radius: 15px!important;
+  height: 100%;
+  overflow: auto;
+}
+.loadMore {
+  cursor: pointer;
+  text-align: end;
+  color: #1758D2;
+  margin-top: 5px;
+}
+.staff-list-height{
+  height: 645px;
+  overflow: auto;
+}

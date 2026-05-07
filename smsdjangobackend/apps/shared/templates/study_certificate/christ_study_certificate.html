@@ -1,0 +1,227 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page {
+            size: A5;
+            margin: 2mm;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+
+        .noborder {
+            border: 0px solid;
+        }
+
+        .bold {
+            font-weight: bold
+        }
+
+        .line-height {
+            line-height: 1.5;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<div style='border: 1px solid;padding:20px;margin:10px'>
+    <div style='display:flex;width:100%'>
+        <table style="width:100%">
+            <tr>
+                {% if institute.logo %}
+                <td style="text-align:center;width: 100px;">
+                    <img src={{ institute.logo.file.url }} style="width: 100px;height: auto;" />
+                </td>
+                <td style="text-align:center;padding: 8px;">
+                    {% else %}
+                <td colspan="2" style="text-align:center;padding: 8px;">
+                    {% endif %}
+                    {% if institute.trust_name %}
+                    <span>{{ institute.trust_name }}</span>
+                    {% endif %}
+                    <div style="font-size: 20px;font-weight: bold;">
+                        {{ institute.name }}</br>
+                    </div>
+                    <div style="line-height: 25px;">
+                        {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                        {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                        {% if institute.tel_num %}Cell: {{ institute.tel_num }}, {% if institute.tel_num_2 %} {{ institute.tel_num_2 }}, {% endif %}{% endif %}
+                        {% if institute.email %}Email: {{ institute.email }} {% endif %}</br>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div style="font-size: 18px;font-weight: bold;text-decoration:underline;text-align: center;margin-top: 10px;">
+        RECEIPT </br></div>
+    <table class='noborder' style="width: 100%">
+        <tr class='noborder'>
+            <td class='noborder bold line-height' style='width:70%;vertical-align:top'>
+                Rec No:{% if misc_collection.receipt_num %}{{misc_collection.receipt_num}}{% endif %} <br />
+                {% if misc_collection.student %}
+                Name :
+                {% if misc_collection.student.first_name %}{{misc_collection.student.first_name}}{% endif %}
+                {% if misc_collection.student.middle_name %}{{misc_collection.student.middle_name}}{% endif %}
+                {% if misc_collection.student.last_name %}{{misc_collection.student.last_name }}{% endif %}
+		{%else%}
+		Guest Name:{%if misc_collection.guest_name %}{{misc_collection.guest_name}}{%endif%}
+		{%endif%}
+                <br />
+                {% if misc_collection.student.current_standard.name %}
+		Standard:{{misc_collection.student.current_standard.name}}{%endif%}
+            <td class="noborder">
+                Date: {% if misc_collection.date %}{{misc_collection.date | date:"d-m-Y"}}{% endif %} <br />
+            </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='40%' style="text-align:center">Particulars</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+            {% for fee in payment_details %}<tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{ fee.misc.misc_type.name}}</td>
+                <td>{{ fee.amount | floatformat:2}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <table style="width: 100%" class="noborder" colspan="2">
+        <tr class="noborder">
+            <td class="noborder">
+                Amount in words:{{ amount_in_words|title }} Only<br />
+                Mode Of Payment:{%if misc_collection.mode_of_payment %} {{ misc_collection.mode_of_payment }}
+                {%endif%}<br />
+                {%if misc_collection.ref_number %}
+                UTR Number : {{ misc_collection.ref_number }}<br />
+                {%endif%}
+                Receipt Generated at : {{ today }}
+            </td>
+        <tr>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+        <td style="text-align:right;" class="noborder"> H.M. / Cashier</td>
+    </table>
+</div>
+{% if forloop.counter|divisibleby:"2" %}
+<div style="page-break-after: always;"></div>
+{% endif %}
+{% endfor %}
+
+</html>
+ubuntu@ip-172-31-42-146:/var/www/html/backend/smsdjangobackend$ cat apps/shared/templates/study_certificate/christ_study_certificate.html 
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+        }
+        .border {
+            height:900px;
+            border: 2px solid black;
+            padding: 20px;
+            margin:0px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            position: relative;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .header img {
+            width: 140px;
+            height: 120px;
+            margin-right: 15px;
+        }
+        .header-text {
+            text-align: center;
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <div class="border">
+        <div class="header">
+            {% if institute.logo.file.url %}
+                <img src="{{ institute.logo.file.url }}" alt="Logo">
+            {% endif %}
+            <div class="header-text">
+                <div style="font-size:22px;text-transform: uppercase;"><b>CHRIST INTERNATIONAL SCHOOL <br> KR PURAM</b></div>
+                <div style="font-size:14px;">(Recognized by the Govt. of Karnataka)</div>
+                <div style="font-size:14px;">Krishnarajapuram Road Hallehalli</div>
+            </div>
+        </div>
+        <br>
+        <br>
+
+        <div style="text-align: left;margin: 25px 0px;"><b>Reference No:</b></div>
+        <div style="font-size:19px;text-align: center;margin:100px 10px 0px;text-decoration: underline;"><b>STUDY CERTIFICATE</b></div>
+        <div style="font-size:12px;text-align: center;margin:5px 10px 70px;"><i><b>To whom so ever it may concern</b></i></div>
+
+        <p>This is to certify that <b>{{ student_full_name }}</b> {{ student_relate }} <b>{{ father_name }}</b> is a bonafide student of Christ International School studying in <b>{{ standard_name }}{{ standard_suffix }}</b> during the academic year <b>{{ academic_year }}</b>. As per the admission register of our institution {{ student_her_him }} DOB is <b>{{ dob_str }}</b> and <b>admission No</b> is <b>{{ admission_num }}</b>.</p>
+
+        <div style="text-align:left;margin:70px 0px;"> School DISE Code :</div>
+
+        <table style="width:100%;position: absolute;bottom:100px;">
+            <tr>
+                <td style="text-align: left;">
+                    Date: {{ today_date }}<br>
+                    <div style="text-align:left;margin-top:20px;">Place: Bengaluru</div>
+                </td>
+                <td style="text-align:right;position:absolute;right:40px;bottom:0px;">
+                    Seal & Signature of the Head Master
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

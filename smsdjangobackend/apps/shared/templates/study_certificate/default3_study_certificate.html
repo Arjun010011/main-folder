@@ -1,0 +1,158 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        
+        .border {
+            height: 935px;
+            border: 5px solid black;
+            border-style: double;
+            padding: 20px;
+            margin:-15px;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            position: relative;
+        }
+        .trust {
+            text-align: center;
+            font-size: 15px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .recognisition {
+            text-align: center;
+            font-size: 15px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .title {
+            margin-left: 25%;
+            font-size: 30px;  
+            border-width: fit-content;
+            text-decoration: underline;
+            margin-top: 5%;
+        }
+        .content {
+            line-height: 50px;
+            font-family: "Cinzel Decorative", sans-serif;
+        }
+        .dot-line {
+            border-bottom: 1px dotted;
+            flex-grow: 100;
+            text-align: center;
+        }
+        
+        .display-flex{
+            display: flex;
+        }
+        .schoolname {
+            text-transform: uppercase;
+            font-size: 37px;
+            padding:3px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+        }
+        .photo {
+            line-height: 0px;
+            position: absolute;
+            border: 1px solid black;
+            border-radius: 15px;
+            right: 2%;
+            top: 15%;
+            padding: 5%;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="border">
+        <div style='justify-content:center;padding-right:30px; display: flex;'>
+            <div style='text-align:center'>
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 130px; height: 130px; align-content: center;">
+                {% endif %}
+            </div>
+
+            <div style='text-align:center'>
+                <div class="trust"> {{ institute.trust_name|upper }}</div>
+                <div class="schoolname"><b>{{ school_name }}</b></div>
+                <div class="recognisition">Recognised by Govt. of Karnataka</div>
+                <div style="font-size: 12px;padding:3px;">{{school_address}}</div>
+                <div style="font-size: 12px;padding-top:3px;">Ph: {{school_tel_num}}{{school_tel_num_2}}</div>
+            </div>
+        </div> <br>
+
+        <div style="display: flex;">
+            <div><b>Sl. No.</b></div>
+            <div style="color: red;"></div>
+        </div>
+
+        <div class="photo">
+            <p>prefix</p>
+            <p>Stamp</p> 
+            <p>Size</p> 
+            <p>Photo</p>
+        </div>
+
+        <div class="title">STUDY CERTIFICATE</div> <br><br> <br><br>
+
+        <div class="content">
+            <div class="display-flex">
+                <div>
+                    This is to confirm that
+                </div>
+                <div class="dot-line">
+                    {{student_full_name|title}}
+                </div>
+            </div>
+            <div class="display-flex">
+                <div>S/o / D/o</div>
+                <div class="dot-line">
+                    {{father_name|upper}}
+                </div>
+            </div>
+            <div class="display-flex">
+                <div>was a student of our institution studying in</div>
+                <div class="dot-line">{{from_standard_name}}</div> <div>class,</div>
+            </div>
+            <div class="display-flex">
+                <div>belongs to</div>
+                <div class="dot-line">{{ religion|upper }}</div> <div> religion for the academic year </div> <div class="dot-line">{{from_academic_year}}</div>
+            </div>
+            
+            <div class="display-flex">
+                <div>His/ Her date of birth as entered in official record of institution is</div>
+                <div class="dot-line">{{dob_str}}</div>
+            </div>
+            <div class="display-flex">
+                <div >His/ Her address as per our school records <span class="dot-line" style="padding-bottom: 10px;">{{address}}</span></div>
+            </div>
+  
+            
+
+            <div style="margin-top: 6%; font-size: 14.5px;">The above mentioned details are true and accurate to the best of my knowledge.</div>  
+            <div style="font-style: normal; font-family: Arial, Helvetica, sans-serif;"> 
+              
+
+                <div class="display-flex" style="justify-content: space-between; margin-top: 20%;">
+                    <div>Seal</div>
+                    <div>Date: {{today_date}}</div>
+                    <div>Principal</div>
+                </div>
+            </div>
+        </div>
+
+       
+
+        
+    </div>
+</body>
+</html>
+

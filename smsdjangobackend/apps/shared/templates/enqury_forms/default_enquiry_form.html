@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry Form Template</title>
+    <style>
+        @page { size: A4; margin: 0; } /* Ensure A4 size and zero margins */
+        body {
+            margin: 0;
+            padding: 0; 
+            font-family: "Times New Roman", Times, serif;
+            background: transparent;
+            font-size: 14px; /* Reduce font size to fit content */
+            line-height:1.4;
+        }
+
+        .container {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            background: white;
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .container::before, .container::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 20px; /* Reduce height of top and bottom bars */
+            background: linear-gradient(to right, #191970 70%, blue 30%);
+            margin-bottom: 0px;
+        }
+
+        .right-border {
+            position: fixed;
+            top: 0;
+            right: 0px;
+            width: 20px;
+            height: 100%;
+            background: 
+                linear-gradient(to right, #0000FF 100%, transparent 100%) /* For the right side (blue) */
+                , linear-gradient(to bottom, #4169E1 100%, transparent 100%) /* For the right side (royalblue) */
+                , linear-gradient(to top, #191970 100%, transparent 100%); /* For the top (midnightblue) */
+        }
+        
+
+        header {
+            text-align: center;
+            margin: 0;
+        }
+
+        .logo {
+            display: inline-block;
+            width: 60px; /* Reduced size of logo */
+        }
+
+        .title {
+            font-size: 26px; /* Reduced title font size */
+            font-weight: bold;
+        }
+
+        .grey-container {
+            background-color: #f0f0f0;
+            padding: 1px; /* Reduced padding */
+            margin: 0;
+            box-sizing: border-box;
+            margin-bottom: 3px; /* Reduced bottom margin */
+        }
+
+        section table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 5px;
+            /* {% comment %} line-height:1.5; {% endcomment %} */
+        }
+
+        section table td, section table th {
+            padding: 6px 8px; /* Reduced padding for smaller content */
+            
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        th, td {
+            padding: 6px 8px; /* Adjusted padding for smaller table */
+            border: none;
+            box-sizing: border-box;
+        }
+
+        .academic-details-table {
+            width: 90%;
+            border: 1px solid #000;
+            margin-left: 20px; /* Reduced margin */
+            margin-right: 10px;
+        }
+
+        .academic-details-table th, .academic-details-table td {
+            border: 1px solid #000;
+        }
+
+        table td:first-child, table th:first-child {
+            width: 50px; /* Adjust first column width */
+            text-align: center;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 10px; /* Reduced margin */
+            font-size: 10px; /* Smaller footer font size */
+        }
+
+        .institute-table {
+            width: 100%;
+            text-align: center;
+            border: none;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        section {
+            margin: 0;
+            padding: 0;
+        }
+
+        .enquiry-table td, .enquiry-table th {
+            border: none;
+            white-space: nowrap; 
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="right-border"></div>
+
+        <!-- Grey container for header and enquiry -->
+        <div class="grey-container">
+            <table class="institute-table">
+                <tr>
+                    <td style="width: 60px; text-align: center;">
+                        <img src="/home/aarush-mohan/Downloads/images.jpeg" style="width: 80px;height: 80px;" />
+                    </td>
+                    <td>
+                        <h1 class="title" style="color:midnightblue;">{{ institute.name| upper }}</h1>
+                        <p style="font-size: 12px;">{{ institute.address }}</p>
+                        <p style="font-size: 12px;">Ph No: +91 {{ institute.tel_num | cut:"+91" }} / {{ institute.tel_num_2 | cut:"+91" }}</p>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="enquiry-table">
+                <tr>
+                    <th style="text-align:left"><strong>Enquiry No:</strong></th>
+                    <td>{{ enquiry_num }}</td>
+                </tr>
+                <tr>
+                    <th style="text-align:left"><strong>Date of Enquiry:</strong></th>
+                    <td>{{ enquiry_date }}</td>
+                </tr>
+                <tr>
+                    <th style="text-align:left"><strong>Day/Hostel:</strong></th>
+                    <td>{{ student_type}}</td>
+                </tr>
+            </table>
+
+            <h3 style="text-align: center; font-weight: bold; text-transform: uppercase;">Enquiry for Academic Year: {{ entry_academic_year_value }}</h3>
+        </div>
+
+        <section>
+            <table style="line-height: 15px;">
+                <tr>
+                    <th>1.</th>
+                    <td>Student Name:</td>
+                    <td class="grey-container">{{ first_name }} {{ middle_name }} {{ last_name }}</td>
+                </tr>
+                <tr>
+                    <th>2.</th>
+                    <td>Class to which admission is sought:</td>
+                    <td class="grey-container">{{ current_standard_name }}</td>
+                </tr>
+                <tr>
+                    <th>3.</th>
+                    <td>Date of Birth:</td>
+                    <td class="grey-container">{{ dob  }}</td>
+                </tr>
+                <tr>
+                    <th>4.</th>
+                    <td>Age as on June {{current_year}}</td>
+                    <td class="grey-container">{{ age_years }} Years {{age_months}} Months</td>
+                </tr>
+                <tr>
+                    <th>5.</th>
+                    <td>Gender:</td>
+                    <td class="grey-container">{{ gender }}</td>
+                </tr>
+                <tr>
+                    <th>6.</th>
+                    <td>Father's/Guardian's Name & Occupation:</td>
+                    <td class="grey-container">
+                        {% if student_details.father_name %}
+                            {{ student_details.father_name }} , {{ student_details.f_occupation}}
+                        {% else %}
+                            {{ student_details.guardian_name }} & {{ student_details.g_occupation }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>7.</th>
+                    <td>Mother's Name & Occupation:</td>
+                    <td class="grey-container">{{ student_details.mother_name }} , {{ student_details.m_occupation}} </td>
+                </tr>
+                <tr>
+                    <th>8.</th>
+                    <td>Residential Address:</td>
+                    <td class="grey-container">{{ student_details.address }}</td>
+                </tr>
+                <tr>
+                    <th>9.</th>
+                    <td>Phone No:</td>
+                    <td class="grey-container">{{ mobile_num }}</td>
+                </tr>
+                <tr>
+                    <th>10.</th>
+                    <td>Email ID of Parent:</td>
+                    <td class="grey-container">{{ email }}</td>
+                </tr>
+                <tr>
+                    <th>11.</th>
+                    <td>Transportation Requirement:</td>
+                    <td class="grey-container">{{ transport_required }}</td>
+                </tr>
+                <tr>
+                    <th>12.</th>
+                    <td>How Did you know about CIS:</td>
+                    <td class="grey-container">{{ student_details.previous_school_details.about_school }}</td>
+                </tr>
+                <tr>
+                    <th>13.</th>
+                    <td>Previous School Attended:</td>
+                    <td class="grey-container">{{ student_details.previous_school_details.school_name }}</td>
+                </tr>
+            </table>
+        </section>
+
+        <table class="academic-details-table">
+            <tr>
+                <th>Class</th>
+                <th>Syllabus</th>
+                <th>I Language</th>
+                <th>II Language</th>
+                <th>III Language</th>
+            </tr>
+            <tr>
+                <td>{{student_details.previous_school_details.left_standard}}</td>
+                <td>{{ custom_form_data.syllabus}}</td>
+                <td>{{ custom_form_data.first_language }}</td>
+                <td>{{ custom_form_data.second_language }}</td>
+                <td>{{ custom_form_data.third_language  }}</td>
+                
+            </tr>
+        </table>
+        <br>
+
+        <h3 style="text-align:right; margin-right:30px; margin-bottom: 0;">Parent Signature:________________</h3>
+        <div style="text-align: center; background: linear-gradient(to right, royalblue, midnightblue); color: white; padding: 8px; font-size: 16px; font-weight: bold; margin-bottom: 0;">
+            For Office Use Only
+        </div>
+        <p style="margin-top: 5px;margin-left:20px;line-height:1.6">
+            Receipt No: ____________________________________   Application No: ______________________   Date: ___________________<br>
+            Counsellor's Remarks: ________________________________________________________________________________________<br>
+            ___________________________________________________  Counselled By:___________________________________________<br>
+        </p>
+        <h3 style="text-align:right; margin-right:25px; margin-bottom: 0;">Signature:_________________</h3>
+    </div>            
+</body>
+</html>

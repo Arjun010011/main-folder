@@ -1,0 +1,56 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        .hzline{
+            border: 1px solid black;
+        }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+        }
+        .border {
+        height:900px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:0px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        position: relative;
+     }
+    </style>
+</head>
+<body>
+    <div class="border">
+    <div class="center" style="text-transform: uppercase;font-size:21px"><b>ANNIE BESANT CONVENT & HIGH SCHOOL®</b></div>
+    <hr class="hzline">
+    <div class="center" style="font-size: 12px;margin:5px">#90/91,12<sup>th</sup>main,Srinivasanagar,Pipeline road,Sunkadakatte,Bengaluru-91</div>
+    <hr class="hzline">
+    <div style="text-align: right;margin: 25px 0px ;right:50px"><b>Date:{{today}}</b></div>
+    <div style="text-align:left;line-height: 1.5em;width:38%">To,</br>The Principal/Head Master, </br>
+    {{previous_school_address}}</div>
+    <div style="font-size:16px;text-align: center;margin:40px 10px 0px;"><b>Subject:Requisition for Transfer Certificate.</b></div>
+    <div style="font-size:16px;text-align: left;margin:40px 0px 40px;">Respected Sir/Madam,</div>
+    <p>With due respect, we would like to inform you that <b>{{student_full_name|title}} {{student_relate|lower}} {{father_name|title}}</b> has been admitted to <b>{{student_standard_name}}{{standard_suffix}}
+    </b>in our institution for the academic Year {{student_academic_year}}. We kindly request you to issue {{student_her_him}} <b>Transfer Certificate and PEN Number</b> to facilitate the completion of admission formalities.
+    </p>
+    <div style="text-align:left;margin:40px 0px 5px;">DISE Code  :   <b>29280234910</b> </div>
+    <div style="text-align:left;margin:10px 0px;">Thanking you! </div>
+    <div style="text-align: left;margin:40px 0px 0px;">Yours sincerely, </div>
+    <div style="text-align: left;margin:20px 0px;">Deepashree C A </div>
+    <div style="text-align: left;margin:20px 0px;">(Head Mistress) </div>
+    
+</body>
+</html>

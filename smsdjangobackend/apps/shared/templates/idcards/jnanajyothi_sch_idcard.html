@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 1px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    color: #000000;
+    background-image: linear-gradient(#F59E2A);
+    /* background-color: #000000; */
+
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    /* background-color: #000000; */
+    font-family: Raleway;
+    background-image: linear-gradient(#F59E2A);
+    
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+   
+  }
+  .front-side {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/JJSchool_ID_FNT_3.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/JJSchool_ID_BCK_2_1.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 11px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+  .box1 {
+            width: 55px;
+            height: 60px;
+            border: 1.3px solid black;             
+        }
+  .size {
+    font-size: 9px;
+  }
+</style>
+</head>
+<body>
+  {% for student in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+    
+  <div style="padding-top: 80px;">
+    <div style="height: 98px; width:99px;right:3px;border-radius: 25% 0%;border:1.5px solid rgb(255, 255, 255);background-color: rgb(250, 249, 249);margin:auto;">
+      <img src={{student.profile_pic_details.file}} style="height: 98px; width:97px;border-radius: 25% 0%;border:2px solid rgb(247, 244, 244);">
+    </div>
+    <div style="color:#3a0300;text-align: center;font-size: 12px;font-weight: bold;margin-top: 8px;">{{student.name|upper}}</div>
+  </div> 
+    <table width="100%" style="top: 156px; margin-left: 13px; margin-top: 9.5px; font-size: 9.5px; color: #000000;margin-right: 4px;font-family: Arial, Helvetica, sans-serif;font-weight: 700;">
+     
+      <tr>
+        <td>Date Of Birth</td>
+        <td>: {{student.dob_changed}}</td>
+      </tr>
+      <tr>
+        <td>Class</td>
+        <td>: {{ student.standard_name_roman }}</td>
+         <!-- <td>: VII</td> -->
+      </tr>
+      <tr>
+        <td>Admission No</td>
+        <td>: {{student.admission_num}}</td>
+      </tr>
+     
+      
+    </table>
+    <div style="position:absolute;bottom: 4px;margin-left: 11px;">
+      <img src={{student.barcode_image_url}} style="height: 35px; width: 128px;color:#000000;">
+  </div>
+  </div>
+  
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card 
+  
+    <div class="page back-side">
+      <div style="text-align: center;">
+        <table style="padding-top: 115px;width:100%">
+          <tr>
+            <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div>
+            <td style="font-size: 7px;color:#000000;text-align: center;">
+              <!-- {% for address in student.student_address %}
+              {% if address.address %}{{address.address}} {% endif %}{% endfor %} 
+              {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}-{{student.custom_pincode}}
+            </td>
+          </tr>
+        </table>
+        <div style="font-size: 7px;color:#000000;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+      </div> 
+    </div>  -->
+  
+  <div class="page back-side">
+        <div style="text-align: center;">
+          <table style="padding-top: 110px;">
+           
+            <tr>
+              <!-- <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div> -->
+              <td style="font-size: 9px;color:#000000;font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;padding-left: 3px;padding-right: 3px;margin:auto;">
+                {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}
+                <!-- {{student.custom_address_line_one|title}} {{student.custom_city}}-{{student.custom_pincode}} -->
+              </td>
+            </tr>
+          </table>
+          <div style="font-size: 9px;color:#000000;font-weight: bold;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+        </div>
+        
+      </div>
+  {% endfor %}
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="box1" style="margin: 80px 0px 20px 0px;position:relative;">
+  <div>
+      <img src={{student.student_parent.parent.f_profile_pic_details.file}} style="height: 78px; width: 64px;position:absolute;top:1px;left:1px;">
+  </div>
+  <div style="font-size: 8px;margin:60px 0px 4px 27px;font-family: anek malyalam;font-weight: 600;letter-spacing: 0.1px;">
+    <tr>
+      <td style="width:70px;">
+          Father
+      </td>
+      <td>
+         : {%if student.student_parent.parent.father_name %}{{student.student_parent.parent.father_name}}{%endif%}
+      </td>
+    </tr>
+
+  </div>
+
+</div> -->
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+</head>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin:0px;
+    width: 100%;
+    height:100%;
+    border:none;
+  }
+  body {
+    background-size: 54mm 85mm;
+    margin:0px;
+    color:#0A0A0A;
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/WhatsApp_Image_2024-06-10_at_11.37.22_AM.jpeg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username{
+    color:#000000; 
+    min-width: 100%; 
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 48%; 
+    margin-left: 20%;
+
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/JNANA_JYOTHI_ID_BCK__1_1.jpg"); /* Replace with the URL of your desired background image for the back side */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+</style>
+{% for student in data %}
+<body style="font-family:Raleway;">
+  <div style="display: flex;">
+    <div style="text-align: center;margin-top:10px;">
+      {% if institute.logo.file.url %}
+      <img src="{{ institute.logo.file.url }}" style="height: 32px; width: 32px;margin-left: 5px;">
+      {% endif %}
+    </div>
+    <div>
+      <div style="font-size: 6.0px;font-family:Raleway;margin-top:9px;letter-spacing:-0.01px;color:#000000;">VEERASHAIVA SREE ESHWARA SEVA SAMITHI [R]</div>
+      <div style="font-size: 14px;font-family:'umberland slab';color:#03123b;padding-left:5px;letter-spacing: 0.7px;font-weight: 200;">JNANA JYOTHI PU COLLEGE</div>
+    </div>
+  </div>
+  <div style="font-size: 9px;color:#000000;font-weight:600;text-align: center;">STUDENT ID CARD 2024-25</div>
+  <div style="position:absolute;left:60px;margin-top: 5px;">
+    <div style="height: 85px; width:79px;right:3px;border-radius: 25% 0%;border:2px solid white;background-color: white;margin:auto;">
+      <img src={{student.profile_pic_details.file}} style="height: 83px; width: 77px;border-radius: 25% 0%;border:2px solid white;">
+    </div>
+  </div>
+  <div style="color:#000000; min-width: 100%; font-size: 12px;font-weight: bold;margin-top: 48%;text-align: center;">{{student.name|upper}}</div>
+  <table width="100%" style="top:175px;margin-left: 10px;margin-top: 10px; font-size: 10px;color:#000000;">
+    <tr>
+      <td>FATHER NAME</td>
+      <td>: {% if student.student_parent.parent.father_name %}{{student.student_parent.parent.father_name|upper}}{% elif student.student_parent.parent.mother_name %}{{student.student_parent.parent.mother_name|upper}}{% endif %}</td>
+    </tr>
+    <tr>
+      <td>Date Of Birth</td>
+      <td>: {{student.dob_changed}}</td>
+    </tr>
+    <tr>
+      <td>Combination</td>
+      <td>: {{student.standard_name_roman}}</td>
+    </tr>
+  </table>
+  <div style="page-break-after: always;"></div>
+  <div style=" font-family: Raleway;">
+    <!-- Back side of the ID Card -->
+    <!-- <div class="back-side" style=" font-family: Raleway;">
+      <div style="text-align: center; margin-top: 10px;"> -->
+        <!-- <div style="text-align: center;margin-top:10px;">
+          {% if institute.logo.file.url %}
+          <img src="https://staging-s3-23.s3.amazonaws.com/18/316ff7aa162554f733fbf84bf9580279.jpg" style="border-radius: 50% 50%;height: 30px; width: 30px;margin-left: 5px;">
+          {% endif %}
+        </div>
+        <div style="font-size: 15px;font-family:'umberland slab';color:#03123b; padding-left:5px;letter-spacing: 0.7px;font-weight: 200;">JNANA JYOTHI EDUCATIONAL INSTITUIONS</div>
+        <br><br>
+        <div style="min-height: 20px; margin-top: 20px;"> -->
+          <!-- <table>
+            <tr>
+              <div style="font-size: 8px; margin-top: 5px;color:#000000;font-family: 'chrysanthi unicode';text-align: center;">Residential Address :</div>
+              <td style="font-size: 7px; margin-top: 3px;color:#000000;text-align: center;">
+                {% for address in student.student_address %}
+                {% if address.address %}{{address.address}} {% endif %}{% endfor %}
+              </td>
+            </tr>
+          </table>
+        </div> -->
+        <!-- <div>
+          <img src="https://staging-s3-23.s3.amazonaws.com/18/WhatsApp_Image_2024-06-18_at_3.17.55_PM.jpeg" alt="School Photo" style="text-align: center;width: 65%; margin-top: 5px;border-radius: 5%;margin-left: 24px;">
+        </div> -->
+        <!-- <div style="font-size:8px;letter-spacing:0px;text-align: center;color:#ffffff;padding-left: 10px;margin-top: 30px; ">
+          <div style="color: yellow;">If found please return it to :</div>
+          CA-23, Yelahanka New Town<br>
+          Bengaluru-560064, Ph : 42033039/40/41<br>
+          <span style="font-size:8px;font-weight: bold;padding-top:10px;">info@jnanajyothiyak.com</span>
+        </div> -->
+      <!-- </div>
+    </div>
+</body>
+{% endfor %}
+</html> --> 
+

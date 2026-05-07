@@ -1,0 +1,294 @@
+{% load static %}
+{% load transliteration %}
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="kn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ಶಾಲಾ ದೃಢೀಕರಣ ಫಾರ್ಮ್</title>
+
+  <!-- Noto Sans Kannada for Kannada rendering -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Kannada:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    
+    body{
+      display:flex;
+      justify-content:center;
+      background:white;
+      font-family:var(--font);
+    }
+
+    /* Header row */
+    .header{
+      text-align:center;
+      margin-bottom:12px;
+    }
+    .title{
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:1px;
+      margin:0 0 4px 0;
+    }
+    .subtitle{
+      font-size:14px;
+      margin:0;
+    }
+
+    /* top-left info & top-right photo */
+    /* .top-row{
+      display:flex;
+      gap:14px;
+      margin:14px 0 8px 0;
+    } */
+    /* .top-left{
+      flex:1 1 50%;
+    } */
+    .top-right{
+      width:90px;
+      margin-top:-15px;
+      margin-bottom:0px;
+      margin-right:20px;
+      margin-left:80%;
+      align-items:right;
+      justify-content:right;
+    }
+
+    /* info lines */
+    .info-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin:6px 0;
+    }
+    .info-label{
+      width:100px;
+      font-size:13px;
+      color:#333;
+    }
+    .info-input{
+      flex:1;
+      border-bottom:2px solid #000000;
+      height:18px;
+      box-sizing:border-box;
+    }
+
+    /* main table with many rows like the image */
+    .data-table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:3px;
+    }
+    .data-table td{
+      border:1px solid #444;
+      padding:5px;
+      vertical-align:middle;
+      font-size:14px;
+    }
+    .data-table td.label{
+      width:36%;
+      font-weight:600;
+      background: #fafafa;
+    }
+    .data-table td.value{
+      width:64%;
+      height:36px; /* bigger for blank fill */
+    }
+
+    /* photo section at bottom */
+    .photo-section {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0;
+    }
+    .photo-container {
+      width: 180px;
+      height: 200px;
+      border: 2px solid #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #f9f9f9;
+      position: relative;
+    }
+    /* .photo-placeholder {
+      width: 150px;
+      height: 170px;
+      border: 1px dashed #999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 14px;
+      text-align: center;
+    } */
+    .photo-label {
+      position: absolute;
+      bottom: 5px;
+      font-size: 12px;
+      color: #333;
+      font-weight: bold;
+      margin-left:7px;
+    }
+
+    /* footer area */
+    .footer{
+      margin-top:25px;
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+    .signature{
+      text-align:center;
+      width:220px;
+      padding-top:35px;
+      font-weight:600;
+    }
+
+    /* small note paragraph */
+    .note{
+      font-size:12px;
+      color:#333;
+      margin-top:8px;
+      line-height:1.2;
+    }
+
+    /* For printing match A4 */
+      @page { size: A4; margin:1mm;}
+     .sheet{
+      width:100%;
+      margin:0px;
+      padding:7px;
+      border:5px solid black;
+      height:280mm;
+     }
+  </style>
+</head>
+<body>
+  <div class="sheet">
+    <div class="frame">
+
+      <!-- Header -->
+      <div class="header">
+        <div style="text-align: center; font-weight: bold;font-size: 28px;">{{school_name|to_kannada}}</div>
+        <div style="text-align: center;font-size: 20px;">{{school_address|to_kannada}},{{school_city|to_kannada}},{{school_district|to_kannada}}-{{school_pincode}}</div>
+        <div style="margin-left:10%;margin-right:10%;border:5px solid black;border-radius: 10px;align-items: center;"><h1 class="title">ಶಾಲಾ ದಾಖಲಾತಿ ದೃಢೀಕರಣ ಪತ್ರ</h1></div>
+      </div>
+
+      <!-- Top info area -->
+      <div class="top-row">
+        <!-- <div class="top-left">
+          <div class="info-row">
+            <div class="info-label">ಕ್ಲಸ್ಟರ್:</div>
+            <div class="info-input"></div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">ಹೋಬಳಿ:</div>
+            <div class="info-input"></div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">ತಾಲೂಕು :</div>
+            <div class="info-input">{{school_city|to_kannada}}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">ಜಿಲ್ಲೆ :</div>
+            <div class="info-input">{{school_district|to_kannada}}</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">SCHOOL DISE :</div>
+            <div class="info-input">{{to_standard_dise_code|to_kannada}}</div>
+          </div>
+        </div> -->
+
+        <div class="top-right">
+         <img src="{%if profile_pic_details%}{{profile_pic_details}}{%endif%}" style="width: 90px; height:120px;margin-top:10px;" />
+        </div>
+      </div>
+
+      <!-- large labeled rows (table similar to the image) -->
+      <table class="data-table" role="table" aria-label="form table">
+        <tr>
+          <td class="label">ವಿದ್ಯಾರ್ಥಿ/ನಿಯಾ ಹೆಸರು</td>
+          <td class="value">{{ student_full_name|title|to_kannada }}</td>
+        </tr>
+        <tr>
+          <td class="label">SATS ಸಂಖ್ಯೆ</td>
+          <td class="value">{{sts}}</td>
+        </tr>
+        <tr>
+          <td class="label">ತಂದೆಯ ಹೆಸರು</td>
+          <td class="value">{{father_name|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ತಾಯಿಯ ಹೆಸರು</td>  
+          <td class="value">{{mother_name|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ದಾಖಲಾತಿ ಸಂಖ್ಯೆ</td>
+          <td class="value">{{admission_num}}</td>
+        </tr>
+        <tr>
+          <td class="label">ದಾಖಲಾತಿ ದಿನಾಂಕ</td>
+          <td class="value">{{admission_date}}</td>
+        </tr>
+        <tr>
+          <td class="label">ಜನ್ಮ ದಿನಾಂಕ</td>
+          <td class="value">{{dob_in_words|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ಧರ್ಮ</td>
+          <td class="value">{{religion|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ಜಾತಿ / ಉಪಜಾತಿ</td>
+          <td class="value">{{category|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ಶೈಕ್ಷಣಿಕ/ಸಿದ ತರಗತಿಗಳು </td>
+          <td class="value">{{from_standard_name|to_kannada}}  {%if from_standard_name%} - {%endif%} {{to_standard_name|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ಆಧಾರ್ ಸಂಖ್ಯೆ</td>
+          <td class="value">{{aadhar_num}}</td>
+        </tr>
+        <tr>
+          <td class="label">ವಾಸಸ್ಥಳ</td>
+          <td class="value" style="height:60px">{{address|to_kannada}}</td>
+        </tr>
+        <tr>
+          <td class="label">ದೃಢೀಕರಣದ ಉದ್ದೇಶ</td>
+          <td class="value">{{reason|to_kannada}}</td>
+        </tr>
+      </table>
+
+      <!-- Photo section at the bottom
+      <div class="photo-section">
+        <div class="photo-container">
+          <div class="photo-placeholder">ವಿದ್ಯಾರ್ಥಿ/ನಿಯ ಭಾವಚಿತ್ರ</div>
+          <div class="photo-label">ಭವಿಷ್ಯದ ಬಳಕೆಗಾಗಿ</div>
+        </div>
+      </div> -->
+
+      <!-- note + footer -->
+      <p class="note">
+        ಈ ಮೇಲ್ಕಂಡ ಮಾಹಿತಿಗಳನ್ನು ಶಾಲಾಯ ದಾಖಲೆಗಳ ಪ್ರಕಾರ ಇರುವಂತೆ ಬರೆದು ದೃಢೀಕರಿಸಲಾಗಿದೆ.
+      </p>
+
+      <div class="footer">
+        <div>
+          <div style="margin-bottom:10px">ದಿನಾಂಕ : {{today_date}}</div>
+          <div>ಸ್ಥಳ : {{school_address|to_kannada}}</div>
+        </div>
+
+        <div class="signature">
+          ಶಾಲಾ ಮುಖ್ಯೋಪಾಧ್ಯಾಯರ ಸಹಿ </br> ಮೊಹರಿನೊಂದಿಗೆ
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

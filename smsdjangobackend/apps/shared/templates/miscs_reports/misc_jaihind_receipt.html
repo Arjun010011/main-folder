@@ -1,0 +1,220 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+      }
+      table,
+      tr {
+        border: 1px solid black;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 40px;
+    }
+      td {
+        border: 1px transparent; /* Add borders to all table cells */
+      }
+      .address {
+        margin-left: 10px;
+        margin-top: 80px;
+      }
+      .minwd {
+        min-width: 35%;
+      }
+      .minwd2 {
+        min-width: 35%;
+      }
+      .minwd3 {
+        min-width: 74%;
+      }
+      .minwd4 {
+        min-width: 50%;
+      }
+      .vertical-line {
+        border-left: 5px solid red; 
+        height: 170px; 
+        margin-left: 10%;
+      }
+    </style>
+  </head>
+<body>
+    <div style="display: flex; font-family: Arial, Helvetica, sans-serif;">
+        <div>
+            <div><img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jaihind/jaihind-logo-horizontal-fee-receipt.jpeg" style="height: 100px; width: 300px; margin-left: 5%;"></div>
+        </div>
+
+        <div class="address">
+            {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+            {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+        </div>
+    </div>
+    
+
+    <div style="border: 1px solid black; border-bottom: 0px; display: flex; justify-content: space-between; font-family: Arial, Helvetica, sans-serif;">
+        <div> Fee receipt</div>
+        <div> Receipt No.: {% if misc_collection.receipt_num %}{{misc_collection.receipt_num}}{% endif %}</div>
+        <div style="text-align: right;">Date: {% if misc_collection.date %}{{misc_collection.date | date:"d-m-Y"}}{% endif %} </div>
+    </div>
+
+    <div style="border: 1px solid black; display: flex; border-bottom: 0px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="width: 60%;">
+            <div style="display: flex;">
+                <div class="minwd"> Student Name </div>
+                <div>
+                    {% if misc_collection.student.first_name %}{{misc_collection.student.first_name}}{% endif %}
+                    {% if misc_collection.student.middle_name %}{{misc_collection.student.middle_name}}{% endif %}
+                    {% if misc_collection.student.last_name %}{{misc_collection.student.last_name }}{% endif %}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Batch </div>
+                <div>
+                    {{fee_collection.enrollment_data.section_name}}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Father's/ Guardian's <br> Name</div>
+                <div>
+                    {% if student_parent.0.parent.father_name %}{{student_parent.0.parent.father_name}}{% endif %}
+                </div>
+            </div>
+            <!--
+            <div style="display: flex;">
+                <div class="minwd"> Finance Fee Collection </div>
+                <div>
+                     {{fee_collection.fee_payment_terms}}
+                </div>
+            </div>
+            -->
+        </div>
+
+        <div style="width: 40%;">
+            <div style="display: flex;">
+                <div class="minwd2"> Course </div>
+                <div>
+                    {% if misc_collection.student.current_standard.name %}
+                    {{misc_collection.student.current_standard.name}}
+                    {% endif %} 
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd2"> Admission No. </div>
+                <div>
+                    {{admission_num}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table cellspacing="10">
+        <tr>
+            <th style="text-align: left; padding-left: 20px;">
+                Particulars
+            </th>
+            <th style="text-align: right;">
+                Amount(₹)
+            </th>
+        </tr>
+        {% for fee in payment_details %}
+            <tr>
+                <td>
+                    {{ fee.misc.misc_type.name }}
+                </td>
+                <td style="text-align: right;">
+                    {{ fee.amount | floatformat |intcomma}}
+                </td>
+            </tr>
+        {%endfor%}
+    </table>
+
+    
+    <div style="border: 1px solid black; border-bottom: 0px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="display: flex;">
+            <div style="font-weight: bold;">Summary</div>
+            <div style="font-weight: bold; margin-left: 78.5%;">Amount(₹)</div>
+        </div>
+        <div style="display: flex;">
+            <div>1. Total Fees</div>
+            <div style="margin-left: 79%;">{{ misc_collection.total_amount | floatformat |intcomma}}</div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid black; display: flex; border-bottom: 0px; line-height: 10px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="width: 60%;">
+            <div style="display: flex;">
+                <div class="minwd"> Payment mode </div>
+                <div>
+                    {{ misc_collection.mode_of_payment }}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                {% if misc_collection.mode_of_payment != 'Cash' %}
+                <div class="minwd"> Transaction ID </div> 
+                <div>
+                    {{misc_collection.ref_number}} 
+                </div> {% endif %}
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Notes </div>
+                <div>
+                    {{misc_collection.payment_note}}
+                </div>
+            </div>
+    
+        </div>
+
+        <div style="width: 40%;">
+
+            <div style="display: flex;">
+                {% if student_fee_summary.total_concession_adjustment %}
+                <div class="minwd3"> Discount </div>                                   
+                <div>
+                    {{student_fee_summary.total_concession_adjustment}}
+                </div>{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid black; line-height: 10px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="display: flex;">
+            <div style="min-width: 75%;"><b>Amount in Words</b> : Rupees {{ amount_in_words|title }} Only</div>
+            <div style="font-weight: bold; min-width: 13%" >Amount Paid </div>
+            <div>
+                {{ misc_collection.total_amount | floatformat |intcomma}}
+            </div>
+        </div>
+        <!--
+        <div style="display: flex;">
+            <div style="font-weight: bold; margin-left: 0.5%">Payment for invoice</div>
+            <div>: #</div>
+        </div>
+        -->
+    </div> 
+    <div style="font-family: Arial, Helvetica, sans-serif; font-size: 18px; ">
+        <strong>Note:</strong> Fees once paid will not be refunded.
+    </div>
+
+    
+</body>
+</html>

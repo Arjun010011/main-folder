@@ -1,0 +1,143 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<div style='border: 1px solid;padding:20px;margin:10px'>
+        <div style='display:flex;width:100%'>
+            <div style="text-align: center;margin-left:auto;margin-right:auto">
+                <div style="font-size: 35px;text-align:center;font-weight: bold;margin-top:5px;">
+                    SAHANA ENTERPRISES
+                </div>
+                <div>
+                    #169 2nd Cross 1st Stage Phase Manjunathanagar <br/>
+                    Rajajinagar, Bengaluru-560010
+                </div>
+            </div>
+        </div>
+        <div style="font-size: 18px;font-weight: bold;text-decoration:underline;margin-top:15px;text-align: center;">
+                    RECEIPT </br></div>
+    <table class='noborder' style="width: 100%">
+        <tr class='noborder'>
+            <td class='noborder bold line-height' style='width:70%;vertical-align:top'> 
+                Student   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;
+                {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                <br/>
+                Class & Sec : &nbsp;
+                {{fee_collection.standard_name}} ({{fee_collection.enrollment_data.section_name}})
+                <td class="noborder bold line-height">
+                Bill No : &nbsp;&nbsp;{{fee_collection.sspscbs_uniform_fee_receipt.payment_details.0.receipt_num|title}}<br/>
+                Date &nbsp;&nbsp;&nbsp;&nbsp;:  &nbsp;&nbsp;{{fee_collection.transaction_date}} <br/>
+                </td>
+            </td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='70%'>Fee Type</th>
+                <th width:'20%' style="text-align:right">Fee Paid</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td>{% for fee in fee_collection.sspscbs_uniform_fee_receipt.payment_details %}
+                {% if fee_collection.sspscbs_uniform_fee_receipt.payment_details|length == forloop.counter %}
+                {% for store in fee.store_data %}
+                {{forloop.counter}}</br>{% endfor %}
+                {% endif %}
+                {% endfor %}
+            </td>
+            <td>{% for fee in fee_collection.sspscbs_uniform_fee_receipt.payment_details %}
+                {% if fee_collection.sspscbs_uniform_fee_receipt.payment_details|length == forloop.counter %}
+                {% for store in fee.store_data %}
+                {{store.item_sold_details_item_sold__student_store_mapping__fee_standard_mapping_item_selling__stock__item__name}}</br>{% endfor %}
+                {% endif %}
+                {% endfor %}</td>
+            <td style='text-align:right'>{% for fee in fee_collection.sspscbs_uniform_fee_receipt.payment_details %}
+                {% if fee_collection.sspscbs_uniform_fee_receipt.payment_details|length == forloop.counter %}
+                {% for store in fee.store_data %}
+                {{store.temp_amount_paid}}</br>{% endfor %}{% endif %}
+                {% endfor %}</td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="2" style='text-align:right'>Total Paid &nbsp; : &nbsp;</td>
+             <td style='text-align:right'> 
+            {% for fee in fee_collection.sspscbs_uniform_fee_receipt.payment_details %} 
+            {% if fee_collection.sspscbs_uniform_fee_receipt.payment_details|length == forloop.counter %}
+            ₹ {{ fee.total_amount_for_issued_items | floatformat |intcomma}}{% endif %}
+            {% endfor %}</td>
+        </tr>
+        <tr style='height:30px'>
+            <td colspan="2" style='text-align:right'>Balance as on Date &nbsp; : &nbsp;</td>
+            <td style='text-align:right'> 
+            {% for fee in fee_collection.sspscbs_uniform_fee_receipt.payment_details %} 
+            {% if fee_collection.sspscbs_uniform_fee_receipt.payment_details|length == forloop.counter %}
+             ₹ {{ fee.total_balance_amount | floatformat |intcomma}}{% endif %}
+             {% endfor %}</td>
+       </tr>
+        </tbody>
+    </table>
+    <table style="width: 100%;margin-top: 10px" class="noborder" colspan="2">
+        <tr class="noborder">
+            <td class="noborder">
+            Received Rupees 
+            {% for fee in fee_collection.sspscbs_uniform_fee_receipt.payment_details %} 
+            {% if fee_collection.sspscbs_uniform_fee_receipt.payment_details|length == forloop.counter %}
+            {{fee.amount_paid_in_words|title}} Only {% endif %}
+            {% endfor %}<br/>
+        </td>
+        <tr>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+    <td style="text-align:right;" class="noborder"> Signature </td>
+    </table>
+</div>
+    {%  if forloop.counter|divisibleby:"3" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</html>

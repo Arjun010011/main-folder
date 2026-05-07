@@ -1,0 +1,40 @@
+
+@import "./../../styles/helpers.scss";
+
+.text-field-block{
+    margin-bottom: 35px;
+}
+.close-icon-text-fields-box{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-end;
+}
+.close-icon-text-fields{
+    position: relative;
+    top: -39px;
+    right: -39px;
+}
+
+.add-another-button{
+    font-weight: 500!important;
+    font-size: 15px!important;
+    height: 35px!important;
+    line-height: 18px!important;
+    color: #FFFFFF!important;
+    text-transform: none!important;
+    border-radius: 20px!important;
+    margin-left: auto!important;
+    margin-top: 8px!important;
+    background-color: var(--buttonBackground) !important;
+    // @include themify($themes) { 
+    // background-color: themed('buttonBackground')!important;
+    // }
+}
+
+.add-icon{
+    height: 35px!important;
+    width: 35px!important;
+    color: blue;
+    cursor: pointer;
+}

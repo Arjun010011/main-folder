@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page {
+            size: A5;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+
+        .feereceipt-box {
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body style='padding-right:10px'>
+    <div>
+        {% for count in number_of_copies %}
+            {% if forloop.counter|divisibleby:"2" %}
+                <div style="margin-top: 25px;"></div>
+                <div style="text-align:right;margin-right:10px">Student Copy</div>
+            {% else %}
+                <div style="text-align:right;margin-right:10px">Office Copy</div>
+            {% endif %}
+
+            <div style='height:147mm;padding-top: 20px'>
+                <table style="width:100%;">
+                    <tr>
+                        <td colspan="2" style="padding: 8px;">
+                            <div style='display:flex;justify-content:center;padding-right:30px'>
+                                <div style='text-align:right;margin-right:60px;'>
+                                    {% if institute.logo.file.url %}
+                                        <img src="{{ institute.logo.file.url }}" style="width: 120px; height: 100px;" />
+                                    {% endif %}
+                                </div>
+                                <div style='text-align:center'>
+                                    <div style="font-size: 13px;">
+                                        {{ institute.trust_name }}<br />
+                                    </div>
+                                    {% if institute.name %}
+                                        <span style='font-size: 22px; font-weight: bold;'>{{ institute.name }}</span>
+                                    {% endif %}
+                                    <div style="line-height: 25px; font-size: 14px;">
+                                        #12,40/7, Vaishnavi Layout, Uttarahalli, Bangalore-560 061<br />
+                                        9845553837 / 9481427969 / 9901528980
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <table style="width: 100%; line-height: 1.5;">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div>
+                                    <b>Student Name:</b>
+                                    {% if fee_collection.student_detail.first_name %}{{ fee_collection.student_detail.first_name }} {% endif %}
+                                    {% if fee_collection.student_detail.middle_name %}{{ fee_collection.student_detail.middle_name }} {% endif %}
+                                    {% if fee_collection.student_detail.last_name %}{{ fee_collection.student_detail.last_name }}{% endif %}
+                                </div>
+                                <div>
+                                    <b>Class / Section:</b> {{ fee_collection.standard_name }}
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <b>Date:</b> {{ fee_collection.transaction_date }}<br />
+                                    <b>Rec No:</b> {% if fee_collection.receipt_num %}{{ fee_collection.receipt_num|cut:"receipt00" }}{% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Sl No</th>
+                            <th>Term</th>
+                            <th>Fees</th>
+                            <th style="text-align:right;">Paid Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for payment_data in fee_collection.payment_detail %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ payment_data.fee_type_name }}</td>
+                                <td>{{ payment_data.amount_payable }}</td>
+                                <td style="text-align:right;">{{ payment_data.amount_paid|floatformat:2 }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td colspan="4" style="font-weight:bold; line-height:1.5;">
+                                TOTAL PAID AMOUNT: {{ fee_collection.total_amount|floatformat:2 }}/- ({{ amount_in_words|upper }})<br />
+                                Mode Of Payment: {% for mode_of_pay in fee_collection.mode_of_payment_list %}{{ mode_of_pay.mode_of_payment }}: ₹{{ mode_of_pay.amount }}{% if not forloop.last %}, {% endif %}{% endfor %}<br />
+                                Total Pending Amount: {{ student_fee_summary.total_pending_amount }} <br />
+                                Concession: {{ student_fee_summary.total_concession_adjustment|floatformat }}/-<br />
+                                Fine: 0/-
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style='text-align:right; padding-top:50px;'>
+                                AUTHORISED SIGNATURE
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" style='text-align:center;'>
+                                * Fees once paid will not be refunded *
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                Receipt Generated at: {{ today }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            {% if not forloop.last and forloop.counter|divisibleby:"2" %}
+                <div style="page-break-after: always;"></div>
+                {%else%}
+                <div style="margin-bottom:110px"></div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</body>
+
+</html>

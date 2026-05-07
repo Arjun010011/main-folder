@@ -1,0 +1,192 @@
+@import "./../../styles/helpers.scss";
+
+.left_selected {
+  background: linear-gradient(90deg, #1982d5 0%, #4380fd 100%);
+  border-radius: 22px !important;
+  height: 30px;
+  font-size: 0px !important;
+}
+
+.right-selected-toggle {
+  padding: 3px 8px 3px 8px !important;
+}
+
+.selected_toggle-outer-div {
+  border: 2px solid #4b74ff;
+  border-radius: 50px !important;
+  width: 225px;
+  height: 33px;
+}
+
+.review-issue-modal>th {
+  padding: 2px;
+  border: 1px solid gainsboro;
+  background-color: #f8f8ff;
+}
+
+.review-issue-modal>td {
+  padding: 2px;
+  border: 1px solid gainsboro;
+  border-style: dotted;
+}
+.review-issue-modal-fine{
+  padding: 10px;
+  color: #e91349;
+  font-size: 15px;
+}
+
+.clear-button-approval {
+  text-transform: capitalize !important;
+  background-color: #f0ad4e !important;
+  border-radius: 8px !important;
+  color: #ffffff !important;
+  padding: 5px !important;
+  margin-left: 10px !important;
+}
+
+.clear-button-approval:hover {
+  background-color: #f0ad4e !important;
+}
+
+.clear-button:hover {
+  background-color: #f0ad4e !important;
+}
+
+.clear-button {
+  font-weight: 500 !important;
+  font-size: 15px !important;
+  line-height: 18px !important;
+  color: #ffffff !important;
+  text-transform: none !important;
+  margin-left: auto !important;
+  background-color: #f0ad4e !important;
+}
+
+.custom-button-library {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  line-height: 18px !important;
+  color: #FFFFFF !important;
+  text-transform: none !important;
+  // margin-right: auto !important;
+  right: 20px;
+  height: 38px;
+  width: 100px;
+  background-color: var(--buttonBackground) !important;
+  // @include themify($themes) {
+  //     background-color: themed('buttonBackground') !important;
+  // }
+}
+
+.text-green{
+  color:green !important;
+}
+
+.text-red{
+  color:red !important;
+}
+
+.text-blue{
+  color:blue !important;
+}
+
+.clear-button-library {
+  font-weight: 500 !important;
+  font-size: 17px !important;
+  line-height: 20px !important;
+  color: #ffffff !important;
+  text-transform: none !important;
+  // margin-right: auto !important;
+  background-color: #f0ad4e !important;
+  right:15px;
+  height: 38px;
+  width: 100px;
+}
+
+.height-width-120px {
+  height: 120px !important;
+  width: 120px !important;
+}
+
+.return-button {
+  text-transform: capitalize !important;
+  border: 2px solid #e92020 !important;
+  box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16) !important;
+  border-radius: 8px !important;
+  padding: 1px !important;
+  margin-left: 10px !important;
+  width: 100px !important;
+  color: white !important;
+  background-color: #ff6c6c !important;
+}
+
+.return-button:hover {
+  background-color: #e92020 !important;
+}
+
+.return-button-no-drop {
+  text-transform: capitalize !important;
+  border: 2px solid #e92020 !important;
+  box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16) !important;
+  border-radius: 8px !important;
+  padding: 1px !important;
+  margin-left: 10px !important;
+  width: 100px !important;
+  color: white !important;
+  background-color: #ff6c6c !important;
+}
+
+.renew-button {
+  text-transform: capitalize !important;
+  border: 2px solid #ff8c00 !important;
+  box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16) !important;
+  border-radius: 8px !important;
+  padding: 1px !important;
+  margin-left: 10px !important;
+  width: 100px !important;
+  color: white !important;
+  background-color: #ff7f00 !important;
+}
+
+.renew-button:hover {
+  background-color: #c76300 !important;
+}
+
+.renew-button-no-drop {
+  text-transform: capitalize !important;
+  border: 2px solid #ff8c00 !important;
+  box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16) !important;
+  border-radius: 8px !important;
+  padding: 1px !important;
+  margin-left: 10px !important;
+  width: 100px !important;
+  color: white !important;
+  background-color: #ff7f00 !important;
+}
+
+.not-collecting-fine-button {
+  border: 2px solid #e92020 !important;
+  box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16) !important;
+  border-radius: 8px !important;
+  // width: 100px !important;
+  margin-top: 30px;
+  color: white !important;
+  background-color: #ff4646 !important;
+}
+
+.not-collecting-fine-button:hover {
+  background-color: #ff0000 !important;
+}
+
+.show-error-config-page {
+  background-color: #ffc7c7;
+  font-size: 16px !important;
+  padding: 10px;
+  color: red !important;
+  margin-top: 10px;
+}
+
+.lib-list-height {
+  height: 240px;
+  overflow: hidden;
+}

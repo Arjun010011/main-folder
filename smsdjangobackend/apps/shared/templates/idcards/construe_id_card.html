@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    font-family: Raleway;
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+  }
+  .front-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/construe_ID_FNT_2.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://staging-s3-23.s3.amazonaws.com/18/construe_ID_BCK_1.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  {% for student in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+    <div style="padding-top: 76px;">
+        <div style="height: 85px; width:79px;right:3px;border-radius: 25% 0%;border:2px solid white;background-color: white;margin:auto;">
+          <img src="https://edubricz-production.s3.ap-south-1.amazonaws.com/96/chiragm1.jpg" style="height: 83px; width: 77px;border-radius: 25% 0%;border:2px solid white;">
+        </div>
+        <div style="color:#3a0300;text-align: center;font-size: 12px;font-weight: bold;margin-top: 2px;">{{student.name|upper}}</div>
+      </div> 
+        <table width="100%" style="top: 174px; margin-left: 10px; margin-top: 5px; font-size: 10px; color: #000000;">
+         
+          <tr>
+            <td>CLASS</td>
+            <td>: {{student.standard_name_roman}}</td>
+          </tr>
+          <tr>
+            <td>DOB</td>
+            <td>: {{student.dob_changed}}</td>
+          </tr>
+          <tr>
+            <td>FATHER</td>
+            <td>: {%if student.student_parent.parent.father_name %}{{student.student_parent.parent.father_name}}{%endif%}</td>
+          </tr>
+          <tr>
+            <td>MOTHER</td>
+            <td>: {%if student.student_parent.parent.mother_name %}{{student.student_parent.parent.mother_name}}{%endif%}</td>
+          </tr>
+          <tr>
+            <td>PH NO</td>
+            <td>: {{student.mobile_num|cut:"+91"}}</td>
+          </tr>
+          <tr>
+            <td><span style="vertical-align: top;">Address</span></td>
+            <td style="font-size: 8px;">: {{student.profile_pic_details.file}} {% for address in student.student_address %}
+                {% if address.address %}{{address.address}} {% endif %}{% endfor %} </td>
+          </tr>
+          
+        </table>
+        
+      </div>
+  
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card -->
+  <div class="page back-side">
+   
+    
+  </div>
+  {% endfor %}
+</body>
+</html>

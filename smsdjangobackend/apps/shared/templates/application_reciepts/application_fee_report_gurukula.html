@@ -1,0 +1,153 @@
+<html>
+    <head>
+        <style>
+            body{
+                width: 360px;
+                padding-left: 135px;
+                margin-top: -20px;
+                padding-top: 0px;
+                padding-bottom: 300px;
+                font-family:Verdana,sans-serif;
+            }
+            .school-name{
+                text-align: center;
+                font-weight: bold;
+                font-size: 12px;
+            }
+            .school-address{
+                text-align: center;
+                font-weight: bold;
+                font-size: 12px;
+            }
+            table,
+            th,
+            td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th,
+            td {
+                padding: 10px 5px 10px 5px;
+                text-align: left;
+            }
+            .fee-receipt-table-heading1{
+                width: 40%;
+            }
+            .fee-receipt-table-heading2{
+                width: 50%;
+            }
+            .mt-10{
+                margin-top:10px;
+            }
+            table{
+                width: 100%;
+                font-size: 10px;
+            }
+            .text-align-center{
+                text-align: center;
+            }
+            .upper-case {
+                text-transform:uppercase;
+            }
+        </style>
+    </head>
+<body>
+<body>
+
+    <body>
+
+    {% for count in number_of_copies %}
+        <div class="school-name upper-case" style='break-before: page'>
+            {{ institute.name }}
+        </div>
+        <div class="school-address upper-case">
+            {{ institute.institute_address.map_address_data.address_one_map }}
+            {{ institute.institute_address.map_address_data.address_two_map }}
+        </div>
+        <div class="school-address upper-case">
+            {{ institute.institute_address.map_address_data.city_map }}
+            {{ institute.institute_address.map_address_data.pincode_map }}
+        </div>
+
+        <table class='fee-receipt-table mt-10'>
+            <tr>
+                <th class='fee-receipt-table-heading1'>
+                    Fee Receipt
+                </th>
+                <th class='fee-receipt-table-heading2'>
+                    Academic Year :  {% if application_receipt.student.entry_academic_year %}
+                    {{application_receipt.student.entry_academic_year.start_date.year}} -
+                    {{application_receipt.student.entry_academic_year.end_date.year}}{% endif %}
+                </th>
+            </tr>
+        </table>
+
+        <table class='mt-10'>
+            <tr>
+                <td>Date</td>
+                <td>{% if application_receipt.transaction_date %}{{application_receipt.transaction_date | date:"d/m/Y"}}
+                    {% endif %}</td>
+                <td>Reciept No.</td>
+                <td>{% if application_receipt.receipt_num %}{{application_receipt.receipt_num}}{% endif %}</td>
+            <tr>
+        </table>
+        <table class='mt-10'>
+            <tr>
+                <td width='13%'>Name</td>
+                <td>{% if application_receipt.student.first_name %}{{application_receipt.student.first_name}}
+                    {% endif %}{% if application_receipt.student.middle_name %}
+                    {{application_receipt.student.middle_name}}{% endif %}{% if application_receipt.student.last_name%}
+                    {{application_receipt.student.last_name }}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Class</td>
+                <td> {% if application_receipt.student.current_standard.name %}
+                    {{application_receipt.student.current_standard.name}}{% endif %}</td>
+            </tr>
+            <tr>
+                <td>Admission No.</td>
+                <td>{{ admission_num }}</td>
+            </tr>
+        </table>
+
+        <table class='mt-10'>
+            <tr>
+                <th width='12%'>Sl.</th>
+                <th width='54%'>Particulars</th>
+                <th width='17%' style="text-align:right;">Rate</th>
+                <th width='17%' style="text-align:right;">Amount</th>
+            </tr>
+            <tr>
+                <td>  1 </td>
+                <td> Application </td>
+                <td style="text-align:right;"> {{ application_receipt.amount_paid  | floatformat:2}} </td>
+                <td style="text-align:right;"> {{ application_receipt.amount_paid  | floatformat:2}} </td>
+            </tr>
+        </table>
+
+        <table class='mt-10'>
+            <tr>
+                <td width='66%'>Amount Paid in Words </td>
+                <td width='17%'>Total </td>
+                <td style="text-align:right;width:20%">{{ application_receipt.amount_paid  | floatformat:2}}</td>
+            </tr>
+            <tr>
+                <td width='66%'>
+                    {{ amount_in_words|title }} Rupees Only <br/>
+                    {% if application_receipt.student.student and not application_receipt.student.student.is_new_student %}
+                        Old Student
+                    {% else %}
+                        New Student
+                    {% endif %}
+                </td>
+                <td colspan=2>
+                </td>
+            </tr>
+        </table>
+{% endfor %}
+{% endfor %}
+
+    {% endfor %}
+
+    </body>
+</html>

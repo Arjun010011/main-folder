@@ -1,0 +1,309 @@
+{% load custom_filter %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hall Ticket</title>
+
+    <style>
+
+        @page{
+            size:A4;
+            margin:6mm;
+        }
+
+        body{
+            font-family:"Times New Roman", Times, serif;
+            font-size:16px;
+            margin:0;
+        }
+
+        .hallticket{
+            border:1px solid #000;
+            padding:15px;
+            height:1070px;
+            box-sizing:border-box; 
+            position:relative;
+        }
+
+        .ticket-wrapper{
+            margin-bottom:20px;
+        }
+
+        .t-center{ text-align:center; }
+        .t-left{ text-align:left; }
+        .t-right{ text-align:right; }
+
+        .heading{
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .sub-heading{
+            font-size:16px;
+            font-weight:bold;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        .exam-table th,
+        .exam-table td{
+            border:1px solid #000;
+            padding:6px;
+            text-align:center;
+        }
+
+        .student-photo{
+            border:1px solid black;
+            width:70px;
+            height:80px;
+        }
+
+        .instruction{
+            margin-top:15px;
+            font-size:16px;
+            line-height:1.5;
+        }
+
+        .signature-section{
+            position:absolute;
+            bottom:25px;
+            left:15px;
+            right:15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+{% for student in student_list %}
+
+<div class="ticket-wrapper">
+<div class="hallticket">
+
+    <!-- HEADER -->
+
+    <table>
+        <tr>
+
+            <td style="width:12%;">
+
+                {% if institute.logo.file.url %}
+                    <img src="{{ institute.logo.file.url }}" style="width:80px;">
+                {% endif %}
+
+            </td>
+
+            <td class="t-center">
+
+                <div class="sub-heading">
+                        {% if institute.trust_name %}
+                            {{ institute.trust_name }}
+                        {% endif %}
+                </div>
+
+                <div class="heading">
+                    {{ institute.name }}
+                </div>
+
+                <div>
+                        {{ institute.address }}
+                        {% if institute.city %}, {{ institute.city }}{% endif %}
+                        {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+                </div>
+
+                <div class="sub-heading" style="margin-top:8px;">
+                  {{ examDetail.exam_type.name | upper }}<br> {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}}
+                </div>
+
+                <div class="heading" style="margin-top:6px;">
+                    HALL TICKET
+                </div>
+
+            </td>
+
+        </tr>
+    </table>
+
+
+
+    <!-- STUDENT DETAILS -->
+
+    <table style="margin-top:15px;">
+
+        <tr>
+
+            <td style="width:65%">
+                <b>Name of the Student :</b>
+                {{ student.student_data.full_name|title }}
+            </td>
+
+            <td class="t-right" style="padding-right:120px;">
+                <b>Roll No :</b>
+                {% if student.student_data.current_reg_num %}
+                    {{ student.student_data.current_reg_num }}
+                {% endif %}
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+                <b>Class :</b>
+                {{ student.student_data.standard_section__standard__name|capfirst }}
+                -
+                {{ student.student_data.standard_section__section__name|capfirst }}
+            </td>
+
+            <td class="t-right">
+
+                {% if student.student_data.profile_pic_details.file %}
+
+                <img
+                    src="{{ student.student_data.profile_pic_details.file }}"
+                    class="student-photo"
+                    style="object-fit:cover;"
+                >
+
+                {% endif %}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+
+
+    <!-- EXAM TABLE -->
+
+    <table class="exam-table" style="margin-top:15px;">
+
+        <tr>
+            <th>Date</th>
+            <th>Subject</th>
+            <th>Timings</th>
+            <th>Sign</th>
+        </tr>
+
+        {% for subject in student.subject_list %}
+
+        {% if subject.fordate %}
+
+        <tr>
+
+            <td>
+                {{ subject.fordate|date:'d.m.Y' }}
+            </td>
+
+            <td>
+                {{ subject.subject_name|title }}
+            </td>
+
+            <td>
+                {{ subject.start_time }} - {{ subject.end_time }}
+            </td>
+
+            <td></td>
+
+        </tr>
+
+        {% endif %}
+
+        {% endfor %}
+
+    </table>
+
+
+
+    <!-- INSTRUCTIONS -->
+
+    <div class="instruction">
+
+        <b>*Read the following instructions completely and follow them.</b>
+
+        <ol>
+
+            <li>
+                There is no provision to write the examination without the admission ticket.
+            </li>
+
+            <li>
+                On the day of examination you have to be in the examination center within 9.00 a.m.
+            </li>
+
+            <li>
+                You will not be allowed to take up the examination if you go to the center after 9.30 a.m.
+            </li>
+
+            <li>
+                You need to carry all the required stationery materials like pen, pencil,
+                instrument box, eraser, sharpener.
+            </li>
+
+            <li>
+                You will not be allowed to go out of the examination hall till the examination ends.
+            </li>
+
+            <li>
+                While leaving the examination hall, submit your answer paper to the invigilator.
+            </li>
+
+            <li>
+                Do not carry books, papers, mobile phones, smart watches or electronic gadgets.
+            </li>
+
+        </ol>
+
+    </div>
+
+
+
+    <!-- SIGNATURE -->
+
+    <table class="w-100" style="margin-top:140px;">
+
+        <!-- Signature Text Row -->
+        <tr>
+            <td style="width:50%; text-align:left;">
+                Signature of the Class Teacher
+            </td>
+
+           <td style="text-align: right;width: 33%;">
+                    <img src="https://production-edubricz.s3.amazonaws.com/18/WhatsApp_Image_2026-03-09_at_10.42.50_AM.jpeg" 
+                        style="width: 120px; height: 60px; display: block; margin-top: -40px; margin-left: auto; margin-right: 0;"/>
+                    <span>Sign of Principal</span>
+                </td>
+        </tr>
+
+    </table>
+
+</div>
+</div>
+
+
+
+{% if forloop.counter|divisibleby:"2" %}
+
+<div style="page-break-after:always;"></div>
+
+{% else %}
+
+<div style="margin-top:35px;"></div>
+
+{% endif %}
+
+
+
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+{
+    "student": {
+      "name": "D. SURENDAR",
+      "batch": "Standard 9 - A",
+      "admission_no": "JIS00271"
+    },
+    "semester": "2",
+    "subjects": [
+      {
+        "name": "ENGLISH",
+        "theory": 37.0,
+        "practical": 20.0,
+        "total": 57.0,
+        "grade": "B2"
+      },
+      {
+        "name": "LANGUAGES",
+        "theory": 60.0,
+        "practical": 20.0,
+        "total": 80.0,
+        "grade": "A2"
+      },
+      {
+        "name": "MATHEMATICS",
+        "theory": 38.0,
+        "practical": 20.0,
+        "total": 58.0,
+        "grade": "B2"
+      },
+      {
+        "name": "SCIENCE",
+        "theory": 39.0,
+        "practical": 20.0,
+        "total": 59.0,
+        "grade": "B2"
+      },
+      {
+        "name": "SOCIAL SCIENCE",
+        "theory": 49.0,
+        "practical": 20.0,
+        "total": 69.0,
+        "grade": "B1"
+      },
+      {
+        "name": "PHYSICAL EDUCATION",
+        "theory": 38.0,
+        "practical": 42.0,
+        "total": 80.0,
+        "grade": "A2"
+      },
+      {
+        "name": "PHYSICAL EDUCATION",
+        "theory": 38.0,
+        "practical": 42.0,
+        "total": 80.0,
+        "grade": "A2"
+      },
+      {
+        "name": "PHYSICAL EDUCATION",
+        "theory": 38.0,
+        "practical": 42.0,
+        "total": 80.0,
+        "grade": "A2"
+      }
+    ],
+    "total_marks": {
+      "theory": 261.0,
+      "practical": 142.0,
+      "total": 403.0
+    },
+    "co_scholastic_area": {
+      "attitudes_and_values": "A",
+      "health_and_physical": "A",
+      "life_skills": "A",
+      "visual_and_performing_arts": "A"
+    },
+    "general_remarks": "Keep up the good work",
+    "grading_scales": {
+      "scholastic": {
+        "A1": "91.0+",
+        "A2": "81.0 - 90.9",
+        "B1": "71.0 - 80.9",
+        "B2": "61.0 - 70.9",
+        "C1": "51.0 - 60.9",
+        "C2": "41.0 - 50.9",
+        "D": "33.0 - 40.9",
+        "E": "0.0 - 32.9"
+      },
+      "activity": {
+        "A": "Excellent",
+        "B": "Good",
+        "C": "Needs Improvement"
+      }
+    },
+    "institution": {
+      "name": "JAIHIND INTERNATIONAL SCHOOL",
+      "address": "No:91 M.R Towers, Begur Main Road, Hongasandra, Bangalore-560068",
+      "contact": "08041208904",
+      "email": "jaihindinternationalschool@gmail.com",
+      "website": "jaihindschool.org"
+    }
+  }
+  

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Experience Certificate</title>
+  <style>
+    @page {
+      size: A4;
+      margin: -10px;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px;
+      line-height: 1.6;
+    }
+
+    .container {
+      border: 1px solid #ccc;
+      padding: 30px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      text-decoration: underline;
+    }
+
+    .content {
+      font-size: 16px;
+    }
+
+    .signature {
+      margin-top: 40px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .received {
+      margin-top: 60px;
+      font-size: 14px;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <div>No. 59/2023-24</div>
+      <div>Date: 20/04/2024</div>
+    </div>
+
+    <h2>Experience Certificate</h2>
+
+    <div class="content">
+      This is to certify that <span class="bold">{{staff_full_name}}</span> has been a member of the staff of this institution.
+      {{staff_her_him}} has been working as a {{position}} from
+      <span class="bold">{{from_date}}</span> to <span class="bold">{{to_date}}</span>
+       She has been a very hard-working and sincere employee.
+      <br><br>
+      We wish her all the best in her future endeavours.
+    </div>
+
+    <div class="signature">
+      <div>
+        With Regards,<br><br>
+        <strong>Principal</strong><br>
+        (Signature)
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+{% if staff_her_him == "him" %}
+
+This is to certify that <span class="bold">{{staff_full_name}}</span> has been a member of the staff of this institution.
+He has been working as a {{position}} from
+<span class="bold">{{from_date}}</span> to <span class="bold">{{to_date}}</span>
+ He has been a very hard-working and sincere employee.
+<br><br>
+We wish him all the best in her future endeavours.
+
+
+{% else %}
+
+This is to certify that <span class="bold">{{staff_full_name}}</span> has been a member of the staff of this institution.
+She has been working as a {{position}} from
+<span class="bold">{{from_date}}</span> to <span class="bold">{to_date}}</span>
+ She has been a very hard-working and sincere employee.
+<br><br>
+We wish her all the best in her future endeavours.
+
+
+{% endif %}

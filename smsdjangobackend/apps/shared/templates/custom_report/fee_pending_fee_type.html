@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Fee Details</title>
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            font-size: 26px;
+            margin: 20px 0;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .class-header {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .date {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 16px;
+            border: none; 
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: none; 
+        }
+        th {
+            font-weight: bold;
+        }
+        thead tr {
+            border-bottom: 2px solid #000; 
+        }
+        tr:nth-child(even) {
+            background-color: transparent; 
+        }
+        tr:hover {
+            background-color: transparent; 
+        }
+        .total-row {
+            font-weight: bold;
+            text-align: right;
+        }
+        .separator-row td {
+            text-align: left;
+            font-style: normal;
+            font-weight: normal;
+            padding-left: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>RR GLOBAL SCHOOL</h1>
+    {% if student_list %}
+    <div class="container">
+        <div class="header-container">
+            <div class="class-header">Fee Details of {{ student_list.0.standard_name }}</div>
+            <div class="date">Date: {{ student_list.0.today_date }}</div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Sl. No</th>
+                    <th>Student Name</th>
+                    <th>Fee Type</th>
+                    <th>Total Fee Amount</th>
+                    <th>Paid Fee Amount</th>
+                    <th>Pending Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in student_list %}
+                    {% for fee in student.fees %}
+                        <tr>
+                            {% if forloop.first %}
+                            <td rowspan="{{ student.fees|length }}">{{ forloop.parentloop.counter }}</td>
+                            <td rowspan="{{ student.fees|length }}">{{ student.name }}</td>
+                            {% endif %}
+                            <td>{{ fee.fee_type }}</td>
+                            <td>₹{{ fee.total }}</td>
+                            <td>₹{{ fee.paid }}</td>
+                            <td>₹{{ fee.pending }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="total-row">
+                        <td colspan="3" style="text-align:right; font-style: italic"><strong>Student Wise Total:</strong></td>
+                        <td>₹{{ student.total_amount }}</td>
+                        <td>₹{{ student.paid_amount }}</td>
+                        <td>₹{{ student.pending_amount }}</td>
+                    </tr>
+                {% endfor %}
+                <tr class="separator-row">
+                    <td colspan="6">-------------------------------------------------------------------------------------------------------------------------------------------</td>
+                </tr>
+                <tr class="total-row">
+                    <td colspan="3" style="text-align:right; font-style: italic"><strong>Class Wise Total Amount:</strong></td>
+                    <td>₹{{ class_total_amount }}</td>
+                    <td>₹{{ class_paid_amount }}</td>
+                    <td>₹{{ class_pending_amount }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>No student data available.</p>
+    {% endif %}
+</body>
+</html>

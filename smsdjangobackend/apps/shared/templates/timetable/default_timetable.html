@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Timetable</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e3f2fd; /* Light blue background */
+            color: #333;
+        }
+
+        @page {
+            size: A4 landscape;
+        }
+
+        .container {
+            width: 100%;
+            background: #ffffff; /* White background */
+            padding: 80px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            box-sizing: border-box;
+            page-break-inside: avoid;
+            transform: rotate(90deg);
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2em;
+            color: #2196f3; /* Bright blue */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #64b5f6; /* Light blue shadow */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: white; /* Soft blue */
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #90caf9; /* Light blue border */
+            text-align: center;
+            padding: 8px;
+            font-size: 0.8em;
+            background: #e3f2fd; /* Light blue background */
+        }
+
+        th {
+            background-color: #2196f3; /* Bright blue */
+            color: white;
+            font-size: 1em;
+            box-shadow: inset 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        td {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 0.9em;
+        }
+
+        .period-cell {
+            height: 100px;
+            background-color: #bbdefb; /* Soft blue */
+            vertical-align: top;
+            position: relative;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .period-cell small {
+            display: block;
+            color: #666;
+            margin-top: 5px;
+            font-size: 0.75em;
+        }
+
+        .highlight {
+            background-color: #ffffff; /* Very light blue */
+            color: #ffffff; /* Dark blue */
+            padding: 8px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            word-wrap: break-word;
+            font-size: 0.9em;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        /* 3D Effect */
+        .highlight::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            z-index: -1;
+            transform: translateX(-3px) translateY(-3px);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            th, td {
+                padding: 6px;
+                font-size: 0.7em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Class Timetable</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                {% for period in data.period_period_plan %}
+                    <th>{{ period.perioddaymapping_period.0.assignedData.period_name }}<br>
+                        <small>{{ period.perioddaymapping_period.0.start_time }} - {{ period.perioddaymapping_period.0.end_time }}</small>
+                    </th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for day in data.day_list %}
+                <tr>
+                    <td class="period-cell">{{ day.name }}</td>
+                    {% for period in data.period_period_plan %}
+                        <td class="period-cell">
+                            {% with period_perioddaymapping_period=period.perioddaymapping_period %}
+                                {% if period_perioddaymapping_period %}
+                                    {% for datas in period_perioddaymapping_period %}
+                                        {% if datas.day_name == day.name %}
+                                            <div class="highlight">
+                                                <div class="subject">{{ datas.assignedData.subject_name|default:" " }}</div>
+                                                <div class="teacher"><small>{{ datas.assignedData.full_name|default:" " }}</small></div>
+                                                <div class="timing"><small>{{ datas.assignedData.period_start_time|default:"N/A" }} - {{ datas.assignedData.period_end_time|default:"N/A" }}</small></div>
+                                            </div>
+                                        {% endif %}
+                                    {% empty %}
+                                        <span>No class</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span>No data</span>
+                                {% endif %}
+                            {% endwith %}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

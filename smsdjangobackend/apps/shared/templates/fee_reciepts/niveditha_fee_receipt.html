@@ -1,0 +1,141 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A5 ;
+            margin: 2mm;
+        }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+{% for count in number_of_copies %}
+<div style='border: 1px solid;padding:20px;margin:10px;'>
+    <div style='display:flex;'>
+            <div style="position:absolute;left:60px">
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 90px;height: 90px;"/>
+                {% endif %}
+            </div>
+            <div style="text-align: center;margin-left:auto;margin-right:auto">
+                {% if institute.trust_name %}
+                <div style='font-size: 118px;'>{{ institute.trust_name }}</div>
+                {% endif %}
+                <div style="font-size: 35px;padding-left:20px;font-weight: bold;">
+                {{institute.name}} </br>
+                </div>
+                <div style='font-size: 16px;'>(Recognised by Govt. of Karnataka. No. 210/91-92)</div>
+                <div style="line-height: 1.5em;font-size:19px;">
+                    No. 132/A, 4th Cross 3rd Stage, Vinayaka Layout,<br>Near GKW Layout Bus Stop, Vijayanagar, Bangalore-40<br>
+                    Ph.:080-2340 7800
+                </div>
+            </div>
+        </div>
+    <table class='noborder' style="width: 100%;font-size: 17px;">
+        <tr class='noborder'>
+               <td class="noborder" style="width:350px;">Rec No: {{fee_collection.receipt_num|title}}</td>
+               <td colspan='3' class="noborder" style="text-align: right;">Date:  {{fee_collection.transaction_date}} </td>
+               </tr>
+               <tr class="noborder">
+                <td colspan='4' class="noborder" style="text-align: left;">Name : 
+                {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                </td>
+            </tr>
+            <tr class="noborder">
+                <td class="noborder">
+                Class:
+                {{fee_collection.standard_name}}
+                <td class="noborder" style="vertical-align: bottom;width:200px;">
+                    Sec:   {{fee_collection.enrollment_data.section_name}}<br/>
+                    </td>
+                    <td class="noborder" style="vertical-align: bottom;">
+                        Month: {% for fee in fee_collection.payment_detail %}
+                        {% if fee.fee_type_codename=="month" %}
+                        {% if fee.fee_payment_terms_alias %}
+                        {{fee.fee_payment_terms_alias}} 
+                        {%else%}
+                        {{fee.fee_payment_terms}}
+                        {%endif%}
+                        {%endif%}
+                        {%endfor%}
+                        </td>
+                <td class="noborder" style="text-align: right;">
+                    {% if fee_collection.academic_year %}
+                  {{fee_collection.academic_year.start_date.year}} -
+                  {{fee_collection.academic_year.end_date.year}}
+              {% endif %}
+                </td>
+        </tr>
+    </table>
+    <table style="width: 100%;min-height:210px">
+        <thead>
+            <tr>
+                <th width='10%'>Sl.No</th>
+                <th width='40%' style="text-align:center">Particulars</th>
+                <th width='30%' style="text-align:center">Terms</th>
+                <th width:'30%' style="text-align:center">Amount(₹)</th>
+            </tr>
+        </thead>
+        <tbody style='vertical-align:top'>
+        <tr>
+            <td>{% for fee in fee_collection.payment_detail %}
+                {{forloop.counter}}</br>{% endfor %}
+            </td>
+            <td>{% for fee in fee_collection.payment_detail %}
+                    {{fee.fee_type_name}}
+                </br>{% endfor %}</td>
+            <td>{% for fee in fee_collection.payment_detail %}{{fee.fee_payment_terms}}</br>{% endfor %}
+            <td style='text-align:right'>{% for fee in fee_collection.payment_detail %}
+                {{fee.amount_paid|floatformat|intcomma }}</br>{% endfor %}</td>
+        </tr>
+        <tr style='height:30px'>
+             <td colspan="3" style='text-align:right'>TOTAL </td>
+             <td style='text-align:right'> ₹ {{ fee_collection.total_amount | floatformat |intcomma}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table style="width:100%;margin-top:50px" class="noborder">
+    <td style="text-align:right;" class="noborder"> Authorised Signatory</td>
+    </table>
+</div>
+    {%  if forloop.counter|divisibleby:"3" %}
+    <div style="page-break-after: always;"></div>
+    {% endif %}
+{% endfor %}
+</html>

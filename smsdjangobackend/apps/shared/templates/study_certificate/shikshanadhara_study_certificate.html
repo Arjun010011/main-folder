@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Certificate</title>
+    <style>
+        @page{
+            margin:20px;
+        }
+        body {
+            font-size: 14px;
+        }
+        .header {
+            text-align: center;
+            font-weight: bold;
+        }
+        .sub-header {
+            font-weight: normal;
+        }
+        .certificate-title {
+            text-align: center;
+            text-decoration: underline;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .photo-box {
+            width: 95px;
+            height: 110px;
+            border: 1px solid black;
+            text-align: center;
+            line-height: 120px;
+            margin-top: -80px;
+            font-size: 12px;
+            margin-left: 550px;
+        }
+        .content {
+            margin-top: 20px;
+            line-height: 2;
+        }
+        .underline {
+            display: inline-block;
+            border-bottom: 1px dotted #000;
+            min-width: 100px;
+            height: 1em;
+            vertical-align: bottom;
+        }
+        .signature-section {
+            margin-top: 40px;
+        }
+        .signatures {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 60px;
+        }
+        .center-sign {
+            text-align: center;
+            margin-top: 80px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header" style="color:navy;">
+    <div style="display:flex">
+    <div>
+        {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 100px;height: 130px;padding-right:"/>
+                {% endif %}
+    </div>
+    <div>
+    <div style="font-weight: lighter;">Shree Shirdi Sai Baba Education Society (R)</div>
+    <div style="font-size: 35px;letter-spacing: 0.1em;line-height: 1.5em;">ಶಿಕ್ಷಣಧಾರ ವಿದ್ಯಾ ನಿಕೇತನ್</div>
+    <div style="color: darkred;font-size:22px;line-height: 1.5em;">SHIKSHANADHARA VIDYA NIKETAN</div>
+    <div class="sub-header" style="line-height: 1.5em;">(Recognised by Govt. of Karnataka)</div>
+    <div class="sub-header" style="line-height: 1.5em;">#875/1, Near Corian Church, Vidyasagara, Ashwathnagar,Thanisandra, Bangalore - 77</div>
+     <div class="sub-header" style="line-height: 1.5em;">Mobile Number : 9916982028,7899450184</div>
+    </div>
+    </div>
+</div>
+
+<div style="border-top:3px solid darkred;margin:5px;"></div>
+
+<div style="margin:30px;">
+
+<div class="certificate-title" style="margin-top: 30px;font-size: 18px;">STUDY CERTIFICATE</div>
+
+<div style="text-align: left;margin-top:40px;">ADMISSION No: </div>
+
+<div class="photo-box" style="margin-top: 15px;">Photo</div>
+
+<div class="content" style="text-align: justify;word-spacing: 3px;font-size: 16px;text-indent: 4em;line-height:2;margin-top: 50px;">
+    This is to Certify that <b>{{student_identify|title}} {{student_full_name|title}} 
+    {{student_relate}} {{father_name|title}} and {{ mother_name|title}} </b>is the student of this institution 
+    Studying in the <b>{{standard_name}}</b>,during the Academic Year <b>{{academic_year}}.</b>
+    The details furnished below are as per the school records:
+</div>
+
+<div class="signature-section" style="margin-top: 50px;">
+    1. DOB: {{dob_str}}<br><br>
+    2. CASTE: {{ caste|title }}
+<br>
+</div>
+
+<div class="signature-section" style="margin-top:50px;">
+    Date: <span style="width:150px;"></span> <br><br>
+    Place: <span style="width:150px;"></span>
+    <div class="signatures">
+        <div></div>
+        <div style="margin-top:30px;">Seal & Signature of the Head Master / Head Mistress</div>
+    </div>
+</div>
+</div>
+
+</body>
+</html>

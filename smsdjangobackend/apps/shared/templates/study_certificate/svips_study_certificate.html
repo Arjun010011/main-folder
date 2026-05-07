@@ -1,0 +1,54 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4 }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+            font-size: 20px;
+        }
+        .border {
+        height:900px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:0px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        position: relative;
+     }
+    </style>
+</head>
+<body>
+    <div style="margin-top: 200px">
+    <div style="font-size:25px;text-align: center;margin:100px 10px 0px;text-decoration: underline;"><b>STUDY CERTIFICATE</b></div>
+    <div style="font-size:20px;text-align: center;margin:5px 10px 70px;text-decoration: underline;"><i><b>TO WHOM SO EVER IT MAY CONCERN</i></b></div>
+    <p>This is to certify that, {{student_identify}} <b> {{student_full_name}} </b> {{student_relate}} <b>{{father_name}}</b> is studying in <b>{{standard_name}}{{standard_suffix}}
+    </b>for the academic year <b>{{academic_year}}</b>, {{student_he_she}} is a bonafide student of this Institution with the admission no : <b>{{admission_num}}</b>,
+    </p>
+    <div>
+        <p>
+            As per the admission register {{student_her_him}} Date of Birth is {{dob_str}}
+            {{student_he_she}} belongs to <b>{{caste|title |upper}}</b> caste, and {{student_her_him}} mother tongue is <b>{{mother_tongue}}</b>
+        </p>
+    </div>
+    <div style="margin-top: 10px;font-size:20px">
+        <b>{{ student_her_him|title }} residential address :- </b> <br/> 
+        {% if address %}{{ address|capfirst }}{% endif %}
+    </div>
+    
+    <div style="text-align:right;position:absolute;right:40px;bottom:170px;font-size: 25px">Principal </div>
+    </div>
+</body>
+</html>

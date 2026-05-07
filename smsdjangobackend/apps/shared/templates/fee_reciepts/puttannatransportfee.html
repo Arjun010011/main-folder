@@ -1,0 +1,180 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        * {
+        padding: 3px;
+        margin: 0px;
+        }
+        @page { size: A5 }
+        table,
+        tr,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            border-bottom: 0px;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        table {
+        width: 100%;
+      }
+      #cashsign {
+        text-align: right;
+        margin-top: auto;
+        margin-right: 10%;
+      }
+      #receipt2 {
+        text-align: center;
+        margin-top: auto;
+        margin-right: 20%;
+      }
+      .r10 {
+        display: flex;
+        height: 60px;
+        justify-content: space-between;
+      }
+      body{
+        font-family: 'Times New Roman', Times, serif; 
+      }
+      .center{
+        text-align: center;
+      }
+      .colorblue{
+        color: #37aede;
+      }
+      .flexs{
+        display:flex;
+        justify-content: space-between;
+      }
+    </style>
+</head>
+<body>
+{% for count in number_of_copies %}
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <div class="flexs">
+                        <div>Receipt No: <span style="color: darkred;">{{fee_collection.puttannatransportfee.payment_details.0.receipt_num|title}}</span></div>
+                        <div class="colorblue" style="margin-left:40px;font-weight: bold;">Receipt</div>
+                        <div style="margin-right: 120px;">Date: {{fee_collection.transaction_date}}</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                  <div>
+                    <div>Name :
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                    </div>
+                    <div>Father Name: {% if fee_collection.student_detail.student_parent.parent.father_name %}{{fee_collection.student_detail.student_parent.parent.father_name}}{% endif %}</div>
+                    <div>Class :
+                        {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}
+                    </div>
+                  </div>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+              <td style="width: 20%; font-weight: bold; text-align: center; vertical-align: bottom;">
+                <div>Sl.No.</div>
+              </td>
+    
+              <td style="width: 50%; font-weight: bold; text-align: center">
+                <div>Particulars</div>
+              </td>
+    
+              <td style="font-weight: bold; text-align: center">
+                <div>Payable(in Rs.)</div>
+              </td>
+            </tr>
+    
+            <tr>
+              <td>
+                <div style="text-align: center;">
+                    {% for payment_data in fee_collection.puttannatransportfee.payment_detail_fee_type %}
+                    {{forloop.counter}}</br>{% endfor %}
+                </div>
+              </td>
+    
+              <td>
+                <div>{% for payment_data in fee_collection.puttannatransportfee.payment_detail_fee_type %}{{payment_data.fee_type_name}}</br>{% endfor %}</div>
+              </td>
+
+              <td style='text-align:right'>{% for payment_data in fee_collection.puttannatransportfee.payment_detail_fee_type %}
+                {{payment_data.amount_paid|floatformat|intcomma}}</br>{% endfor %}
+              </td>
+            </tr>
+    
+            <tr>
+              <td colspan="2">
+                <div class="flexs">
+                  <div>Payment Mode: {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}{% if fee_collection.payment_ref_num %}{{fee_collection.payment_ref_num}}{% endif %}</div>
+                  <div style="font-weight: bold;">Total(Rs.)</div>
+                </div>
+              </td>
+
+              <td style='text-align:right'> 
+                ₹ {{ fee_collection.puttannatransportfee.total_amount_paid|floatformat|intcomma}}
+              </td>
+            </tr>
+        </table>        
+                
+        <table>
+            <tr>
+              <td>
+                Balance Fee : <span style="color: darkred;font-weight: bold"> {{fee_collection.puttannatransportfee.total_amount_pending_till_date|floatformat|intcomma}}</span>
+              </td>
+            </tr>
+    
+            <tr>
+              <td>
+                <div style="font-weight: bold;">
+                  Rupees in Word : ({{fee_collection.puttannatransportfee.amount_in_words|title}} Only )
+                </div>
+              </td>
+            </tr>
+    
+            <tr>
+              <td>
+                <div class="flexs">
+                  <div>Remarks:{% if fee_collection.payment_note %}{{fee_collection.payment_note}} {% endif %}</div>
+                  <div style="margin-right: 160px;">Collected By: {{fee_collection.collected_by}}</div>
+                </div>
+              </td>
+            </tr>
+    
+            <tr style="border-bottom:1px solid black ;">
+              <td>
+                <div class="r10">
+                  <div>*Fee once paid will not be refunded</div>
+                  <div id="receipt2">
+                    {%  if forloop.counter|divisibleby:"2" %}
+                      <div></div>
+                      <div style="text-align:right;margin-right:8px">Student Copy</div>
+                      {% else %}
+                      <div style="text-align:right;margin-right:8px">Office Copy</div>
+                      {% endif %}
+                  </div>
+                  <div id="cashsign">Cashier Sign</div>
+                </div>
+              </td>
+            </tr>
+        </table> 
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+    </div>
+{% endfor %}
+</body>
+</html>

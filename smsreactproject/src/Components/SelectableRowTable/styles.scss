@@ -1,0 +1,49 @@
+@import 'styles/helpers.scss';
+
+.enrolling-students-block{
+    height: 100%;
+}
+.select-table-row{
+    display: block!important;
+    margin: auto!important;
+    width: fit-content!important;
+}
+.selectable-table-head{
+    // background: $selected-menu-item-background;
+    background: var(--selected-menu-item-background);
+    color: white!important;
+    padding-left: 15px;
+    border-left: double;
+}
+.search-selectable-table {
+    margin: 10px 20px!important;
+    width: 100%;
+    max-width: 200px;
+}
+.selectable-row-table-body{
+    background-color: white!important;
+    min-height: 90px!important;
+}
+.selectable-row-table{
+    border-spacing: 1;
+}
+.selectable-row-table-row{
+    border-bottom: 1px solid black!important;
+    cursor: pointer;
+}
+
+.selectable-row-table-row:hover{
+    background-color: rgb(151, 196, 254)!important;
+}
+.fast-enrollment-submit {
+    // float: right;
+    margin-right: 3vw!important;
+    margin-bottom: 20px!important;
+}
+.exam-mark-row-table{
+    width: max-content!important;
+}
+
+.time-table-create{
+    width: auto!important;
+}

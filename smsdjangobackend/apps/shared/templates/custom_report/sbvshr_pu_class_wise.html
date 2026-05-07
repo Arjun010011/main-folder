@@ -1,0 +1,251 @@
+{% load transliteration %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fee Status Report</title>
+
+<style>
+@page {
+    size: A4;
+    margin: 15mm;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 6px;
+    font-size: 12px;
+}
+
+thead {
+    display: table-header-group;
+}
+
+tr {
+    page-break-inside: avoid;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.logo {
+    width: 90px;
+    height: 80px;
+}
+
+.school-details {
+    text-align: center;
+}
+
+.title {
+    text-align: center;
+    color: blue;
+    margin: 8px 0;
+}
+
+.rotated-page {
+    transform: rotate(90deg);
+    margin-top: 280px;
+}
+
+.rotated-next-page {
+    transform: rotate(90deg);
+    margin-top: 350px;
+}
+
+table {
+    width: 134%;
+}
+</style>
+
+</head>
+<body>
+
+<!-- ================= FIRST PAGE ================= -->
+<div class="rotated-page">
+
+    <div class="header">
+        {% if institute.logo.file.url %}
+        <img src="{{ institute.logo.file.url }}" class="logo">
+        {% endif %}
+        <div class="school-details">
+            <h1 style="color:green;">SRI BHAIRAVESHWARA PU COLLEGE KAIWARA CROSS</h1>
+            <div>Sri Bhairaveshwara Vidya Samsthe hoskoti road, Kaiwara - 563128</div>
+            <div style="color:red;">Phone no: +918050543006</div>
+        </div>
+    </div>
+
+    <h2 class="title">
+        Fees Collection & Balance Report {{ academic_year }} For {{ student_list.0.standard_name }}
+    </h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th rowspan="2">Sl.No</th>
+                <th rowspan="2">Student Name</th>
+                <th colspan="4">Total Fees</th>
+                <th colspan="4">Paid</th>
+                <th colspan="4">Balance</th>
+            </tr>
+            <tr>
+                <th>Academic Fees</th>
+                <th>Transport Fees</th>
+                <th>Hostel Fees</th>
+                <th>Total</th>
+
+                <th>Academic Fees</th>
+                <th>Transport Fees</th>
+                <th>Hostel Fees</th>
+                <th>Total</th>
+
+                <th>Academic Fees</th>
+                <th>Transport Fees</th>
+                <th>Hostel Fees</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in student_list %}
+            {% if forloop.counter <= 9 %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.name }}</td>
+
+                <!-- TOTAL -->
+                <td>₹{% if student|get_item:"Academic Fees_total" %}{{ student|get_item:"Academic Fees_total" }}{% elif student|get_item:"Admission fee_total" %}{{ student|get_item:"Admission fee_total" }}{% else %}0{% endif %}</td>
+                <td>₹{% if student|get_item:"Transport fees_total" %}{{ student|get_item:"Transport fees_total" }}{% else %}0{% endif %}</td>
+                <td>₹{% if student|get_item:"Hostel fee_total" %}{{ student|get_item:"Hostel fee_total" }}{% else %}0{% endif %}</td>
+                <td>₹{{ student.amount|default:0 }}</td>
+
+                <!-- PAID -->
+                <td>₹{% if student|get_item:"Academic Fees_paid" %}{{ student|get_item:"Academic Fees_paid" }}{% elif student|get_item:"Admission fee_paid" %}{{ student|get_item:"Admission fee_paid" }}{% else %}0{% endif %}</td>
+                <td>₹{% if student|get_item:"Transport fees_paid" %}{{ student|get_item:"Transport fees_paid" }}{% else %}0{% endif %}</td>
+                <td>₹{% if student|get_item:"Hostel fee_paid" %}{{ student|get_item:"Hostel fee_paid" }}{% else %}0{% endif %}</td>
+                <td>₹{{ student.paid_amount|default:0 }}</td>
+
+                <!-- BALANCE -->
+                <td>₹{% if student|get_item:"Academic Fees_pending" %}{{ student|get_item:"Academic Fees_pending" }}{% elif student|get_item:"Admission fee_pending" %}{{ student|get_item:"Admission fee_pending" }}{% else %}0{% endif %}</td>
+                <td>₹{% if student|get_item:"Transport fees_pending" %}{{ student|get_item:"Transport fees_pending" }}{% else %}0{% endif %}</td>
+                <td>₹{% if student|get_item:"Hostel fee_pending" %}{{ student|get_item:"Hostel fee_pending" }}{% else %}0{% endif %}</td>
+                <td>₹{{ student.pending_amount|default:0 }}</td>
+
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+<!-- ================= OTHER PAGES ================= -->
+{% for start, end in number_of_tens_plus_ten.items %}
+{% if student_list|length > start %}
+
+<div style="page-break-after: always;"></div>
+
+<div class="rotated-next-page">
+
+<table>
+<thead>
+<tr>
+    <th rowspan="2">Sl.No</th>
+    <th rowspan="2">Student Name</th>
+    <th colspan="4">Total Fees</th>
+    <th colspan="4">Paid</th>
+    <th colspan="4">Balance</th>
+</tr>
+<tr>
+    <th>Academic Fees</th>
+    <th>Transport Fees</th>
+    <th>Hostel Fees</th>
+    <th>Total</th>
+
+    <th>Academic Fees</th>
+    <th>Transport Fees</th>
+    <th>Hostel Fees</th>
+    <th>Total</th>
+
+    <th>Academic Fees</th>
+    <th>Transport Fees</th>
+    <th>Hostel Fees</th>
+    <th>Total</th>
+</tr>
+</thead>
+
+<tbody>
+{% for student in student_list %}
+{% if forloop.counter > start and forloop.counter <= end %}
+<tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ student.name }}</td>
+
+    <!-- TOTAL -->
+    <td>₹{% if student|get_item:"Academic Fees_total" %}{{ student|get_item:"Academic Fees_total" }}{% elif student|get_item:"Admission fee_total" %}{{ student|get_item:"Admission fee_total" }}{% else %}0{% endif %}</td>
+    <td>₹{% if student|get_item:"Transport fees_total" %}{{ student|get_item:"Transport fees_total" }}{% else %}0{% endif %}</td>
+    <td>₹{% if student|get_item:"Hostel fee_total" %}{{ student|get_item:"Hostel fee_total" }}{% else %}0{% endif %}</td>
+    <td>₹{{ student.amount|default:0 }}</td>
+
+    <!-- PAID -->
+    <td>₹{% if student|get_item:"Academic Fees_paid" %}{{ student|get_item:"Academic Fees_paid" }}{% elif student|get_item:"Admission fee_paid" %}{{ student|get_item:"Admission fee_paid" }}{% else %}0{% endif %}</td>
+    <td>₹{% if student|get_item:"Transport fees_paid" %}{{ student|get_item:"Transport fees_paid" }}{% else %}0{% endif %}</td>
+    <td>₹{% if student|get_item:"Hostel fee_paid" %}{{ student|get_item:"Hostel fee_paid" }}{% else %}0{% endif %}</td>
+    <td>₹{{ student.paid_amount|default:0 }}</td>
+
+    <!-- BALANCE -->
+    <td>₹{% if student|get_item:"Academic Fees_pending" %}{{ student|get_item:"Academic Fees_pending" }}{% elif student|get_item:"Admission fee_pending" %}{{ student|get_item:"Admission fee_pending" }}{% else %}0{% endif %}</td>
+    <td>₹{% if student|get_item:"Transport fees_pending" %}{{ student|get_item:"Transport fees_pending" }}{% else %}0{% endif %}</td>
+    <td>₹{% if student|get_item:"Hostel fee_pending" %}{{ student|get_item:"Hostel fee_pending" }}{% else %}0{% endif %}</td>
+    <td>₹{{ student.pending_amount|default:0 }}</td>
+
+</tr>
+{% endif %}
+{% endfor %}
+
+
+
+{% if forloop.last %}
+<tr style="font-weight:bold;">
+<td colspan="2">Grand Total</td>
+<!-- TOTAL -->
+<td>₹{% if student|get_item:"Academic Fees_total" %}{{ student|get_item:"Academic Fees_total" }}{% elif student|get_item:"Admission fee_total" %}{{ student|get_item:"Admission fee_total" }}{% else %}0{% endif %}</td>
+<td>₹{% if student|get_item:"Transport fees_total" %}{{ student|get_item:"Transport fees_total" }}{% else %}0{% endif %}</td>
+<td>₹{% if student|get_item:"Hostel fee_total" %}{{ student|get_item:"Hostel fee_total" }}{% else %}0{% endif %}</td>
+<td>₹{{ student.amount|default:0 }}</td>
+
+<!-- PAID -->
+<td>₹{% if student|get_item:"Academic Fees_paid" %}{{ student|get_item:"Academic Fees_paid" }}{% elif student|get_item:"Admission fee_paid" %}{{ student|get_item:"Admission fee_paid" }}{% else %}0{% endif %}</td>
+<td>₹{% if student|get_item:"Transport fees_paid" %}{{ student|get_item:"Transport fees_paid" }}{% else %}0{% endif %}</td>
+<td>₹{% if student|get_item:"Hostel fee_paid" %}{{ student|get_item:"Hostel fee_paid" }}{% else %}0{% endif %}</td>
+<td>₹{{ student.paid_amount|default:0 }}</td>
+
+<!-- BALANCE -->
+<td>₹{% if student|get_item:"Academic Fees_pending" %}{{ student|get_item:"Academic Fees_pending" }}{% elif student|get_item:"Admission fee_pending" %}{{ student|get_item:"Admission fee_pending" }}{% else %}0{% endif %}</td>
+<td>₹{% if student|get_item:"Transport fees_pending" %}{{ student|get_item:"Transport fees_pending" }}{% else %}0{% endif %}</td>
+<td>₹{% if student|get_item:"Hostel fee_pending" %}{{ student|get_item:"Hostel fee_pending" }}{% else %}0{% endif %}</td>
+<td>₹{{ student.pending_amount|default:0 }}</td>
+</tr>
+{% endif %}
+</tbody>
+</table>
+
+</div>
+
+{% endif %}
+{% endfor %}
+
+</body>
+</html>

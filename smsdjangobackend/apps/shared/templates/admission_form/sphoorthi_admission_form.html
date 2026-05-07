@@ -1,0 +1,513 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Admission Form</title>
+    <style>
+        @page {
+            size: A4;
+            margin:2em;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .center {
+            text-align: center;
+            margin: 5px;
+        }
+
+        .info_table {
+            table-layout: auto;
+
+        }
+
+        .info_table td:nth-child(1) {
+            width: 4%;
+            border-left: 0px solid;
+            border-right: 0px solid;
+            vertical-align: top;
+        }
+
+        .info_table td:nth-child(2) {
+            width: 34%;
+            border-left: 0px solid;
+        }
+
+        .info_table td:nth-child(3) {
+            border-right: 0px solid;
+        }
+
+        td {
+            padding: 4px;
+            padding-right: 0px;
+        }
+
+        .noborder {
+            border: 0px solid;
+        }
+
+        .box {
+            width: 130px;
+            height: 100px;
+            border: 1px solid black;
+            padding-top: 50px;
+        }
+
+        .noborderleft {
+            border-left: 0px solid;
+
+        }
+
+        .noborderright {
+            border-right: 0px solid;
+
+        }
+
+        .noborderleftright {
+            border-left: 0px solid;
+            border-right: 0px solid;
+        }
+
+        .noborderentiretable {
+            border: 0px solid black;
+        }
+
+        .noborderentiretable tr {
+            border: 0px solid black;
+            border-collapse: collapse;
+
+        }
+
+        .noborderentiretable td {
+            border: 0px solid black;
+            border-collapse: collapse;
+            vertical-align: top;
+            padding: 0px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body style="font-family:'Times New Roman', Times, serif;">
+    <div>
+        <div style='text-align: center;'>
+            <table class='noborder' style="width:100%;font-weight: bold;font-size: 7px;">
+                <td class='noborder' style="text-align: left;vertical-align: bottom;font-size: 7px;">ESTD: 1990</td>
+                <td class='noborder'>{% if institute.logo %}
+                    <img src=https://edubricz-production.s3.ap-south-1.amazonaws.com/companies-images/sphoorthi-images/ganesha_image.png
+                        style="width: 50px;height: 50px;" />
+                    {% endif %}
+                </td>
+                <td class='noborder' style="text-align: right;vertical-align: bottom;font-size: 8px;">{% if institute.tel_num %}Ph: {{institute.tel_num|cut:"+91"}}{% endif %}</br>
+                    {% if institute.tel_num_2 %}
+                    {{ institute.tel_num_2|cut:"+91" }}{% endif %}</td>
+            </table>
+            <div style="font-size:18px;font-weight: bold;">{{institute.name|upper}} </div>
+            <div style="font-size:9px;font-weight: bold;margin-top:2px;">RECOGNISED BY THE GOVERNMENT OF KARNATAKA
+            </div>
+            <div style="font-size:8px;font-weight: bold;margin-top:2px;">PRE-NURSERY, NURSERY, PRIMARY, HIGHER PRIMARY
+                AND HIGH SCHOOL</div>
+            <div style="font-size:10px;margin-top:2px;">{{institute.address|upper}}</div>
+            <div style="font-size:10px;margin-top:2px;">E-mail: sphoorthienglishschool@gmail.com</div>
+            <div style="position: relative;">
+                <div style="position: absolute;top:20px;font-size: 13px;">ADMISSION No:{{admission_num}}</div>
+                <div style="position: absolute;bottom:30px;font-size: 13px;">No:</div>
+                <div style="font-weight:bold;">
+                    {% if institute.logo %}
+                    <img src={{institute.logo.file.url}} style="width: 100px;height: 100px;" />
+                    {% endif %}
+                    <div style="font-size:12px ;">KNOWLEDGE IS POWER</div>
+                    <div style="text-decoration: underline;margin:2px;font-size:15px;">APPLICATION FOR ADMISSION</div>
+                </div>
+                <div style="position: absolute;top:10px;right:10px;font-size:11px;vertical-align: bottom;" class="box">
+                    Affix passport size recent colour photograph</div>
+            </div>
+        </div>
+        <div style="font-size:11px;text-align: left;padding:4px;"> 1. Passport size colour photograph of the recent
+            origin has to be affixed.</br>
+            2. Aadhar Card is required for both Student and Parents has to be Provided.</br>
+            3. Authentic documents in proof of age, education and caste have to be furnished.</div>
+        <table class="info_table noborderleftright" style="width:100%;margin-top:5px;font-size: 10px;line-height: 12px;">
+            <tr>
+                <td style="">*</td>
+                <td colspan='4' style="border-right:none">STUDENT DETAILS</td>
+            </tr>
+            <tr>
+                <td>1.</td>
+                <td> Name of the Student
+                </td>
+                <td colspan='3'>
+                    {{first_name|upper}} {% if middle_name %}{{middle_name|upper}}{% endif %} {% if last_name %}{{last_name|upper}}{% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>
+                    Gender
+                </td>
+                <td colspan="3">
+                    {% if gender|upper == "BOY" %}
+                        MALE
+                    {% elif gender|upper == "GIRL" %}
+                        FEMALE
+                    {% else %}
+                        {{ gender|upper }}
+                    {% endif %}
+                </td>
+                
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>
+                    Aadhar Number
+                </td>
+                <td colspan='3'>
+                    {% if student_details.aadhar_num %} {{student_details.aadhar_num}}{%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>
+                    <div>Date of Birth</div>
+                </td>
+                <td colspan='3'>
+                    {{dob|date:'d-m-Y'}}
+                </td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>Place of birth
+                </td>
+                <td colspan='3'>
+                    {% if student_details.place_of_birth %}{{student_details.place_of_birth|title}}{%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>
+                    <div>Blood Group</div>
+                </td>
+                <td colspan='3'>
+                    {% if student_details.blood_group %}{{student_details.blood_group|title}}{%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>Admission required for
+                </td>
+                <td colspan='3'>
+                    {{current_standard_name|title}}
+                </td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>Academic year of admission
+                </td>
+                <td colspan='3'>
+                    {{student_details.entry_academic_year_value}}
+                </td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>Mother Tongue
+                </td>
+                <td colspan='3'>
+                    {% if student_details.mother_tongue %}{{student_details.mother_tongue|title}}{%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>10.</td>
+                <td>Nationality 
+                </td>
+                <td colspan='3'>
+                    {% if student_details.nationality_name %}{{student_details.nationality_name|title}} {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>11.</td>
+                <td>Religion
+                </td>
+                <td colspan='3'>
+                    {% if student_details.religion_name %}{{student_details.religion_name|title}}{%endif%}
+
+                </td>
+            </tr>
+            <tr>
+                <td>12.</td>
+                <td>Caste / Sub-caste
+                </td>
+                <td colspan='3'>
+                    {% if student_details.caste_name %}{{student_details.caste_name|title}} {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>13.</td>
+                <td>Height
+                </td>
+                <td colspan='3'>
+                    {% if custom_form_data.height %}{{custom_form_data.height|title}} {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>14.</td>
+                <td>Weight
+                </td>
+                <td colspan='3'>
+                    {% if custom_form_data.weight %}{{custom_form_data.weight|title}} {%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td>15.</td>
+                <td style="vertical-align: top;">Residential Address</td>
+                <td colspan="3"></td>
+
+            <tr>
+                <td>*</td>
+                <td>Present</td>
+                <td colspan="3" >{% if student_address.0.address %}{{student_address.0.address}}{%endif%}{% if student_address.0.pincode %}-{{student_address.0.pincode}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>*</td>
+                <td>Permanent</td>
+                <td colspan="3" >{% if student_address.0.address %}{{student_address.0.address}}{%endif%}{% if student_address.0.pincode %}-{{student_address.0.pincode}}{%endif%}</td>
+            </tr>
+            <tr >
+                <td colspan="5">&nbsp;</td>    
+            </tr>
+            <tr>
+                <td>*</td>
+                <td colspan='4' style='border-right: none;'>PREVIOUS SCHOOLING DETAILS</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name  of the school</td>
+                <td colspan='3'>{{ student_details.previous_school_details.pre_school_name }}</br>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Address of the school</td>
+                <td colspan='3'>{{ student_details.previous_school_details.pre_school_address }}</br>
+                    </td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Class last studied</td>
+                <td colspan='3'>{{ student_details.previous_school_details.pre_left_standard }}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Promoted / Detained</td>
+                <td colspan='3'>{% if custom_form_data.promoted_or_detained_from_previous_school %}{{custom_form_data.promoted_or_detained_from_previous_school}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Medium of Instruction</td>
+                <td colspan='3'>{% if custom_form_data.medium_of_instruction_in_previous_school %}{{custom_form_data.medium_of_instruction_in_previous_school}}{%endif%}</td>
+            </tr>
+            <!-- {% comment %} <tr>
+                <td></td>
+                <td>6.Supporting documents</td>
+                <td colspan='3'>{% if custom_form_data.supporting_doc_for_prev_inst %}{{custom_form_data.supporting_doc_for_prev_inst}}{%endif%}</td>
+            </tr> {% endcomment %} -->
+            <tr>
+                <td>6</td>
+                <td>Transfer certificate:</td>
+                <td colspan='3'></td>
+            </tr>
+            <tr >
+                <td colspan="5">&nbsp;</td>    
+            </tr>
+            <tr>
+                <td>*</td>
+                <td colspan="4" class='noborderright' >PARENTS DETAILS</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td style="width:22%">Father</td>
+                <td style="width:22%">Mother</td>
+                <td style="width:22%" class='noborderright'>Guardian</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Name</td>
+                <td>{% if student_parent.parent.father_name %}{{student_parent.parent.father_name|title}}{%endif%}</td>
+                <td>{% if student_parent.parent.mother_name %}{{student_parent.parent.mother_name|title}}{%endif%}</td>
+                <td class='noborderright'>{% if student_parent.guardian.guardian_name %}{{student_parent.guardian.guardian_name|title}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Educational Qualification</td>
+                <td>{% if student_parent.parent.f_education %}{{student_parent.parent.f_education|title}}{%endif%}</td>
+                <td>{% if student_parent.parent.m_education %}{{student_parent.parent.m_education|title}}{%endif%}</td>
+                <td class='noborderright'>{% if student_parent.guardian.g_education %}{{student_parent.guardian.g_education|title}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Occupation</td>
+                <td>{% if student_parent.parent.f_occupation %}{{student_parent.parent.f_occupation|title}}{%endif%}
+                </td>
+                <td>{% if student_parent.parent.m_occupation %}{{student_parent.parent.m_occupation|title}}{%endif%}
+                </td>
+                <td class='noborderright'>{% if student_parent.guardian.g_occupation %}{{student_parent.guardian.g_occupation|title}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Monthly Income</td>
+                <td>{% if custom_form_data.f_monthly_income %}{{custom_form_data.f_monthly_income}}{%endif%}</td>
+                <td>{% if custom_form_data.m_monthly_income %}{{custom_form_data.m_monthly_income}}{%endif%}</td>
+                <td class='noborderright'>{% if custom_form_data.g_monthly_income %}{{custom_form_data.g_monthly_income}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Contact Number</td>
+                <td style='font-size: 11px;'>{% if student_parent.parent.f_mobile_num %}{{student_parent.parent.f_mobile_num|cut:'+91'}}{%endif%}</td>
+                <td style='font-size: 11px;'>{% if student_parent.parent.m_mobile_num %}{{student_parent.parent.m_mobile_num|cut:'+91'}}{%endif%}</td>
+                <td class='noborderright' style='font-size: 11px;'>{% if student_parent.guardian.g_mobile_num %}{{student_parent.guardian.g_mobile_num|cut:'+91'}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Aadhar Number</td>
+                <td style='font-size: 11px;'>{% if student_parent.parent.f_dob %}{{student_parent.parent.f_dob|title}}{%endif%}</td>
+                <td style='font-size: 11px;'>{% if student_parent.parent.m_dob %}{{student_parent.parent.m_dob|title}}{%endif%}</td>
+                <td class='noborderright' style='font-size: 11px;'>{% if student_parent.guardian.g_dob %}{{student_parent.guardian.g_aadhar|title}}{%endif%}</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Date Of Birth</td>
+                <td style='font-size: 11px;'>{% if student_parent.parent.f_aadhar %}{{student_parent.parent.f_aadhar|title}}{%endif%}</td>
+                <td style='font-size: 11px;'>{% if student_parent.parent.m_aadhar %}{{student_parent.parent.m_aadhar|title}}{%endif%}</td>
+                <td class='noborderright' style='font-size: 11px;'>{% if student_parent.guardian.g_aadhar %}{{student_parent.guardian.g_dob|title}}{%endif%}</td>
+            </tr>
+            
+        </table>
+        <div style="text-decoration: underline;font-size:18px;padding:10px;text-align: center;margin-top:10px;"><b>INSTRUCTIONS TO
+                PARENTS</b></div>
+        <table class="noborderentiretable" style="text-align: justify;font-size:14px;line-height:20px;">
+            <tr>
+                <td style="width:20px;">1.</td>
+                <td>Parents are requested to send their children to the school intime with school uniforms on all
+                    working days except if notified to the contrary on certain occasions and take care of the regular
+                    attendance.</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Monthly fee should be paid on or before 10th of everymonth.A fine of Rs. 10/- per day will be levied
+                    for payment
+                    made after 10th upto the maximum of Rs. 50/-</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Leave letter is essential for absence due to sickness etc. Long absence without notice will lead to
+                    the removal of name from rolls</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>Parents are responsible for bringing & taking back their children before & after the school hours.
+                    The school is not responsible for the children except during the school hours.</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>Parents must ensure that the children attend the school homework regularly at home.</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>Amount once paid to the institution will not be refunded under any circumstances.</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>The progress of children partly depends upon the co-operation of parents. Hence Parents are
+                    requested
+                    to extend their best co-operation to the school authorities.</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>Parents while sending their children to the school are informed to ensure that their children do not
+                    put on valuable ornments.(Jewels)</td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>Parents are requested to follow the above instructions without fail.</td>
+            </tr>
+        </table>
+        <div style="text-decoration: underline;font-size:18px;padding:5px;text-align: center;margin-top:20px;"><b>DECLARATION</b></div>
+        <table class='noborder'>
+            <tr class='noborder'>
+                <td class='noborder'>I  &nbsp;<u>{% if student_parent.parent.father_name %}{{student_parent.parent.father_name|upper}}
+                        {% elif student_parent.parent.mother_name %}{{student_parent.parent.mother_name|upper}}
+                        {% elif student_parent.parent.guardian_name %}{{student_parent.parent.guardian_name|upper}}
+                        {%endif%}</u> Parent of <u>{{first_name|upper}} {% if middle_name %}{{middle_name|upper}}{%endif%} {% if last_name %}{{last_name|upper}}{% endif %}</u>
+                    hereby declare that I abide  by the above Instructions and also declare that the information furnished is true to the best of my knowledge & belief.</td>
+            </tr>
+        </table>
+        <table class='noborder' style="width:100%;margin-top:50px;table-layout: fixed;">
+            <tr style="height: 60px;">
+                <td class='noborder' style="width:50%;line-height: 1.6;">
+                    Date:{{today}}</br>
+                </td>
+                <td class='noborder' style="width:50%; text-align: center;">
+                    Signature of the Parent / Guardian
+                </td>
+            </tr>
+        </table>
+        <div style="text-decoration: underline;font-size:18px;padding:5px;text-align: center;margin-top:10px;"><b>FOR OFFICE USE
+                ONLY</br>SELECTED/DEFFERED</b></div>
+        <table class='noborder' style="width:100%;">
+            <tr>
+                <td class='noborderleftright' style="width:8px;vertical-align: top;">1.</td>
+                <td class='noborderleft' style="width:300px;vertical-align: top;">Date of admission and academic year
+                </td>
+                <td class='noborderright'>{{admission_date|date:'d-m-Y'}} {{admission_year}}</td>
+            </tr>
+            <tr>
+                <td class='noborderleftright' style="vertical-align: top;">2.</td>
+                <td class='noborderleft' style="vertical-align: top;">Class to which admitted</td>
+                <td class='noborderright'>{{current_standard_name}}</td>
+            </tr>
+            <tr>
+                <td class='noborderleftright' style="vertical-align: top;">3.</td>
+                <td class='noborderleft' style="vertical-align: top;">Admission Number</td>
+                <td class='noborderright'>{{admission_num}}</td>
+            </tr>
+            <tr>
+                <td class='noborderleftright' style="vertical-align: top;">4.</td>
+                <td class='noborderleft' style="vertical-align: top;">SATS Number
+                </td>
+                <td class='noborderright'>
+                    {% if sts %}{{sts}}{%endif%}
+                </td>
+            </tr>
+            <tr>
+                <td class='noborderleftright' style="vertical-align: top;">5.</td>
+                <td class='noborderleft' style="vertical-align: top;">PEN Number
+                </td>
+                <td class='noborderright'>
+                    {% if custom_form_data.pen_num %}{{custom_form_data.pen_num}}{%endif%}
+                </td>
+            </tr>
+        </table>
+        <table class='noborder' style="width:100%;table-layout: fixed;margin-top:30px;">
+            <tr style="height: 60px;vertical-align: bottom;">
+                <td class='noborder' style="width:50%;line-height: 1.6;">
+                    Head Master's Signature</br>
+                </td>
+                <td class='noborder' style="width:50%; text-align: center;">
+                    Principal's Signature
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

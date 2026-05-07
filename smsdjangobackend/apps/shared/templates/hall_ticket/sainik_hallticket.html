@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body {
+            line-height: 1.0rem;
+        }
+        .t-center {
+            text-align: center;
+        }
+        .heading {
+            font-size: 23px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 5%;
+            padding-right: 5%;
+            line-height:1.2;
+            
+        }
+        .header-bg {
+            text-align: center;
+        }
+        .w-100 {
+            width: 100%;
+            border-collapse: collapse;
+            border: 0px solid black; /* Ensures table borders are visible */
+        }
+        .text-right {
+            text-align: right;
+        }
+        td, th {
+            padding: 5px;
+            border: 1px solid black; /* Applies border to table elements */
+        }
+        .th-subject-view {
+            padding: 0px 0px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .td-subject-view {
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo {
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4;
+            margin: 1mm;
+        }
+        .fs-20 {
+            font-size: 20px;
+        }
+        .fs-bold {
+            font-weight: bold;
+        }
+        .address-heading {
+            font-size: 14px;
+        }
+        .mt-5 {
+            margin-top: 4px;
+        }
+        @media print {
+            body {
+                width: 635px;
+                margin: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem; height: 495px">
+        <table class="w-100">
+            <tr>
+                <td colspan="4" style="text-align: center; position: relative;">
+                    {% if institute.logo.file.url %}
+                        <img src="{{ institute.logo.file.url }}" style="width: 70px; height:60px; position:absolute; top:5px; left:20px;" />
+                    {% endif %}
+                    <div class="heading" style="margin-left: 100px;">
+                        {{ institute.name}} <!-- Ensures the name appears in two lines -->
+                    </div>
+                    <div class="heading" style="margin-left: 100px;">
+                        BANGALORE 
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" class="address-heading t-center fs-bold">
+                    {{ examDetail.exam_type.name | upper }} HALL TICKET
+                </td>
+            </tr>
+        </table>
+        
+        <table class="w-100" style="font-size: 12px; border-collapse: collapse; border: 1px solid black;">
+            <tr>
+                <td style=" border-top: 1px solid black; border-bottom: none; border-left: none; border-right: none;">Name &nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp; {{ student.student_data.full_name | title |upper }}</td>
+                <td style="border-top: 1px solid black; border-bottom: none; border-left: none; border-right: none;"></td>
+                <td style="text-align:right; padding-right:30px;border-top: 1px solid black; border-bottom: none; border-left: none; border-right: none;">STD&nbsp;&nbsp;:&nbsp;&nbsp; {{standard_name_in_roman}}</td>
+            </tr>
+            <tr>
+                <td style="border-top: 1px solid black;border-top:none; border-bottom: 1px solid black; border-left: none; border-right: none;">Roll No&nbsp;&nbsp;: {{student.student_data.current_reg_num}}</td>
+                <td style="border-top: 1px solid black;border-top:none; border-bottom: 1px solid black; border-left: none; border-right: none;"></td>
+                <td style="border-top: 1px solid black;border-top:none ;border-bottom: 1px solid black; border-left: none; border-right: none;"></td>
+            </tr>
+        </table>
+        
+        
+        
+        
+        <table class="w-100 text-center" style="font-size: 11px;">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Day</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Invigilator's Sign</th>
+            </tr>
+            {% for subject in student.subject_list %}
+            <tr>
+                <td class="td-subject-view">{{ subject.fordate|date:'d-M-Y' }}</td>
+                <td class="td-subject-view">{{ subject.fordate|date:'l' }}</td>
+                <td class="td-subject-view">
+                    <div style=" margin-left: auto; margin-right: auto;">
+                        {{ subject.subject_name | title }}{% if subject.subject_part_code == 'part1' %}{% if 'ORAL' not in subject.subject_name %} Written{% endif %}{% endif %}
+                    </div>
+                </td>
+                <td class="td-subject-view"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        
+        <table class="w-100" style="margin-top: 0px; border-collapse: collapse;">
+            <tr>
+                <td style="text-align: left; height: 40px; border-bottom: 1px solid black; vertical-align: bottom; padding-bottom: 2px; border-right:none;">Class Teacher Sign</td>
+                <td style="text-align: right; height: 40px; border-bottom: 1px solid black; border-left: none; vertical-align: bottom; padding-bottom: 2px;">Head Mistress Sign</td>
+            </tr>
+        </table>
+        
+        
+    </div>
+    
+    {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    <hr />
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

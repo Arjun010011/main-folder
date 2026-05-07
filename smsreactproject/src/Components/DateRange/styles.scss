@@ -1,0 +1,44 @@
+.date-range-paper-background{
+    position: relative;
+}
+
+.date-range-ok-button-box{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+} 
+
+.date-range-ok-button{
+  color: orange;
+  cursor: pointer;
+}    
+
+.date-range-icon{
+    cursor: pointer;
+    font-size: 30px!important;
+}
+
+.color-black{
+    color: black!important;
+}
+
+.width-280-margin-top-1r{
+    width: 280px!important;
+    margin-top: 1rem!important;
+    .MuiFormHelperText-contained{
+        margin: 0px!important;
+    }
+}
+
+.width-280{
+    width: 280px!important;
+    .MuiFormHelperText-contained{
+        margin: 0px!important;
+    }
+}
+
+.date-range-clear-icon{
+    cursor: pointer;
+    opacity: 0.7;
+    font-size: 30px!important;
+}

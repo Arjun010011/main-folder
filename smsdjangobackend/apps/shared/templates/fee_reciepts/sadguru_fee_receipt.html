@@ -1,0 +1,96 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 0px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 7px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 0px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+        .noborder{
+            border: 0px solid;
+        }
+        .bold{
+            font-weight: bold
+        }
+        .line-height{
+            line-height: 1.5;
+        }
+        .text-center{
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    {% for count in number_of_copies %}
+        <div style='height: 600px'>
+            <div style='height: 100px'> </div>
+            <table style='width:100%'>
+                <div style='display:flex'>
+                    <div style='width: 100px'></div> 
+                    {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                    {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                    {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                    <div style="margin-left: auto">
+                        {{fee_collection.receipt_num|title}}
+                    </div>
+                </div>
+                <div style='display:flex;margin-top: 30px'>
+                    <div style='width: 100px'></div>{{fee_collection.standard_name}}-{{fee_collection.enrollment_data.section_name}}
+                    <div style="margin-left: auto">
+                        {{fee_collection.transaction_date}}
+                    </div>
+                </div>
+            </table>
+            <div style='height:50px'>
+            </div>
+            <table style="width: 100%;min-height:500px">
+                <tbody>
+                {% for fee in fee_collection.payment_detail %}
+                    <tr>
+                        <td style='width:50px'>{{forloop.counter}}</td>
+                        <td style='width:650px'>
+                            {{fee.fee_type_name}}
+                        </td>
+                        <td style='width:150px'> Jan</td>
+                        <td>{{fee.amount_paid|floatformat|intcomma }}</td>
+                    </tr>
+                {%endfor%}
+                <tr>
+                    <td colspan='3' style='font-weight:bold;line-height:1.5;padding-left:100px'>
+                        {{amount_in_words|title}}</td>
+                    <td style:'text-align:right'> {{ fee_collection.total_amount | floatformat |intcomma}}</td>
+                        <br/>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </br>
+                <div style="display:flex">
+                </div>
+                {% if not forloop.last %}
+                    <div style="page-break-after: always;"></div>
+                {% endif %}
+        </div>
+    {% endfor %}
+</body>
+</html>

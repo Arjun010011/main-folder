@@ -1,0 +1,1051 @@
+// // Import Google Fonts
+// @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+// // Main container styles
+// .main-container {
+//   width: 100%;
+//   height: 100vh;
+//   display: flex;
+//   position: relative;
+//   overflow: hidden;
+  
+//   &[data-theme="dark"] {
+//     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+//   }
+  
+//   &[data-theme="light"] {
+//     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+//   }
+// }
+
+// // Side by side layout
+// .side-by-side-container {
+//   display: flex;
+//   width: 100%;
+//   height: 100%;
+// }
+
+// // Extended Video Section (70%)
+// .video-section {
+//   flex: 0 0 70%;
+//   position: relative;
+//   overflow: hidden;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 0;
+  
+//   // Set the same base background as main container
+//   .main-container[data-theme="dark"] & {
+//     background: linear-gradient(135deg, white 0%, #1e293b 100%);
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+//   }
+  
+//   .video-background {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     object-fit: cover;
+//     z-index: 1;
+//     transition: all 0.5s ease-in-out;
+    
+//     .main-container[data-theme="dark"] & {
+//       filter: brightness(0.6) contrast(1.1);
+//       opacity: 0.8;
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       filter: brightness(0.9) contrast(1.05);
+//       opacity: 1;
+//     }
+//   }
+  
+//   .video-overlay {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100%;
+//     height: 100%;
+//     z-index: 2;
+    
+//     .main-container[data-theme="light"] & {
+//       background: linear-gradient(135deg,#ffffffea(15, 23, 42, 0.7) 0%,#ffffffea(30, 41, 59, 0.8) 100%);
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       background: linear-gradient(135deg,#ffffffea(255,255,255,0.2) 0%, #ffffffea 100%);
+//     }
+//   }
+  
+//   .video-content {
+//     position: relative;
+//     z-index: 3;
+//     text-align: center;
+//     color: white;
+//     padding: 40px;
+//     max-width: 600px;
+//     width: 100%;
+    
+//     .video-title {
+//       font-size: 2.5rem;
+//       font-weight: 700;
+//       margin-bottom: 20px;
+//       font-family: 'Poppins', sans-serif;
+//       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+//     }
+    
+//     .video-subtitle {
+//       font-size: 1.2rem;
+//       font-weight: 300;
+//       margin-bottom: 30px;
+//       font-family: 'Inter', sans-serif;
+//       opacity: 0.9;
+//       line-height: 1.6;
+//     }
+//   }
+// }
+
+// // Reduced Login Section (30%) - FIXED to have exact same background
+// .login-section {
+//   flex: 0 0 30%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   padding: 20px 15px;
+//   position: relative;
+//   flex-direction: column;
+  
+//   // Set the exact same background as video section
+//   .main-container[data-theme="dark"] & {
+//     background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+//   }
+// }
+
+// // Edubricz Logo Container - UPDATED: Non-clickable and larger
+// .edubricz-logo-container {
+//   position: absolute;
+//   top: 20px;
+//   left: 0;
+//   right: 0;
+//   text-align: center;
+//   z-index: 10;
+//   margin-bottom: 30px;
+// }
+
+// .edubricz-logo {
+//   height: 80px; // INCREASED SIZE: from 60px to 80px
+//   max-width: 250px; // INCREASED SIZE: from 200px to 250px
+//   object-fit: contain;
+//   // REMOVED: cursor: pointer;
+//   // REMOVED: hover effects
+// }
+
+// // School Logo Container - ADDED
+// .school-logo-container {
+//   text-align: center;
+//   margin-bottom: 20px;
+//   margin-top: 30px;
+// }
+
+// .school-logo {
+//   width: 160px;
+//   margin-bottom: 50px;
+//   transition: all 0.3s ease;
+  
+//   &:hover {
+//     transform: scale(1.05);
+//   }
+// }
+
+// // Login Container with proper background matching
+// .login-container {
+//   width: 100%;
+//   max-width: 380px;
+//   padding: 30px 25px;
+//   border-radius: 18px;
+//   animation: slideUp 0.8s ease-out;
+//   backdrop-filter: blur(20px);
+//   margin-top: 100px; // INCREASED: from 80px to 100px to accommodate larger logo
+  
+//   .main-container[data-theme="dark"] & {
+//     background: rgba(15, 23, 42, 0.95);
+//     box-shadow: 
+//       0 25px 50px rgba(0, 0, 0, 0.3), 
+//       0 0 0 1px rgba(255, 255, 255, 0.1),
+//       0 10px 30px rgba(0, 0, 0, 0.2);
+//     border: 1px solid rgba(255, 255, 255, 0.15);
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: rgba(255, 255, 255, 0.98);
+//     box-shadow: 
+//       0 25px 50px rgba(0, 0, 0, 0.1), 
+//       0 0 0 1px rgba(255, 255, 255, 0.2),
+//       0 10px 30px rgba(0, 0, 0, 0.08);
+//     border: 1px solid rgba(255, 255, 255, 0.3);
+//   }
+// }
+
+// // Form elements
+// .form-row {
+//   margin-bottom: 16px;
+// }
+
+// // Text field styles
+// .text-field {
+//   & .MuiOutlinedInput-root {
+//     border-radius: 10px;
+//     transition: all 0.3s ease;
+    
+//     .main-container[data-theme="dark"] & {
+//       background: rgba(255, 255, 255, 0.05);
+//       color: #f1f5f9;
+      
+//       & .MuiOutlinedInput-notchedOutline {
+//         border-color: #ffffff;
+//       }
+      
+//       &:hover .MuiOutlinedInput-notchedOutline {
+//         border-color: #fffffffa;
+//       }
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       background: rgba(255, 255, 255, 0.8);
+//       color: #1f2937;
+      
+//       & .MuiOutlinedInput-notchedOutline {
+//         border-color: rgba(0, 0, 0, 0.15);
+//       }
+      
+//       &:hover .MuiOutlinedInput-notchedOutline {
+//         border-color: rgba(0, 0, 0, 0.3);
+//       }
+//     }
+    
+//     &:hover fieldset {
+//       border-color: #3b82f6;
+//     }
+    
+//     &.Mui-focused fieldset {
+//       border-color: #3b82f6;
+//       border-width: 2px;
+//       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+//     }
+//   }
+  
+//   & .MuiInputLabel-root {
+//     font-family: 'Inter', 'Poppins', sans-serif;
+//     font-size: 14px;
+    
+//     .main-container[data-theme="dark"] & {
+//       color: #e2e8f0;
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       color: #64748b;
+//     }
+    
+//     &.Mui-focused {
+//       color: #3b82f6;
+//     }
+//   }
+  
+//   & .MuiOutlinedInput-input {
+//     padding: 12px 14px;
+//     font-family: 'Inter', 'Poppins', sans-serif;
+//     font-size: 14px;
+    
+//     .main-container[data-theme="dark"] & {
+//       color: #f1f5f9;
+      
+//       &::placeholder {
+//         color: #94a3b8;
+//         opacity: 0.7;
+//       }
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       color: #1f2937;
+      
+//       &::placeholder {
+//         color: #64748b;
+//         opacity: 0.7;
+//       }
+//     }
+//   }
+  
+//   & .MuiFormHelperText-root {
+//     .main-container[data-theme="dark"] & {
+//       color: #ef4444;
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       color: #dc2626;
+//     }
+//   }
+// }
+
+// // Login button
+// .login-button {
+//   background: linear-gradient(45deg, #6366f1, #3b82f6);
+//   margin-top: 28px;
+//   color: #ffffff;
+//   padding: 16px 0;
+//   font-size: 16px;
+//   font-weight: 700;
+//   border-radius: 14px;
+//   transition: all 0.3s ease;
+//   position: relative;
+//   overflow: hidden;
+//   letter-spacing: 1px;
+//   text-transform: uppercase;
+//   box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  
+//   &:hover {
+//     background: linear-gradient(45deg, #4f46e5, #2563eb);
+//     transform: translateY(-3px);
+//     box-shadow: 0 10px 30px rgba(99, 102, 241, 0.6);
+//   }
+  
+//   &:disabled {
+//     transform: scale(0.98);
+//     opacity: 0.6;
+//   }
+// }
+
+// // Logo styles
+// .logo {
+//   width: 160px;
+//   margin-bottom: 20px;
+//   transition: all 0.3s ease;
+  
+//   &:hover {
+//     transform: scale(1.05);
+//   }
+// }
+
+// // Typography styles
+// .login-title {
+//   font-size: 22px;
+//   font-weight: 700;
+//   font-family: 'Poppins', 'Inter', sans-serif;
+//   margin-bottom: 6px;
+//   background: linear-gradient(45deg, #6366f1, #3b82f6);
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   background-clip: text;
+// }
+
+// .login-subtitle {
+//   font-size: 13px;
+//   font-family: 'Inter', sans-serif;
+//   margin-bottom: 24px;
+  
+//   .main-container[data-theme="dark"] & {
+//     color: #94a3b8;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: #64748b;
+//   }
+// }
+
+// // Action buttons container
+// .action-buttons {
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   margin-top: 14px;
+  
+//   .main-container[data-theme="dark"] & {
+//     color: #60a5fa;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: #007bff;
+//   }
+// }
+
+// // Policy links
+// .policy-link {
+//   transition: all 0.3s ease;
+//   font-size: 11px;
+//   font-family: 'Inter', sans-serif;
+//   cursor: pointer;
+//   text-decoration: underline;
+  
+//   &:hover {
+//     transform: translateY(-2px);
+//   }
+  
+//   .main-container[data-theme="dark"] & {
+//     color: #60a5fa;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: #007bff;
+//   }
+// }
+
+// // Dialog styles for OTP and Forgot Password
+// .dialog-container {
+//   .MuiDialog-paper {
+//     border-radius: 16px;
+//     overflow: hidden;
+    
+//     .main-container[data-theme="dark"] & {
+//       background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+//       color: #f1f5f9;
+//     }
+    
+//     .main-container[data-theme="light"] & {
+//       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+//       color: #1f2937;
+//     }
+//   }
+// }
+
+// .dialog-title {
+//   font-family: 'Poppins', sans-serif;
+//   font-weight: 600;
+//   padding: 20px 24px;
+//   border-bottom: 1px solid;
+  
+//   .main-container[data-theme="dark"] & {
+//     background: #1e293b;
+//     color: #f1f5f9;
+//     border-color: rgba(255, 255, 255, 0.1);
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: #f8fafc;
+//     color: #1f2937;
+//     border-color: rgba(0, 0, 0, 0.1);
+//   }
+// }
+
+// .dialog-content {
+//   padding: 24px;
+  
+//   .main-container[data-theme="dark"] & {
+//     background: #1e293b;
+//     color: #f1f5f9;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: #ffffff;
+//     color: #1f2937;
+//   }
+// }
+
+// .dialog-actions {
+//   padding: 16px 24px;
+//   border-top: 1px solid;
+  
+//   .main-container[data-theme="dark"] & {
+//     background: #1e293b;
+//     border-color: rgba(255, 255, 255, 0.1);
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: #f8fafc;
+//     border-color: rgba(0, 0, 0, 0.1);
+//   }
+// }
+
+// // Loading overlay for video
+// .video-loading-overlay {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   z-index: 2;
+  
+//   .main-container[data-theme="dark"] & {
+//     background: #0f172a;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     background: #ffffff;
+//   }
+// }
+
+// // Button container
+// .button {
+//   width: 100%;
+// }
+
+// // Enhanced responsive design
+// @media only screen and (max-width: 1024px) {
+//   .side-by-side-container {
+//     flex-direction: column;
+//   }
+  
+//   .video-section,
+//   .login-section {
+//     flex: 1 1 100%;
+//     min-height: 50vh;
+//   }
+  
+//   .video-section {
+//     .video-content {
+//       padding: 20px;
+//       max-width: 90%;
+      
+//       .video-title {
+//         font-size: 2rem;
+//       }
+      
+//       .video-subtitle {
+//         font-size: 1rem;
+//       }
+//     }
+//   }
+  
+//   .login-section {
+//     padding: 20px;
+//   }
+  
+//   .login-container {
+//     padding: 30px 20px;
+//     max-width: 400px;
+//     margin-top: 90px; // ADJUSTED: from 70px to 90px for larger logo
+//   }
+  
+//   .edubricz-logo-container {
+//     top: 15px;
+//   }
+  
+//   .edubricz-logo {
+//     height: 70px; // ADJUSTED: from 50px to 70px
+//     max-width: 220px; // ADJUSTED: from 180px to 220px
+//   }
+// }
+
+// @media only screen and (max-width: 768px) {
+//   .side-by-side-container {
+//     flex-direction: column;
+//   }
+  
+//   .video-section {
+//     min-height: 40vh;
+    
+//     .video-content {
+//       .video-title {
+//         font-size: 1.5rem;
+//         margin-bottom: 15px;
+//       }
+      
+//       .video-subtitle {
+//         font-size: 0.9rem;
+//         margin-bottom: 20px;
+//       }
+//     }
+//   }
+  
+//   .login-section {
+//     min-height: 60vh;
+//     padding: 15px;
+//   }
+  
+//   .login-container {
+//     padding: 25px 15px;
+//     max-width: 100%;
+//     margin-top: 80px; // ADJUSTED: from 60px to 80px
+//   }
+  
+//   .edubricz-logo {
+//     height: 65px; // ADJUSTED: from 95px to 65px (more appropriate for mobile)
+//     max-width: 200px; // ADJUSTED: from 160px to 200px
+//   }
+  
+//   .school-logo {
+//     height: auto;
+//     max-width: 140px;
+//   }
+// }
+
+// @media only screen and (max-width: 480px) {
+//   .video-section {
+//     min-height: 35vh;
+    
+//     .video-content {
+//       padding: 15px;
+      
+//       .video-title {
+//         font-size: 1.3rem;
+//       }
+      
+//       .video-subtitle {
+//         font-size: 0.8rem;
+//       }
+//     }
+//   }
+  
+//   .login-section {
+//     min-height: 65vh;
+//     padding: 10px;
+//   }
+  
+//   .login-container {
+//     padding: 20px 15px;
+//     margin-top: 70px; // ADJUSTED: from 50px to 70px
+//   }
+  
+//   .edubricz-logo-container {
+//     top: 10px;
+//   }
+  
+//   .edubricz-logo {
+//     height: 60px; // ADJUSTED: from 40px to 60px
+//     max-width: 180px; // ADJUSTED: from 140px to 180px
+//   }
+  
+//   .school-logo {
+//     width: 140px;
+//     margin-bottom: 15px;
+//   }
+  
+//   .action-buttons {
+//     flex-direction: column;
+//     gap: 10px;
+//     align-items: stretch;
+    
+//     .action-basic-detail-width {
+//       width: 100%;
+//       text-align: center;
+//     }
+//   }
+  
+//   .logo {
+//     width: 140px;
+//     margin-bottom: 15px;
+//   }
+  
+//   .login-title {
+//     font-size: 20px;
+//   }
+// }
+
+// // Animations
+// @keyframes slideUp {
+//   0% {
+//     opacity: 0;
+//     transform: translateY(30px);
+//   }
+//   100% {
+//     opacity: 1;
+//     transform: translateY(0);
+//   }
+// }
+
+// // Error states for form fields
+// .error-text {
+//   font-size: 0.75rem;
+//   margin-top: 4px;
+//   font-family: 'Inter', sans-serif;
+  
+//   .main-container[data-theme="dark"] & {
+//     color: #ef4444;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: #dc2626;
+//   }
+// }
+
+// // Success states
+// .success-text {
+//   font-size: 0.75rem;
+//   margin-top: 4px;
+//   font-family: 'Inter', sans-serif;
+  
+//   .main-container[data-theme="dark"] & {
+//     color: #10b981;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: #059669;
+//   }
+// }
+
+// // Utility classes
+// .text-center {
+//   text-align: center;
+// }
+
+// .flex {
+//   display: flex;
+// }
+
+// .flex-column {
+//   flex-direction: column;
+// }
+
+// .items-center {
+//   align-items: center;
+// }
+
+// .justify-center {
+//   justify-content: center;
+// }
+
+// .justify-between {
+//   justify-content: space-between;
+// }
+
+// .w-full {
+//   width: 100%;
+// }
+
+// .h-full {
+//   height: 100%;
+// }
+
+// // Action button base class
+// .action-basic-detail-width {
+//   min-width: auto !important;
+//   text-transform: none !important;
+//   font-weight: 500 !important;
+  
+//   .main-container[data-theme="dark"] & {
+//     color: #60a5fa !important;
+    
+//     &:hover {
+//       color: #93c5fd !important;
+//       background: rgba(96, 165, 250, 0.1) !important;
+//     }
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: #007bff !important;
+    
+//     &:hover {
+//       color: #0056b3 !important;
+//       background: rgba(0, 123, 255, 0.1) !important;
+//     }
+//   }
+// }
+
+// // Additional styles for form elements
+// .username, .password {
+//   width: 100%;
+// }
+
+// // Policy links container
+// .policy-links-container {
+//   padding-top: 16px;
+//   text-align: center;
+// }
+
+// // Form styling
+// form {
+//   width: 100%;
+// }
+
+// // Icon button styles for password visibility
+// .MuiIconButton-root {
+//   .main-container[data-theme="dark"] & {
+//     color: #94a3b8;
+    
+//     &:hover {
+//       background-color: rgba(255, 255, 255, 0.08);
+//     }
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: rgba(0, 0, 0, 0.54);
+    
+//     &:hover {
+//       background-color: rgba(0, 0, 0, 0.04);
+//     }
+//   }
+// }
+
+// // Input adornment icons
+// .MuiInputAdornment-root {
+//   .main-container[data-theme="dark"] & {
+//     color: #94a3b8;
+//   }
+  
+//   .main-container[data-theme="light"] & {
+//     color: rgba(0, 0, 0, 0.54);
+//   }
+// }
+
+/* ============================================
+   ATTRACTIVE LOGIN PAGE ENHANCEMENTS
+   ============================================ */
+
+/* Enhanced Login Card with Decorative Elements - High Specificity */
+div[class*="card"],
+.MuiPaper-root,
+div[class*="MuiPaper"] {
+  position: relative !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12),
+              0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  backdrop-filter: blur(20px) !important;
+  
+  /* Decorative corner glow effects */
+  &::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, 
+      color-mix(in srgb, var(--headingColor) 18%, transparent) 0%,
+      color-mix(in srgb, var(--headingColor) 8%, transparent) 40%,
+      transparent 70%);
+    border-radius: 50%;
+    filter: blur(50px);
+    opacity: 0.7;
+    z-index: 0;
+    pointer-events: none;
+    animation: pulseGlow 4s ease-in-out infinite;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, 
+      color-mix(in srgb, var(--headingColor) 15%, transparent) 0%,
+      color-mix(in srgb, var(--headingColor) 6%, transparent) 45%,
+      transparent 75%);
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.6;
+    z-index: 0;
+    pointer-events: none;
+    animation: pulseGlow 5s ease-in-out infinite reverse;
+  }
+  
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* Enhanced TextField Styling - High Specificity */
+.username .MuiOutlinedInput-root,
+.password .MuiOutlinedInput-root,
+.MuiTextField-root .MuiOutlinedInput-root,
+form .MuiTextField-root .MuiOutlinedInput-root {
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  
+  &:hover {
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--headingColor) 12%, rgba(0, 0, 0, 0.08)) !important;
+    transform: translateY(-2px) !important;
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-color: color-mix(in srgb, var(--headingColor) 50%, #e5e7eb) !important;
+      border-width: 1.5px !important;
+    }
+  }
+  
+  .MuiOutlinedInput-notchedOutline {
+    border: 1.5px solid #e5e7eb !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  &.Mui-focused {
+    background: rgba(255, 255, 255, 1) !important;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--headingColor) 15%, transparent),
+                0 8px 24px color-mix(in srgb, var(--headingColor) 20%, rgba(0, 0, 0, 0.1)) !important;
+    transform: translateY(-2px) !important;
+    
+    .MuiOutlinedInput-notchedOutline {
+      border: 2px solid var(--headingColor) !important;
+    }
+  }
+  
+  &.Mui-error {
+    .MuiOutlinedInput-notchedOutline {
+      border-color: #dc2626 !important;
+    }
+    
+    &.Mui-focused {
+      box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.12) !important;
+    }
+  }
+}
+
+.username .MuiInputLabel-outlined,
+.password .MuiInputLabel-outlined,
+.MuiTextField-root .MuiInputLabel-outlined {
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  color: #4b5563 !important;
+  transition: all 0.3s ease !important;
+  
+  &.Mui-focused {
+    color: var(--headingColor) !important;
+    font-weight: 600 !important;
+    transform: scale(1.02) !important;
+  }
+  
+  &.Mui-error {
+    color: #dc2626 !important;
+  }
+}
+
+.username .MuiOutlinedInput-input,
+.password .MuiOutlinedInput-input,
+.MuiTextField-root .MuiOutlinedInput-input {
+  padding: 14px 16px !important;
+  font-size: 14px !important;
+  color: #111827 !important;
+  font-weight: 400 !important;
+  
+  &::placeholder {
+    color: #9ca3af !important;
+    opacity: 1 !important;
+  }
+}
+
+/* Enhanced Login Button - High Specificity */
+form button[type="submit"],
+form .MuiButton-root,
+.MuiButton-contained[class*="btn"],
+button.MuiButton-contained {
+  border-radius: 12px !important;
+  text-transform: none !important;
+  font-weight: 700 !important;
+  padding: 14px 0 !important;
+  font-size: 15px !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 4px 20px color-mix(in srgb, var(--headingColor) 40%, rgba(0, 0, 0, 0.25)) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: linear-gradient(135deg, var(--headingColor) 0%, color-mix(in srgb, var(--headingColor) 85%, #3b82f6) 100%) !important;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+    z-index: 0;
+  }
+  
+  &:hover::before {
+    width: 400px;
+    height: 400px;
+  }
+  
+  &:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 30px color-mix(in srgb, var(--headingColor) 50%, rgba(0, 0, 0, 0.35)) !important;
+    background: linear-gradient(135deg, 
+      color-mix(in srgb, var(--headingColor) 90%, black) 0%, 
+      color-mix(in srgb, var(--headingColor) 75%, #2563eb) 100%) !important;
+  }
+  
+  &:active {
+    transform: translateY(-1px) !important;
+  }
+  
+  &:disabled {
+    opacity: 0.6 !important;
+    transform: none !important;
+    cursor: not-allowed !important;
+  }
+  
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+/* Enhanced Logo */
+img[class*="logo"] {
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+  transition: all 0.3s ease !important;
+  
+  &:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.15));
+  }
+}
+
+/* Enhanced Title */
+[class*="title"] {
+  background: linear-gradient(135deg, var(--headingColor) 0%, color-mix(in srgb, var(--headingColor) 75%, #3b82f6) 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 2px 6px rgba(70, 128, 255, 0.2));
+  font-weight: 700 !important;
+}
+
+/* Enhanced Subtitle */
+[class*="subtitle"] {
+  color: #64748b !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Enhanced Icon Adornments */
+.MuiInputAdornment-root {
+  .MuiIconButton-root {
+    transition: all 0.3s ease !important;
+    border-radius: 10px !important;
+    padding: 8px !important;
+    
+    &:hover {
+      background-color: color-mix(in srgb, var(--headingColor) 12%, transparent) !important;
+      transform: scale(1.15) rotate(5deg);
+    }
+  }
+  
+  svg,
+  .MuiSvgIcon-root {
+    transition: all 0.3s ease !important;
+    color: rgba(0, 0, 0, 0.54) !important;
+    
+    &:hover {
+      color: var(--headingColor) !important;
+    }
+  }
+}

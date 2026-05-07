@@ -1,0 +1,465 @@
+/* ===========================
+   GLOBAL PAGE STYLE
+   =========================== */
+.paper-background {
+  padding: 24px;
+  background: #f8f9fc;
+  min-height: 100vh;
+}
+
+.heading {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2d4d;
+}
+
+/* ===========================
+   DATE RANGE FILTER
+   =========================== */
+
+.date-filter-container {
+  display: flex;
+  gap: 22px;
+  margin-top: 28px;
+  align-items: flex-end;
+}
+
+.date-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.date-label {
+  font-size: 14px;
+  color: #444;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.date-input {
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d4d7dd;
+  background: #fff;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0px 0px 0px 3px rgba(25, 118, 210, 0.15);
+}
+
+/* ===========================
+   SUMMARY CARDS
+   =========================== */
+
+.summary-card {
+  border-radius: 16px !important;
+  padding: 24px !important;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.summary-count {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.summary-label {
+  font-size: 14px;
+  color: #666;
+}
+
+/* ===========================
+   APPOINTMENT CARD
+   =========================== */
+
+.appointment-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.appointment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.card-sub {
+  font-size: 14px;
+  margin-top: 4px;
+  color: #64748b;
+}
+
+/* Status tag */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.status.approved {
+  background: #ecfdf5;
+  color: #0f9d58;
+}
+
+.status.pending {
+  background: #fffbe8;
+  color: #f6a500;
+}
+
+.status.rejected {
+  background: #fdecea;
+  color: #d93025;
+}
+
+/* Icons row */
+.icon-row {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 14px;
+  color: #374151;
+  font-size: 14px;
+}
+
+/* ===========================
+   BUTTON STYLING
+   =========================== */
+
+.btn-approve {
+  background: #2e7d32 !important;
+  color: #fff !important;
+  text-transform: none;
+  padding: 6px 20px !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+.btn-reject {
+  background: #c62828 !important;
+  color: #fff !important;
+  text-transform: none;
+  padding: 6px 20px !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+.btn-reschedule {
+  background: #ff9800 !important;
+  color: #fff !important;
+  padding: 6px 14px !important;
+  text-transform: none;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+}
+
+/* ===========================
+   MODAL FORM
+   =========================== */
+
+.appointment-form {
+  width: 650px;
+  max-width: 95%;
+  margin: 40px auto;
+  border-radius: 16px;
+}
+
+.modal-body {
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 0;
+}
+
+/* ===========================
+   ADD PARENT TEACHER MEETING FORM
+   =========================== */
+
+.ptm-add-form {
+  max-width: 620px;
+  margin: 24px auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  .ptm-add-form__inner {
+    padding: 28px 32px 32px;
+    background: #fff;
+    border-radius: 16px;
+  }
+
+  .ptm-add-form__header {
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e8ecf4;
+  }
+
+  .ptm-add-form__icon {
+    font-size: 32px;
+    color: #1976d2;
+    margin-right: 14px;
+  }
+
+  .ptm-add-form__title {
+    font-weight: 700;
+    color: #1a237e;
+    font-size: 1.35rem;
+  }
+
+  .ptm-add-form__section {
+    margin-bottom: 24px;
+  }
+
+  .ptm-add-form__section-title {
+    font-weight: 600;
+    color: #37474f;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+  }
+
+  .ptm-add-form__divider {
+    margin: 20px 0;
+    background: #e8ecf4;
+  }
+
+  .ptm-add-form__select {
+    .MuiOutlinedInput-root {
+      border-radius: 10px;
+      background: #fafbfc;
+    }
+  }
+
+  .ptm-add-form__select-all-row {
+    border-bottom: 1px solid #eee;
+    background: #f5f7fa;
+    pointer-events: none;
+
+    .MuiFormControlLabel-root {
+      pointer-events: auto;
+    }
+  }
+
+  .ptm-add-form__chip {
+    margin: 2px;
+  }
+
+  .ptm-add-form__placeholder {
+    color: #9e9e9e;
+    font-size: 0.875rem;
+  }
+
+  .ptm-add-form__datetime {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    .MuiTextField-root {
+      flex: 1;
+      min-width: 140px;
+    }
+
+    .MuiOutlinedInput-root {
+      border-radius: 10px;
+      background: #fafbfc;
+    }
+  }
+
+  .ptm-add-form__description {
+    .MuiOutlinedInput-root {
+      border-radius: 10px;
+      background: #fafbfc;
+    }
+  }
+
+  .ptm-add-form__actions {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 2px solid #e8ecf4;
+  }
+
+  .ptm-add-form__submit {
+    padding: 14px 24px !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    border-radius: 10px !important;
+    text-transform: none !important;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.35) !important;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.45) !important;
+    }
+  }
+}
+
+/* ===========================
+   VIEW PARENT TEACHER MEETING (full screen)
+   =========================== */
+
+.ptm-view {
+  min-height: 100vh;
+  padding: 24px;
+
+  .ptm-view__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .ptm-view__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e8ecf4;
+  }
+
+  .ptm-view__icon {
+    font-size: 32px;
+    color: #1976d2;
+    margin-right: 14px;
+  }
+
+  .ptm-view__title {
+    font-weight: 700;
+    color: #1a237e;
+    font-size: 1.5rem;
+  }
+
+  .ptm-view__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .ptm-view__btn-schedule {
+    padding: 10px 24px !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    box-shadow: 0 2px 8px rgba(25, 118, 210, 0.35) !important;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(25, 118, 210, 0.45) !important;
+    }
+  }
+
+  .ptm-view__filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+
+    .ptm-view__date-input {
+      .MuiOutlinedInput-root {
+        border-radius: 10px;
+        background: #fafbfc;
+      }
+    }
+  }
+
+  .ptm-view__summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .ptm-view__summary-card {
+    flex: 1;
+    min-width: 140px;
+    max-width: 200px;
+    height: 120px;
+    padding: 20px;
+    border-radius: 16px;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .ptm-view__summary-count {
+    font-size: 26px;
+    font-weight: 700;
+    margin-top: 6px;
+    color: #1f2d4d;
+  }
+
+  .ptm-view__summary-label {
+    font-size: 14px;
+    color: #64748b;
+    margin-top: 4px;
+  }
+
+  .ptm-view__list {
+    margin-top: 8px;
+  }
+
+  .ptm-view__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 48px 24px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    color: #64748b;
+  }
+
+  .ptm-view__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 2px solid #e8ecf4;
+  }
+
+  .ptm-view__page-info {
+    padding: 8px 16px;
+    background: #f3f4f6;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #37474f;
+  }
+}

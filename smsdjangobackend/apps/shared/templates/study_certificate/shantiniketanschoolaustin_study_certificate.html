@@ -1,0 +1,67 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Study Certificate</title>
+    <style>
+        @page { size: A4;
+            margin:20px; }
+        .center{
+            text-align:center;
+            margin:15px;
+        }
+        p{
+            text-indent:50px;
+            text-align:justify;
+            line-height: 2.0em;
+        }
+        .border {
+        height:1000px;
+        border: 2px solid black;
+        padding: 20px;
+        margin:0px;
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        position: relative;
+     }
+     @font-face {
+    font-family: 'umberland slab';
+    src: url("https://production-edubricz.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+    </style>
+</head>
+<body>
+    <div class="border">
+        <div style='display:flex;justify-content:center;'>
+            <div style="text-align:center;margin-top: -10px;padding-left:-10px;">
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 250px;height: 270px;"/>
+                {% endif %}
+            </div>
+            <div style='text-align:center;padding-left: -20px;'>
+            <div style="font-size: 15px;padding:3px;">{{ trust_name }}</div>
+            <div style="text-transform: uppercase;font-size:22px;color: #000000 ;padding:3px;color: green;"><b>{{ school_name }}</b></div>
+            <div style="font-size: 15px;padding:3px;"><i>(Recognised By Govt. Of Karnataka)</i></div>
+            <div style="font-size: 15px;padding:3px;">[ENGLISH MEDIUM]</div>
+            <div style="font-size: 15px;padding:3px;">{{school_address}}{%if school_pincode %}-{{school_pincode}}{%endif%}</div>
+            <div style="font-size: 15px;padding-top:3px;">Mob : {{school_tel_num}}{%if school_tel_num_2 %}, {{school_tel_num_2}}{%endif%}</div>
+        </div>
+    </div>
+    <div style="font-size:19px;text-align: center;text-decoration: underline;"><b>STUDY CERTIFICATE</b></div>
+    <div style="font-size:12px;text-align: center;margin:5px 10px 70px;"><i><b>To whom so ever it may concern</i></b></div>
+    <p>This is to certify that <b> {{student_full_name}} </b> {{student_relate}} <b>{{father_name}}</b> is a bonafide student of this institution studying in <b>{{standard_name}}{{standard_suffix}}
+    </b>during the academic year <b>{{academic_year}}</b>, As per the admission register of our institution {{student_her_him}} DOB is <b>{{dob_str}}</b> and <b>admission No</b> is <b>{{admission_num}}</b>, {{student_he_she}} belongs to the caste {{caste|title}} and residing {{address}}.
+    </p>
+    <div style="text-align:left;margin:70px 0px;"> School DISE Code  :   </div>
+    <table style="width:100%;position: absolute;bottom:100px;">
+    <td style="text-align: left;">Date  :   {{today|date:'d/m/Y'}} </br>
+    <div style="text-align:left;margin-top:20px;">Place  :  Bengaluru </div>
+    <td style="text-align:right;position:absolute;right:40px;bottom:0px;">Seal & Signature of the Head Master </td>
+    </div>
+</body>
+</html>

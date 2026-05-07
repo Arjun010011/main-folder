@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hallticket</title>
+    <style>
+        body{
+            line-height: 1.2rem;
+        }
+        .t-center{
+            text-align: center;
+        }
+        .heading{
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            padding-left: 10%;
+            padding-right: 10%;
+            /* width: 70%; */
+            /* margin-left: auto;
+            margin-right: auto; */
+        }
+        .header-bg{
+            text-align: center;
+        }
+        .w-100{
+            width: 400px;
+        }
+        .text-right{
+            text-align: right;
+        }
+        td{
+            padding: 0px;
+        }
+        .th-subject-view{
+           padding: 3px;
+           text-align: center;
+           border: 1px solid black;
+        }
+        .td-subject-view{
+            text-align: center;
+            border: 1px solid black;
+        }
+        .photo{
+            border: 1px solid black;
+            width: 150px;
+            height: 150px;
+            text-align: center;
+        }
+        @page {
+            size: A4; /* Change from the default size of A4 */
+            margin: 2mm; /* Set margin on each page */
+        }
+        .fs-20{
+            font-size: 20
+        }
+        .fs-bold{
+            font-weight: bold;
+        }
+        .address-heading{
+            font-size: 13px;
+        }
+        .mt-5{
+            margin-top: 5px;
+        }
+        .border{
+            border:1px solid black;
+            padding:20px;
+            margin:20px 20px 0px 20px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    {% for student in student_list %}
+    <div style="margin: 1rem;height:300px;position:relative;font-family: 'Shonar Bangla';" class="border">
+        <table class="w-100" style="border-collapse: collapse;">
+            <tr>
+                <div>
+                    <div style="position:relative">
+                        {% if institute.logo.file.url %} <img src={{institute.logo.file.url}} style="width: 80px;height:80px;position:absolute;left:50px;top:-10px;" /> {% endif %}
+                    </div>
+                    <div class="heading text-center " style="padding-left:90px;padding-top: 10px;">
+                        {{ institute.name }} </br>
+                        <div class="address-heading t-center fs-bold" style="margin:10px;">
+                            {{ examDetail.exam_type.name | title }} ({{ examDetail.exam_type.code | upper }}) for the year {{examDetail.academic_year.start_date|date:"Y"}} - {{examDetail.academic_year.end_date|date:'y'}} - HALL TICKET
+                        </div>
+                    </div>
+                </div>
+            </tr>
+        </table>
+        <table style="width: 29%;position:absolute;top:80px;left:10px;font-size: 13px;">
+            <tr>
+                <td style="width:40%" class="fs-bold">Stud Name: {{student.student_data.full_name | title }}</td>
+            </tr>
+            <tr>
+                <td style="width:10%" class="fs-bold">Class: {{ student.student_data.standard_section__standard__name | capfirst }}</td>
+            </tr>
+            <tr>
+                <td style="width:10%" class="fs-bold">Roll No: {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}</td>
+            </tr>
+            
+        </table>
+        <table border="1" class='t-center w-100' style="border-collapse: collapse;
+        border: 2px solid black;margin-top:20px;position:absolute;bottom: 10px;right:10px;font-size:12px;">
+            <tr>
+                <th class="th-subject-view">Date</th>
+                <th class="th-subject-view">Time</th>
+                <th class="th-subject-view">Subject</th>
+                <th class="th-subject-view">Signature</th>
+            </tr>
+            {% for subject in student.subject_list %}
+                <tr>
+                    <td class="td-subject-view">
+                        {{subject.fordate|date:'d-m-Y'}} <br/>
+                    </td>
+                    <td class="td-subject-view">
+                        {{subject.start_time}} - {{subject.end_time}}<br/>
+                    </td>
+                    <td class="td-subject-view"><div style="width:90%;margin-left: auto;margin-right: auto;">
+                        {{subject.subject_name | title}}</div></td>
+                    </td>
+                    <td class="td-subject-view">
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <table style="position:absolute;bottom:20px;right:430px;">
+        <th style="text-align: right;">
+            <img src='https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/anniebesantimages/hallticketsignature.jpeg' style="width: 80px;height: 40px;"/>
+        </th>
+        </table>
+        <table style="width:40%;position:absolute;bottom:10px;font-size:12px;font-weight: bold;">
+            <tr>
+                <th style="text-align: left;">
+                    Teacher's Signature
+                </th>
+                <th style="text-align: right;">
+                    H M Signature
+                </th>
+            </tr>
+        </table>
+    </div>
+    {%  if forloop.counter|divisibleby:"3" %}
+    <div style="page-break-after: always;"></div>
+    {% else %}
+    {% endif %}
+    {% endfor %}
+</body>
+</html>

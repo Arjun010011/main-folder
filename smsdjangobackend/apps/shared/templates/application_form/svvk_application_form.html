@@ -1,0 +1,471 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Application for Admission</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm 12mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12px;
+            line-height: 1.4;
+            color: #000;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        .nb {
+            width: 100%;
+        }
+
+        .nb td {
+            border: none;
+            padding: 1px 0;
+            vertical-align: top;
+        }
+
+        .school-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .title-box {
+            border: 2px solid #000;
+            display: inline-block;
+            padding: 3px 18px;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+
+        .f {
+            margin-bottom: 6px;
+            line-height: 1.8;
+            padding-top: 2px;
+        }
+
+        .v {
+            font-weight: bold;
+        }
+
+        .indent {
+            padding-left: 18px;
+            margin-bottom: 4px;
+        }
+
+        .photo-box {
+            width: 100px;
+            height: 120px;
+            border: 1px solid #000;
+            text-align: center;
+            font-size: 10px;
+            color: #999;
+        }
+
+        .photo-sm {
+            width: 90px;
+            height: 110px;
+            border: 1px solid #000;
+            display: inline-block;
+            text-align: center;
+            line-height: 110px;
+            font-size: 10px;
+            color: #999;
+        }
+
+        .chk {
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            border: 1px solid #000;
+            vertical-align: middle;
+            margin: 0 2px;
+            text-align: center;
+            font-size: 9px;
+            line-height: 13px;
+        }
+
+        .bt {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 3px;
+        }
+
+        .bt th,
+        .bt td {
+            border: 1px solid #000;
+            padding: 4px 5px;
+            text-align: center;
+            font-size: 11px;
+            vertical-align: middle;
+        }
+
+        .bt th {
+            font-weight: bold;
+        }
+
+        .of-tbl td {
+            border: none;
+            padding: 2px 4px;
+            font-size: 12px;
+        }
+
+        .of-val {
+            display: inline-block;
+            min-width: 180px;
+            border-bottom: 1px solid #000;
+            padding: 0 4px;
+            font-weight: bold;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table class="nb">
+        <tr>
+            {% if institute.logo %}
+            <td style="width: 70px; text-align: center;">
+                <img src="{{ institute.logo.file.url }}" style="width: 60px; height: auto;" />
+            </td>
+            {% endif %}
+            <td style="text-align: center;">
+                {% if institute.trust_name %}
+                <div style="font-size: 11px;">{{ institute.trust_name }}</div>
+                {% endif %}
+                <div class="school-name">{{ institute.name }}</div>
+                <div style="font-size: 10px; font-style: italic;">Affiliated to C.B.S.E New Delhi - 830680</div>
+                <div style="font-size: 10px;">{{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}{% if institute.pincode %} - {{ institute.pincode }}{% endif %}</div>
+            </td>
+            <td style="width: 70px;"></td>
+        </tr>
+    </table>
+
+    <div class="center">
+        <div class="title-box">Application for Admission</div>
+    </div>
+
+    <div class="f" style="margin: 5px 0; border-bottom: 1px solid #000; padding-bottom: 2px; border-top: 1px solid #000; padding-top: 2px;">
+        <strong>Admission No.</strong> <span class="v">{{ application_num|default:"" }}</span>
+    </div>
+
+    <div style="margin: 3px 0;">
+        To,<br>
+        <span class="indent"><strong>The Principal,</strong></span><br>
+        <span class="indent"><strong>{{ institute.name }}{% if institute.city %}, {{ institute.city }}{% endif %}</strong></span>
+    </div>
+
+    <div style="float: right; text-align: center; margin-left: 10px; margin-bottom: 5px;">
+        <div style="font-size: 10px;">Passport<br>Photograph</div>
+        <div class="photo-box" style="margin: 2px auto 0;">
+            {% if profile_pic_details and profile_pic_details.file %}
+            <img src="{{ profile_pic_details.file }}" style="width: 100%; height: 100%; object-fit: cover;" />
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="f"><strong>1.</strong> Full Name of the Applicant : <span class="v">{{ first_name|default:"" }} {% if middle_name %}{{ middle_name }}{% endif %} {% if last_name %}{{ last_name }}{% endif %}</span></div>
+    <div class="f"><strong>2.</strong> Boy / Girl : <span class="v">{{ gender|default:"" }}</span> </div>
+    <div class="f"><strong>3.</strong> Blood group : <span class="v">{% if student_details and student_details.blood_group %}{{ student_details.blood_group }}{% endif %}</span></div>
+    <div class="f"><strong>4.</strong> Date of Birth : <span class="v">{{ dob|date:'d/m/Y'|default:"" }}</span></div>
+    <div class="f"><strong>5.</strong> Date of Birth (in words) : <span class="v">{{ dob_in_words|default:"" }}</span>
+    </div>
+
+    <div class="f"><strong>6.</strong> Place of Birth : <span class="v">{% if student_details %}{{ student_details.place_of_birth|default:"" }}{% endif %}</span> &nbsp; Hobli: <span class="v">{% if custom_form_data.student_birth_hobli %}{{ custom_form_data.student_birth_hobli }}{% endif %}</span> &nbsp; Taluk : <span class="v">{% if custom_form_data.student_birth_taluk %}{{ custom_form_data.student_birth_taluk }}{% endif %}</span></div>
+    <div class="f"><strong>7.</strong> District : <span class="v">{% if custom_form_data.student_birth_district %}{{ custom_form_data.student_birth_district }}{% endif %}</span> &nbsp; State: <span class="v">{% if custom_form_data.student_birth_state %}{{ custom_form_data.student_birth_state }}{% endif %}</span></div>
+    <div class="f"><strong>8.</strong> SATS No: <span class="v">{% if custom_form_data.stats_no %}{{ custom_form_data.stats_no }}{% endif %}</span> &nbsp; Aadhar No: <span class="v">{% if student_details %}{{ student_details.aadhar_num|default:"" }}{% endif %}</span> &nbsp; A/C No.(stu): <span class="v">{% if custom_form_data.student_acc_no %}{{ custom_form_data.student_acc_no }}{% endif %}</span></div>
+
+    <div class="no-break" style="margin-top: 8px;">
+        <div class="f"><strong>9.</strong> Father's Name : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.father_name|default:"" }}{% endif %}</span></div>
+        <div class="f indent">Qualification : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_education|default:"" }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; Profession : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_occupation|default:"" }}{% endif %}</span></div>
+        <div class="f indent">Aadhar No : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_aadhar|default:"" }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; Ph/Mobile No : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_mobile_num|default:"" }}{% endif %}</span></div>
+        <div class="f indent">Annual Income : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_annual_income|default:"" }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; E-mail : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.f_email|default:"" }}{% endif %}</span></div>
+    </div>
+
+    <div class="no-break" style="margin-top: 8px;">
+        <div class="f"><strong>10.</strong> Mother's Name : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.mother_name|default:"" }}{% endif %}</span></div>
+        <div class="f indent">Qualification : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_education|default:"" }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; Profession : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_occupation|default:"" }}{% endif %}</span></div>
+        <div class="f indent">Aadhar No : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_aadhar|default:"" }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; Ph/Mobile No : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_mobile_num|default:"" }}{% endif %}</span></div>
+        <div class="f indent">Annual Income : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_annual_income|default:"" }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; E-mail : <span class="v">{% if student_parent and student_parent.application_parent %}{{ student_parent.application_parent.m_email|default:"" }}{% endif %}</span></div>
+    </div>
+
+    <div class="no-break" style="margin-top: 8px;">
+        <div class="f"><strong>11.</strong> Name of the Brother (s) / Sister (s) of the pupil already studying in the above school & class</div>
+        <div class="f indent">If any : <span class="v">{% if custom_form_data.sibling_names %}{{ custom_form_data.sibling_names }}{% endif %}</span></div>
+    </div>
+
+    <div class="f"><strong>12.</strong> Number of Brothers : <span class="v">{% if custom_form_data.no_of_brothers %}{{ custom_form_data.no_of_brothers }}{% endif %}</span> &nbsp;&nbsp; Sisters : <span class="v">{% if custom_form_data.no_of_sisters %}{{ custom_form_data.no_of_sisters }}{% endif %}</span></div>
+
+    <div class="f"><strong>13.</strong> Student is living with : <span class="v">{% if custom_form_data.students_living_with and custom_form_data.students_living_with.name %}{{ custom_form_data.students_living_with.name }}{% endif %}</span> &nbsp;&nbsp; Religion : <span class="v">{% if student_details and student_details.religion_name %}{{ student_details.religion_name }}{% endif %}</span> &nbsp;&nbsp; Caste : <span class="v">{% if student_details and student_details.caste_name %}{{ student_details.caste_name }}{% endif %}</span></div>
+
+    <div class="f"><strong>14.</strong> Nationality : <span class="v">{% if student_details and student_details.nationality_name %}{{ student_details.nationality_name }}{% endif %}</span> &nbsp;&nbsp;&nbsp;&nbsp; <strong>16.</strong> Mother Tongue : <span class="v">{% if student_details %}{{ student_details.mother_tongue|default:"" }}{% endif %}</span></div>
+
+    <div class="f"><strong>15.</strong> Schedule Caste/Tribe : <span class="v">{% if student_details and student_details.category_name %}{{ student_details.category_name }}{% endif %}</span></div>
+
+    <div class="f"><strong>17.</strong> Any other languages spoken : <span class="v">{% if custom_form_data.language_spoken %}{{ custom_form_data.language_spoken }}{% endif %}</span></div>
+
+    <div class="f" style="margin-top: 8px;"><strong>18.</strong> Permanent address of the Pupil : <span class="v">{% if student_address and student_address.0 %}{{ student_address.0.address|default:"" }}{% endif %}</span></div>
+
+    <div class="f"><strong>19.</strong> Present address of the Pupil : <span class="v">{% if student_address and student_address.1 %}{{ student_address.1.address|default:"" }}{% elif student_address and student_address.0 %}{{ student_address.0.address|default:"" }}{% endif %}</span></div>
+
+    <div class="f"><strong>20.</strong> Guardian's Name and address : <span class="v">{% if student_parent and student_parent.application_guardian %}{{ student_parent.application_guardian.guardian_name|default:"" }} {{ student_parent.application_guardian.guardian_address|default:"" }}{% endif %}</span></div>
+
+    <div class="no-break">
+        <div class="f" style="margin-top: 5px;"><strong>21.</strong> Schools attended, Period of stay etc.,</div>
+        <table class="bt">
+            <thead>
+                <tr>
+                    <th style="width: 30px;">Sl.<br>No.</th>
+                    <th>Name of the Schools attended</th>
+                    <th style="width: 100px;">Standard covered<br>with year</th>
+                    <th style="width: 100px;">Concessions,<br>Scholarships<br>with year</th>
+                    <th style="width: 100px;">Date of leaving<br>school<br>with reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if student_details and student_details.previous_school_details and student_details.previous_school_details.school_name %}
+                <tr>
+                    <td>1</td>
+                    <td style="text-align: left;">{{ student_details.previous_school_details.school_name|default:"" }}</td>
+                    <td>{% if student_details.previous_school_details.left_standard %}{{ student_details.previous_school_details.left_standard }}{% endif %}</td>
+                    <td>{% if custom_form_data.concesions_scholarships %}{{ custom_form_data.concesions_scholarships }}{% endif %}</td>
+                    <td>{% if student_details.previous_school_details.to_date %}{{ student_details.previous_school_details.to_date }}{% endif %}{% if custom_form_data.reason_leaving %} - {{ custom_form_data.reason_leaving }}{% endif %}</td>
+                </tr>
+                {% endif %}
+                <tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="f" style="margin-top: 5px;"><strong>22.</strong> Whether the pupil has produced the school leaving certificate from the last school attended? &nbsp; No.: <span class="v">{% if custom_form_data.leaving_certificate_no %}{{ custom_form_data.leaving_certificate_no }}{% endif %}</span> &nbsp; Date : <span class="v">{% if custom_form_data.leaving_certificate_date %}{{ custom_form_data.leaving_certificate_date }}{% endif %}</span></div>
+
+    <div class="f"><strong>23.</strong> Languages studied in the previous school : 1) <span class="v">{% if custom_form_data.lang_prev_school_1 %}{{ custom_form_data.lang_prev_school_1 }}{% endif %}</span> &nbsp; 2) <span class="v">{% if custom_form_data.lang_prev_school_2 %}{{ custom_form_data.lang_prev_school_2 }}{% endif %}</span> &nbsp; 3) <span class="v">{% if custom_form_data.lang_prev_school_3 %}{{ custom_form_data.lang_prev_school_3 }}{% endif %}</span></div>
+
+    <!-- 24 -->
+    <div class="f"><strong>24.</strong> Medium of instruction the pupil had taken up in the last school : <span class="v">{% if custom_form_data.medium_last_school %}{{ custom_form_data.medium_last_school }}{% endif %}</span></div>
+
+    <!-- 25 -->
+    <div class="no-break">
+        <div class="f"><strong>25.</strong> Languages the candidate wishes to take in this school :</div>
+        <div class="f indent">First Language : <span class="v">{% if custom_form_data.first_lang %}{{ custom_form_data.first_lang }}{% endif %}</span> &nbsp; Second Language : <span class="v">{% if custom_form_data.secong_lang %}{{ custom_form_data.secong_lang }}{% endif %}</span> &nbsp; Third Language : <span class="v">{% if custom_form_data.third_lang %}{{ custom_form_data.third_lang }}{% endif %}</span></div>
+    </div>
+
+    <!-- 26 -->
+    <div class="f" style="margin-top: 5px;"><strong>26.</strong> Achievements in co-curricular activities : <span class="v">{% if custom_form_data.co_curricular %}{{ custom_form_data.co_curricular }}{% endif %}</span></div>
+
+    <!-- 27 -->
+    <div class="f"><strong>27.</strong> Would the student avail transport facility provided by the school : <span class="v">{% if custom_form_data.transport_needed %}{{ custom_form_data.transport_needed }}{% endif %}</span></div>
+
+    <!-- 28 -->
+    <div class="no-break">
+        <div class="f"><strong>28.</strong> The following original documents (attested photocopies) must be submitted along with the filled application (Without enclosures which this application will not be accepted)</div>
+        <div style="padding-left: 30px;">
+            <ol type="a" style="padding-left: 15px; margin: 2px 0;">
+                <li style="font-size: 11px;">Birth Certificate from the Municipal / Corporation / Civic authorities</li>
+                <li style="font-size: 11px;">Latest progress report certified by the school in which the student last studied (if applicable)</li>
+                <li style="font-size: 11px;">Latest Individual passport size colour photographs of the student – Six (6) and Parents (1)</li>
+                <li style="font-size: 11px;">Transfer Certificate (TC) / Migration Certificate</li>
+                <li style="font-size: 11px;">Wellness Record duty signed by the physician.</li>
+                <li style="font-size: 11px;">Parents should produce Caste and Income Certificate</li>
+            </ol>
+        </div>
+        <div class="f"><strong>Note : Staple all documents to the top left hand corner of the application.</strong>
+        </div>
+    </div>
+
+    <!-- Request -->
+    <div class="f" style="margin-top: 8px;">I Request the above named pupil to be admitted to the {% if custom_form_data.admitted and custom_form_data.admitted.name %}{{ custom_form_data.admitted.name }}{% else %}Primary School / Middle School / Secondary School{% endif %} <span class="v">{{ current_standard_name|default:"" }}</span> Std.</div>
+
+    <!-- DECLARATION -->
+    <div class="no-break">
+        <div class="center" style="margin-top: 10px;"><strong style="font-size: 14px;">DECLARATION</strong></div>
+        <div class="f">I hereby declare that the information furnished in this form is true to the best of my / our knowledge and belief.</div>
+
+        <!-- PHOTOGRAPHS -->
+        <div class="center" style="margin-top: 12px;"><strong>Photograph</strong></div>
+        <table class="nb" style="margin-top: 5px;">
+            <tr>
+                <td style="text-align: center; width: 33%;">
+                    <div style="font-size: 10px;">Passport</div>
+                    <div class="photo-sm" style="margin: 2px auto;">
+                        {% if father_photo %}<img src="{{ father_photo }}"
+                            style="width: 100%; height: 100%; object-fit: cover;" />{% endif %}
+                    </div>
+                    <div><strong>Father</strong></div>
+                </td>
+                <td style="text-align: center; width: 33%;">
+                    <div style="font-size: 10px;">Passport</div>
+                    <div class="photo-sm" style="margin: 2px auto;">
+                        {% if mother_photo %}<img src="{{ mother_photo }}"
+                            style="width: 100%; height: 100%; object-fit: cover;" />{% endif %}
+                    </div>
+                    <div><strong>Mother</strong></div>
+                </td>
+                <td style="text-align: center; width: 33%;">
+                    <div style="font-size: 10px;">Passport</div>
+                    <div class="photo-sm" style="margin: 2px auto;">
+                        {% if guardian_photo %}<img src="{{ guardian_photo }}"
+                            style="width: 100%; height: 100%; object-fit: cover;" />{% endif %}
+                    </div>
+                    <div><strong>Guardian</strong></div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Date / Place / Signature -->
+        <div style="margin-top: 20px;">
+            <div class="f">Date : <span class="v">{{ today|default:"" }}</span></div>
+            <table class="nb" style="margin-top: 5px;">
+                <tr>
+                    <td style="width: 50%;">Place : <span class="v">{% if institute.city %}{{ institute.city }}{% endif %}</span></td>
+                    <td style="width: 50%; text-align: right;"><strong>Signature of Parent / Guardian</strong></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- ===== PAGE 4 - FOR OFFICE USE ===== -->
+    <div class="page-break"></div>
+
+    <div class="center" style="margin-top: 5px;"><strong style="font-size: 15px;">FOR OFFICE USE</strong></div>
+
+    <table class="of-tbl" style="margin-top: 8px;">
+        <tr>
+            <td style="width: 15px;">•</td>
+            <td style="width: 180px;">Admit to Class</td>
+            <td style="width: 10px;">:</td>
+            <td><span class="of-val">{{ current_standard_name|default:"" }}</span></td>
+        </tr>
+        <tr>
+            <td>•</td>
+            <td>Roll No. allotted</td>
+            <td>:</td>
+            <td><span class="of-val">{% if custom_form_data.roll_no %}{{ custom_form_data.roll_no }}{% endif %}</span></td>
+        </tr>
+        <tr>
+            <td>•</td>
+            <td>Date of Joining</td>
+            <td>:</td>
+            <td><span class="of-val">{% if custom_form_data.doj %}{{ custom_form_data.doj }}{% endif %}</span></td>
+        </tr>
+        <tr>
+            <td>•</td>
+            <td>Date of Admission</td>
+            <td>:</td>
+            <td><span class="of-val">{% if custom_form_data.doa %}{{ custom_form_data.doa }}{% endif %}</span></td>
+        </tr>
+        <tr>
+            <td>•</td>
+            <td>Fees Receipt No. & Date</td>
+            <td>:</td>
+            <td><span class="of-val">{% if custom_form_data.fee_recipt %}{{ custom_form_data.fee_recipt }}{% endif %}{% if custom_form_data.fee_receipt_date %} &nbsp; {{ custom_form_data.fee_receipt_date }}{% endif %}</span></td>
+        </tr>
+    </table>
+
+    <!-- DOCUMENTS SUBMITTED -->
+    <div style="margin-top: 10px;"><strong>DOCUMENTS SUBMITTED</strong></div>
+    <table class="bt" style="margin-top: 3px;">
+        <thead>
+            <tr>
+                <th style="width: 30px;">Sl.<br>No.</th>
+                <th style="text-align: left;">Particulars</th>
+                <th style="width: 80px;">Original</th>
+                <th style="width: 80px;">Photocopy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td style="text-align: left;">Birth Certificate</td>
+                <td>{% if custom_form_data.birth_cert == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.birth_cert == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td style="text-align: left;">Progress Report</td>
+                <td>{% if custom_form_data.progress_report == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.progress_report == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td style="text-align: left;">Transfer Certificate</td>
+                <td>{% if custom_form_data.tc == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.tc == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td style="text-align: left;">Migration Certificate</td>
+                <td>{% if custom_form_data.migration_cert == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.migration_cert == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td style="text-align: left;">Wellness Record</td>
+                <td>{% if custom_form_data.wellness_record == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.wellness_record == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td style="text-align: left;">Income & Caste Certificate</td>
+                <td>{% if custom_form_data.income_caste_cert == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.income_caste_cert == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td style="text-align: left;">Adhar Card Xerox</td>
+                <td>{% if custom_form_data.adhar_card_xerox == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.adhar_card_xerox == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td style="text-align: left;">Bank A/c Details</td>
+                <td>{% if custom_form_data.bank_details == 'Original' %}✓{% endif %}</td>
+                <td>{% if custom_form_data.bank_details == 'Photocopy' %}✓{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Date -->
+    <div style="margin-top: 20px;">
+        <div class="f"><strong>Date :</strong> <span class="v">{{ today|default:"" }}</span></div>
+    </div>
+
+    <!-- Signatures -->
+    <table class="nb" style="margin-top: 15px;">
+        <tr>
+            <td style="width: 50%;"><strong>Checked by :</strong></td>
+            <td style="width: 50%; text-align: right;"><strong>Signature of the Clerk</strong></td>
+        </tr>
+    </table>
+
+    <div style="text-align: right; margin-top: 30px;"><strong>Signature of the Principal</strong></div>
+
+</body>
+
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fees Receipt</title>
+    <style>
+        @page { size: A4 }
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th,
+        td {
+            padding: 5px;
+            text-align: left;
+        }
+        .feereceipt-box{
+            border: 1px solid #000000 !important;
+            padding: 5px 7px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <table style="width:100%">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <img src={{ institute.logo.file.url }}
+                     style="width: 100px;height: -webkit-fill-available;"/>
+
+            </td>
+
+            <td style="text-align:center;padding: 8px;">
+
+                {% else %}
+            <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px;font-weight: bold;">
+                    {{ institute.name }} </br>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    FEE RECEIPT
+                </div>
+            </td>
+        </tr>
+    </table>
+    </br>
+    <h3><u>
+        <center>Student Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align:center;width:10%;">
+                <h3>Name: {% if fee_collection.student.first_name %}{{fee_collection.student.first_name}}{% endif %}
+                    {% if fee_collection.student.middle_name %}{{fee_collection.student.middle_name}}{% endif %}
+                    {% if fee_collection.student.last_name %}{{fee_collection.student.last_name }}{% endif %}
+                </h3>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Roll number : {% if fee_collection.student.current_reg_num %}
+                {{fee_collection.student.current_reg_num}}{% endif %}
+            </td>
+            <td>Mobile # : {% if fee_collection.student.mobile_num %}{{fee_collection.student.mobile_num}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Standard : {% if fee_collection.student.current_standard.name %}
+                {{fee_collection.student.current_standard.name}}
+                {% endif %}
+            </td>
+            <td>Receipt No : {% if fee_collection.receipt_num %}{{fee_collection.receipt_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Terms : {% if payment_details.0.fee_plan.terms %}{{payment_details.0.fee_plan.terms}}{% endif %}</td>
+            <td>Academic year : {% if payment_details.0.fee_plan.standard_fee.academic_year %}
+                {{payment_details.0.fee_plan.standard_fee.academic_year.start_date.year}} -
+                {{payment_details.0.fee_plan.standard_fee.academic_year.end_date.year}}
+                {% endif %}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Fee Payment Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th style="width: 50%;">Fee Particulars</th>
+            <th style="text-align:right;width: 50%;">Amount(Rs.)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fee in payment_details %}
+        <tr>
+            <td>{{ fee.fee_plan.standard_fee.fee_type.name }}</td>
+            <td style="text-align:right;">{{ fee.amount_paid  | floatformat:2}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th>TOTAL PAID AMOUNT :</th>
+            <th style="text-align:right;">{{ fee_collection.total_amount | floatformat:2}}</th>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Transaction Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%;">Payment Mode :</td>
+            <td style="width: 50%;">{% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}
+            </td>
+
+        </tr>
+        <tr>
+            <td>Transaction Status :</td>
+            <td>Successful Transaction</td>
+        </tr>
+        <tr>
+            <td>Payment Reference Number :</td>
+            <td>{% if fee_collection.payment_ref_num %}{{fee_collection.payment_ref_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Gateway Transaction ID :</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transaction Date :</td>
+            <td>{% if fee_collection.transaction_date %}{{fee_collection.transaction_date | date:"d/m/Y"}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Transaction Charges :</td>
+            <td>Rs.0.00</td>
+        </tr>
+    </table>
+    </br>
+    <center>Note: This is a system generated receipt and does not require signature.</br>
+        Receipt is valid subject to realization of amount from bank.
+    </center>
+
+    <hr style="color:black">
+
+    <p align="left">Receipt Generated at : {{ today }}</p>
+    <p align="right">Powered By Edubricz</p>
+
+</div>
+</body>
+
+</html>
+<div>
+    <table style="width:100%">
+        <tr>
+            {% if institute.logo %}
+            <td style="text-align:center;width: 100px;">
+                <!--                style="width: 120px;height: -webkit-fill-available;position: absolute;left: 31px;"/>-->
+                <img src={{ institute.logo.file.url }}
+                     style="width: 100px;height: -webkit-fill-available;"/>
+
+            </td>
+
+            <td style="text-align:center;padding: 8px;">
+
+                {% else %}
+            <td colspan="2" style="text-align:center;padding: 8px;">
+                {% endif %}
+                {% if institute.trust_name %}
+                <span>{{ institute.trust_name }}</span>
+                {% endif %}
+                <div style="font-size: 20px;font-weight: bold;">
+                    {{ institute.name }}</br>
+                </div>
+                <div style="line-height: 25px;">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    {% if institute.tel_num %}Cell: {{ institute.tel_num }}{% if institute.tel_num_2 %},
+                    {{ institute.tel_num_2 }} {% endif %}{% endif %}
+                    {% if institute.fax_num %}Fax: {{ institute.fax_num }} {% endif %}</br>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align:center;width: 100px;">
+                <div class="feereceipt-box">
+                    FEE RECEIPT
+                </div>
+            </td>
+        </tr>
+    </table>
+    </br>
+    <h3><u>
+        <center>Student Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th colspan="2" style="text-align:center;width:10%;">
+                <h3>Name: {% if fee_collection.student.first_name %}{{fee_collection.student.first_name}}{% endif %}
+                    {% if fee_collection.student.middle_name %}{{fee_collection.student.middle_name}}{% endif %}
+                    {% if fee_collection.student.last_name %}{{fee_collection.student.last_name }}{% endif %}
+                </h3>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Roll number : {% if fee_collection.student.current_reg_num %}
+                {{fee_collection.student.current_reg_num}}{% endif %}
+            </td>
+            <td>Mobile # : {% if fee_collection.student.mobile_num %}{{fee_collection.student.mobile_num}}
+                {% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Standard : {% if fee_collection.student.current_standard.name %}
+                {{fee_collection.student.current_standard.name}}
+                {% endif %}
+            </td>
+            <td>Receipt No : {% if fee_collection.receipt_num %}{{fee_collection.receipt_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Terms : {% if payment_details.0.fee_plan.terms %}{{payment_details.0.fee_plan.terms}}{% endif %}</td>
+            <td>Academic year : {% if payment_details.0.fee_plan.standard_fee.academic_year %}
+                {{payment_details.0.fee_plan.standard_fee.academic_year.start_date.year}} -
+                {{payment_details.0.fee_plan.standard_fee.academic_year.end_date.year}}
+                {% endif %}
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Fee Payment Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <thead>
+        <tr>
+            <th style="width: 50%;">Fee Particulars</th>
+            <th style="text-align:right;width: 50%;">Amount(Rs.)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for fee in payment_details %}
+        <tr>
+            <td>{{ fee.fee_plan.standard_fee.fee_type.name }}</td>
+            <td style="text-align:right;">{{ fee.amount_paid  | floatformat:2}}</td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th>TOTAL PAID AMOUNT :</th>
+            <th style="text-align:right;">{{ fee_collection.total_amount | floatformat:2}}</th>
+        </tr>
+        </tbody>
+    </table>
+    <h3><u>
+        <center>Transaction Details</center>
+    </u></h3>
+    <table style="width: 100%">
+        <tr>
+            <td style="width: 50%;">Payment Mode :</td>
+            <td style="width: 50%;">{% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}
+            </td>
+
+        </tr>
+        <tr>
+            <td>Transaction Status :</td>
+            <td>Successful Transaction</td>
+        </tr>
+        <tr>
+            <td>Payment Reference Number :</td>
+            <td>{% if fee_collection.payment_ref_num %}{{fee_collection.payment_ref_num}}{% endif %}</td>
+        </tr>
+        <tr>
+            <td>Gateway Transaction ID :</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Transaction Date :</td>
+            <td>{% if fee_collection.transaction_date %}{{fee_collection.transaction_date | date:"d/m/Y"}}{% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td>Transaction Charges :</td>
+            <td>Rs.0.00</td>
+        </tr>
+    </table>
+    </br>
+    <center>Note: This is a system generated receipt and does not require signature.</br>
+        Receipt is valid subject to realization of amount from bank.
+    </center>
+
+    <hr style="color:black">
+
+    <p align="left">Receipt Generated at : {{ today }}</p>
+    <p align="right">Powered By Edubricz</p>
+
+</div>
+</body>
+
+</html>

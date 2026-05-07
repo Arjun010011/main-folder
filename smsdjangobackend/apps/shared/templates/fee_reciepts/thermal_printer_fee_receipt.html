@@ -1,0 +1,179 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Fee Receipt</title>
+
+<style>
+@page {
+    size: 75mm auto;
+    margin: 0.5mm;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 75mm ;
+    padding: 0.5mm;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.2;
+}
+
+.center { text-align: center; }
+.right { text-align: right; }
+.bold { font-weight: bold; }
+.small { font-size: 12px; }
+
+.hr {
+    border-top: 1px dashed #000;
+    margin: 4px 0;
+}
+
+.row {
+    width: 100%;
+    clear: both;
+}
+
+.row span:first-child {
+    float: left;
+    width: 65%;
+}
+
+.row span:last-child {
+    float: right;
+    width: 35%;
+    text-align: right;
+}
+</style>
+</head>
+
+<body>
+
+{% for count in number_of_copies %}
+
+<div class="center bold" style="font-size: 15.5px;">{{ institute.name }}</div>
+
+<div class="center small">
+    V.T.Road, BHATKAL(U.K)<br>
+    {% if institute.tel_num %}<br>Ph: {{ institute.tel_num }}{% endif %}
+</div>
+
+<div class="hr"></div>
+
+<div class="center bold">
+{% if forloop.counter|divisibleby:"2" %}
+OFFICE COPY
+{% else %}
+STUDENT COPY
+{% endif %}
+</div>
+
+<div class="hr"></div>
+<br>
+
+<div>
+<b>Name:</b>
+{{ fee_collection.student_detail.first_name|title }}
+{{ fee_collection.student_detail.middle_name|title }}
+{{ fee_collection.student_detail.last_name|title }}
+</div>
+
+<div>
+<b>Class:</b>
+{{ fee_collection.standard_name }}
+{% if fee_collection.enrollment_data.section_name %}
+ / {{ fee_collection.enrollment_data.section_name }}
+{% endif %}
+</div>
+
+<div>
+<b>Father:</b>
+{{ fee_collection.student_detail.student_parent.parent.father_name|title }}
+</div>
+<br>
+
+<div class="hr"></div>
+<br>
+
+<div class="row">
+    <span>Receipt No</span>
+    <span>{{ fee_collection.receipt_num }}</span>
+</div>
+
+<div class="row">
+    <span>Date</span>
+    <span>{{ fee_collection.transaction_date }}</span>
+</div>
+
+<div class="row">
+    <span>Mode</span>
+    <span>{{ fee_collection.mode_of_payment }}</span>
+</div>
+<br>
+
+<div class="hr"></div>
+<br>
+
+<div class="center bold">FEE DETAILS</div>
+<div class="hr"></div>
+
+{% for fee in fee_collection.payment_detail %}
+<div class="row">
+    <span>
+        {{ forloop.counter }}.
+        {% if fee.fee_payment_terms_alias %}
+            {{ fee.fee_payment_terms_alias }}
+        {% else %}
+            {{ fee.fee_type_name }}
+        {% endif %}
+    </span>
+    <span>{{ fee.amount_paid|floatformat:0|intcomma }}</span>
+</div>
+{% empty %}
+<div class="center small">No fee details available</div>
+{% endfor %}
+
+<!-- <div class="hr"></div> -->
+
+
+<br>
+<div class="hr"></div>
+<br>
+<div class="row bold">
+    <span>Total Paid</span>
+    <span>{{ fee_collection.total_amount|floatformat:0|intcomma }}</span> <br>
+    <span>Total Pending Amount</span>
+    <span>{{ student_fee_summary.balance_till_date_including_adjustment_till_date|floatformat:0|intcomma }}</span>
+</div>
+<br>
+<!-- <div class="row bold">
+    <span>Balance</span>
+    <span>{{ fee_collection.pending_amount|floatformat:0|intcomma }}</span>
+</div> -->
+
+<div class="small">
+<b>Amount in Words:</b><br>
+{{ amount_in_words|title }}
+</div>
+<br>
+<div class="hr"></div>
+<br>
+
+<div class="center">Authorized Signature</div>
+<br>
+<div class="center small">Powered by Edubricz</div>
+
+{% if not forloop.last %}
+<div style="page-break-after: always;"></div>
+{% endif %}
+
+{% endfor %}
+
+</body>
+</html>

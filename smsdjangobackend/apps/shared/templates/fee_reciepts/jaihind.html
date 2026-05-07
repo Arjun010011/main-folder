@@ -1,0 +1,256 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+      }
+      table,
+      tr {
+        border: 1px solid black;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding-top: 10px;
+        padding-bottom: 20px;
+        padding-left: 30px;
+        padding-right: 40px;
+    }
+      td {
+        border: 1px transparent; /* Add borders to all table cells */
+      }
+      .address {
+        margin-left: 10px;
+        margin-top: 80px;
+      }
+      .minwd {
+        min-width: 35%;
+      }
+      .minwd2 {
+        min-width: 35%;
+      }
+      .minwd3 {
+        min-width: 74%;
+      }
+      .minwd4 {
+        min-width: 50%;
+      }
+      .vertical-line {
+        border-left: 5px solid red; 
+        height: 170px; 
+        margin-left: 10%;
+      }
+    </style>
+  </head>
+<body>
+    <div style="display: flex; font-family: Arial, Helvetica, sans-serif;">
+        <div>
+            <div><img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jaihind/jaihind-logo-horizontal-fee-receipt.jpeg" style="height: 100px; width: 300px; margin-left: 5%;"></div>
+        </div>
+
+        <div class="address">
+            {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+            {% if institute.pincode %} - {{ institute.pincode }}{% endif %}
+        </div>
+    </div>
+    
+
+    <div style="border: 1px solid black; border-bottom: 0px; display: flex; justify-content: space-between; font-family: Arial, Helvetica, sans-serif;">
+        <div> Fee receipt</div>
+        <div> Receipt No.: {{fee_collection.receipt_num}}</div>
+        <div style="text-align: right;">Date: {{fee_collection.transaction_date}}</div>
+    </div>
+
+    <div style="border: 1px solid black; display: flex; border-bottom: 0px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="width: 60%;">
+            <div style="display: flex;">
+                <div class="minwd"> Student Name </div>
+                <div>
+                    {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name|upper}}{% endif %}
+                    {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name|upper}}{% endif %}
+                    {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name|upper }}{% endif %}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Batch </div>
+                <div>
+                    {{fee_collection.enrollment_data.standard_name}} - {{fee_collection.enrollment_data.section_name}} - {{fee_collection.academic_year.start_date|date:"Y" }}-{{fee_collection.academic_year.end_date|date:"Y" }}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Father's/ Guardian's <br> Name</div>
+                <div>
+                    {{fee_collection.student_detail.student_parent.parent.father_name|upper}}
+                </div>
+            </div>
+            <!--
+            <div style="display: flex;">
+                <div class="minwd"> Finance Fee Collection </div>
+                <div>
+                     {{fee_collection.fee_payment_terms}}
+                </div>
+            </div>
+            -->
+        </div>
+
+        <div style="width: 40%;">
+            <div style="display: flex;">
+                <div class="minwd2"> Course </div>
+                <div>
+                    {{fee_collection.standard_name}}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd2"> Admission No. </div>
+                <div>
+                    {{admission_num}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table cellspacing="10">
+        <tr>
+            <th style="text-align: left; padding-left: 20px;">
+                Particulars
+            </th>
+            <th style="text-align: right;">
+                Amount(₹)
+            </th>
+        </tr>
+        {% for fee in fee_collection.payment_detail %}
+            <tr>
+                <td style="padding-left: 20px;">
+                    {{forloop.counter}}.&nbsp;{{fee.fee_type_name}}
+                </td>
+                <td style="text-align: right;">
+                    {{fee.amount_paid|floatformat|intcomma }}
+                </td>
+            </tr>
+        {%endfor%}
+    </table>
+
+    
+    <div style="border: 1px solid black; border-bottom: 0px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="display: flex;">
+            <div style="font-weight: bold;">Summary</div>
+            <div style="font-weight: bold; margin-left: 78.5%;">Amount(₹)</div>
+        </div>
+        <div style="display: flex;">
+            <div>1. Total Fees</div>
+            <div style="margin-left: 79%;">{{ student_fee_summary.total_amount | floatformat |intcomma}}</div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid black; display: flex; border-bottom: 0px; line-height: 10px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="width: 60%;">
+            <div style="display: flex;">
+                <div class="minwd"> Payment mode </div>
+                <div>
+                    {%for mode_of_pay in fee_collection.mode_of_payment_list %}
+                    {{mode_of_pay.mode_of_payment}} 
+                    {%endfor%}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                {% if fee_collection.mode_of_payment != 'Cash' %}
+                <div class="minwd"> Transaction ID </div> 
+                <div>
+                    {{fee_collection.payment_ref_num}} 
+                </div> {% endif %}
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd"> Notes </div>
+                <div>
+                    {{fee_collection.payment_note}}
+                </div>
+            </div>
+    
+        </div>
+
+        <div style="width: 40%;">
+            <div style="display: flex;">
+                <div class="minwd3"> Total amount to pay </div>
+                <div>
+                    {{ student_fee_summary.total_amount | floatformat |intcomma}}
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                <div class="minwd3"> Total amount paid </div>
+                <div>
+                    {{ student_fee_summary.total_paid_amount| floatformat |intcomma }}
+                </div>
+            </div>
+    
+            <div style="display: flex;">
+                <div class="minwd3"> Total due amount </div>
+                <div>
+                    {{student_fee_summary.total_pending_amount|floatformat|intcomma}}
+                </div>
+            </div>
+
+            <div style="display: flex;">
+                {% if student_fee_summary.total_concession_adjustment %}
+                <div class="minwd3"> Discount </div>                                   
+                <div>
+                    {{student_fee_summary.total_concession_adjustment}}
+                </div>{% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div style="border: 1px solid black; line-height: 10px; font-family: Arial, Helvetica, sans-serif;">
+        <div style="display: flex;">
+            <div style="min-width: 60%;"><b>Amount in Words</b> : {{amount_in_words_rupees_first|title}}</div>
+            <div style="font-weight: bold; " >Amount Paid </div>
+            <div style="margin-left: 16%;">
+                {{ fee_collection.total_amount | floatformat |intcomma}}
+            </div>
+        </div>
+        <!--
+        <div style="display: flex;">
+            <div style="font-weight: bold; margin-left: 0.5%">Payment for invoice</div>
+            <div>: #</div>
+        </div>
+        -->
+    </div> <br><br>
+
+    {% comment %} <div style="color: grey; font-family: Arial, Helvetica, sans-serif;">Please make your payment before the due date to avoid late fees. You can payusing any of the following methods:</div>
+    <div style="display: flex;">
+        <div style="font-family: Arial, Helvetica, sans-serif;">
+            <div style="font-weight: bold; text-align: center; font-size: 20px;">Online Transfer</div>
+            <div><img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jaihind/jaihind-gb-palya-qr-code.jpeg" style="height: 200px; width: 200px; margin-left: 5%;"></div>
+            <div style="font-size: 10px; font-weight: bold; text-align: center;">QR Code</div>
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <div style="margin-left: 5%; font-family: Arial, Helvetica, sans-serif;">
+            <div style="font-size: 20px;"><b>Bank Transfer</b></div>
+            <div>Account Holder: <b>JAIHIND INTERNATIONAL SCHOOL</b></div>
+            <div>Account Number: <b>243214010000001</b></div>
+            <div>IFSC: <b>UBIN0824321</b></div>
+            <div>Branch: <b>GAREBHAVIPALYA</b></div>
+            <div>Account Type: <b>CURRENT</b></div>
+        </div>
+    </div> {% endcomment %}
+<div>Note - Fees once paid will not be Refunded</div>
+</body>
+</html>

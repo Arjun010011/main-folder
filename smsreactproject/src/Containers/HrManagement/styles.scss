@@ -1,0 +1,489 @@
+@import './../../styles/helpers.scss';
+
+.width-80{
+    width:80%;
+    margin-top: 1rem!important;
+}  
+
+.width-98{
+    width:98%!important;
+    margin-top: 1.5rem!important;
+}
+
+.staff-list-assigned-shift{
+    color: #5E9824;
+    font-size: 15px;
+    font-weight: bold;
+    margin-top: 16px;
+}
+ 
+.selected-assigned-staff{
+    padding: 5px;
+    color: #4c4cff;
+    font-weight: bold;
+    font-size: 15px;
+} 
+
+.fieldset{
+    border: none;
+    margin-inline-start: 0px!important;
+    margin-inline-end: 0px!important;
+    padding-inline-start: 0px!important;
+    padding-inline-end: 0px!important;
+}
+
+.disable-field{
+    color: grey!important;
+    background-color: #f3f3f3!important;
+    cursor: no-drop!important;
+}
+
+.assign-shift-apply{
+    color: #FFFFFF;
+    background-color: #1665D8!important;
+}
+
+.staff-assign-shift-table{
+    min-height: 435px;
+    overflow: auto;
+}
+ 
+.staff-assigned-shift-table{
+    min-height: 330px;
+    overflow: auto;
+    padding-bottom: 20px;
+}
+
+.staff-assigned-shift-paper{
+    min-height: 460px;
+}
+
+.mark-attendance-card {
+    height: 460px;
+    width: 350px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.attendance-selected-date{
+    font-size: 20px;
+    color: #4680FF;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.attendance-present {
+    background: #007EFF!important;
+    box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16); 
+    border-radius: 8px!important;
+    color: #FFFFFF!important;
+    text-transform: none!important;
+    padding: 5px 30px!important;
+    cursor: pointer!important;
+}
+ 
+.attendance-present:hover{
+    box-shadow: 0px 2px 9px rgba(4, 127, 239, 0.60);
+}
+
+.attendance-absent{
+    border: 2px solid #e92020!important;
+    box-shadow: 0px 8px 16px rgba(0, 126, 255, 0.16);
+    border-radius: 8px!important;
+    color: #e92020!important;
+    text-transform: none!important;
+    padding: 2px 30px!important;
+    margin-left: 12px!important;
+    background-color: white;
+    font-size: 20px!important;
+}
+
+.attendance-absent:hover{
+    box-shadow: 0px 2px 9px rgba(214, 124, 124, 0.6);
+}
+
+.assign-shift-submit-position{
+   position: relative;
+   text-align: end;
+}
+
+.hr-assign-subject-academicyear {
+    background: #F1F3FF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    margin-top: 20px;
+    padding: 10px;
+    text-align:center;
+    font-weight:500;
+    font-size: 25px;
+}
+
+.hr-assign-subject-name {
+    background:#1758D2;
+    border-radius:0px 50px 50px 0px;
+    width:fit-content;
+    color:#FFFFFF;
+    padding:6px 10px;
+    font-size:16px;
+    display:flex;
+    width: 222px;
+    justify-content: space-evenly;
+}
+
+.add-subject-button {
+    background: linear-gradient(41.73deg, #1C52C8 4%, #0070FF 78%, #0070FF 79.78%);
+    border-radius: 8px;
+    padding: 8px;
+    color: #FFFFFF;
+    cursor: pointer;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.submit {
+    color:#FFFFFF;
+}
+
+.assigned-subject-hour-name {
+    background: #FFFFFF;
+    border-radius: 0px 50px 50px 0px;
+    width: 250px;
+    padding: 8px;
+    font-size: 16px;
+    color: #575F6C;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-around;
+}
+
+.assigned-subject-bg {
+    position:relative;
+    padding-bottom:60px;
+    background-color:#F1F3FF;
+    box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+}
+
+.assigned-subject-up-down-arrow {
+    cursor:pointer;
+    margin:5px;
+    border:hidden;
+    padding:1px;
+    background-color:#EFEFEF;
+}
+
+.assigned-subject-hour-bg {
+    background:#FFFFFF;
+    border-radius:7px;
+    margin:20px;
+    padding:5px;
+    width:fit-content;
+    display: flex;
+}
+
+.assigned-subject-input-hour {
+    width:73px;
+    border-radius:6px;
+    border-style:hidden;
+    height:60px;
+    font-size:50px;
+    text-align:center;
+    padding-top:10px;
+  
+}
+
+.assigned-subject-input-hour:focus{
+    outline: none;
+}
+
+.assigned-subject-input-colon {
+    width:25px;
+    border-radius:6px;
+    border-style:hidden;
+    height:60px;
+    font-size:50px;
+    text-align:center;
+    padding-bottom:13px;
+    background-color:transparent;
+    padding-top:10px;
+}
+
+.assigned-subject-input-minute {
+    width:73px;
+    border-radius:6px;
+    border-style:hidden;
+    height:60px;
+    font-size:50px;
+    text-align:center;
+    padding-top:10px;
+}
+
+.assigned-subject-input-minute:focus {
+    outline: none;
+}
+
+.unassigned-subject-paper{
+    position: relative;
+    padding-bottom: 60px;
+}
+
+.unassigned-subject-list{
+    overflow: auto;
+    height: 300px;
+    margin-top:20px;
+    margin-left:20px;
+}
+
+.selected-subject-list{
+    overflow: auto;
+    height: 126px;
+    margin-top:20px;
+    margin-left:20px;
+}
+
+.hr-assigned-selected-subject{
+    color:#4986FF; 
+    padding-left:20px;
+    text-align: initial;
+}
+
+.delete-selected-subject{
+    cursor: pointer;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.add-modify-button{
+    color: #FFFFFF!important;
+    background-color: #1665D8!important;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px!important;
+    text-transform: none!important;
+}
+
+.hr-subject-view-subject-name{
+    color:#0683F9;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), #0683F9;
+    border-radius: 10px;
+    font-size: 15px;
+    text-transform: capitalize;
+    padding: 7px 20px;
+    flex-grow: 1;
+    min-width: fit-content;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.hr-subject-view-assigned-staff-position{
+    @include flex-prop(center, center, flex, initial);
+}
+
+.hr-subject-view-staff-name{
+    color: #464D68;
+    font-size: 15px; 
+    font-weight: bold; 
+    text-align: center;
+    margin-left: 7px;
+    text-transform: capitalize;
+    width: max-content;
+}
+
+.hr-subject-view-staff-designation{
+    background: rgb(22, 101, 216);
+    border-radius: 3px;
+    margin-top: 7px;
+    color: rgb(255, 255, 255);
+    font-size: 10px;
+    padding: 3px;
+    margin-left: 7px;
+    width: max-content;
+}
+
+.hr-subject-view-subject-name-position{
+    display:flex; 
+    justify-content:center; 
+    flex-wrap: wrap; 
+    margin: auto;
+    // width: 50%;
+}
+
+.hr-check-and-submit-assigned-selected-subject{
+    color:#4986FF; 
+    padding-left:20px; 
+}
+
+.hr-profile-pic{
+    width: 100px!important;
+    height: 100px!important;
+    // border: 1px solid grey;
+}
+
+.profile-pic-position{
+    padding-left: 80px;
+    height: 140px;
+}
+
+.staff-profile-camera-position{
+    position: relative;
+    top: 113px;
+    left: 61px;
+}
+
+.profile-pic-button:hover{
+    background: none!important;
+}
+
+.profile-pic-camera{
+    font-size: 25px;
+}
+
+
+.form-review-value{
+    color: black;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 5px;
+    word-break: break-word;
+}
+
+.drop-down-margin-1rem{
+    width:270px;
+    margin-top: 1rem;
+}
+
+.drop-down-width{
+    width:270px;
+}
+
+.drop-down-reporting-user-skeleton{
+    width:270px;
+    height: 60px !important;
+    background-color: #74788c3b !important;
+    border-radius: 3px;
+}
+
+.bank-details-grid{
+    margin-top: 40px!important;
+    padding: 20px;
+}
+
+.assigned-selected-subject{
+    color: red;
+    text-transform: capitalize;
+}
+
+.shift-type-paper-background{
+    width:100%;
+    padding: 20px 30px;
+    margin: 30px 0px;
+}
+
+.shift-weekdays-outer-box{
+    display: flex;
+}
+
+.shift-weekdays-box{
+    display: inline-block;
+    text-align: center;
+    background-color: #d2cbed54;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    border-radius: 50%;
+    margin-right:20px;
+    cursor: pointer;
+    border: 1px solid silver;
+}
+
+.weekdays-offline{
+    cursor: no-drop;
+    pointer-events: none;
+    opacity: 0.7;
+    background-color: #ddd;
+}
+
+.weekdays-enabled{
+    color: white;
+    background-color: #5050fa;
+}
+
+.close-icon-shift{
+    position: absolute;
+    right: -11px;
+    top: -14px;
+    cursor: pointer;
+}
+
+.weekdays-assigned-other{
+    cursor: no-drop;
+    pointer-events: none;
+    opacity: 0.7;
+    background-color: #959494;
+    color: white;
+}
+
+.entire-paper-error{
+    border-bottom: 2px solid orangered;
+}
+
+.staff-assigned-enabletable-shift-table {
+    min-height: 596px;
+    overflow: auto;
+    padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 980px) {
+    .hr-assign-subject-academicyear {
+        margin-top: 0px;
+        padding: 10px;
+    }
+    .assigned-subject-hour-name {
+        padding: 10px;
+        margin: auto;
+        margin-top: 10px;
+    }
+    .assigned-subject-hour-bg {
+        margin: 20px auto;
+    }
+    .selected-subject-list {
+        height: 160px;
+    }
+    .hr-subject-view-assigned-staff-position{
+        width: max-content;
+    }
+    .profile-pic-position{
+        text-align: -webkit-center;
+    }
+    .hr-subject-view-subject-name-position{
+        width: max-content!important;
+        display: block!important;
+    }
+}
+
+@media only screen and (max-width: 1460px) {
+    .assigned-subject-bg {
+        position:relative;
+        padding-bottom:40px;
+        background-color:#F1F3FF;
+        box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12);
+    }
+}
+
+.background-white{
+    background-color: white!important;
+}
+
+.selected-shift-date-type{
+    color: white!important;
+    background: linear-gradient(90deg, #1982D5 0%, #4380FD 100%);
+    font-weight: 800!important;
+    width: 170px!important;
+}
+
+.not-selected-shift-date-type{
+    font-weight: 800!important;
+    width: 170px!important;
+}

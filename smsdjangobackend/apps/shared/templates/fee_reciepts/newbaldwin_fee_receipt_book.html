@@ -1,0 +1,144 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A4;
+        margin:0px;
+      }
+      table,
+      tr,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        border-bottom: 0px;
+      }
+      table {
+        width: 100%;
+      }
+      .schldetail {
+        display: flex;
+        height: 120px;
+      }
+      .logo {
+        display: flex;
+        padding-left: 8%;
+        position: absolute;
+        margin-bottom: 5%;
+      }
+      .schoolname {
+        text-align: center;
+        font-size: 25px;
+      }
+      .address {
+        text-align: center;
+        width: 70%;
+        line-height: 20px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .table3 {
+        border-bottom: 1px solid black !important;
+      }
+      .authsign {
+        height: 70px;
+        padding-left: 10px;
+        margin-top: auto;
+        vertical-align: bottom;
+      }
+      .container {
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+<body>
+{% for count in number_of_copies %}
+    <div class="container">
+        <table>
+            <tr>
+            <td>
+              <div class="schoolname">
+                CHANDANA STATIONERY
+            </div>
+            <div class="address">
+                No 5, Avenue Road, Medarpet Nagarathpete,
+                Bengaluru - 560002
+            </div>
+            </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td colspan="2">
+                    <div>Student Name :
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                    </div>
+                    <div>Class/Section :
+                        {{fee_collection.standard_name}}{% if fee_collection.enrollment_data.section_name %}/{{fee_collection.enrollment_data.section_name}}{%endif%}
+                    </div>
+                </td>
+                <td colspan="1">
+                    <div>Date :
+                        {{fee_collection.transaction_date}}
+                    </div>
+                    <div>Receipt No :
+                      {%if fee_collection.newbaldwin_fee_receipt_book.payment_details.0.receipt_num %}{{fee_collection.newbaldwin_fee_receipt_book.payment_details.0.receipt_num|title}}{%else%}{{fee_collection.receipt_num}}{%endif%}
+                    </div>
+                    <div>Student ID :
+                        {{admission_num|title}}
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="width:160px;">Sl.No</td>
+
+                <td style="width:300px;">Particulars</td>
+
+                <td>Paid Amt</td>
+            </tr>
+            {% for fee in fee_collection.newbaldwin_fee_receipt_book.payment_details %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{fee.fee_type_name}}</td>
+                <td>{{fee.amount_paid|floatformat|intcomma }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <table class="table3">
+            <tr>
+                <td>
+                    <div>Total Paid: ₹ {{ fee_collection.newbaldwin_fee_receipt_book.total_amount_paid | floatformat |intcomma}}/- ({{fee_collection.newbaldwin_fee_receipt_book.amount_in_words}} Only)</div>
+                    <div>Total Pending amount: ₹ {{ fee_collection.newbaldwin_fee_receipt_book.pending_amount_till_date | floatformat |intcomma}}</div>
+                    <div>Mode of Payment: {% if fee_collection.mode_of_payment %}{{fee_collection.mode_of_payment}}{% endif %}</div>
+                    {%if fee_collection.payment_ref_num %} <div>Transaction:  ({{fee_collection.payment_ref_num}})  </div> {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td class="authsign">AUTHORISED SIGNATURE</td>
+            </tr>
+        </table>
+            <div style="display:flex">
+                <div align="left">Receipt Generated at : {{ today }}</div>
+                <div style='margin-left:auto'>Powered By Edubricz</div>
+            </div>
+            {% if not forloop.last %}
+                <div style="page-break-after: always;"></div>
+            {% endif %}
+    </div>
+{%endfor%}
+</body>
+</html>

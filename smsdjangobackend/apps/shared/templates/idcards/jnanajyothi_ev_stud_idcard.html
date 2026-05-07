@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AIPS Id Card</title>
+<style>
+  @page {
+    size: 54mm 85mm;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  body {
+    margin: 0px;
+    color: #0A0A0A;
+    font-family: Raleway;
+  }
+  .page {
+    width: 54mm;
+    height: 85mm;
+    background-size: cover;
+  }
+  .front-side {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/JJEDC_STAFF_ID_FNT_1_1.jpg");
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  .back-side {
+    background-image: url("https://production-edubricz.s3.amazonaws.com/18/jjedc_STAFF_ID_back.jpg"); /* Replace with your desired background image URL */
+    background-repeat: no-repeat;
+    background-size: 54mm 85mm;
+  }
+  @font-face {
+    font-family: 'umberland slab';
+    src: url("https://edubricz-production.s3.ap-south-1.amazonaws.com/backend-datas/fontfamilies/Umberland%2BSlab_D.otf");
+  }
+  .username {
+    color: #000000;
+    min-width: 100%;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 48%;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+    {% for student in data %}
+  <!-- Front side of the ID card -->
+  <div class="page front-side">
+   
+   
+    <div style="padding-top: 84px;">
+      <div style="height: 83px; width:77px;border:1px solid white;background-color: white;margin:auto;border: radius 5%;text-align: center;">
+        <img src={{student.profile_pic_details.file}} style="height: 83px; width: 77px;border:1px solid #000000;border-radius: 5%;">
+      </div>
+      <div style="color:#000000;text-align: center;font-size: 11.5px;font-weight: bold;margin-top: 5px;">{{student.name|upper}}</div>
+      <!-- <div style="color:#000000;text-align: center;font-size: 11.5px;font-weight: bold;margin-top: 2px;">{{student.standard_name}}</div> -->
+    </div> 
+
+    <table width="100%" style="top: 175px; margin-left: 13px; margin-top: 9.5px; font-size: 9.5px; color: #000000;margin-right: 4px;">
+     
+        <tr>
+          <td style="font-size: 9px;font-weight: bold;">FATHER NAME</td>
+          <td>
+            {% if student.student_parent.parent.father_name %}
+              <span style ="font-weight: bold;{% if student.student_parent.parent.father_name|length > 14 %} font-size: 8px; {% else %} font-size: 9px; {% endif %}">
+                : {{ student.student_parent.parent.father_name|upper }}
+              </span>
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <td style="font-size: 9px;font-weight: bold;">Date Of Birth</td>
+          <td style="font-weight: bold;">: {{student.dob_changed}}</td>
+        </tr>
+        <tr>
+          <td style="font-size: 9px;font-weight: bold;">Combination</td>
+          <!-- <td style="font-weight: bold;">:{{student.standard_name_roman|cut:"I/II Sem"}}</td> -->
+          <td style="font-weight: bold;">:{{student.standard_name_roman|cut:"I/II Sem"}}</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">Blood Group</td>
+          <td style="font-weight: bold;">: {{student.student_details.blood_group}}</td>
+        </tr>
+       
+        
+      </table>
+      <div style="position:absolute;bottom: 4px;margin-left: 11px;">
+        <img src={{student.barcode_image_url}} style="height: 38px; width: 128px;color:#000000;">
+    </div>
+    </div>
+  <div style="page-break-after: always;"></div>
+  
+  <!-- Back side of the ID card -->
+  <div class="page back-side">
+    <div style="text-align: center;">
+      <table style="padding-top: 97px;width:100%">
+        <!-- <tr>
+            <td style="font-size: 10px;font-family: 'chrysanthi unicode';text-align: center;color:#000000;font-weight: bold;">
+                Residential Address
+            </td>
+        </tr> -->
+        <tr>
+         
+          <td style="font-size: 8px;color:#000000;text-align: center;">
+            
+            {{student.custom_address_line_one|title}} {{student.custom_address_line_two|title}} {{student.custom_city}}
+          </td>
+        </tr>
+      </table>
+      <div style="font-size: 8px;color:#000000;font-weight: bold;">Mob No :  {{student.mobile_num|cut:"+91"}}</div>
+    </div>
+    
+  </div>
+  {% endfor %}
+</body>
+</html>

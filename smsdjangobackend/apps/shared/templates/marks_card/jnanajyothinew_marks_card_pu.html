@@ -1,0 +1,169 @@
+<html>
+
+<head>
+    <style>
+        @page {
+            size: A5;
+        }
+
+        .text-align-center {
+            text-align: center
+        }
+
+        table {
+            border-radius: 10px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        td {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: left;
+        }
+
+        .td-font-size>td {
+            font-size: 13px;
+        }
+
+        .font-weight-bold {
+            font-weight: bold;
+        }
+
+        .subject-list>tbody>tr>td {
+            text-align: center
+        }
+
+        .noborder>table tr td {
+            border: 0px solid black;
+            font-size: large;
+            padding: 6px;
+        }
+
+        .box {
+            width: 500px;
+            height: 30px;
+            border: 1.5px solid black;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    {% for student in data.student_list %}
+    <div style="border:1px solid black;border-radius:10px; padding:20px;">
+        <div class="noborder">
+            <table width="100%" style="border:0px solid black;padding:0px;margin-top:-15px;">
+                <tr>
+                    <td width="20%" class='font-weight-bold text-align-right;'
+                        style="text-align: right;vertical-align: top;">
+                        <img src=https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/logos/jnanajyothi.edubricz.com.png style="width: 120px;height: 120px;" />
+                    </td>
+                    <td style="vertical-align: top;">
+                        <b>
+                            <div style="font-size:15px;text-align: center;">
+                                <span>VEERASHAIVA SREE ESHWARA SEVA SAMITHI</span>
+                            </div>
+                            <div style="font-size:34px;font-weight: bold;text-align:left;padding-left: 10px;font-family: Georgia, 'Times New Roman', Times, serif;color: red;">
+                                JNANA JYOTHI PU COLLEGE</div>
+                            <div style="font-size:15px;text-align: center;">
+                                <span>YELAHANAKA NEW TOWN BANGALORE-64</span>
+                            </div>
+                            <div class='text-align-center font-weight-bold box' style="font-size:17px;margin-top: 8px;padding-top:10px;">
+                                {{data.exam_details|upper}}-{{data.academic_year_details.start_date|date:"Y"}}<br />
+                            </div>
+                        </b>
+                    </td>
+                    <td class='font-weight-bold text-align-center;'>
+                        <img src=https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jnanajyothi_static_images/pu_logo.jpeg style="width:120px;height:120px;border-radius:8px;text-align: right;vertical-align: top;" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="noborder">
+            <table width="100%" style="margin-top:10px;border:0px solid black;font-weight: bold;">
+                <tr>
+                    <td width="60%">
+                        NAME OF THE STUDENT: {{student.student_name|upper}}
+                    </td>
+                    <td>
+                        REG NO : {% if student.student_data.current_reg_num %}  {{ student.student_data.current_reg_num }}{% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table class='subject-list' style='width: 100%;border-radius: 10px;margin-top: 8px;'>
+            <tr style='font-weight: bold;' class='td-font-size'>
+                <th width=30%
+                    style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;text-align: left;padding-left:20px;">
+                    SUBJECTS
+                </th>
+                <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                    TOTAL MARKS
+                </th>
+                <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                    MINIMUM MARKS
+                </th>
+                <th style="border-bottom:0px solid black;padding-top:10px;padding-bottom:0px;">
+                    MARKS OBTAINED
+                </th>
+                <th style="border-bottom:0px solid black;padding-top:10px;">
+                    RESULT
+                </th>
+            </tr>
+            {% for subject_data in student.subject_list_data %}
+            {%if subject_data.subject_part_type_code_name == 'part1'%}
+            <tr class='td-font-size'>
+                <td style="text-align: left;padding-left: 12px;">{{subject_data.subject_name|upper}}</td>
+                <td style="font-weight: bold;">{{subject_data.total_max_marks|floatformat:0}}</td>
+                <td style="font-weight: bold;">{{subject_data.total_min_marks|floatformat:0}}</td>
+                <td style="font-weight: bold;">{{subject_data.total_obtained_marks|floatformat:0}}</td>
+                {% if forloop.first %}
+                <td rowspan="7" style="font-weight: bold;">{{student.total_result|title}}</td>
+                {%endif%}
+            </tr>
+            {% endif %}
+            {% endfor %}
+            <tr style='font-weight: bold' class='td-font-size'>
+                <td style='font-size: 13px'>TOTAL MARKS</td>
+                <td>{{student.part_type_data_code_wise.part1.total_marks|floatformat:0}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_min_marks|floatformat:0}}</td>
+                <td>{{student.part_type_data_code_wise.part1.total_obtained_marks}}</td>
+            </tr>
+        </table>
+        <div class="noborder" style="margin-top:60px;">
+            <table width=100% style="border:0px solid black">
+                <tr>
+                    <td width="40%">
+                        Class Teacher
+                    </td>
+                    <td style="text-align: right;position:relative">
+                        <img src="https://production-edubricz.s3.ap-south-1.amazonaws.com/companies-images/jnanajyothi_static_images/puprincipalsign.jpeg"
+                            style="width:100px;height: 30px;position:absolute;top:-40px;" />
+                        Principal
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    {% if forloop.counter|divisibleby:"2" %}
+    <div style="page-break-after: always;"></div>
+    {%else%}
+    <div style="margin-bottom:60px;"></div>
+    {% endif %}
+    {%endfor%}
+</body>
+
+</html>

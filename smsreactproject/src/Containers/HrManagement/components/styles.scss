@@ -1,0 +1,107 @@
+.attendance-calender-box{
+    height: 500px;
+    margin: 70px 30px;
+    width:-webkit-fill-available
+}
+
+.calender-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+  }
+  
+
+  /* Header */
+.react-calendar-timeline .rct-header-root {
+  border-bottom: none;
+  position: relative;
+  z-index: 99;
+  box-shadow: var(--color-border-lightgray) 0 0 1rem;
+  text-align: center;
+}
+
+.react-calendar-timeline .rct-calendar-header {
+  border: none;
+  background-color: #ebebeb;
+}
+
+.react-calendar-timeline .rct-dateHeader {
+  pointer-events: none;
+  width: 30px!important;
+  // position: inherit!important;
+  border: none;
+  background: var(--color-white);
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.react-calendar-timeline .rct-dateHeader-primary {
+  color: var(--color-black);
+  padding-right: 2.6rem;
+  text-transform: capitlize;
+  border: none!important;
+}
+
+/* Vertical lines */
+.react-calendar-timeline .rct-vertical-lines .rct-vl {
+  border-left: none;
+  border-right: none;
+}
+
+.react-calendar-timeline .rct-vertical-lines .rct-vl:nth-child(odd) {
+  background: var(--color-white);
+}
+
+.react-calendar-timeline .rct-vertical-lines .rct-vl:nth-child(even) {
+  background: var(--color-lightgray);
+}
+
+.react-calendar-timeline .rct-scroll{
+pointer-events:none
+}
+
+.react-calendar-timeline  .rct-outer .rct-scroll .rct-items .rct-item {
+    width:30px!important;
+    place-content:center
+}
+
+// @import url("https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap");
+
+// :root {
+//   /* Colors */
+//   --color-white: #fff;
+//   --color-black: #000;
+//   --color-border-lightgray: rgba(0, 0, 0, 0.16);
+//   --color-lightgray: #f0f3f4;
+//   --color-red: #d32f2f;
+
+//   /* Dimensions */
+//   --footer-menu-height: 60px;
+// }
+
+// html {
+//   box-sizing:content-box;
+//   font-size: 72.55%;
+// }
+
+// body {
+//   margin: 0;
+//   overflow-x: hidden;
+//   padding-bottom: var(--footer-menu-height);
+//   font-family: "Roboto", sans-serif;
+//   font-weight: 400;
+//   -webkit-font-smoothing: antialiased;
+//   -moz-osx-font-smoothing: grayscale;
+// }
+
+.react-calendar-timeline {
+  width: max-content;
+  overflow: auto;
+}
+
+.attendnace-detail-th{
+  background: #4680FF;
+  color: white !important;
+  padding: 0px 10px!important;
+  border-left: double;
+}

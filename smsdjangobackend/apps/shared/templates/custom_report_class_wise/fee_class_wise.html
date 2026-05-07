@@ -1,0 +1,150 @@
+{% load transliteration %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Fee Status Compact Report - 2025-26</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            font-size: 13px; 
+            padding: 40px 20px; 
+        }
+        table 
+        { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 15px; 
+            font-size: 12px; 
+        }
+        th, td 
+        { 
+            border: 1px solid #000;
+            padding: 4px; 
+            text-align: center; 
+        }
+        th 
+        { 
+            background-color: #f0f0f0; 
+        }
+        .grand-total 
+        { 
+            font-weight: bold; 
+            background-color: #d9d9d9; 
+        }
+        .school-header 
+        { 
+            font-size: 18px; 
+            font-weight: bold; 
+            text-align: center; 
+            color: green; 
+        } 
+        .sub-header 
+        { 
+            font-size: 15px; 
+            text-align: center; 
+        } 
+        .sub-header1 
+        { font-size: 16px; 
+            text-align: center; 
+            color: red; 
+        } 
+         
+    </style>
+</head>
+<body>
+<div class="school-header">SRI BHAIRAVESHWARA VIDYA SAMSTHE (R)</div>
+ <div class="sub-header">Affiliated to Central Board of Secondary Education (CBSE), Delhi - Affiliation No: 831117</div>
+  <div class="sub-header1">Kaiwara Cross, Kaiwara, Chintamani(Tq), Chikkaballapur(Dist)</div> 
+  <h3 style="color: blue;font-size:16px;">Fees Status Compact for 2025–26</h3>
+<p class="report-date">Date: {{ today_date }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan="2">Class</th>
+            <th colspan="4">Collectable</th>
+            <th colspan="4">Collected</th>
+            <th colspan="4">Balance</th>
+        </tr>
+        <tr>
+            <th>New Admission Fees</th><th>Tuition Fees</th><th>Transport Fess</th><th>Total</th>
+            <th>New Admission Fees</th><th>Tuition Fees</th><th>Transport Fees</th><th>Total</th>
+            <th>New Admission Fees</th><th>Tuition Fees</th><th>Transport Fees</th><th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in summary|get_item:"Tution Fee And Others" %}
+        {% with class_name=row.class %}
+        {% with admission=summary|get_item:"New Admission Fees"|get_by_class:class_name %}
+        {% with transport=summary|get_item:"Transport Fee"|get_by_class:class_name %}
+        <tr>
+            <td>{{ class_name }}</td>
+
+            <!-- Collectable -->
+            <td>{{ admission.collectable|default:0 }}</td>
+            <td>{{ row.collectable|default:0 }}</td>
+            <td>{{ transport.collectable|default:0 }}</td>
+            <td>{{ admission.collectable|default:0|add:row.collectable|default:0|add:transport.collectable|default:0 }}</td>
+
+            <td>{{ admission.collected|default:0 }}</td>
+            <td>{{ row.collected|default:0 }}</td>
+            <td>{{ transport.collected|default:0 }}</td>
+            <td>{{ admission.collected|default:0|add:row.collected|default:0|add:transport.collected|default:0 }}</td>
+
+            <td>{{ admission.balance|default:0 }}</td>
+            <td>{{ row.balance|default:0 }}</td>
+            <td>{{ transport.balance|default:0 }}</td>
+            <td>{{ admission.balance|default:0|add:row.balance|default:0|add:transport.balance|default:0 }}</td>
+
+        </tr>
+        {% endwith %}
+        {% endwith %}
+        {% endwith %}
+        {% endfor %}
+
+        <!-- Grand Totals -->
+        <tr class="grand-total">
+            <td>Grand Total</td>
+
+            <!-- Collectable -->
+            <td>{{ summary|get_item:"New Admission Fees"|sum_field:"collectable"|default:0 }}</td>
+            <td>{{ summary|get_item:"Tution Fee And Others"|sum_field:"collectable"|default:0 }}</td>
+            <td>{{ summary|get_item:"Transport Fee"|sum_field:"collectable"|default:0 }}</td>
+            {% with new=summary|get_item:"New Admission Fees"|sum_field:"collectable" %}
+                {% with tuition=summary|get_item:"Tution Fee And Others"|sum_field:"collectable" %}
+                {% with transport=summary|get_item:"Transport Fee"|sum_field:"collectable" %}
+                <td>{{ new|add:tuition|add:transport }}</td>
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+
+            <!-- Collected -->
+            <td>{{ summary|get_item:"New Admission Fees"|sum_field:"collected"|default:0 }}</td>
+            <td>{{ summary|get_item:"Tution Fee And Others"|sum_field:"collected"|default:0 }}</td>
+            <td>{{ summary|get_item:"Transport Fee"|sum_field:"collected"|default:0 }}</td>
+            {% with new=summary|get_item:"New Admission Fees"|sum_field:"collected" %}
+                {% with tuition=summary|get_item:"Tution Fee And Others"|sum_field:"collected" %}
+                {% with transport=summary|get_item:"Transport Fee"|sum_field:"collected" %}
+                <td>{{ new|add:tuition|add:transport }}</td>
+                {% endwith %}
+                {% endwith %}
+                {% endwith %}
+
+            <!-- Balance -->
+            <td>{{ summary|get_item:"New Admission Fees"|sum_field:"balance"|default:0 }}</td>
+            <td>{{ summary|get_item:"Tution Fee And Others"|sum_field:"balance"|default:0 }}</td>
+            <td>{{ summary|get_item:"Transport Fee"|sum_field:"balance"|default:0 }}</td>
+            {% with new=summary|get_item:"New Admission Fees"|sum_field:"balance" %}
+            {% with tuition=summary|get_item:"Tution Fee And Others"|sum_field:"balance" %}
+            {% with transport=summary|get_item:"Transport Fee"|sum_field:"balance" %}
+            <td>{{ new|add:tuition|add:transport }}</td>
+            {% endwith %}
+            {% endwith %}
+            {% endwith %}
+
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>

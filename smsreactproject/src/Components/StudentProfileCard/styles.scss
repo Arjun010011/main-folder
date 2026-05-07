@@ -1,0 +1,222 @@
+.profile-card-details {
+  display: block;
+}
+
+.profile-name:hover {
+  .profile-card-details {
+    display: block;
+  }
+}
+
+.profile-tooltip-show-data {
+  font-size: 17px !important;
+  text-transform: capitalize;
+  cursor: pointer;
+  background-color: white;
+}
+
+.custom-tooltip {
+  // margin-top: -10px;
+  position: relative;
+  width: fit-content;
+}
+
+.custom-tooltip h3 {
+  margin: 12px 0;
+}
+
+.custom-tooltip .custom-tooltip-right {
+  width: 300px;
+  height: 320px;
+  top: 100%;
+  left: 100%;
+  // margin-left: 20px;
+  padding: 20px 20px 0px 20px;
+  transform: translate(0, -50%);
+  color: #000000;
+  background-color: transparent;
+  font-weight: normal;
+  font-size: 13px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 1501 !important; /* Must be higher than 1 */
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.8s;
+  font-family: Arial, sans-serif;
+}
+
+.custom-tooltip:hover .custom-tooltip-right {
+  visibility: visible;
+  opacity: 1;
+}
+
+.custom-tooltip-right:hover .custom-tooltip-right{
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.custom-tooltip .custom-tooltip-right img {
+  width: 400px;
+  border-radius: 8px 8px 0 0;
+}
+.custom-tooltip .text-content {
+  padding: 5px;
+}
+
+.custom-tooltip .custom-tooltip-right i {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -12px;
+  width: 12px;
+  height: 24px;
+  overflow: hidden;
+}
+.custom-tooltip .custom-tooltip-right i::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  top: 50%;
+  transform: translate(50%, -50%) rotate(-45deg);
+  background-color: #444444;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.custom-tooltip-profile-pic {
+  // width: 50px !important;
+  // height: 50px !important;
+  // text-transform: uppercase;
+  // font-size: 35px !important;
+
+  width: 80px !important;
+  height: 80px !important;
+  margin: auto;
+}
+
+/* ProfileCard.css */
+
+// .profile-card {
+//   display: flex;
+//   background-color: #fff;
+//   border-radius: 8px;
+//   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//   padding: 20px;
+//   width: 300px;
+//   font-family: Arial, sans-serif;
+// }
+
+.avatar img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.user-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.user-title {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.user-details {
+  font-size: 14px;
+  color: #444;
+}
+
+.user-email,
+.user-phone,
+.user-location {
+  margin: 5px 0;
+}
+
+.profile-skeleton-card {
+  width: 80px;
+  height: 80px !important;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.student-details-skeleton-card {
+  width: 208px;
+  height: 170px !important;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.student-tooltip-container-bright {
+  padding: 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  color: #222;
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  max-width: 320px;
+}
+
+.custom-tooltip-profile-pic-bright {
+  background: linear-gradient(135deg, #8e44ad, #3498db);
+  color: white;
+  margin: 0 auto 16px auto;
+  width: 64px;
+  height: 64px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.user-name-bright {
+  text-align: center;
+  font-size: 22px;
+  color: #e74c3c;
+  margin-bottom: 6px;
+}
+
+.user-status-bright {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  background: #f39c12;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 0 auto 16px auto;
+}
+
+.info-row-bright {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+}
+
+.label-bright {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.value-bright {
+  color: #34495e;
+  font-weight: 500;
+}
+
+.more-details-link-bright {
+  margin-top: 16px;
+  text-align: right;
+  color: #2980b9;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}

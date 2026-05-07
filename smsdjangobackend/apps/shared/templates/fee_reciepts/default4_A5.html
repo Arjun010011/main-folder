@@ -1,0 +1,199 @@
+{% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fee receipt</title>
+    <style>
+      * {
+        padding: 5px;
+        margin: 0px;
+      }
+      @page {
+        size: A6;
+      }
+      table
+      {
+        border: 1px solid black;
+        width: 100%;
+        border-collapse: collapse;
+      }
+      td {
+        border: 1px transparent; /* Add borders to all table cells */
+      }
+     
+      .authsign {
+        height: 70px;
+        padding-left: 70%;
+        margin-top: auto;
+        vertical-align: bottom;
+      }
+      .container {
+        font-family: sans-serif;
+        font-weight: bold;
+        border: 1px solid black;
+        border-bottom: 0px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+      .dot-line {
+        border-top: 1px dotted black;
+      }
+      .fee {
+        text-align: center;
+        font-weight: bold;
+        font-size: 18px;
+      }
+      .trust {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 18px;
+      }
+      .date {
+        text-decoration: none; 
+        border-bottom: 1px dotted black;
+      }
+      
+      .rs {
+        border: 1px solid black;
+        height: 30px;
+        padding-top: 30px;
+        border-bottom: 0px;
+        display: flex;
+      }
+      .footer {
+        border: 1px solid black;
+        height: 120px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
+    </style>
+  </head>
+<body>
+
+    <div class="container">
+       
+        <div style='display:flex;'>
+            <div style="position:absolute;left:40px">
+                {% if institute.logo.file.url %}
+                    <img src={{institute.logo.file.url}}
+                    style="width: 90px;height: 90px;"/>
+                {% endif %}
+            </div>
+            <div style="text-align: center;margin-left:auto;margin-right:auto">
+                <div class="fee">RECEIPT</div>
+                {% if institute.trust_name %}
+                            <div class="trust">{{ institute.trust_name }} (R)</div>
+                        {% endif %}
+                <div style="font-size: 35px;padding-left:20px;font-weight: bold;margin-top:5px">
+                    {{institute.name}}
+                </div>  
+                <div style="line-height: 20px;font-size:14px;margin-top:5px">
+                    {{ institute.address }}{% if institute.city %}, {{ institute.city }}{% endif %}
+                    {% if institute.pincode %} - {{ institute.pincode }}{% endif %} </br>
+                    Office No: {{ institute.tel_num }}
+                            {% if institute.tel_num_2 %}
+                            , {{ institute.tel_num_2 }} {% endif %}
+                </div>
+            </div>
+        </div>    
+        
+        <div style="display: flex; width: 100%;">
+            <div>
+                <div style="font-weight: bold; display: flex;"><div style="min-width: 1px;">No:</div> 
+                    <div style="color: red;">
+                        {{fee_collection.receipt_num}}
+                    </div>
+                </div>
+            </div>
+    
+            <div style="margin-left: 50%; width: 100%;">
+                <div style="font-weight: bold; display: flex;"> <div>Date:</div>
+                    <div class="date">{{fee_collection.transaction_date}}</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div style="display: flex;">
+            <div>
+                <div style="font-weight: bold; display: flex;"> <div>Mr/Mrs</div>
+                    <div>
+                        {% if fee_collection.student_detail.first_name %}{{fee_collection.student_detail.first_name}}{% endif %}
+                        {% if fee_collection.student_detail.middle_name %}{{fee_collection.student_detail.middle_name}}{% endif %}
+                        {% if fee_collection.student_detail.last_name %}{{fee_collection.student_detail.last_name }}{% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-left: 1%;">
+                <div style="font-weight: bold; display: flex;"> <div>of Class</div>
+                    <div>{{fee_collection.standard_name}}</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div>
+                <div style="font-weight: bold; display: flex;"> <div>for the year of</div>
+                    <div>{{fee_collection.academic_year.start_date|date:"Y" }}-{{fee_collection.academic_year.end_date|date:"Y" }}</div>
+                </div>
+            </div>
+
+            <div style="margin-left: 5%;">
+                <div style="font-weight: bold; display: flex;"> <div>Batch</div>
+                    <div>{{fee_collection.batch_name}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    
+    <table style="border-collapse: collapse; width: 100%; border-bottom: 0px; line-height: 30px;">
+        <tr style="border: 1px solid black;">
+            <td style="padding: 5px; width: 10%; font-weight: bold; border-right: 1px solid black; text-align: center;">Sl.No.</td>
+            <td style="padding: 5px; width: 70%; text-align: center; font-weight: bold; border-right: 1px solid black;">Fee Particulars</td>
+            <td style="padding: 5px; width: 20%; text-align: center; font-weight: bold;">Amount</td>
+        </tr>
+        {% for fee in fee_collection.payment_detail %}
+        <tr>
+            <td style="padding: 5px; width: 10%; font-weight: bold; border-right: 1px solid black; text-align: center;">{{forloop.counter}}</td>
+            <td style="padding: 5px; width: 70%; font-weight: bold; border-right: 1px solid black;">{{fee.fee_type_name}}</td> 
+            <td style="padding: 5px; width: 20%; font-weight: bold;">{{fee.amount_paid|floatformat|intcomma }}</td>
+        </tr> 
+        {% endfor %}
+        
+        <tr>
+            <td style="padding: 5px; width: 10%; font-weight: bold; border-right: 1px solid black;"></td>
+            <td style="padding: 5px; width: 70%; font-weight: bold; border-right: 1px solid black;">Mode of Payment : {{fee_collection.mode_of_payment}} <br> Ref No : {{fee_collection.payment_ref_num}} </td>
+            <td style="padding: 5px; width: 20%; font-weight: bold;"> </td>
+        </tr> 
+
+        <tr>
+            <td style="padding: 5px; width: 10%; font-weight: bold; border-right: 1px solid black;"></td>
+            <td style="padding: 5px; width: 70%; font-weight: bold; border-right: 1px solid black; vertical-align: bottom; height: 50px; text-align: right;">TOTAL</td>
+            <td style="padding: 5px; width: 20%; font-weight: bold; border: none; border-top: 1px solid black; margin: 10px 0;">{{ fee_collection.total_amount | floatformat |intcomma}}</td>
+        </tr>
+    </table>
+    
+    <div class="rs">
+       <div style="display: flex; font-weight: bold;"> Rs. in words </div> <div>{{amount_in_words_rupees_first|title}} Only </div>
+    </div>
+
+    <div class="footer">
+        <div style="font-weight: bold; text-align: right;">for Om Ganesh Tutorial's</div>
+        <div style="font-weight: bold;">Note:</div>
+        <div style="font-weight: bold;">Money is not re-fundable</div>
+        <div style="font-weight: bold; margin-left: 80%;">Director</div>
+    </div>
+
+    <div style="display:flex">
+        <div align="left">Receipt Generated by : {{fee_collection.collected_by|title}} {{ today }}</div>
+        <div style='margin-left:auto'>Powered By Edubricz</div>
+    </div>
+  
+</body>
+</html>
