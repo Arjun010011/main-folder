@@ -2021,7 +2021,7 @@ class LessonPlanTemplateViewSet(viewsets.ModelViewSet):
     """GET: list/retrieve lesson plan templates. POST: create or update (send id for edit)."""
     queryset = LessonPlanTemplate.objects.all()
     serializer_class = LessonPlanTemplateReadSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'delete']
     filterset_fields = ['is_active', 'subject', 'standard']
 
     def get_queryset(self):

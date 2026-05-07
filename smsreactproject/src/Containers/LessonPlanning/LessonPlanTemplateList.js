@@ -113,7 +113,7 @@ class LessonPlanTemplateList extends Component {
     const url = (DEL_URL.lessonplantemplate?.api || 'classes/lessonplantemplate/') + id + '/';
     deleteRequest(url, {}, this.props)
       .then((response) => {
-        if (response && response.status === 200) {
+        if (response && (response.status === 200 || response.status === 204)) {
           const { templateList } = this.state;
           const updated = templateList.filter((_, i) => i !== index);
           this.setState({ templateList: updated, tableUpdating: false });
