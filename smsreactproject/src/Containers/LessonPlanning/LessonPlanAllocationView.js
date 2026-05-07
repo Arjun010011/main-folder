@@ -197,7 +197,7 @@ class LessonPlanAllocationView extends Component {
         const url = (DEL_URL.lessonplantemplateacademicyear?.api || 'classes/lessonplantemplateacademicyear/') + id + '/';
         deleteRequest(url, {}, this.props)
           .then((response) => {
-            if (response && response.status === 200) {
+            if (response && (response.status === 200 || response.status === 204)) {
               Swal.fire({
                 icon: 'success',
                 title: 'Deleted!',

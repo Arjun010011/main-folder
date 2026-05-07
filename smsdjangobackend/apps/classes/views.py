@@ -2058,7 +2058,7 @@ class LessonPlanTemplateViewSet(viewsets.ModelViewSet):
 
 class LessonPlanTemplateAcademicYearViewSet(viewsets.ModelViewSet):
     serializer_class = LessonPlanAcademicYearSerializer
-    http_method_names = ['get', 'post']
+    http_method_names = ['get', 'post', 'delete']
     filterset_fields = ['is_active', 'subject', 'standard_section','academic_year']
 
     def get_queryset(self):
