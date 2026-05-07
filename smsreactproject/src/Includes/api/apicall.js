@@ -162,14 +162,17 @@ function deleteRequest(url, data, props, isConfirmed) {
       params = data;
     }
     const label = url + 'data:' + JSON.stringify(params);
-    return axiosAPI.delete(url, params, { withCredentials: false }).then((response) => {
-      if (response.status === 200) {
+    return axiosAPI.delete(url, { data: params, withCredentials: false }).then((response) => {
+      if (response.status === 200 || response.status === 204) {
         setGAAPIEvent(props, 'Delete', 'Success', label);
         return response;
       }
     }).catch(function (error) {
       setGAAPIEvent(props, 'Delete', 'Failure', label);
-      ErrorHandler(error);
+      if (props && props.return_error) {
+        return error.response;
+      }
+      return ErrorHandler(error, props);
     });
   }
   else {
@@ -182,20 +185,23 @@ function deleteRequest(url, data, props, isConfirmed) {
       cancelButtonColor: '#d33',
       confirmButtonText: props['confirmButtonText'] ? props['confirmButtonText'] : 'Yes, delete it!'
     }).then(async (result) => {
-      if (result.value) {
+      if (result.value || result.isConfirmed) {
         let params = {};
         if (data) {
           params = data;
         }
         const label = url + 'data:' + JSON.stringify(params);
-        return axiosAPI.delete(url, params, { withCredentials: false }).then((response) => {
-          if (response.status === 200) {
+        return axiosAPI.delete(url, { data: params, withCredentials: false }).then((response) => {
+          if (response.status === 200 || response.status === 204) {
             setGAAPIEvent(props, 'Delete', 'Success', label);
             return response;
           }
         }).catch(function (error) {
           setGAAPIEvent(props, 'Delete', 'Failure', label);
-          ErrorHandler(error);
+          if (props && props.return_error) {
+            return error.response;
+          }
+          return ErrorHandler(error, props);
         });
       }
     });
