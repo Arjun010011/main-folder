@@ -183,6 +183,41 @@ class LessonPlanAllocationView extends Component {
       .catch(() => this.setState({ listLoading: false, allocationList: [], allocationCount: 0 }));
   };
 
+  deleteAllocation = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "This will permanently delete the lesson plan allocation. You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#ef4444',
+      cancelButtonColor: '#64748b',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const url = (DEL_URL.lessonplantemplateacademicyear?.api || 'classes/lessonplantemplateacademicyear/') + id + '/';
+        deleteRequest(url, {}, this.props)
+          .then((response) => {
+            if (response && response.status === 200) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Lesson plan allocation has been deleted successfully.',
+                timer: 2000,
+                showConfirmButton: false
+              });
+              this.fetchAllocationList();
+            } else {
+              Swal.fire('Error!', response?.data?.Reason || response?.data?.detail || 'Failed to delete allocation.', 'error');
+            }
+          })
+          .catch((err) => {
+            const msg = err?.response?.data?.Reason || err?.response?.data?.detail || 'Failed to delete allocation.';
+            Swal.fire('Error!', msg, 'error');
+          });
+      }
+    });
+  };
+
   handleChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value }, () => {
