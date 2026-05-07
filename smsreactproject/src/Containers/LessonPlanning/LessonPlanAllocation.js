@@ -1019,75 +1019,87 @@ class LessonPlanAllocation extends Component {
                           </Box>
                         </Box>
 
-                        <Box mt={2}>
-                          <Table size="small" style={{ tableLayout: 'fixed' }}>
-                            <TableHead>
-                              <TableRow style={{ backgroundColor: '#f5f7fa' }}>
-                                <TableCell style={{ fontWeight: 700, color: '#374151', width: 80 }}>Status</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>Subtopic</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>Allocated To</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>From Date</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>To Date</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>Objectives</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>Activities</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>Resource</TableCell>
-                                <TableCell style={{ fontWeight: 700, color: '#374151' }}>Assessment</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {(topic.subtopics || []).map((subtopic, subIndex) => (
-                                <TableRow key={subtopic.id || subIndex}>
-                                  <TableCell>
-                                    <Checkbox
-                                      checked={Boolean(subtopic.completion_date)}
-                                      onChange={(e) => this.handleStatusChange(topicIndex, subIndex, e.target.checked)}
-                                      color="primary"
-                                    />
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word' }}>
-                                    <Typography variant="body2" style={{ fontWeight: 600, color: '#111827' }}>
-                                      {subtopic.name || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {displayAllocatedStaff(subtopic)}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {subtopic.allocated_from_date || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {subtopic.allocated_to_date || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {subtopic.objectives || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {subtopic.activities || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {subtopic.resource || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                  <TableCell style={{ wordBreak: 'break-word', whiteSpace: 'pre-wrap' }}>
-                                    <Typography variant="body2" style={{ color: '#374151' }}>
-                                      {subtopic.assessment || '—'}
-                                    </Typography>
-                                  </TableCell>
-                                </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
+                        <Box mt={2} display="flex" flexDirection="column" gap={16}>
+                          {(topic.subtopics || []).map((subtopic, subIndex) => (
+                            <Box
+                              key={subtopic.id || subIndex}
+                              style={{
+                                padding: '16px',
+                                border: '1px solid #edf2f7',
+                                borderRadius: '12px',
+                                backgroundColor: '#fcfcfd',
+                                position: 'relative'
+                              }}
+                            >
+                              <Box display="flex" alignItems="center" gap={8} mb={1}>
+                                <Checkbox
+                                  checked={Boolean(subtopic.completion_date)}
+                                  onChange={(e) => this.handleStatusChange(topicIndex, subIndex, e.target.checked)}
+                                  color="primary"
+                                  style={{ padding: 0 }}
+                                />
+                                <Typography variant="subtitle2" style={{ fontWeight: 700, color: '#1a202c', fontSize: '1rem' }}>
+                                  {subtopic.name || 'Untitled Subtopic'}
+                                </Typography>
+                                <Box ml="auto">
+                                  <Typography variant="caption" style={{ 
+                                    backgroundColor: subtopic.completion_date ? '#dcfce7' : '#fef3c7',
+                                    color: subtopic.completion_date ? '#166534' : '#92400e',
+                                    padding: '2px 8px',
+                                    borderRadius: '12px',
+                                    fontWeight: 700,
+                                    textTransform: 'uppercase'
+                                  }}>
+                                    {subtopic.completion_date ? 'Completed' : 'In Progress'}
+                                  </Typography>
+                                </Box>
+                              </Box>
+
+                              <Grid container spacing={2}>
+                                <Grid item xs={12} sm={6} md={3}>
+                                  <Typography variant="caption" color="textSecondary" style={{ fontWeight: 600, textTransform: 'uppercase' }}>Allocated To</Typography>
+                                  <Typography variant="body2" style={{ color: '#4a5568', fontWeight: 500 }}>{displayAllocatedStaff(subtopic)}</Typography>
+                                </Grid>
+                                <Grid item xs={12} sm={6} md={3}>
+                                  <Typography variant="caption" color="textSecondary" style={{ fontWeight: 600, textTransform: 'uppercase' }}>Timeline</Typography>
+                                  <Typography variant="body2" style={{ color: '#4a5568', fontWeight: 500 }}>
+                                    {subtopic.allocated_from_date || '—'} to {subtopic.allocated_to_date || '—'}
+                                  </Typography>
+                                </Grid>
+                                
+                                <Grid item xs={12}>
+                                  <Box display="flex" flexDirection="column" gap={8} mt={1}>
+                                    {subtopic.objectives && (
+                                      <Box>
+                                        <Typography variant="caption" color="textSecondary" style={{ fontWeight: 600, textTransform: 'uppercase' }}>Objectives</Typography>
+                                        <Typography variant="body2" style={{ color: '#4a5568', whiteSpace: 'pre-wrap' }}>{subtopic.objectives}</Typography>
+                                      </Box>
+                                    )}
+                                    {subtopic.activities && (
+                                      <Box>
+                                        <Typography variant="caption" color="textSecondary" style={{ fontWeight: 600, textTransform: 'uppercase' }}>Activities</Typography>
+                                        <Typography variant="body2" style={{ color: '#4a5568', whiteSpace: 'pre-wrap' }}>{subtopic.activities}</Typography>
+                                      </Box>
+                                    )}
+                                    <Box display="flex" flexWrap="wrap" gap={16} mt={1}>
+                                      {subtopic.resource && (
+                                        <Box flex={1} minWidth={200}>
+                                          <Typography variant="caption" color="textSecondary" style={{ fontWeight: 600, textTransform: 'uppercase' }}>Resources</Typography>
+                                          <Typography variant="body2" style={{ color: '#4a5568' }}>{subtopic.resource}</Typography>
+                                        </Box>
+                                      )}
+                                      {subtopic.assessment && (
+                                        <Box flex={1} minWidth={200}>
+                                          <Typography variant="caption" color="textSecondary" style={{ fontWeight: 600, textTransform: 'uppercase' }}>Assessment</Typography>
+                                          <Typography variant="body2" style={{ color: '#4a5568' }}>{subtopic.assessment}</Typography>
+                                        </Box>
+                                      )}
+                                    </Box>
+                                  </Box>
+                                </Grid>
+                              </Grid>
+                            </Box>
+                          ))}
                         </Box>
                       </Paper>
                     ))
