@@ -2021,7 +2021,7 @@ class LessonPlanTemplateViewSet(viewsets.ModelViewSet):
     """GET: list/retrieve lesson plan templates. POST: create or update (send id for edit)."""
     queryset = LessonPlanTemplate.objects.all()
     serializer_class = LessonPlanTemplateReadSerializer
-    http_method_names = ['get', 'post', 'delete']
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
     filterset_fields = ['is_active', 'subject', 'standard']
 
     def get_queryset(self):
@@ -2056,9 +2056,14 @@ class LessonPlanTemplateViewSet(viewsets.ModelViewSet):
         response = create_or_update_lesson_plan_template(self, request.data)
         return Response(response)
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({'Reason': 'Template deleted successfully from database'})
+
 class LessonPlanTemplateAcademicYearViewSet(viewsets.ModelViewSet):
     serializer_class = LessonPlanAcademicYearSerializer
-    http_method_names = ['get', 'post', 'delete']
+    http_method_names = ['get', 'post', 'put', 'patch', 'delete']
     filterset_fields = ['is_active', 'subject', 'standard_section','academic_year']
 
     def get_queryset(self):
@@ -2078,6 +2083,11 @@ class LessonPlanTemplateAcademicYearViewSet(viewsets.ModelViewSet):
         self.serializer_class = LessonPlanAcademicYearReadSerializer
         response = SharedService.read_data(self)
         return Response(response)
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.delete()
+        return Response({'Reason': 'Allocation deleted successfully from database'})
 
 
 class AILessonPlanPreviewView(APIView):
